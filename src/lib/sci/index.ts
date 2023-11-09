@@ -1,6 +1,6 @@
-import {ModelPluginInterface} from '../../interfaces';
+import { ModelPluginInterface } from '../../interfaces';
 
-import {KeyValuePair} from '../../types/common';
+import { KeyValuePair } from '../../types/common';
 
 
 export class SciModel implements ModelPluginInterface {
@@ -41,6 +41,7 @@ export class SciModel implements ModelPluginInterface {
         sci_secs = input['carbon'] / input['duration'];
       } else {
         sci_secs = (operational + embodied) / input['duration']; // sci in time units of /s
+        input['carbon'] = sci_secs;
       }
 
       let sci_timed: number = sci_secs;

@@ -1,5 +1,5 @@
-import {describe, expect, jest, test} from '@jest/globals';
-import {SciModel} from '../../../../lib';
+import { describe, expect, jest, test } from '@jest/globals';
+import { SciModel } from '../../../../lib';
 
 jest.setTimeout(30000);
 
@@ -15,7 +15,6 @@ describe('sci:configure test', () => {
             model.execute([
                 {
                     'timestamp': '2021-01-01T00:00:00Z',
-
                     'operational-carbon': 0.02,
                     'embodied-carbon': 5,
                     users: 100,
@@ -25,9 +24,9 @@ describe('sci:configure test', () => {
         ).resolves.toStrictEqual([
             {
                 'timestamp': '2021-01-01T00:00:00Z',
-
                 'operational-carbon': 0.02,
                 'embodied-carbon': 5,
+                "carbon": 5.02,
                 users: 100,
                 duration: 1,
                 sci: 3.012,
@@ -39,6 +38,7 @@ describe('sci:configure test', () => {
                     'timestamp': '2021-01-01T00:00:00Z',
                     'operational-carbon': 20,
                     'embodied-carbon': 0.005,
+                    'carbon': 20.005,
                     users: 1000,
                     duration: 1,
                 },
@@ -48,6 +48,7 @@ describe('sci:configure test', () => {
                 'timestamp': '2021-01-01T00:00:00Z',
                 'operational-carbon': 20,
                 'embodied-carbon': 0.005,
+                'carbon': 20.005,
                 users: 1000,
                 duration: 1,
                 sci: 1.2003,
@@ -75,6 +76,7 @@ describe('sci:configure test', () => {
                 'timestamp': '2021-01-01T00:00:00Z',
                 'operational-carbon': 0.2,
                 'embodied-carbon': 0.05,
+                'carbon': 0.0025,
                 duration: 100,
                 sci: 216,
             },
@@ -90,9 +92,10 @@ describe('sci:configure test', () => {
             ])
         ).resolves.toStrictEqual([
             {
-              'timestamp': '2021-01-01T00:00:00Z',
+                'timestamp': '2021-01-01T00:00:00Z',
                 'operational-carbon': 0.002,
                 'embodied-carbon': 0.0005,
+                'carbon': 0.00125,
                 duration: 2,
                 sci: 108,
             },
@@ -119,6 +122,7 @@ describe('sci:configure test', () => {
                 'timestamp': '2021-01-01T00:00:00Z',
                 'operational-carbon': 0.002,
                 'embodied-carbon': 0.0005,
+                'carbon': 0.0025,
                 duration: 1,
                 sci: 432,
             },
