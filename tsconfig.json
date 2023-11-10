@@ -30,7 +30,8 @@
     "composite": false
   },
   "include": [
-    "src/**/*.ts"
+    "src/**/*.ts",
+    "src/**/*.csv"
   ],
   "exclude": [
     "node_modules",
