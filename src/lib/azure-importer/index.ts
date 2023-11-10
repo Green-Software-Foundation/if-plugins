@@ -70,7 +70,7 @@ export class AzureImporterModel implements ModelPluginInterface {
     const rawMetadataResults = await this.getInstanceMetadata(
       params.subscriptionId,
       params.vmName,
-      params.resourceGroupName
+      params.resourceGroupName,
     );
     input['duration'] = this.calculateDurationPerInput(params);
 
@@ -103,7 +103,7 @@ export class AzureImporterModel implements ModelPluginInterface {
    */
   private getCPUMetrics = (
     monitorClient: MonitorClient,
-    params: GetMetricsParams
+    params: GetMetricsParams,
   ) => {
     const {
       subscriptionId,
@@ -121,7 +121,7 @@ export class AzureImporterModel implements ModelPluginInterface {
         timespan,
         interval,
         aggregation,
-      }
+      },
     );
   };
 
@@ -130,7 +130,7 @@ export class AzureImporterModel implements ModelPluginInterface {
    */
   private getRawMetrics = (
     monitorClient: MonitorClient,
-    params: GetMetricsParams
+    params: GetMetricsParams,
   ) => {
     const {
       subscriptionId,
@@ -148,7 +148,7 @@ export class AzureImporterModel implements ModelPluginInterface {
         timespan,
         interval,
         aggregation,
-      }
+      },
     );
   };
 
@@ -182,7 +182,7 @@ export class AzureImporterModel implements ModelPluginInterface {
     const monitorClient = new MonitorClient(credential, subscriptionId);
     const cpuMetricsResponse = await this.getCPUMetrics(
       monitorClient,
-      getMetricParams
+      getMetricParams,
     );
 
     // parse CPU util data
@@ -203,7 +203,7 @@ export class AzureImporterModel implements ModelPluginInterface {
 
     const ramMetricsResponse = await this.getRawMetrics(
       monitorClient,
-      getMetricParams
+      getMetricParams,
     );
 
     // parse ram util data
@@ -226,8 +226,8 @@ export class AzureImporterModel implements ModelPluginInterface {
    * Initalize static params.
    */
   async configure(
-    staticParams: object | undefined
-  ): Promise<IOutputModelInterface> {
+    staticParams: object | undefined,
+  ): Promise<ModelPluginInterface> {
     this.staticParams = staticParams;
     return this;
   }
@@ -315,19 +315,20 @@ export class AzureImporterModel implements ModelPluginInterface {
 
     let totalMemoryGB = '';
     const filteredMemData = memResponseData
-      .filter(item => item.resourceType === 'virtualMachines')
-      .filter(item => item.name === instanceType)
-      .filter(item => item.locations !== undefined);
+      .filter((item) => item.resourceType === 'virtualMachines')
+      .filter((item) => item.name === instanceType)
+      .filter((item) => item.locations !== undefined);
 
     const vmCapabilitiesData = filteredMemData
       .filter(
-        item => item.locations !== undefined && item.locations[0] === location
+        (item) =>
+          item.locations !== undefined && item.locations[0] === location,
       )
-      .map(item => item.capabilities)[0];
+      .map((item) => item.capabilities)[0];
 
     if (vmCapabilitiesData !== undefined) {
       const totalMemoryObject = vmCapabilitiesData.filter(
-        (item: any) => item.name === 'MemoryGB'
+        (item: any) => item.name === 'MemoryGB',
       )[0];
       if (totalMemoryObject.value !== undefined) {
         totalMemoryGB = totalMemoryObject.value;
@@ -343,7 +344,7 @@ export class AzureImporterModel implements ModelPluginInterface {
   private async getInstanceMetadata(
     subscriptionId: string,
     vmName: string,
-    resourceGroupName: string
+    resourceGroupName: string,
   ): Promise<AzureMetadataOutputs> {
     const credential = new DefaultAzureCredential();
     const client = new ComputeManagementClient(credential, subscriptionId);
@@ -353,10 +354,12 @@ export class AzureImporterModel implements ModelPluginInterface {
       vmData.push(item);
     }
 
-    const filteredVmData = vmData.filter(item => item.name === vmName);
-    const location = filteredVmData.map(item => item.location ?? 'unknown')[0];
+    const filteredVmData = vmData.filter((item) => item.name === vmName);
+    const location = filteredVmData.map(
+      (item) => item.location ?? 'unknown',
+    )[0];
     const instanceType = filteredVmData.map(
-      item => item.hardwareProfile?.vmSize ?? 'unknown'
+      (item) => item.hardwareProfile?.vmSize ?? 'unknown',
     )[0];
 
     const totalMemoryGB = await this.calculateTotalMemory({
