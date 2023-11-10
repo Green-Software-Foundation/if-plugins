@@ -1,8 +1,10 @@
-import {DefaultAzureCredential} from '@azure/identity';
-import {MonitorClient} from '@azure/arm-monitor';
-import {ComputeManagementClient} from '@azure/arm-compute';
+import { DefaultAzureCredential } from '@azure/identity';
+import { MonitorClient } from '@azure/arm-monitor';
+import { ComputeManagementClient } from '@azure/arm-compute';
 import * as dotenv from 'dotenv';
-import {z} from 'zod';
+import { z } from 'zod';
+
+import { ModelPluginInterface } from '../../interfaces';
 
 import {
   AzureInputs,
@@ -10,7 +12,6 @@ import {
   GetMetricsParams,
   AzureMetadataOutputs,
 } from '../../types/azure-importer';
-import {ModelPluginInterface} from '../../interfaces';
 
 /**
  * @todo Move all input validation schemas to separate file.
@@ -71,12 +72,10 @@ export class AzureImporterModel implements ModelPluginInterface {
       params.vmName,
       params.resourceGroupName
     );
+    input['duration'] = this.calculateDurationPerInput(params);
 
-    const perInputDuration = this.calculateDurationPerInput(params);
-
-    return rawResults.timestamps.map((timestamp, index) => ({
+    const enrichedOutputs = rawResults.timestamps.map((timestamp, index) => ({
       timestamp,
-      duration: perInputDuration,
       'cloud-vendor': 'azure',
       'cpu-util': rawResults.cpu_utils[index],
       'mem-availableGB': parseFloat(rawResults.memAvailable[index]) * 1e-9,
@@ -92,6 +91,11 @@ export class AzureImporterModel implements ModelPluginInterface {
       location: rawMetadataResults.location,
       'cloud-instance-type': rawMetadataResults.instanceType,
     }));
+
+    for (let i = 0; i < Object.entries(enrichedOutputs).length; i++) {
+      enrichedOutputs[i] = Object.assign(enrichedOutputs[i], input);
+    }
+    return enrichedOutputs;
   }
 
   /**
@@ -223,9 +227,8 @@ export class AzureImporterModel implements ModelPluginInterface {
    */
   async configure(
     staticParams: object | undefined
-  ): Promise<ModelPluginInterface> {
+  ): Promise<IOutputModelInterface> {
     this.staticParams = staticParams;
-
     return this;
   }
 
@@ -302,7 +305,7 @@ export class AzureImporterModel implements ModelPluginInterface {
    * Caculates total memory based on data from ComputeManagementClient response.
    */
   private async calculateTotalMemory(params: any) {
-    const {client, instanceType, location} = params;
+    const { client, instanceType, location } = params;
     // here we grab the total memory for the instance
     const memResponseData = [];
 
