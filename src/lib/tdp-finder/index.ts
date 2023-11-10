@@ -54,7 +54,7 @@ export class TdpFinderModel implements ModelPluginInterface {
 
   async configure(
     staticParams: object | undefined
-  ): Promise<IOutputModelInterface> {
+  ): Promise<ModelPluginInterface> {
     this.staticParams = staticParams;
     this.data = await this.loadData();
     return this;
