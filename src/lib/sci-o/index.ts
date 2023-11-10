@@ -1,13 +1,8 @@
-import {IOutputModelInterface} from '../interfaces';
+import { ModelPluginInterface } from '../../interfaces';
 
-import {CONFIG} from '../../config';
+import { KeyValuePair } from '../../types/common';
 
-import {KeyValuePair} from '../../types/common';
-
-const {MODEL_IDS} = CONFIG;
-const {SCI_O} = MODEL_IDS;
-
-export class SciOModel implements IOutputModelInterface {
+export class SciOModel implements ModelPluginInterface {
   authParams: object | undefined = undefined;
   staticParams: object | undefined;
   name: string | undefined;
@@ -37,7 +32,7 @@ export class SciOModel implements IOutputModelInterface {
       if (!('energy' in input)) {
         throw new Error('input missing `energy`');
       }
-      this.configure(this.name!, input);
+      this.configure(input);
       const grid_ci = parseFloat(input['grid-carbon-intensity']);
       const energy = parseFloat(input['energy']);
       input['operational-carbon'] = grid_ci * energy;
@@ -46,15 +41,12 @@ export class SciOModel implements IOutputModelInterface {
   }
 
   async configure(
-    name: string,
+
     staticParams: object | undefined
-  ): Promise<IOutputModelInterface> {
+  ): Promise<ModelPluginInterface> {
     this.staticParams = staticParams;
-    this.name = name;
+
     return this;
   }
 
-  modelIdentifier(): string {
-    return SCI_O;
-  }
 }
