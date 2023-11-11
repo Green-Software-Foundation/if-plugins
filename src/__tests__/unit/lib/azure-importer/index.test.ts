@@ -141,6 +141,11 @@ describe('lib/azure-importer: ', () => {
         ])
       ).resolves.toEqual([
         {
+          'azure-observation-aggregation': 'average',
+          'azure-observation-window': '5 mins',
+          'azure-resource-group': 'vm1_group',
+          'azure-subscription-id': '9de7e19f-8a18-4e73-9451-45fc74e7d0d3',
+          'azure-vm-name': 'vm1',
           timestamp: '2023-11-02T10:35:00.000Z',
           duration: 300,
           'cpu-util': '3.14',
