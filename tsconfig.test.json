@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "rootDir": "./src",
-    "outDir": "./buil2d",
+    "outDir": "./dist",
     "declarationMap": false,
     "inlineSourceMap": true,
     "inlineSources": true,

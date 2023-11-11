@@ -24,9 +24,11 @@
     "@types/jest": "^29.5.7",
     "@types/js-yaml": "^4.0.8",
     "@types/node": "^20.4.5",
+    "copyfiles": "^2.4.1",
     "gts": "^5.0.0",
     "jest": "^29.6.1",
     "jest-mock-axios": "^4.7.2",
+    "rimraf": "^5.0.5",
     "ts-jest": "^29.1.1"
   },
   "engines": {
@@ -45,8 +47,10 @@
   "scripts": {
     "fix": "gts fix",
     "lint": "gts lint",
-    "prepare": "npm run build",
-    "build": "tsc",
-    "test": "jest --verbose"
+    "prepare": "npm run build && copyfiles",
+    "test": "jest --verbose",
+    "clean": "rimraf build/",
+    "copy-files": "copyfiles -u 1 src/**/*.csv build",
+    "build": "yarn clean && tsc && yarn copy-files"
   }
 }
