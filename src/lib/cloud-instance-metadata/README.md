@@ -10,8 +10,8 @@ IEF recognizes the Cloud Carbon Footprint model as `ccf`.
 
 ### model config
 
-- `vendor`: the cloud platform provider, e.g. `aws`
-- `instance-type`: the name of the specific instance being used, e.g. `m5n.large`
+- `cloud-vendor`: the cloud platform provider, e.g. `aws`
+- `cloud-instance-type`: the name of the specific instance being used, e.g. `m5n.large`
 
 ## Returns
 
@@ -22,7 +22,7 @@ An array containing:
 - `physical-processor`: physical processor used in the given instance
 - `vcpus-allocated`: number of vCPUs allocated to this instance
 - `vcpus-total`: total number of vCPUs available to this instance
-  
+
 
 ## IEF Implementation
 
@@ -39,7 +39,7 @@ You can see example Typescript invocations for each vendor below:
 ### AWS
 
 ```typescript
-import {CloudInstanceMetadataModel} from 'ief';
+import {CloudInstanceMetadataModel} from 'if-models';
 
 const cimm = new CloudInstanceMetadataModel();
 const results = cimm.execute([
@@ -60,9 +60,8 @@ description: example impl invoking Cloud Instance Metadata model
 initialize:
   models:
     - name: cloud-instance-metadata
-      kind: plugin
       model: CloudInstanceMetadataModel
-      path: cloud-instance-metadata
+      path: if-models
 graph:
   children:
     child:
@@ -91,9 +90,8 @@ description: example impl invoking Cloud Instance Metadata model
 initialize:
   models:
     - name: cloud-instance-metadata
-      kind: plugin
       model: CloudInstanceMetadataModel
-      path: cloud-instance-metadata
+      path: if-models
 graph:
   children:
     front-end:
