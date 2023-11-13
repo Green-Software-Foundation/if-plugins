@@ -1,6 +1,6 @@
 export * from './azure-importer';
 export * from './cloud-instance-metadata';
-export * from './shell-imp';
+export * from './shell';
 export * from './sci';
 export * from './sci-e';
 export * from './sci-m';

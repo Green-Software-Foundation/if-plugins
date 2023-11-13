@@ -25,7 +25,6 @@ export class ShellModel implements ModelPluginInterface {
    * @param {Object} staticParams static parameters for the resource
    */
   async configure(
-
     staticParams: object | undefined = undefined
   ): Promise<ModelPluginInterface> {
 
