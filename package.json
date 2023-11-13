@@ -2,7 +2,6 @@
   "name": "@grnsft/if-models",
   "description": "Impact Framework Standard Models",
   "version": "0.0.1",
-  "license": "MIT",
   "author": {
     "name": "Green Software Foundation",
     "email": "info@gsf.com"
@@ -12,10 +11,10 @@
     "@azure/arm-monitor": "^7.0.0",
     "@azure/identity": "^4.0.0",
     "axios": "^1.6.0",
+    "copyfiles": "^2.4.1",
     "dotenv": "^16.3.1",
     "js-yaml": "^4.1.0",
     "typescript": "^5.1.6",
-    "copyfiles": "^2.4.1",
     "zod": "^3.22.4"
   },
   "devDependencies": {
@@ -25,32 +24,35 @@
     "@types/jest": "^29.5.7",
     "@types/js-yaml": "^4.0.8",
     "@types/node": "^20.4.5",
+    "fixpack": "4.0.0",
     "gts": "^5.0.0",
     "jest": "^29.6.1",
     "jest-mock-axios": "^4.7.2",
     "rimraf": "^5.0.5",
     "ts-jest": "^29.1.1"
   },
-  "engines": { 
+  "engines": {
     "node": "18",
     "yarn": "1.22.19",
     "npm": "8.19.2"
   },
-  "keywords": [],
-  "main": "build/index.js",
   "files": [
     "build"
   ],
+  "keywords": ["if", "models", "if-models", "green software foundation"],
+  "license": "MIT",
+  "main": "build/index.js",
   "repository": {
     "url": "https://github.com/Green-Software-Foundation/if-models.git"
   },
   "scripts": {
-    "fix": "gts fix",
-    "lint": "gts lint",
-    "prepare": "npm run build",
-    "test": "jest --verbose",
+    "build": "yarn clean && tsc && yarn copy-files",
     "clean": "rimraf build/",
     "copy-files": "copyfiles -u 1 src/**/*.csv build",
-    "build": "yarn clean && tsc && yarn copy-files"
+    "fix": "gts fix",
+    "fix:package": "fixpack",
+    "lint": "gts lint",
+    "prepare": "npm run build",
+    "test": "jest --verbose"
   }
 }
