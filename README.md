@@ -4,7 +4,6 @@
 
 ## Implementations
 
-- [Azure Importer](./src/lib/azure-importer/README.md)
 - [Cloud Instance Metadata](./src/lib/cloud-instance-metadata/README.md)
 - [E-Mem](./src/lib/e-mem/README.md)
 - [SCI](./src/lib/sci/README.md)
