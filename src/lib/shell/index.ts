@@ -54,7 +54,6 @@ export class ShellModel implements ModelPluginInterface {
       indent: 2,
 
     });
-    console.log('INPUT:\n\n',input);
 
     const results = this.runModelInShell(inputAsString, this.executable);
 
@@ -81,7 +80,6 @@ export class ShellModel implements ModelPluginInterface {
           input: input,
           encoding: 'utf8',
         }).stdout;
-      console.log(result);
       return yaml.load(result) as KeyValuePair;
     } catch (e: any) {
       throw new Error(e.message);
