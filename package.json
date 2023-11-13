@@ -1,7 +1,7 @@
 {
-  "name": "if-models",
+  "name": "@grnsft/if-models",
   "description": "Impact Framework Standard Models",
-  "version": "0.1.0",
+  "version": "0.0.1",
   "license": "MIT",
   "author": {
     "name": "Green Software Foundation",
@@ -31,7 +31,7 @@
     "rimraf": "^5.0.5",
     "ts-jest": "^29.1.1"
   },
-  "engines": {
+  "engines": { 
     "node": "18",
     "yarn": "1.22.19",
     "npm": "8.19.2"
@@ -42,7 +42,7 @@
     "build"
   ],
   "repository": {
-    "url": "https://github.com/Green-Software-Foundation/if-model-template.git"
+    "url": "https://github.com/Green-Software-Foundation/if-models.git"
   },
   "scripts": {
     "fix": "gts fix",
