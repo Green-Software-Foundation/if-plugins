@@ -2,10 +2,6 @@
 
 This plugin allows you to determine an instance's physical processor and thermal design power based on its instance name.
 
-## Model name
-
-IEF recognizes the Cloud Carbon Footprint model as `ccf`.
-
 ## Parameters
 
 ### model config
