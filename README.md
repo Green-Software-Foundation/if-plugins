@@ -12,3 +12,7 @@
 - [SCI-O](./src/lib/sci-o/README.md)
 - [Shell](./src/lib/shell/README.md)
 - [TDP Finder](./src/lib/tdp-finder/README.md)
+
+## Contributing
+
+See contributing rules [here](./CONTRIBUTING.md).
