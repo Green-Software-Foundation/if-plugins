@@ -7,4 +7,3 @@ export type ModelParams = {
   duration: number;
   [key: string]: any;
 };
-
