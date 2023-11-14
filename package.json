@@ -42,6 +42,9 @@
   "keywords": ["if", "models", "if-models", "green software foundation"],
   "license": "MIT",
   "main": "build/index.js",
+  "publishConfig": {
+    "access": "public"
+  },
   "repository": {
     "url": "https://github.com/Green-Software-Foundation/if-models.git"
   },
