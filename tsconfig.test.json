@@ -1,14 +1,14 @@
 {
   "compilerOptions": {
     "rootDir": "./src",
-    "outDir": "./dist",
+    "outDir": "./build",
     "declarationMap": false,
     "inlineSourceMap": true,
     "inlineSources": true,
     "alwaysStrict": true,
     "declaration": true,
     "experimentalDecorators": true,
-    "incremental": true,
+    "incremental": false,
     "lib": [
       "es2020"
     ],
@@ -27,8 +27,7 @@
     "strictPropertyInitialization": true,
     "stripInternal": false,
     "target": "ES2020",
-    "composite": false,
-    "tsBuildInfoFile": "tsconfig.tsbuildinfo"
+    "composite": false
   },
   "include": [
     "**/*.ts"
