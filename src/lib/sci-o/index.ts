@@ -1,6 +1,6 @@
-import { ModelPluginInterface } from '../../interfaces';
+import {ModelPluginInterface} from '../../interfaces';
 
-import { KeyValuePair } from '../../types/common';
+import {KeyValuePair} from '../../types/common';
 
 export class SciOModel implements ModelPluginInterface {
   authParams: object | undefined = undefined;
@@ -41,12 +41,10 @@ export class SciOModel implements ModelPluginInterface {
   }
 
   async configure(
-
     staticParams: object | undefined
   ): Promise<ModelPluginInterface> {
     this.staticParams = staticParams;
 
     return this;
   }
-
 }

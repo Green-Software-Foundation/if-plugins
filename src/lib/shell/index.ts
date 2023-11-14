@@ -3,9 +3,7 @@ import * as yaml from 'js-yaml';
 
 import {ModelPluginInterface} from '../../interfaces';
 
-
 import {KeyValuePair} from '../../types/common';
-
 
 export class ShellModel implements ModelPluginInterface {
   authParams: object | undefined; // Defined for compatibility. Not used.
@@ -27,7 +25,6 @@ export class ShellModel implements ModelPluginInterface {
   async configure(
     staticParams: object | undefined = undefined
   ): Promise<ModelPluginInterface> {
-
     if (staticParams === undefined) {
       throw new Error('Required staticParams not provided');
     }
@@ -52,7 +49,6 @@ export class ShellModel implements ModelPluginInterface {
 
     const inputAsString: string = yaml.dump(input, {
       indent: 2,
-
     });
 
     const results = this.runModelInShell(inputAsString, this.executable);
@@ -75,11 +71,10 @@ export class ShellModel implements ModelPluginInterface {
       const execs = execPath.split(' ');
       const executable = execs.shift() ?? '';
 
-      const result = cp
-        .spawnSync(executable, [...execs], {
-          input: input,
-          encoding: 'utf8',
-        }).stdout;
+      const result = cp.spawnSync(executable, [...execs], {
+        input: input,
+        encoding: 'utf8',
+      }).stdout;
       return yaml.load(result) as KeyValuePair;
     } catch (e: any) {
       throw new Error(e.message);

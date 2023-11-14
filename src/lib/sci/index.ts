@@ -1,7 +1,6 @@
-import { ModelPluginInterface } from '../../interfaces';
+import {ModelPluginInterface} from '../../interfaces';
 
-import { KeyValuePair } from '../../types/common';
-
+import {KeyValuePair} from '../../types/common';
 
 export class SciModel implements ModelPluginInterface {
   authParams: object | undefined = undefined;
@@ -117,7 +116,6 @@ export class SciModel implements ModelPluginInterface {
   }
 
   async configure(
-
     staticParams: object | undefined
   ): Promise<ModelPluginInterface> {
     if (staticParams === undefined) {
@@ -125,7 +123,6 @@ export class SciModel implements ModelPluginInterface {
     }
 
     this.staticParams = staticParams;
-
 
     if ('functional-unit-time' in staticParams) {
       this.time = staticParams['functional-unit-time'] as number;

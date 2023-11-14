@@ -2,7 +2,6 @@ import {ModelPluginInterface} from '../../interfaces';
 
 import {KeyValuePair} from '../../types/common';
 
-
 export class SciMModel implements ModelPluginInterface {
   authParams: object | undefined = undefined;
   staticParams: object | undefined;
@@ -116,7 +115,6 @@ export class SciMModel implements ModelPluginInterface {
   }
 
   async configure(
-
     staticParams: object | undefined
   ): Promise<ModelPluginInterface> {
     this.staticParams = staticParams;
