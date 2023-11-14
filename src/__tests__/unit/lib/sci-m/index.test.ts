@@ -10,8 +10,8 @@ describe('sci-o:configure test', () => {
     await expect(
       model.execute([
         {
-          'timestamp': '2021-01-01T00:00:00Z',
-          'duration': 1,
+          timestamp: '2021-01-01T00:00:00Z',
+          duration: 1,
           'total-embodied-emissions': 200,
           'time-reserved': 60 * 60 * 24 * 30,
           'expected-lifespan': 60 * 60 * 24 * 365 * 4,
@@ -19,7 +19,7 @@ describe('sci-o:configure test', () => {
           'total-resources': 1,
         },
         {
-          'timestamp': '2021-01-01T00:00:00Z',
+          timestamp: '2021-01-01T00:00:00Z',
           'total-embodied-emissions': 200,
           duration: 60 * 60 * 24 * 30 * 2,
           'time-reserved': 'duration',
@@ -30,8 +30,8 @@ describe('sci-o:configure test', () => {
       ])
     ).resolves.toStrictEqual([
       {
-        'timestamp': '2021-01-01T00:00:00Z',
-        'duration': 1,
+        timestamp: '2021-01-01T00:00:00Z',
+        duration: 1,
         'total-embodied-emissions': 200,
         'time-reserved': 60 * 60 * 24 * 30,
         'expected-lifespan': 60 * 60 * 24 * 365 * 4,
@@ -40,7 +40,7 @@ describe('sci-o:configure test', () => {
         'embodied-carbon': 4.10958904109589,
       },
       {
-        'timestamp': '2021-01-01T00:00:00Z',
+        timestamp: '2021-01-01T00:00:00Z',
         'total-embodied-emissions': 200,
         duration: 60 * 60 * 24 * 30 * 2,
         'time-reserved': 'duration',
@@ -53,7 +53,7 @@ describe('sci-o:configure test', () => {
     await expect(
       model.execute([
         {
-          'timestamp': '2021-01-01T00:00:00Z',
+          timestamp: '2021-01-01T00:00:00Z',
           'total-embodied-emissions': 200,
           tee: 200,
           duration: 60 * 60 * 24 * 30 * 2,

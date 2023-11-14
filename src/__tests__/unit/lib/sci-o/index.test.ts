@@ -10,7 +10,7 @@ describe('ccf:configure test', () => {
     await expect(
       model.execute([
         {
-          'timestamp': '2021-01-01T00:00:00Z',
+          timestamp: '2021-01-01T00:00:00Z',
           duration: 1,
           'grid-carbon-intensity': 200.0,
           energy: 100.0,
@@ -18,7 +18,7 @@ describe('ccf:configure test', () => {
       ])
     ).resolves.toStrictEqual([
       {
-        'timestamp': '2021-01-01T00:00:00Z',
+        timestamp: '2021-01-01T00:00:00Z',
         duration: 1,
         'grid-carbon-intensity': 200.0,
         energy: 100.0,
@@ -28,7 +28,7 @@ describe('ccf:configure test', () => {
     await expect(
       model.execute([
         {
-          'timestamp': '2021-01-01T00:00:00Z',
+          timestamp: '2021-01-01T00:00:00Z',
           duration: 1,
           'grid-carbon-intensity': 212.1,
           energy: 100.0,
@@ -36,7 +36,7 @@ describe('ccf:configure test', () => {
       ])
     ).resolves.toStrictEqual([
       {
-        'timestamp': '2021-01-01T00:00:00Z',
+        timestamp: '2021-01-01T00:00:00Z',
         duration: 1,
         'grid-carbon-intensity': 212.1,
         energy: 100.0,
@@ -46,7 +46,7 @@ describe('ccf:configure test', () => {
     await expect(
       model.execute([
         {
-          'timestamp': '2021-01-01T00:00:00Z',
+          timestamp: '2021-01-01T00:00:00Z',
           duration: 1,
           'grid-carbon-intensityd': 212.1,
           energy: 100.0,
