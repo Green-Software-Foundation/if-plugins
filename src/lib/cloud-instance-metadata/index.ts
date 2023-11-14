@@ -1,6 +1,5 @@
 import {ModelPluginInterface} from '../../interfaces';
 
-
 import {KeyValuePair} from '../../types/common';
 import * as AWS_INSTANCES from './aws-instances.json';
 import * as AZURE_INSTANCES from './azure-instances.json';
@@ -96,7 +95,6 @@ export class CloudInstanceMetadataModel implements ModelPluginInterface {
   }
 
   async configure(
-
     staticParams: object | undefined
   ): Promise<ModelPluginInterface> {
     this.staticParams = staticParams;

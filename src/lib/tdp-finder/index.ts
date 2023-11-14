@@ -1,5 +1,5 @@
-import { ModelPluginInterface } from '../../interfaces';
-import { KeyValuePair } from '../../types/common';
+import {ModelPluginInterface} from '../../interfaces';
+import {KeyValuePair} from '../../types/common';
 import * as fs from 'fs';
 import * as path from 'path';
 

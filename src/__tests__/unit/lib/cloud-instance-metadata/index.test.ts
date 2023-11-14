@@ -1,5 +1,5 @@
 import {describe, expect, jest, test} from '@jest/globals';
-import { CloudInstanceMetadataModel } from '../../../../lib';
+import {CloudInstanceMetadataModel} from '../../../../lib';
 
 jest.setTimeout(30000);
 
@@ -33,7 +33,6 @@ describe('cimd:configure test:aws', () => {
     await expect(
       model.execute([
         {
-
           timestamp: '',
           duration: 5,
           'cloud-instance-type': 't2.micro',
@@ -89,7 +88,6 @@ describe('cimd:configure test:azure', () => {
     await expect(
       model.execute([
         {
-
           timestamp: '',
           duration: 5,
           'cloud-instance-type': 't2.micro',
@@ -102,7 +100,6 @@ describe('cimd:configure test:azure', () => {
     await expect(
       model.execute([
         {
-
           timestamp: '',
           duration: 5,
           'cloud-instance-type': 't2.micro2',

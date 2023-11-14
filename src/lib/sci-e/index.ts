@@ -1,6 +1,5 @@
 import {ModelPluginInterface} from '../../interfaces';
 
-
 import {KeyValuePair} from '../../types/common';
 
 export class SciEModel implements ModelPluginInterface {
@@ -22,8 +21,6 @@ export class SciEModel implements ModelPluginInterface {
   async configure(
     staticParams: object | undefined = undefined
   ): Promise<ModelPluginInterface> {
-
-
     if (staticParams === undefined) {
       throw new Error('Required Parameters not provided');
     }

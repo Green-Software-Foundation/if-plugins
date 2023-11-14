@@ -8,14 +8,19 @@ describe('lib/shell-imp: ', () => {
     test('initialize with params', async () => {
       const outputModel = new ShellModel();
       await outputModel.configure({
-        executable: 'python3 /usr/local/bin/sampler'
+        executable: 'python3 /usr/local/bin/sampler',
       });
       await expect(
         outputModel.execute([
           {duration: 3600, cpu: 0.5, timestamp: '2021-01-01T00:00:00Z'},
         ])
       ).resolves.toStrictEqual([
-        {duration: 3600, cpu: 0.5, timestamp: '2021-01-01T00:00:00Z', energy: 1},
+        {
+          duration: 3600,
+          cpu: 0.5,
+          timestamp: '2021-01-01T00:00:00Z',
+          energy: 1,
+        },
       ]);
     });
   });
