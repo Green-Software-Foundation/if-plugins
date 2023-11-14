@@ -6,6 +6,9 @@
     "name": "Green Software Foundation",
     "email": "info@gsf.com"
   },
+  "bugs": {
+    "url": "https://github.com/Green-Software-Foundation/if-models/issues/new?assignees=&labels=feedback&projects=&template=feedback.md&title=Feedback+-+"
+  },
   "dependencies": {
     "@azure/arm-compute": "^21.2.0",
     "@azure/arm-monitor": "^7.0.0",
@@ -39,7 +42,13 @@
   "files": [
     "build"
   ],
-  "keywords": ["if", "models", "if-models", "green software foundation"],
+  "homepage": "https://greensoftware.foundation",
+  "keywords": [
+    "green software foundation",
+    "if",
+    "if-models",
+    "models"
+  ],
   "license": "MIT",
   "main": "build/index.js",
   "publishConfig": {
