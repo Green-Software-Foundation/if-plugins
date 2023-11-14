@@ -11,4 +11,5 @@ module.exports = {
       },
     ],
   },
+  modulePathIgnorePatterns: ['./build'],
 };
