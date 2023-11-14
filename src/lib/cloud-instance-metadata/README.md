@@ -19,7 +19,6 @@ An array containing:
 - `vcpus-allocated`: number of vCPUs allocated to this instance
 - `vcpus-total`: total number of vCPUs available to this instance
 
-
 ## IEF Implementation
 
 IEF implements this plugin using data from Cloud Carbon Footprint. This allows determination of cpu for type of instance in a cloud and can be invoked as part of a model pipeline defined in an `impl`.
@@ -35,20 +34,20 @@ You can see example Typescript invocations for each vendor below:
 ### AWS
 
 ```typescript
-import {CloudInstanceMetadataModel} from 'if-models';
+import {CloudInstanceMetadataModel} from '@grnsft/if-models';
 
 const cimm = new CloudInstanceMetadataModel();
 const results = cimm.execute([
   {
     'cloud-vendor': 'aws',
-    'cloud-instance-type': 'm5n.large'
-  }
-])
+    'cloud-instance-type': 'm5n.large',
+  },
+]);
 ```
 
 ## Example Impl
 
-The following is an example of how cloud instance metadata can be invoked using an `impl`. This assumes you have already installed the IF standard library of models using `yarn add https://github.com/Green-Software-Foundation/if-models/`.
+The following is an example of how cloud instance metadata can be invoked using an `impl`.
 
 ```yaml
 name: cloud-instance-metadata-demo
@@ -57,7 +56,7 @@ initialize:
   models:
     - name: cloud-instance-metadata
       model: CloudInstanceMetadataModel
-      path: if-models
+      path: '@grnsft/if-models'
 graph:
   children:
     child:
@@ -72,13 +71,17 @@ graph:
           cpu-util: 10
 ```
 
-This impl is run using `impact-engine` using the following command, run from the project root:
+Ensure that you have global node_modules bin directory in your $PATH
+This impl is run using `impact-engine` using the following command, run from
+the project root:
 
 ```sh
-npx ts-node scripts/impact.ts --impl ./examples/impls/cimd-test.yml --ompl ./examples/ompls/cimd-test.yml
+npm i -g @grnsft/if
+npm i -g @grnsft/if-models
+impact-engine --impl ./examples/impls/cimd-test.yml --ompl ./examples/ompls/cimd-test.yml
 ```
 
-This yields a result that looks like the following (saved to `/ompls/cimd-test.yml`):
+This yields a result that looks like the following (saved to `./examples/ompls/cimd-test.yml`):
 
 ```yaml
 name: cloud-instance-metadata-demo
@@ -87,7 +90,7 @@ initialize:
   models:
     - name: cloud-instance-metadata
       model: CloudInstanceMetadataModel
-      path: if-models
+      path: '@grnsft/if-models'
 graph:
   children:
     front-end:

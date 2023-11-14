@@ -14,30 +14,30 @@ export class TdpFinderModel implements ModelPluginInterface {
   }
 
   /**
-   * Calculate the total emissions for a list of observations.
+   * Calculate the total emissions for a list of inputs.
    *
-   * Each Observation require:
-   * @param {Object[]} observations
-   * @param {string} observations[].timestamp RFC3339 timestamp string
+   * Each Input require:
+   * @param {Object[]} inputs
+   * @param {string} inputs[].timestamp RFC3339 timestamp string
    */
-  async execute(observations: object | object[] | undefined): Promise<any[]> {
-    if (observations === undefined) {
+  async execute(inputs: object | object[] | undefined): Promise<any[]> {
+    if (inputs === undefined) {
       throw new Error('Required Parameters not provided');
-    } else if (!Array.isArray(observations)) {
-      throw new Error('Observations must be an array');
+    } else if (!Array.isArray(inputs)) {
+      throw new Error('Inputs must be an array');
     }
 
-    return observations.map((observation: KeyValuePair) => {
-      observation['thermal-design-power'] = 0;
-      if ('physical-processor' in observation) {
-        const physicalProcessors = observation['physical-processor'] as string;
+    return inputs.map((input: KeyValuePair) => {
+      input['thermal-design-power'] = 0;
+      if ('physical-processor' in input) {
+        const physicalProcessors = input['physical-processor'] as string;
         physicalProcessors.split(',').forEach(physicalProcessor => {
           physicalProcessor = physicalProcessor.trim();
           if (
             physicalProcessor in this.data &&
-            observation['thermal-design-power'] < this.data[physicalProcessor]
+            input['thermal-design-power'] < this.data[physicalProcessor]
           ) {
-            observation['thermal-design-power'] = this.data[physicalProcessor];
+            input['thermal-design-power'] = this.data[physicalProcessor];
           } else if (!(physicalProcessor in this.data)) {
             throw new Error(
               `physical-processor ${physicalProcessor} not found in database. Please check spelling / contribute to IEF with the data.`
@@ -47,7 +47,7 @@ export class TdpFinderModel implements ModelPluginInterface {
       } else {
         throw new Error('physical-processor not provided');
       }
-      return observation;
+      return input;
     });
   }
 

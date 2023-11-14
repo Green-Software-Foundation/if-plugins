@@ -4,10 +4,6 @@ Software systems cause emissions through the hardware that they operate on, both
 
 Read more on [embodied carbon](https://github.com/Green-Software-Foundation/sci/blob/main/Software_Carbon_Intensity/Software_Carbon_Intensity_Specification.md#embodied-emissions)
 
-## Model name
-
-IF recognizes the SCI-M model as `sci-m` 
-
 ## Parameters
 
 ### Model config
@@ -18,9 +14,10 @@ IF recognizes the SCI-M model as `sci-m`
 - `reserved-resources`: the number of resources reserved for use by the software
 - `total-resources`: the total number of resources available
 
-### Observations
-- `timestamp`: a timestamp for the observation
-- `duration`: the amount of time, in seconds, that the observation covers.
+### Inputs
+
+- `timestamp`: a timestamp for the input
+- `duration`: the amount of time, in seconds, that the input covers.
 
 ## Returns
 
@@ -33,32 +30,32 @@ To calculate the embodied carbon, `m` for a software application, use the equati
 ```
 m = te * ts * rs
 ```
+
 Where:
 
 - `total-embodied-emissions` = Total embodied emissions; the sum of Life Cycle Assessment (LCA) emissions for the component.
 
-- `timeShare` = Time-share; the share of the total life span of the hardware reserved for use by an application. 
+- `timeShare` = Time-share; the share of the total life span of the hardware reserved for use by an application.
+
   - `timeShare` is calculated as `time-reserved/expedted-lifespan`, where:
     - `time-reserved` = Time Reserved; the length of time the hardware is reserved for use by the software.
     - `expected-lifespan` = Expected lifespan: the length of time, in seconds, between a component's manufacture and its disposal
 
-- `resourceshare` = Resource-share; the share of the total available resources of the hardware reserved for use by an application. 
+- `resourceshare` = Resource-share; the share of the total available resources of the hardware reserved for use by an application.
   - `resourceShare` is calculated as `resources-reserved/total-resources`, where:
     - `resources-reserved` = Resources reserved; the number of resources reserved for use by the software.
     - `total-resources` = Total Resources; the total number of resources available.
 
-
 ## Implementation
 
 IEF implements the plugin based on the logic described above. To run the model, you must first create an instance of `SciMModel` and call its `configure()` method. Then, you can call `execute()` to return `m`.
-
 
 ## Usage
 
 The following snippet demonstrates how to call the `sci-m` model from Typescript.
 
 ```typescript
-import { SciMModel } from '@gsf/ief';
+import { SciMModel } from '@grnsft/if-models';
 
 const sciMModel = new SciMModel();
 sciMModel.configure()
@@ -84,22 +81,21 @@ tags:
 initialize:
   models:
     - name: sci-m
-      kind: plugin
       model: SciMModel
-      path: sci-m
+      path: @grnsft/if-models
 graph:
   children:
     child:
-      pipeline: 
+      pipeline:
         - sci-m # duration & config -> embodied
       config:
         sci-m:
           total-embodied-emissions: 1533.120 # gCO2eq
           time-reserved: 1 # s per hour
-          expected-lifespan: 3 # 3 years in seconds        
+          expected-lifespan: 3 # 3 years in seconds
           resources-reserved: 1
           total-resources: 8
-      inputs: 
+      inputs:
         - timestamp: 2023-07-06T00:00
           duration: 3600
 ```
@@ -107,7 +103,9 @@ graph:
 You can run this example `impl` by executing the following command from the project root:
 
 ```sh
-npx ts-node scripts/impact.ts --impl ./examples/impls/sci-m.yml --ompl ./examples/ompls/sci-m-test.yml
+npm i -g @grnsft/if
+npm i -g @grnsft/if-models
+impact-engine --impl ./examples/impls/sci-m.yml --ompl ./examples/ompls/sci-m-test.yml
 ```
 
-The results will be saved to a new `yaml` file in `/ompls`.
+The results will be saved to a new `yaml` file in `./examples/ompls`.

@@ -12,7 +12,7 @@ The shell model interface requires a path to the model executable. This path is 
 
 ### inputs
 The parameters included in the `inputs` field in the `impl` depend entirely on the model itself. A typical model plugin might expect the following common data to be provided as `inputs`:
-- `timestamp`: A timestamp for the specific input observation
+- `timestamp`: A timestamp for the specific input input
 - `duration`: The length of time these specific inputs cover
 
 ## Returns
@@ -35,9 +35,9 @@ const result = await outputModel.execute([
 
 ## Considerations
 
-The `shell` is designed to run arbitrary external models. This means IF does not necessarily know what calculations are being executed in the external model. there is no struct requirement on the return type, as this depends upon the calculations and the position of the external model ina  model pipeline. For example, one external model might carry out the entire end-to-end SCI calculation, taking in usage observations and returning `sci`. In this case, the model is expected to return `sci` and it would be the only model invoked in the `impl`.
+The `shell` is designed to run arbitrary external models. This means IF does not necessarily know what calculations are being executed in the external model. there is no struct requirement on the return type, as this depends upon the calculations and the position of the external model ina  model pipeline. For example, one external model might carry out the entire end-to-end SCI calculation, taking in usage inputs and returning `sci`. In this case, the model is expected to return `sci` and it would be the only model invoked in the `impl`.
 
-However, it is also entirely possible to have external models that only deliver some small part of the overall SCI calculation, and rely on IF builtin models to do the rest. For example, perhaps there is a proprietary model that a user wishes to use as a drop-in replacement for the Teads TDP model. In this case, the model would take usage observations as inputs and would need to return some or all of `energy-cpu`, `energy-net`, `energy-mem` and `energy-gpu`. These would then be passed to the `sci-e` model to return `energy`, then `sci-o` to return `embodied-carbon`.
+However, it is also entirely possible to have external models that only deliver some small part of the overall SCI calculation, and rely on IF builtin models to do the rest. For example, perhaps there is a proprietary model that a user wishes to use as a drop-in replacement for the Teads TDP model. In this case, the model would take usage inputs as inputs and would need to return some or all of `energy-cpu`, `energy-net`, `energy-mem` and `energy-gpu`. These would then be passed to the `sci-e` model to return `energy`, then `sci-o` to return `embodied-carbon`.
 
 Since the design space for external models is so large, it is up to external model developers to ensure compatibility wioth IEF built-ins.
 
