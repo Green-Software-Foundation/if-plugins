@@ -12,7 +12,7 @@ The shell model interface requires a path to the model executable. This path is 
 
 ### inputs
 The parameters included in the `inputs` field in the `impl` depend entirely on the model itself. A typical model plugin might expect the following common data to be provided as `inputs`:
-- `timestamp`: A timestamp for the specific input input
+- `timestamp`: A timestamp for the specific input
 - `duration`: The length of time these specific inputs cover
 
 ## Returns
@@ -24,6 +24,7 @@ The specific return types depend on the model being invoked. Typically, we would
 To run the model, you must first create an instance of `ShellModel` and call its `configure()` method. The `configure` method takes `executable` as an argument - this is a path to an executable file. Then, you can call `execute()` to run the external model.
 
 ```typescript
+import {ShellModel} from '@grnsft/if-models';
 const outputModel = new ShellModel();
 await outputModel.configure('test', {
     executable: '/usr/local/bin/sampler',
