@@ -1,7 +1,7 @@
 # SCI-E (total energy)
 
 `sci-e` is a model that simply sums up the contributions to a component's
-energy use. The model retunrs `energy` which is used as the input to
+energy use. The model returns `energy` which is used as the input to
 the `sci-o` model that calculates operational emissions for the component.
 
 ## Model name
@@ -19,7 +19,7 @@ None
 At least one of:
 
 - `energy-cpu`: energy used by the CPU, in kWh
-- `enmergy-memory`: energy used by memory, in kWh
+- `energy-memory`: energy used by memory, in kWh
 - `energy-gpu`: energy used by GPU, in kWh
 - `energy-network`: energy used to handle network traffic, in kWh
 
@@ -35,7 +35,7 @@ plus the following required:
 ## Calculation
 
 `energy` is calculated as the sum of the energy due to CPU usage, energy due
-to network trafic, energy due to memory and energy due to GPU usage.
+to network traffic, energy due to memory and energy due to GPU usage.
 
 ```pseudocode
 energy = energy-cpu + energy-network + energy-memory + e-gpu
@@ -52,7 +52,7 @@ To run the model, you must first create an instance of `SciEModel` and
 call its `configure()` method. Then, you can call `execute()` to return `energy`.
 
 ```typescript
-import { SciEModel } from '@gsf/ief';
+import { SciEModel } from '@gsf/if-models';
 
 const sciEModel = new SciEModel();
 sciEModel.configure()
@@ -67,7 +67,7 @@ const results = sciEModel.execute([
 
 ## Example impl
 
-IEF users will typically call the model as part of a pipeline defined in an `impl` file. In this case, instantiating and configuring the model is handled by `impact-engine` and does not have to be done explicitly by the user. The following is an example `impl` that calls `sci-e`:
+IF users will typically call the model as part of a pipeline defined in an `impl` file. In this case, instantiating and configuring the model is handled by `impact-engine` and does not have to be done explicitly by the user. The following is an example `impl` that calls `sci-e`:
 
 ```yaml
 name: sci-e-demo
