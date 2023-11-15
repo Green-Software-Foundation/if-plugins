@@ -67,7 +67,7 @@ const results = sciOModel.execute([
 IEF users will typically call the model as part of a pipeline defined in an `impl` file. In this case, instantiating and configuring the model is handled by `impact-engine` and does not have to be done explicitly by the user. The following is an example `impl` that calls `sci-o`:
 
 ```yaml
-name: sci-o-demo
+name: sci-o
 description:
 tags:
 initialize:
@@ -88,3 +88,14 @@ graph:
           energy: 0.001
           grid-carbon-intensity: 800
 ```
+
+
+You can run this example `impl` by saving it as `./examples/impls/sci-o.yml` and executing the following command from the project root:
+
+```sh
+npm i -g @grnsft/if
+npm i -g @grnsft/if-models
+impact-engine --impl ./examples/impls/sci-o.yml --ompl ./examples/ompls/sci-o.yml
+```
+
+The results will be saved to a new `yaml` file in `./examples/ompls`.

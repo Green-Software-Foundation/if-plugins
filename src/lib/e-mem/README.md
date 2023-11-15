@@ -39,6 +39,7 @@ handled by `impact-engine` and does not have to be done explicitly by
 the user.
 
 The following is an example `impl` that calls `sci-e`:
+
 ```yaml
 name: e-mem-demo
 description:
@@ -60,3 +61,13 @@ graph:
           mem-util: 40
           total-memoryGB: 1
 ```
+
+You can run this example `impl` by saving it as `examples/impls/e-mem.yml` and executing the following command from the project root:
+
+```sh
+npm i -g @grnsft/if
+npm i -g @grnsft/if-models
+impact-engine --impl ./examples/impls/e-mem.yml --ompl ./examples/ompls/e-mem.yml
+```
+
+The results will be saved to a new `yaml` file in `./examples/ompls`.

@@ -162,3 +162,13 @@ graph:
           duration: 1
           requests: 100
 ```
+
+You can run this example `impl` by saving it as `./examples/impls/sci.yml` and executing the following command from the project root:
+
+```sh
+npm i -g @grnsft/if
+npm i -g @grnsft/if-models
+impact-engine --impl ./examples/impls/sci.yml --ompl ./examples/ompls/sci.yml
+```
+
+The results will be saved to a new `yaml` file in `./examples/ompls`.

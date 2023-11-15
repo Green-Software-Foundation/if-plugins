@@ -105,7 +105,7 @@ You can run this example `impl` by executing the following command from the proj
 ```sh
 npm i -g @grnsft/if
 npm i -g @grnsft/if-models
-impact-engine --impl ./examples/impls/sci-m.yml --ompl ./examples/ompls/sci-m-test.yml
+impact-engine --impl ./examples/impls/sci-m.yml --ompl ./examples/ompls/sci-m.yml
 ```
 
 The results will be saved to a new `yaml` file in `./examples/ompls`.

@@ -111,3 +111,14 @@ graph:
           duration: 100
           cpu: 10
 ```
+
+
+You can run this example `impl` by saving it as `./examples/impls/ccf.yml` and executing the following command from the project root:
+
+```sh
+npm i -g @grnsft/if
+npm i -g @grnsft/if-models
+impact-engine --impl ./examples/impls/sccf.yml --ompl ./examples/ompls/ccf.yml
+```
+
+The results will be saved to a new `yaml` file in `./examples/ompls`.

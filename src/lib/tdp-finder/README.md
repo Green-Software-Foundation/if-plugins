@@ -61,3 +61,13 @@ graph:
         - physical-processor: Intel Xeon Platinum 8175M, AMD A8-9600
           thermal-design-power: 150
 ```
+
+You can run this example `impl` by saving it as `./examples/impls/tdp-finder.yml` and executing the following command from the project root:
+
+```sh
+npm i -g @grnsft/if
+npm i -g @grnsft/if-models
+impact-engine --impl ./examples/impls/tdp-finder.yml --ompl ./examples/ompls/tdp-finder.yml
+```
+
+The results will be saved to a new `yaml` file in `./examples/ompls`.
