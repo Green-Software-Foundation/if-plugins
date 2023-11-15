@@ -54,7 +54,7 @@ initialize:
   models:
     - name: sampler
       model: ShellModel
-      path: if-models
+      path: '@grnsft/if-models'
 graph:
   children:
     child:
@@ -82,7 +82,7 @@ initialize:
   models:
     - name: sampler
       model: ShellModel
-      path: if-models
+      path: '@grnsft/if-models'
 graph:
   children:
     child:

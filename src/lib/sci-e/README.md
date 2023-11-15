@@ -76,9 +76,8 @@ tags:
 initialize:
   models:
     - name: sci-e
-      kind: plugin
       model: SciEModel
-      path: sci-e
+      path: '@grnsft/if-models'
 graph:
   children:
     child:

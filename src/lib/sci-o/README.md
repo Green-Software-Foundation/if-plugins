@@ -74,7 +74,7 @@ initialize:
   models:
     - name: sci-o
       model: SciOModel
-      path: @grnsft/if-models
+      path: '@grnsft/if-models'
 graph:
   children:
     child:

@@ -61,11 +61,11 @@ const sciMModel = new SciMModel();
 sciMModel.configure()
 const results = sciMModel.execute([
   {
-    total-embodied-emissions: 200, // in gCO2e for total resource units
-    time-reserved 60 * 60 * 24 * 30, // time reserved in seconds, can point to another field "duration"
-    expected-lifespan: 60 * 60 * 24 * 365 * 4, // lifespan in seconds (4 years)
-    resources-reserved: 1, // resource units reserved / used
-    total-resources: 1, // total resource units available
+    'total-embodied-emissions': 200, // in gCO2e for total resource units
+    'time-reserved': 60 * 60 * 24 * 30, // time reserved in seconds, can point to another field "duration"
+    'expected-lifespan': 60 * 60 * 24 * 365 * 4, // lifespan in seconds (4 years)
+    'resources-reserved': 1, // resource units reserved / used
+    'total-resources': 1, // total resource units available
   }
 ])
 ```
@@ -82,7 +82,7 @@ initialize:
   models:
     - name: sci-m
       model: SciMModel
-      path: @grnsft/if-models
+      path: '@grnsft/if-models'
 graph:
   children:
     child:

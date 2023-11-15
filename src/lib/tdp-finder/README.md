@@ -21,16 +21,43 @@ IEF implements the plugin based on the logic described above.
 - Model Name: `tdp-finder`
 
 ```yaml
-input:
-  - physical-processor: Intel Xeon Platinum 8175M, AMD A8-9600
+name: tdp-demo
+description:
+tags:
+initialize:
+  models:
+    - name: finder
+      model: TdpFinderModel
+      path: '@grnsft/if-models'
+graph:
+  children:
+    child:
+      pipeline:
+        - finder
+      inputs:
+        - physical-processor: Intel Xeon Platinum 8175M, AMD A8-9600
 ```
 
 ## Output in OMPL
 
+
 ```yaml
-input:
-  - physical-processor: Intel Xeon Platinum 8175M
-output:
-  - physical-processor: Intel Xeon Platinum 8175M
-    tdp: 165
+name: tdp-demo
+description:
+tags:
+initialize:
+  models:
+    - name: finder
+      model: TdpFinderModel
+      path: '@grnsft/if-models'
+graph:
+  children:
+    child:
+      pipeline:
+        - finder
+      inputs:
+        - physical-processor: Intel Xeon Platinum 8175M, AMD A8-9600
+      outputs:
+        - physical-processor: Intel Xeon Platinum 8175M, AMD A8-9600
+          thermal-design-power: 150
 ```
