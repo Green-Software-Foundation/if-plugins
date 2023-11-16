@@ -105,7 +105,6 @@ export class SciMModel implements ModelPluginInterface {
           tor = input['resources-reserved'];
         }
 
-        console.log(tor, rr)
         // M = TE * (TiR/EL) * (RR/ToR)
         input['embodied-carbon'] = te * (tir / el) * (rr / tor);
       }
