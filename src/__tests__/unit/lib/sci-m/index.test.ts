@@ -1,5 +1,5 @@
-import { describe, expect, jest, test } from '@jest/globals';
-import { SciMModel } from '../../../../lib';
+import {describe, expect, jest, test} from '@jest/globals';
+import {SciMModel} from '../../../../lib';
 
 jest.setTimeout(30000);
 

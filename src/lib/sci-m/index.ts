@@ -1,6 +1,6 @@
-import { ModelPluginInterface } from '../../interfaces';
+import {ModelPluginInterface} from '../../interfaces';
 
-import { KeyValuePair } from '../../types/common';
+import {KeyValuePair} from '../../types/common';
 
 export class SciMModel implements ModelPluginInterface {
   authParams: object | undefined = undefined;
@@ -52,9 +52,9 @@ export class SciMModel implements ModelPluginInterface {
         );
       }
       if (
-        ('total-embodied-emissions' in input) &&
-        ('time-reserved' in input) &&
-        ('expected-lifespan' in input) &&
+        'total-embodied-emissions' in input &&
+        'time-reserved' in input &&
+        'expected-lifespan' in input &&
         ('resources-reserved' in input || 'vcpus-allocated') &&
         ('total-resources' in input || 'vcpus-total' in input)
       ) {
@@ -79,29 +79,48 @@ export class SciMModel implements ModelPluginInterface {
         } else {
           el = parseFloat(input['expected-lifespan']);
         }
-        if ('vcpus-allocated' in input && typeof (input['vcpus-allocated']) == 'string') {
-          rr = parseFloat(input['vcpus-allocated'])
-        }
-        else if ('vcpus-allocated' in input && typeof (input['vcpus-allocated']) == 'number') {
-          rr = input['vcpus-allocated']
-        }
-        else if ('resources-reserved' in input && typeof input['resources-reserved'] === 'string') {
+        if (
+          'vcpus-allocated' in input &&
+          typeof input['vcpus-allocated'] === 'string'
+        ) {
+          rr = parseFloat(input['vcpus-allocated']);
+        } else if (
+          'vcpus-allocated' in input &&
+          typeof input['vcpus-allocated'] === 'number'
+        ) {
+          rr = input['vcpus-allocated'];
+        } else if (
+          'resources-reserved' in input &&
+          typeof input['resources-reserved'] === 'string'
+        ) {
           rr = parseFloat(input['resources-reserved']);
-        } else if ('resources-reserved' in input && typeof input['resources-reserved'] === 'number') {
+        } else if (
+          'resources-reserved' in input &&
+          typeof input['resources-reserved'] === 'number'
+        ) {
           rr = input['resources-reserved'];
         }
 
-        if ('vcpus-total' in input && typeof (input['vcpus-total']) == 'string') {
-          tor = parseFloat(input['vcpus-total'])
-        }
-        else if ('vcpus-total' in input && typeof (input['vcpus-total']) == 'number') {
-          tor = input['vcpus-total']
-          console.log("IN HERE")
-        }
-        else if ('resources-reserved' in input && typeof input['resources-reserved'] === 'string') {
+        if (
+          'vcpus-total' in input &&
+          typeof input['vcpus-total'] === 'string'
+        ) {
+          tor = parseFloat(input['vcpus-total']);
+        } else if (
+          'vcpus-total' in input &&
+          typeof input['vcpus-total'] === 'number'
+        ) {
+          tor = input['vcpus-total'];
+          console.log('IN HERE');
+        } else if (
+          'resources-reserved' in input &&
+          typeof input['resources-reserved'] === 'string'
+        ) {
           tor = parseFloat(input['resources-reserved']);
-        }
-        else if ('resources-reserved' in input && typeof input['resources-reserved'] === 'number') {
+        } else if (
+          'resources-reserved' in input &&
+          typeof input['resources-reserved'] === 'number'
+        ) {
           tor = input['resources-reserved'];
         }
 
