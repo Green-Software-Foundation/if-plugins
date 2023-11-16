@@ -37,8 +37,8 @@ export class SciMModel implements ModelPluginInterface {
           'total-embodied-emissions is missing. Provide in gCO2e'
         );
       }
-      if (!('time-reserved' in input)) {
-        throw new Error('time-reserved is missing. Provide in seconds');
+      if (!('duration' in input)) {
+        throw new Error('duration is missing. Provide in seconds');
       }
       if (!('expected-lifespan' in input)) {
         throw new Error('expected-lifespan is missing. Provide in seconds');
@@ -53,27 +53,27 @@ export class SciMModel implements ModelPluginInterface {
       }
       if (
         'total-embodied-emissions' in input &&
-        'time-reserved' in input &&
+        'duration' in input &&
         'expected-lifespan' in input &&
         ('resources-reserved' in input || 'vcpus-allocated') &&
         ('total-resources' in input || 'vcpus-total' in input)
       ) {
         if (typeof input['total-embodied-emissions'] === 'string') {
-          te = parseFloat(input[input['total-embodied-emissions']]);
+          te = parseFloat(input['total-embodied-emissions']);
         } else if (typeof input['total-embodied-emissions'] === 'number') {
           te = input['total-embodied-emissions'];
         } else {
           te = parseFloat(input['total-embodied-emissions']);
         }
-        if (typeof input['time-reserved'] === 'string') {
-          tir = parseFloat(input[input['time-reserved']]);
-        } else if (typeof input['time-reserved'] === 'number') {
-          tir = input['time-reserved'];
+        if (typeof input['duration'] === 'string') {
+          tir = parseFloat(input['duration']);
+        } else if (typeof input['duration'] === 'number') {
+          tir = input['duration'];
         } else {
-          tir = parseFloat(input['time-reserved']);
+          tir = parseFloat(input['duration']);
         }
         if (typeof input['expected-lifespan'] === 'string') {
-          el = parseFloat(input[input['expected-lifespan']]);
+          el = parseFloat(input['expected-lifespan']);
         } else if (typeof input['expected-lifespan'] === 'number') {
           el = input['expected-lifespan'];
         } else {

@@ -11,9 +11,8 @@ describe('sci-m:configure test', () => {
       model.execute([
         {
           timestamp: '2021-01-01T00:00:00Z',
-          duration: 1,
+          duration: 60 * 60 * 24 * 30,
           'total-embodied-emissions': 200,
-          'time-reserved': 60 * 60 * 24 * 30,
           'expected-lifespan': 60 * 60 * 24 * 365 * 4,
           'resources-reserved': 1,
           'total-resources': 1,
@@ -22,7 +21,6 @@ describe('sci-m:configure test', () => {
           timestamp: '2021-01-01T00:00:00Z',
           'total-embodied-emissions': 200,
           duration: 60 * 60 * 24 * 30 * 2,
-          'time-reserved': 'duration',
           'expected-lifespan': 60 * 60 * 24 * 365 * 4,
           'resources-reserved': 1,
           'total-resources': 1,
@@ -31,9 +29,8 @@ describe('sci-m:configure test', () => {
     ).resolves.toStrictEqual([
       {
         timestamp: '2021-01-01T00:00:00Z',
-        duration: 1,
+        duration: 60 * 60 * 24 * 30,
         'total-embodied-emissions': 200,
-        'time-reserved': 60 * 60 * 24 * 30,
         'expected-lifespan': 60 * 60 * 24 * 365 * 4,
         'resources-reserved': 1,
         'total-resources': 1,
@@ -43,7 +40,6 @@ describe('sci-m:configure test', () => {
         timestamp: '2021-01-01T00:00:00Z',
         'total-embodied-emissions': 200,
         duration: 60 * 60 * 24 * 30 * 2,
-        'time-reserved': 'duration',
         'expected-lifespan': 60 * 60 * 24 * 365 * 4,
         'resources-reserved': 1,
         'total-resources': 1,
@@ -54,9 +50,8 @@ describe('sci-m:configure test', () => {
       model.execute([
         {
           timestamp: '2021-01-01T00:00:00Z',
-          duration: 1,
+          duration: 60 * 60 * 24 * 30,
           'total-embodied-emissions': 200,
-          'time-reserved': 60 * 60 * 24 * 30,
           'expected-lifespan': 60 * 60 * 24 * 365 * 4,
           'vcpus-allocated': 1,
           'vcpus-total': 64,
@@ -65,7 +60,6 @@ describe('sci-m:configure test', () => {
           timestamp: '2021-01-01T00:00:00Z',
           'total-embodied-emissions': 200,
           duration: 60 * 60 * 24 * 30 * 2,
-          'time-reserved': 'duration',
           'expected-lifespan': 60 * 60 * 24 * 365 * 4,
           'vcpus-allocated': 1,
           'vcpus-total': 32,
@@ -74,9 +68,8 @@ describe('sci-m:configure test', () => {
     ).resolves.toStrictEqual([
       {
         timestamp: '2021-01-01T00:00:00Z',
-        duration: 1,
+        duration: 60 * 60 * 24 * 30,
         'total-embodied-emissions': 200,
-        'time-reserved': 60 * 60 * 24 * 30,
         'expected-lifespan': 60 * 60 * 24 * 365 * 4,
         'vcpus-allocated': 1,
         'vcpus-total': 64,
@@ -86,7 +79,6 @@ describe('sci-m:configure test', () => {
         timestamp: '2021-01-01T00:00:00Z',
         'total-embodied-emissions': 200,
         duration: 60 * 60 * 24 * 30 * 2,
-        'time-reserved': 'duration',
         'expected-lifespan': 60 * 60 * 24 * 365 * 4,
         'vcpus-allocated': 1,
         'vcpus-total': 32,
@@ -97,9 +89,8 @@ describe('sci-m:configure test', () => {
       model.execute([
         {
           timestamp: '2021-01-01T00:00:00Z',
-          duration: 1,
+          duration: 60 * 60 * 24 * 30,
           'total-embodied-emissions': 200,
-          'time-reserved': 60 * 60 * 24 * 30,
           'expected-lifespan': 60 * 60 * 24 * 365 * 4,
           'resources-reserved': 1,
           'total-resources': 1,
@@ -110,7 +101,6 @@ describe('sci-m:configure test', () => {
           timestamp: '2021-01-01T00:00:00Z',
           'total-embodied-emissions': 200,
           duration: 60 * 60 * 24 * 30 * 2,
-          'time-reserved': 'duration',
           'expected-lifespan': 60 * 60 * 24 * 365 * 4,
           'resources-reserved': 1,
           'total-resources': 1,
@@ -121,9 +111,8 @@ describe('sci-m:configure test', () => {
     ).resolves.toStrictEqual([
       {
         timestamp: '2021-01-01T00:00:00Z',
-        duration: 1,
+        duration: 60 * 60 * 24 * 30,
         'total-embodied-emissions': 200,
-        'time-reserved': 60 * 60 * 24 * 30,
         'expected-lifespan': 60 * 60 * 24 * 365 * 4,
         'resources-reserved': 1,
         'total-resources': 1,
@@ -135,7 +124,6 @@ describe('sci-m:configure test', () => {
         timestamp: '2021-01-01T00:00:00Z',
         'total-embodied-emissions': 200,
         duration: 60 * 60 * 24 * 30 * 2,
-        'time-reserved': 'duration',
         'expected-lifespan': 60 * 60 * 24 * 365 * 4,
         'resources-reserved': 1,
         'total-resources': 1,
@@ -151,7 +139,6 @@ describe('sci-m:configure test', () => {
           'total-embodied-emissions': 200,
           tee: 200,
           duration: 60 * 60 * 24 * 30 * 2,
-          'time-reserved': 'duration',
           'expected-lifespan': 60 * 60 * 24 * 365 * 4,
           'resources-reserved': 1,
           'total-ressources': 1,
