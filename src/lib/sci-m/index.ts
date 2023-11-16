@@ -1,6 +1,6 @@
-import {ModelPluginInterface} from '../../interfaces';
+import { ModelPluginInterface } from '../../interfaces';
 
-import {KeyValuePair} from '../../types/common';
+import { KeyValuePair } from '../../types/common';
 
 export class SciMModel implements ModelPluginInterface {
   authParams: object | undefined = undefined;
@@ -37,39 +37,27 @@ export class SciMModel implements ModelPluginInterface {
           'total-embodied-emissions is missing. Provide in gCO2e'
         );
       }
-      if (!('time-reserved' in input || 'time-reserved' in input)) {
+      if (!('time-reserved' in input)) {
         throw new Error('time-reserved is missing. Provide in seconds');
       }
-      if (!('expected-lifespan' in input || 'expected-lifespan' in input)) {
+      if (!('expected-lifespan' in input)) {
         throw new Error('expected-lifespan is missing. Provide in seconds');
       }
-      if (!('resources-reserved' in input || 'resources-reserved' in input)) {
+      if (!('resources-reserved' in input) && !('vcpus-allocated' in input)) {
         throw new Error('resources-reserved is missing. Provide as a count');
       }
-      if (!('total-resources' in input || 'total-resources' in input)) {
+      if (!('total-resources' in input) && !('vcpus-total' in input)) {
         throw new Error(
           'total-resources: total-resources is missing. Provide as a count'
         );
       }
       if (
-        ('total-embodied-emissions' in input ||
-          'total-embodied-emissions' in input) &&
-        ('time-reserved' in input || 'time-reserved' in input) &&
-        ('expected-lifespan' in input || 'expected-lifespan') &&
-        ('resources-reserved' in input || 'resources-reserved') &&
-        ('total-resources' in input || 'total-resources' in input)
+        ('total-embodied-emissions' in input) &&
+        ('time-reserved' in input) &&
+        ('expected-lifespan' in input) &&
+        ('resources-reserved' in input || 'vcpus-allocated') &&
+        ('total-resources' in input || 'vcpus-total' in input)
       ) {
-        input['total-embodied-emissions'] =
-          input['total-embodied-emissions'] ??
-          input['total-embodied-emissions'];
-        input['time-reserved'] =
-          input['time-reserved'] ?? input['time-reserved'];
-        input['expected-lifespan'] =
-          input['expected-lifespan'] ?? input['expected-lifespan'];
-        input['resources-reserved'] =
-          input['resources-reserved'] ?? input['resources-reserved'];
-        input['total-resources'] =
-          input['total-resources'] ?? input['total-resources'];
         if (typeof input['total-embodied-emissions'] === 'string') {
           te = parseFloat(input[input['total-embodied-emissions']]);
         } else if (typeof input['total-embodied-emissions'] === 'number') {
@@ -91,20 +79,33 @@ export class SciMModel implements ModelPluginInterface {
         } else {
           el = parseFloat(input['expected-lifespan']);
         }
-        if (typeof input['resources-reserved'] === 'string') {
-          rr = parseFloat(input[input['resources-reserved']]);
-        } else if (typeof input['resources-reserved'] === 'number') {
-          rr = input['resources-reserved'];
-        } else {
+        if ('vcpus-allocated' in input && typeof (input['vcpus-allocated']) == 'string') {
+          rr = parseFloat(input['vcpus-allocated'])
+        }
+        else if ('vcpus-allocated' in input && typeof (input['vcpus-allocated']) == 'number') {
+          rr = input['vcpus-allocated']
+        }
+        else if ('resources-reserved' in input && typeof input['resources-reserved'] === 'string') {
           rr = parseFloat(input['resources-reserved']);
+        } else if ('resources-reserved' in input && typeof input['resources-reserved'] === 'number') {
+          rr = input['resources-reserved'];
         }
-        if (typeof input['total-resources'] === 'string') {
-          tor = parseFloat(input[input['total-resources']]);
-        } else if (typeof input['total-resources'] === 'number') {
-          tor = input['total-resources'];
-        } else {
-          tor = parseFloat(input['total-resources']);
+
+        if ('vcpus-total' in input && typeof (input['vcpus-total']) == 'string') {
+          tor = parseFloat(input['vcpus-total'])
         }
+        else if ('vcpus-total' in input && typeof (input['vcpus-total']) == 'number') {
+          tor = input['vcpus-total']
+          console.log("IN HERE")
+        }
+        else if ('resources-reserved' in input && typeof input['resources-reserved'] === 'string') {
+          tor = parseFloat(input['resources-reserved']);
+        }
+        else if ('resources-reserved' in input && typeof input['resources-reserved'] === 'number') {
+          tor = input['resources-reserved'];
+        }
+
+        console.log(tor, rr)
         // M = TE * (TiR/EL) * (RR/ToR)
         input['embodied-carbon'] = te * (tir / el) * (rr / tor);
       }
