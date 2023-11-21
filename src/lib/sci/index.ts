@@ -1,11 +1,16 @@
 import {ModelPluginInterface} from '../../interfaces';
 
+import {ERRORS} from '../../util/errors';
+import {buildErrorMessage} from '../../util/helpers';
+
 import {KeyValuePair} from '../../types/common';
+
+const {InputValidationError} = ERRORS;
 
 export class SciModel implements ModelPluginInterface {
   authParams: object | undefined = undefined;
   staticParams: object | undefined;
-  name: string | undefined;
+  errorBuilder = buildErrorMessage(SciModel.name);
   time: string | unknown;
   functionalUnit = 'none';
   functionalUnitDuration = 1;
@@ -15,26 +20,44 @@ export class SciModel implements ModelPluginInterface {
   }
 
   async execute(inputs: object | object[] | undefined): Promise<any[]> {
-    if (!Array.isArray(inputs)) {
-      throw new Error('inputs should be an array');
+    if (inputs === undefined) {
+      throw new InputValidationError(
+        this.errorBuilder({
+          message: 'Input data is missing',
+        })
+      );
     }
 
-    const tunedinputs = inputs.map((input: KeyValuePair) => {
+    if (!Array.isArray(inputs)) {
+      throw new InputValidationError(
+        this.errorBuilder({
+          message: 'Input data is not an array',
+        })
+      );
+    }
+
+    const tunedInputs = inputs.map((input: KeyValuePair) => {
       if (!('operational-carbon' in input)) {
-        throw new Error('input missing `operational-carbon`');
+        throw new InputValidationError(
+          this.errorBuilder({
+            message: "Input missing 'operational-carbon'",
+          })
+        );
       }
       if (!('embodied-carbon' in input)) {
-        throw new Error('input missing `embodied-carbon`');
+        throw new InputValidationError(
+          this.errorBuilder({message: "Input missing 'embodied-carbon'"})
+        );
       }
 
       const operational = parseFloat(input['operational-carbon']);
       const embodied = parseFloat(input['embodied-carbon']);
 
       /*
-      If `carbon` is in inputs, use it.
-      If not, calculate it from operational and embodied carbon.
-      Divide by input[duration] to ensure time unit is /s
-      */
+       * If `carbon` is in inputs, use it.
+       * If not, calculate it from operational and embodied carbon.
+       * Divide by input[duration] to ensure time unit is /s
+       */
       let sci_secs = 0;
       if ('carbon' in input) {
         sci_secs = input['carbon'] / input['duration'];
@@ -47,8 +70,8 @@ export class SciModel implements ModelPluginInterface {
       let sci_timed_duration = sci_secs;
 
       /*
-      Convert C to desired time unit
-      */
+       * Convert C to desired time unit
+       */
       if (
         this.time === 's' ||
         this.time === 'second' ||
@@ -60,6 +83,7 @@ export class SciModel implements ModelPluginInterface {
       ) {
         sci_timed = sci_secs;
       }
+
       if (
         this.time === 'minute' ||
         this.time === 'minutes' ||
@@ -68,6 +92,7 @@ export class SciModel implements ModelPluginInterface {
       ) {
         sci_timed = sci_secs * 60;
       }
+
       if (
         this.time === 'hour' ||
         this.time === 'hours' ||
@@ -76,15 +101,19 @@ export class SciModel implements ModelPluginInterface {
       ) {
         sci_timed = sci_secs * 60 * 60;
       }
+
       if (this.time === 'day' || this.time === 'days' || this.time === 'd') {
         sci_timed = sci_secs * 60 * 60 * 24;
       }
+
       if (this.time === 'week' || this.time === 'weeks' || this.time === 'd') {
         sci_timed = sci_secs * 60 * 60 * 24 * 7;
       }
+
       if (this.time === 'month' || this.time === 'months') {
         sci_timed = sci_secs * 60 * 60 * 24 * 7 * 4;
       }
+
       if (
         this.time === 'year' ||
         this.time === 'years' ||
@@ -95,9 +124,9 @@ export class SciModel implements ModelPluginInterface {
       }
 
       /*
-      sci currently in whole single units of time - multiply by duration to
-      convert to user-defined span of time.
-      */
+       * Sci currently in whole single units of time - multiply by duration to
+       * Convert to user-defined span of time.
+       */
       sci_timed_duration = sci_timed * this.functionalUnitDuration;
 
       const functionalUnit = this.functionalUnit;
@@ -112,14 +141,19 @@ export class SciModel implements ModelPluginInterface {
       }
     });
 
-    return tunedinputs;
+    return tunedInputs;
   }
 
   async configure(
     staticParams: object | undefined
   ): Promise<ModelPluginInterface> {
     if (staticParams === undefined) {
-      throw new Error('Required Parameters not provided');
+      throw new InputValidationError(
+        this.errorBuilder({
+          scope: 'configure',
+          message: 'Missing input data',
+        })
+      );
     }
 
     this.staticParams = staticParams;
@@ -133,8 +167,11 @@ export class SciModel implements ModelPluginInterface {
     ) {
       this.functionalUnitDuration = staticParams['functional-unit-duration'];
     } else {
-      throw new Error(
-        'Functional unit duration is not a valid number: provide number of seconds represented by input'
+      throw new InputValidationError(
+        this.errorBuilder({
+          message:
+            'Functional unit duration is not a valid number: provide number of seconds represented by input',
+        })
       );
     }
     if (
