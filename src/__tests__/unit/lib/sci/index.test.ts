@@ -1,7 +1,6 @@
 import { describe, expect, jest } from '@jest/globals';
 import { SciModel } from '../../../../lib';
 
-
 jest.setTimeout(30000);
 
 describe('sci:configure test', () => {
@@ -150,7 +149,7 @@ describe('sci:configure test', () => {
           duration: 1,
         },
       ])
-    ).rejects.toThrowError('functional-unit-time is not available')
+    ).rejects.toThrowError('functional-unit-time is not available');
   });
   it('tests model throws exception on invalid functional unit data', async () => {
     const model = await new SciModel().configure({});
@@ -166,7 +165,9 @@ describe('sci:configure test', () => {
           duration: 1,
         },
       ])
-    ).rejects.toThrowError('functional-unit-time is not a valid positive number')
+    ).rejects.toThrowError(
+      'functional-unit-time is not a valid positive number'
+    );
   });
   it('tests model throws exception on negative time value', async () => {
     const model = await new SciModel().configure({});
@@ -182,7 +183,9 @@ describe('sci:configure test', () => {
           duration: 1,
         },
       ])
-    ).rejects.toThrowError('functional-unit-time is not a valid positive number')
+    ).rejects.toThrowError(
+      'functional-unit-time is not a valid positive number'
+    );
   });
   it('tests model throws exception on invalid time unit', async () => {
     const model = await new SciModel().configure({});
@@ -198,7 +201,9 @@ describe('sci:configure test', () => {
           duration: 1,
         },
       ])
-    ).rejects.toThrowError('functional-unit-time is not in recognized unit of time')
+    ).rejects.toThrowError(
+      'functional-unit-time is not in recognized unit of time'
+    );
   });
   it('tests model accepts underscore separated values in functional-unit-time', async () => {
     const model = await new SciModel().configure({});
@@ -268,7 +273,9 @@ describe('sci:configure test', () => {
           duration: 1,
         },
       ])
-    ).rejects.toThrowError('Error parsing functional-unit-time. Please ensure you have provided one value and one unit and they are either space, underscore or hyphen separated')
+    ).rejects.toThrowError(
+      'Error parsing functional-unit-time. Please ensure you have provided one value and one unit and they are either space, underscore or hyphen separated'
+    );
   });
   it('tests model throws exception on bad string formatting (no separator) in functional-unit-time', async () => {
     const model = await new SciModel().configure({});
@@ -284,6 +291,8 @@ describe('sci:configure test', () => {
           duration: 1,
         },
       ])
-    ).rejects.toThrowError('Error parsing functional-unit-time. Please ensure you have provided one value and one unit and they are either space, underscore or hyphen separated')
+    ).rejects.toThrowError(
+      'Error parsing functional-unit-time. Please ensure you have provided one value and one unit and they are either space, underscore or hyphen separated'
+    );
   });
 });

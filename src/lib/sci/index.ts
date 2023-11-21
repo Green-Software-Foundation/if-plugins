@@ -62,30 +62,27 @@ export class SciModel implements ModelPluginInterface {
       */
       if (seconds.includes(this.functionalUnitTimeUnit)) {
         //pass
-      }
-      else if (minutes.includes(this.functionalUnitTimeUnit)) {
+      } else if (minutes.includes(this.functionalUnitTimeUnit)) {
         sci_timed = sci_secs * 60;
-      }
-      else if (hours.includes(this.functionalUnitTimeUnit)) {
+      } else if (hours.includes(this.functionalUnitTimeUnit)) {
         sci_timed = sci_secs * 60 * 60;
-      }
-      else if (days.includes(this.functionalUnitTimeUnit)) {
+      } else if (days.includes(this.functionalUnitTimeUnit)) {
         sci_timed = sci_secs * 60 * 60 * 24;
-      }
-      else if (weeks.includes(this.functionalUnitTimeUnit)) {
+      } else if (weeks.includes(this.functionalUnitTimeUnit)) {
         sci_timed = sci_secs * 60 * 60 * 24 * 7;
-      }
-      else if (months.includes(this.functionalUnitTimeUnit)) {
-        if (this.functionalUnitTimeUnit == 'm') {
-          console.warn("you are using `m` as your time unit. This is interpreted as months. If you meant minutes, please use `min` instead.")
+      } else if (months.includes(this.functionalUnitTimeUnit)) {
+        if (this.functionalUnitTimeUnit === 'm') {
+          console.warn(
+            'you are using `m` as your time unit. This is interpreted as months. If you meant minutes, please use `min` instead.'
+          );
         }
         sci_timed = sci_secs * 60 * 60 * 24 * 7 * 4;
-      }
-      else if (years.includes(this.functionalUnitTimeUnit)) {
+      } else if (years.includes(this.functionalUnitTimeUnit)) {
         sci_timed = sci_secs * 60 * 60 * 24 * 365;
-      }
-      else {
-        throw new Error("functional-unit-time is not in recognized unit of time")
+      } else {
+        throw new Error(
+          'functional-unit-time is not in recognized unit of time'
+        );
       }
 
       // apply any functional unit conversion to time-corrected SCI score
@@ -124,26 +121,27 @@ export class SciModel implements ModelPluginInterface {
     if (!Array.isArray(inputs)) {
       throw new Error('inputs should be an array');
     }
-    var splits;
+    let splits;
     if (
       'functional-unit-time' in inputs[0] &&
       typeof inputs[0]['functional-unit-time'] === 'string'
     ) {
       const timeString = inputs[0]['functional-unit-time'];
-      if (timeString.includes("-")) {
-        splits = timeString.split("-");
-      } else if (timeString.includes("_")) {
-        splits = timeString.split("_");
-      }
-      else {
-        splits = timeString.split(" ");
+      if (timeString.includes('-')) {
+        splits = timeString.split('-');
+      } else if (timeString.includes('_')) {
+        splits = timeString.split('_');
+      } else {
+        splits = timeString.split(' ');
       }
       if (splits.length !== 2) {
-        throw new Error("Error parsing functional-unit-time. Please ensure you have provided one value and one unit and they are either space, underscore or hyphen separated")
+        throw new Error(
+          'Error parsing functional-unit-time. Please ensure you have provided one value and one unit and they are either space, underscore or hyphen separated'
+        );
       }
       const timeValue = parseFloat(splits[0]);
-      if (typeof (timeValue) !== 'number' || timeValue <= 0 || isNaN(timeValue)) {
-        throw new Error("functional-unit-time is not a valid positive number")
+      if (typeof timeValue !== 'number' || timeValue <= 0 || isNaN(timeValue)) {
+        throw new Error('functional-unit-time is not a valid positive number');
       }
       const timeUnit = splits[1];
       this.functionalUnitTimeUnit = timeUnit;
