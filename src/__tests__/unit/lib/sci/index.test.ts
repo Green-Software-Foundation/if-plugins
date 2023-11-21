@@ -1,12 +1,12 @@
-import { describe, expect, jest, test } from '@jest/globals';
+import { describe, expect, jest } from '@jest/globals';
 import { SciModel } from '../../../../lib';
+
 
 jest.setTimeout(30000);
 
 describe('sci:configure test', () => {
-  test('initialize and test', async () => {
-    const model = await new SciModel().configure({
-    });
+  it('initialize and test calculations with vaild inputs', async () => {
+    const model = await new SciModel().configure({});
     expect(model).toBeInstanceOf(SciModel);
     await expect(
       model.execute([
@@ -60,9 +60,8 @@ describe('sci:configure test', () => {
       },
     ]);
   });
-  test('initialize and test: vary input duration ', async () => {
-    const model = await new SciModel().configure({
-    });
+  it('initialize and test: vary input duration ', async () => {
+    const model = await new SciModel().configure({});
     expect(model).toBeInstanceOf(SciModel);
     await expect(
       model.execute([
@@ -111,9 +110,8 @@ describe('sci:configure test', () => {
       },
     ]);
   });
-  test('initialize and test: vary functional-unit-duration', async () => {
-    const model = await new SciModel().configure({
-    });
+  it('initialize and test: vary time unit', async () => {
+    const model = await new SciModel().configure({});
     expect(model).toBeInstanceOf(SciModel);
     await expect(
       model.execute([
@@ -138,5 +136,68 @@ describe('sci:configure test', () => {
         sci: 432,
       },
     ]);
+  });
+  it('tests model throws excetion on missing functional unit data', async () => {
+    const model = await new SciModel().configure({});
+    expect(model).toBeInstanceOf(SciModel);
+    await expect(
+      model.execute([
+        {
+          timestamp: '2021-01-01T00:00:00Z',
+          'operational-carbon': 0.002,
+          'embodied-carbon': 0.0005,
+          'functional-unit': 'requests',
+          duration: 1,
+        },
+      ])
+    ).rejects.toThrowError('functional-unit-time is not available')
+  });
+  it('tests model throws excetion on invalid functional unit data', async () => {
+    const model = await new SciModel().configure({});
+    expect(model).toBeInstanceOf(SciModel);
+    await expect(
+      model.execute([
+        {
+          timestamp: '2021-01-01T00:00:00Z',
+          'operational-carbon': 0.002,
+          'embodied-carbon': 0.0005,
+          'functional-unit': 'requests',
+          'functional-unit-time': 'bad-data',
+          duration: 1,
+        },
+      ])
+    ).rejects.toThrowError('functional-unit-time is not a positive number')
+  });
+  it('tests model throws excetion on negative time value', async () => {
+    const model = await new SciModel().configure({});
+    expect(model).toBeInstanceOf(SciModel);
+    await expect(
+      model.execute([
+        {
+          timestamp: '2021-01-01T00:00:00Z',
+          'operational-carbon': 0.002,
+          'embodied-carbon': 0.0005,
+          'functional-unit': 'requests',
+          'functional-unit-time': '-1 hour',
+          duration: 1,
+        },
+      ])
+    ).rejects.toThrowError('functional-unit-time is not a positive number')
+  });
+  it('tests model throws exception on invalid time unit', async () => {
+    const model = await new SciModel().configure({});
+    expect(model).toBeInstanceOf(SciModel);
+    await expect(
+      model.execute([
+        {
+          timestamp: '2021-01-01T00:00:00Z',
+          'operational-carbon': 0.002,
+          'embodied-carbon': 0.0005,
+          'functional-unit': 'requests',
+          'functional-unit-time': '1 badData',
+          duration: 1,
+        },
+      ])
+    ).rejects.toThrowError('functional-unit-time is not in recognized unit of time')
   });
 });
