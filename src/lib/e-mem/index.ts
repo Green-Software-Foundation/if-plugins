@@ -12,7 +12,7 @@ export class EMemModel implements ModelPluginInterface {
   name: string | undefined; // name of the data source
   memoryAllocation = 0;
   memoryEnergy = 0;
-  errorBuilder = buildErrorMessage(EMemModel.name);
+  errorBuilder = buildErrorMessage(EMemModel);
 
   /**
    * Defined for compatibility. Not used.
