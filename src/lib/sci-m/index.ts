@@ -11,7 +11,7 @@ export class SciMModel implements ModelPluginInterface {
   authParams: object | undefined = undefined;
   staticParams: object | undefined;
   name: string | undefined;
-  errorBuilder = buildErrorMessage(SciMModel.name);
+  errorBuilder = buildErrorMessage(SciMModel);
 
   authenticate(authParams: object): void {
     this.authParams = authParams;
