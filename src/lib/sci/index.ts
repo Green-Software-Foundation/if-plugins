@@ -15,7 +15,7 @@ export class SciModel implements ModelPluginInterface {
   functionalUnitTimeValue = 1;
   functionalUnitTimeUnit = '';
   factor = 1;
-  errorBuilder = buildErrorMessage(SciModel.name);
+  errorBuilder = buildErrorMessage(SciModel);
 
   authenticate(authParams: object): void {
     this.authParams = authParams;
