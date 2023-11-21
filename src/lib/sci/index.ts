@@ -1,5 +1,4 @@
 import { ModelPluginInterface } from '../../interfaces';
-
 import { KeyValuePair } from '../../types/common';
 
 export class SciModel implements ModelPluginInterface {
@@ -20,8 +19,7 @@ export class SciModel implements ModelPluginInterface {
       throw new Error('inputs should be an array');
     }
 
-    // get value and unit for functional unit of time
-
+    // parseout time value and unit from input string
     this.parseTime(inputs);
 
     const tunedinputs = inputs.map((input: KeyValuePair) => {
@@ -50,7 +48,7 @@ export class SciModel implements ModelPluginInterface {
 
       let sci_timed: number = sci_secs;
       let sci_timed_duration = sci_secs;
-      
+
       const seconds = ['s', 'second', 'sec', 'secs', 'seconds'];
       const minutes = ['min', 'mins', 'minute', 'minutes'];
       const hours = ['h', 'hs', 'hr', 'hrs', 'hour', 'hours'];
@@ -63,7 +61,7 @@ export class SciModel implements ModelPluginInterface {
       Convert C to desired time unit
       */
       if (seconds.includes(this.functionalUnitTimeUnit)) {
-        sci_timed = sci_secs;
+        //pass
       }
       else if (minutes.includes(this.functionalUnitTimeUnit)) {
         sci_timed = sci_secs * 60;
@@ -90,6 +88,7 @@ export class SciModel implements ModelPluginInterface {
         throw new Error("functional-unit-time is not in recognized unit of time")
       }
 
+      // apply any functional unit conversion to time-corrected SCI score
       let factor = 1; // default functional unit is 1 - i.e. do not change current value
       this.functionalUnit = input['functional-unit'];
       if (
@@ -125,16 +124,26 @@ export class SciModel implements ModelPluginInterface {
     if (!Array.isArray(inputs)) {
       throw new Error('inputs should be an array');
     }
+    var splits;
     if (
       'functional-unit-time' in inputs[0] &&
       typeof inputs[0]['functional-unit-time'] === 'string'
     ) {
       const timeString = inputs[0]['functional-unit-time'];
-      const splits = timeString.split(' ');
+      if (timeString.includes("-")) {
+        splits = timeString.split("-");
+      } else if (timeString.includes("_")) {
+        splits = timeString.split("_");
+      }
+      else {
+        splits = timeString.split(" ");
+      }
+      if (splits.length !== 2) {
+        throw new Error("Error parsing functional-unit-time. Please ensure you have provided one value and one unit and they are either space, underscore or hyphen separated")
+      }
       const timeValue = parseFloat(splits[0]);
-      console.log(typeof (timeValue), timeValue)
       if (typeof (timeValue) !== 'number' || timeValue <= 0 || isNaN(timeValue)) {
-        throw new Error("functional-unit-time is not a positive number")
+        throw new Error("functional-unit-time is not a valid positive number")
       }
       const timeUnit = splits[1];
       this.functionalUnitTimeUnit = timeUnit;
