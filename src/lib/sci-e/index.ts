@@ -1,10 +1,16 @@
 import {ModelPluginInterface} from '../../interfaces';
 
+import {ERRORS} from '../../util/errors';
+import {buildErrorMessage} from '../../util/helpers';
+
 import {KeyValuePair} from '../../types/common';
+
+const {InputValidationError} = ERRORS;
 
 export class SciEModel implements ModelPluginInterface {
   authParams: object | undefined; // Defined for compatibility. Not used in thi smodel.
   name: string | undefined; // name of the data source
+  errorBuilder = buildErrorMessage(SciEModel.name);
 
   /**
    * Defined for compatibility. Not used in energy-network.
@@ -22,7 +28,12 @@ export class SciEModel implements ModelPluginInterface {
     staticParams: object | undefined = undefined
   ): Promise<ModelPluginInterface> {
     if (staticParams === undefined) {
-      throw new Error('Required Parameters not provided');
+      throw new InputValidationError(
+        this.errorBuilder({
+          scope: 'configure',
+          message: 'Missing input data',
+        })
+      );
     }
 
     return this;
@@ -37,9 +48,19 @@ export class SciEModel implements ModelPluginInterface {
    */
   async execute(inputs: object | object[] | undefined): Promise<any[]> {
     if (inputs === undefined) {
-      throw new Error('Required Parameters not provided');
-    } else if (!Array.isArray(inputs)) {
-      throw new Error('inputs must be an array');
+      throw new InputValidationError(
+        this.errorBuilder({
+          message: 'Input data is missing',
+        })
+      );
+    }
+
+    if (!Array.isArray(inputs)) {
+      throw new InputValidationError(
+        this.errorBuilder({
+          message: 'Input data is not an array',
+        })
+      );
     }
 
     return inputs.map((input: KeyValuePair) => {
@@ -70,8 +91,12 @@ export class SciEModel implements ModelPluginInterface {
       !('energy-memory' in input) &&
       !('energy-network' in input)
     ) {
-      throw new Error(
-        'Required Parameters not provided: at least one of energy-memory, energy-network or energy must be present in input'
+      throw new InputValidationError(
+        this.errorBuilder({
+          message:
+            "At least one of 'energy-memory', 'energy-network' or 'energy' must be present in 'input'",
+          scope: 'calculate-energy',
+        })
       );
     }
 
