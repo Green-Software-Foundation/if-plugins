@@ -37,74 +37,93 @@ export class SciMModel implements ModelPluginInterface {
           'total-embodied-emissions is missing. Provide in gCO2e'
         );
       }
-      if (!('time-reserved' in input || 'time-reserved' in input)) {
-        throw new Error('time-reserved is missing. Provide in seconds');
+      if (!('duration' in input)) {
+        throw new Error('duration is missing. Provide in seconds');
       }
-      if (!('expected-lifespan' in input || 'expected-lifespan' in input)) {
+      if (!('expected-lifespan' in input)) {
         throw new Error('expected-lifespan is missing. Provide in seconds');
       }
-      if (!('resources-reserved' in input || 'resources-reserved' in input)) {
+      if (!('resources-reserved' in input) && !('vcpus-allocated' in input)) {
         throw new Error('resources-reserved is missing. Provide as a count');
       }
-      if (!('total-resources' in input || 'total-resources' in input)) {
+      if (!('total-resources' in input) && !('vcpus-total' in input)) {
         throw new Error(
           'total-resources: total-resources is missing. Provide as a count'
         );
       }
       if (
-        ('total-embodied-emissions' in input ||
-          'total-embodied-emissions' in input) &&
-        ('time-reserved' in input || 'time-reserved' in input) &&
-        ('expected-lifespan' in input || 'expected-lifespan') &&
-        ('resources-reserved' in input || 'resources-reserved') &&
-        ('total-resources' in input || 'total-resources' in input)
+        'total-embodied-emissions' in input &&
+        'duration' in input &&
+        'expected-lifespan' in input &&
+        ('resources-reserved' in input || 'vcpus-allocated') &&
+        ('total-resources' in input || 'vcpus-total' in input)
       ) {
-        input['total-embodied-emissions'] =
-          input['total-embodied-emissions'] ??
-          input['total-embodied-emissions'];
-        input['time-reserved'] =
-          input['time-reserved'] ?? input['time-reserved'];
-        input['expected-lifespan'] =
-          input['expected-lifespan'] ?? input['expected-lifespan'];
-        input['resources-reserved'] =
-          input['resources-reserved'] ?? input['resources-reserved'];
-        input['total-resources'] =
-          input['total-resources'] ?? input['total-resources'];
         if (typeof input['total-embodied-emissions'] === 'string') {
-          te = parseFloat(input[input['total-embodied-emissions']]);
+          te = parseFloat(input['total-embodied-emissions']);
         } else if (typeof input['total-embodied-emissions'] === 'number') {
           te = input['total-embodied-emissions'];
         } else {
           te = parseFloat(input['total-embodied-emissions']);
         }
-        if (typeof input['time-reserved'] === 'string') {
-          tir = parseFloat(input[input['time-reserved']]);
-        } else if (typeof input['time-reserved'] === 'number') {
-          tir = input['time-reserved'];
+        if (typeof input['duration'] === 'string') {
+          tir = parseFloat(input['duration']);
+        } else if (typeof input['duration'] === 'number') {
+          tir = input['duration'];
         } else {
-          tir = parseFloat(input['time-reserved']);
+          tir = parseFloat(input['duration']);
         }
         if (typeof input['expected-lifespan'] === 'string') {
-          el = parseFloat(input[input['expected-lifespan']]);
+          el = parseFloat(input['expected-lifespan']);
         } else if (typeof input['expected-lifespan'] === 'number') {
           el = input['expected-lifespan'];
         } else {
           el = parseFloat(input['expected-lifespan']);
         }
-        if (typeof input['resources-reserved'] === 'string') {
-          rr = parseFloat(input[input['resources-reserved']]);
-        } else if (typeof input['resources-reserved'] === 'number') {
-          rr = input['resources-reserved'];
-        } else {
+        if (
+          'vcpus-allocated' in input &&
+          typeof input['vcpus-allocated'] === 'string'
+        ) {
+          rr = parseFloat(input['vcpus-allocated']);
+        } else if (
+          'vcpus-allocated' in input &&
+          typeof input['vcpus-allocated'] === 'number'
+        ) {
+          rr = input['vcpus-allocated'];
+        } else if (
+          'resources-reserved' in input &&
+          typeof input['resources-reserved'] === 'string'
+        ) {
           rr = parseFloat(input['resources-reserved']);
+        } else if (
+          'resources-reserved' in input &&
+          typeof input['resources-reserved'] === 'number'
+        ) {
+          rr = input['resources-reserved'];
         }
-        if (typeof input['total-resources'] === 'string') {
-          tor = parseFloat(input[input['total-resources']]);
-        } else if (typeof input['total-resources'] === 'number') {
-          tor = input['total-resources'];
-        } else {
-          tor = parseFloat(input['total-resources']);
+
+        if (
+          'vcpus-total' in input &&
+          typeof input['vcpus-total'] === 'string'
+        ) {
+          tor = parseFloat(input['vcpus-total']);
+        } else if (
+          'vcpus-total' in input &&
+          typeof input['vcpus-total'] === 'number'
+        ) {
+          tor = input['vcpus-total'];
+          console.log('IN HERE');
+        } else if (
+          'resources-reserved' in input &&
+          typeof input['resources-reserved'] === 'string'
+        ) {
+          tor = parseFloat(input['resources-reserved']);
+        } else if (
+          'resources-reserved' in input &&
+          typeof input['resources-reserved'] === 'number'
+        ) {
+          tor = input['resources-reserved'];
         }
+
         // M = TE * (TiR/EL) * (RR/ToR)
         input['embodied-carbon'] = te * (tir / el) * (rr / tor);
       }
