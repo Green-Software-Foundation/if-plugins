@@ -1,11 +1,18 @@
 import {ModelPluginInterface} from '../../interfaces';
-import {KeyValuePair} from '../../types/common';
+
+import {ERRORS} from '../../util/errors';
+import {buildErrorMessage} from '../../util/helpers';
+
+import {KeyValuePair, ModelParams} from '../../types/common';
+
+const {InputValidationError} = ERRORS;
 
 export class EMemModel implements ModelPluginInterface {
   authParams: object | undefined; // Defined for compatibility. Not used in this.
   name: string | undefined; // name of the data source
   memoryAllocation = 0;
   memoryEnergy = 0;
+  errorBuilder = buildErrorMessage(EMemModel.name);
 
   /**
    * Defined for compatibility. Not used.
@@ -25,7 +32,12 @@ export class EMemModel implements ModelPluginInterface {
     staticParams: object | undefined = undefined
   ): Promise<ModelPluginInterface> {
     if (staticParams === undefined) {
-      throw new Error('Required Parameters not provided');
+      throw new InputValidationError(
+        this.errorBuilder({
+          scope: 'configure',
+          message: 'Missing input data',
+        })
+      );
     }
 
     if ('mem-alloc' in staticParams) {
@@ -47,11 +59,21 @@ export class EMemModel implements ModelPluginInterface {
    * @param {string} inputs[].timestamp RFC3339 timestamp string
    * @param {number} inputs[].mem-util percentage mem usage
    */
-  async execute(inputs: object | object[] | undefined): Promise<any[]> {
+  async execute(inputs: ModelParams[]): Promise<any[]> {
     if (inputs === undefined) {
-      throw new Error('Required Parameters not provided');
-    } else if (!Array.isArray(inputs)) {
-      throw new Error('inputs must be an array');
+      throw new InputValidationError(
+        this.errorBuilder({
+          message: 'Input data is missing',
+        })
+      );
+    }
+
+    if (!Array.isArray(inputs)) {
+      throw new InputValidationError(
+        this.errorBuilder({
+          message: 'Input data is not an array',
+        })
+      );
     }
 
     return inputs.map((input: KeyValuePair) => {
@@ -73,20 +95,26 @@ export class EMemModel implements ModelPluginInterface {
    */
   private calculateEnergy(input: KeyValuePair) {
     if (!('mem-util' in input) || !('timestamp' in input)) {
-      throw new Error(
-        'Required Parameters duration,cpu-util,timestamp not provided for input'
+      throw new InputValidationError(
+        this.errorBuilder({
+          message: "Inputs 'mem-util' or 'timestamp' are not provided",
+        })
       );
     }
 
     if (this.memoryAllocation === 0) {
-      throw new Error(
-        'Required Parameter: mem-alloc not provided in configure'
+      throw new InputValidationError(
+        this.errorBuilder({
+          message: "'mem-alloc' is not passed to configure method",
+        })
       );
     }
 
     if (this.memoryEnergy === 0) {
-      throw new Error(
-        'Required Parameter: mem-energy not provided in configure'
+      throw new InputValidationError(
+        this.errorBuilder({
+          message: "'mem-energy' is not passed to configure method",
+        })
       );
     }
 
@@ -94,7 +122,12 @@ export class EMemModel implements ModelPluginInterface {
     const mem_util = input['mem-util']; // convert cpu usage to percentage
 
     if (mem_util < 0 || mem_util > 100) {
-      throw new Error('cpu usage must be between 0 and 100');
+      throw new InputValidationError(
+        this.errorBuilder({
+          message:
+            "Invalid value for 'mem-util'. Must be between '0' and '100'",
+        })
+      );
     }
 
     return (mem_alloc * (mem_util / 100) * this.memoryEnergy) / 1000;
