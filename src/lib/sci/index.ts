@@ -1,14 +1,14 @@
 import {ModelPluginInterface} from '../../interfaces';
-
 import {KeyValuePair} from '../../types/common';
 
 export class SciModel implements ModelPluginInterface {
   authParams: object | undefined = undefined;
   staticParams: object | undefined;
   name: string | undefined;
-  time: string | unknown;
   functionalUnit = 'none';
-  functionalUnitDuration = 1;
+  functionalUnitTimeValue = 1;
+  functionalUnitTimeUnit = '';
+  factor = 1;
 
   authenticate(authParams: object): void {
     this.authParams = authParams;
@@ -18,6 +18,9 @@ export class SciModel implements ModelPluginInterface {
     if (!Array.isArray(inputs)) {
       throw new Error('inputs should be an array');
     }
+
+    // parseout time value and unit from input string
+    this.parseTime(inputs);
 
     const tunedinputs = inputs.map((input: KeyValuePair) => {
       if (!('operational-carbon' in input)) {
@@ -46,70 +49,60 @@ export class SciModel implements ModelPluginInterface {
       let sci_timed: number = sci_secs;
       let sci_timed_duration = sci_secs;
 
+      const seconds = ['s', 'second', 'sec', 'secs', 'seconds'];
+      const minutes = ['min', 'mins', 'minute', 'minutes'];
+      const hours = ['h', 'hs', 'hr', 'hrs', 'hour', 'hours'];
+      const days = ['d', 'ds', 'day', 'ds', 'days'];
+      const weeks = ['w', 'ws', 'wk', 'wks', 'week', 'weeks'];
+      const months = ['m', 'mnth', 'mth', 'mnths', 'mths', 'month', 'months'];
+      const years = ['y', 'ys', 'yr', 'yrs', 'year', 'years'];
+
       /*
       Convert C to desired time unit
       */
-      if (
-        this.time === 's' ||
-        this.time === 'second' ||
-        this.time === 'seconds' ||
-        this.time === 'secs' ||
-        this.time === '' ||
-        this.time === null ||
-        this.time === 'none'
-      ) {
-        sci_timed = sci_secs;
-      }
-      if (
-        this.time === 'minute' ||
-        this.time === 'minutes' ||
-        this.time === 'mins' ||
-        this.time === 'm'
-      ) {
+      if (seconds.includes(this.functionalUnitTimeUnit)) {
+        //pass
+      } else if (minutes.includes(this.functionalUnitTimeUnit)) {
         sci_timed = sci_secs * 60;
-      }
-      if (
-        this.time === 'hour' ||
-        this.time === 'hours' ||
-        this.time === 'hr' ||
-        this.time === 'h'
-      ) {
+      } else if (hours.includes(this.functionalUnitTimeUnit)) {
         sci_timed = sci_secs * 60 * 60;
-      }
-      if (this.time === 'day' || this.time === 'days' || this.time === 'd') {
+      } else if (days.includes(this.functionalUnitTimeUnit)) {
         sci_timed = sci_secs * 60 * 60 * 24;
-      }
-      if (this.time === 'week' || this.time === 'weeks' || this.time === 'd') {
+      } else if (weeks.includes(this.functionalUnitTimeUnit)) {
         sci_timed = sci_secs * 60 * 60 * 24 * 7;
-      }
-      if (this.time === 'month' || this.time === 'months') {
+      } else if (months.includes(this.functionalUnitTimeUnit)) {
+        if (this.functionalUnitTimeUnit === 'm') {
+          console.warn(
+            'you are using `m` as your time unit. This is interpreted as months. If you meant minutes, please use `min` instead.'
+          );
+        }
         sci_timed = sci_secs * 60 * 60 * 24 * 7 * 4;
-      }
-      if (
-        this.time === 'year' ||
-        this.time === 'years' ||
-        this.time === 'yr' ||
-        this.time === 'y'
-      ) {
+      } else if (years.includes(this.functionalUnitTimeUnit)) {
         sci_timed = sci_secs * 60 * 60 * 24 * 365;
+      } else {
+        throw new Error(
+          'functional-unit-time is not in recognized unit of time'
+        );
       }
 
+      // apply any functional unit conversion to time-corrected SCI score
+      let factor = 1; // default functional unit is 1 - i.e. do not change current value
+      this.functionalUnit = input['functional-unit'];
+      if (
+        this.functionalUnit in input &&
+        input[this.functionalUnit] !== 'none' &&
+        input[this.functionalUnit] !== ''
+      ) {
+        factor = input[this.functionalUnit];
+      }
       /*
       sci currently in whole single units of time - multiply by duration to
       convert to user-defined span of time.
       */
-      sci_timed_duration = sci_timed * this.functionalUnitDuration;
+      sci_timed_duration = sci_timed * this.functionalUnitTimeValue;
+      input['sci'] = sci_timed_duration / factor;
 
-      const functionalUnit = this.functionalUnit;
-
-      if (this.functionalUnit !== 'none') {
-        const factor = input[functionalUnit];
-        input['sci'] = sci_timed_duration / factor;
-        return input;
-      } else {
-        input['sci'] = sci_timed_duration;
-        return input;
-      }
+      return input;
     });
 
     return tunedinputs;
@@ -121,32 +114,40 @@ export class SciModel implements ModelPluginInterface {
     if (staticParams === undefined) {
       throw new Error('Required Parameters not provided');
     }
-
-    this.staticParams = staticParams;
-
-    if ('functional-unit-time' in staticParams) {
-      this.time = staticParams['functional-unit-time'] as number;
-    }
-    if (
-      'functional-unit-duration' in staticParams &&
-      typeof staticParams['functional-unit-duration'] === 'number'
-    ) {
-      this.functionalUnitDuration = staticParams['functional-unit-duration'];
-    } else {
-      throw new Error(
-        'Functional unit duration is not a valid number: provide number of seconds represented by input'
-      );
-    }
-    if (
-      'functional-unit' in staticParams &&
-      typeof staticParams['functional-unit'] === 'string' &&
-      staticParams['functional-unit'] !== ''
-    ) {
-      this.functionalUnit = staticParams['functional-unit'];
-    } else {
-      this.functionalUnit = 'none';
-    }
-
     return this;
+  }
+
+  private parseTime(inputs: object) {
+    if (!Array.isArray(inputs)) {
+      throw new Error('inputs should be an array');
+    }
+    let splits;
+    if (
+      'functional-unit-time' in inputs[0] &&
+      typeof inputs[0]['functional-unit-time'] === 'string'
+    ) {
+      const timeString = inputs[0]['functional-unit-time'];
+      if (timeString.includes('-')) {
+        splits = timeString.split('-');
+      } else if (timeString.includes('_')) {
+        splits = timeString.split('_');
+      } else {
+        splits = timeString.split(' ');
+      }
+      if (splits.length !== 2) {
+        throw new Error(
+          'Error parsing functional-unit-time. Please ensure you have provided one value and one unit and they are either space, underscore or hyphen separated'
+        );
+      }
+      const timeValue = parseFloat(splits[0]);
+      if (typeof timeValue !== 'number' || timeValue <= 0 || isNaN(timeValue)) {
+        throw new Error('functional-unit-time is not a valid positive number');
+      }
+      const timeUnit = splits[1];
+      this.functionalUnitTimeUnit = timeUnit;
+      this.functionalUnitTimeValue = timeValue;
+    } else {
+      throw new Error('functional-unit-time is not available');
+    }
   }
 }
