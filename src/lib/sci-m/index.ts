@@ -1,11 +1,17 @@
 import {ModelPluginInterface} from '../../interfaces';
 
+import {ERRORS} from '../../util/errors';
+import {buildErrorMessage} from '../../util/helpers';
+
 import {KeyValuePair} from '../../types/common';
+
+const {InputValidationError} = ERRORS;
 
 export class SciMModel implements ModelPluginInterface {
   authParams: object | undefined = undefined;
   staticParams: object | undefined;
   name: string | undefined;
+  errorBuilder = buildErrorMessage(SciMModel.name);
 
   authenticate(authParams: object): void {
     this.authParams = authParams;
@@ -13,7 +19,11 @@ export class SciMModel implements ModelPluginInterface {
 
   async execute(inputs: object | object[] | undefined): Promise<any[]> {
     if (!Array.isArray(inputs)) {
-      throw new Error('inputs should be an array');
+      throw new InputValidationError(
+        this.errorBuilder({
+          message: 'Input data is missing',
+        })
+      );
     }
 
     const tunedinputs = inputs.map((input: KeyValuePair) => {
@@ -27,37 +37,51 @@ export class SciMModel implements ModelPluginInterface {
       let el = 0.0;
       let rr = 0.0;
       let tor = 0.0;
-      if (
-        !(
-          'total-embodied-emissions' in input ||
-          'total-embodied-emissions' in input
-        )
-      ) {
-        throw new Error(
-          'total-embodied-emissions is missing. Provide in gCO2e'
+      if (!('total-embodied-emissions' in input)) {
+        throw new InputValidationError(
+          this.errorBuilder({
+            message:
+              "'total-embodied-emissions' is missing. Please provide in 'gCO2e'",
+          })
         );
       }
-      if (!('time-reserved' in input || 'time-reserved' in input)) {
-        throw new Error('time-reserved is missing. Provide in seconds');
+      if (!('time-reserved' in input)) {
+        throw new InputValidationError(
+          this.errorBuilder({
+            message: "'time-reserved' is missing. Please provide in seconds",
+          })
+        );
       }
-      if (!('expected-lifespan' in input || 'expected-lifespan' in input)) {
-        throw new Error('expected-lifespan is missing. Provide in seconds');
+      if (!('expected-lifespan' in input)) {
+        throw new InputValidationError(
+          this.errorBuilder({
+            message:
+              "'expected-lifespan' is missing. Please provide in seconds",
+          })
+        );
       }
-      if (!('resources-reserved' in input || 'resources-reserved' in input)) {
-        throw new Error('resources-reserved is missing. Provide as a count');
+      if (!('resources-reserved' in input)) {
+        throw new InputValidationError(
+          this.errorBuilder({
+            message:
+              "'resources-reserved' is missing. Please provide as a 'count'",
+          })
+        );
       }
-      if (!('total-resources' in input || 'total-resources' in input)) {
-        throw new Error(
-          'total-resources: total-resources is missing. Provide as a count'
+      if (!('total-resources' in input)) {
+        throw new InputValidationError(
+          this.errorBuilder({
+            message:
+              "'total-resources' is missing. Please provide as a 'count'",
+          })
         );
       }
       if (
-        ('total-embodied-emissions' in input ||
-          'total-embodied-emissions' in input) &&
-        ('time-reserved' in input || 'time-reserved' in input) &&
-        ('expected-lifespan' in input || 'expected-lifespan') &&
-        ('resources-reserved' in input || 'resources-reserved') &&
-        ('total-resources' in input || 'total-resources' in input)
+        'total-embodied-emissions' in input &&
+        'time-reserved' in input &&
+        'expected-lifespan' in input &&
+        'resources-reserved' in input &&
+        'total-resources' in input
       ) {
         input['total-embodied-emissions'] =
           input['total-embodied-emissions'] ??
