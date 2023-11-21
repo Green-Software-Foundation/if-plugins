@@ -10,7 +10,7 @@ const {InputValidationError} = ERRORS;
 export class SciEModel implements ModelPluginInterface {
   authParams: object | undefined; // Defined for compatibility. Not used in thi smodel.
   name: string | undefined; // name of the data source
-  errorBuilder = buildErrorMessage(SciEModel.name);
+  errorBuilder = buildErrorMessage(SciEModel);
 
   /**
    * Defined for compatibility. Not used in energy-network.
