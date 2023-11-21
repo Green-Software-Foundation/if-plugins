@@ -40,7 +40,7 @@ describe('cimd:configure test:aws', () => {
         },
       ])
     ).rejects.toThrowError(
-      'cloud-vendor: Only `aws`/`azure` is currently supported'
+      "CloudInstanceMetadataModel(cloud-vendor): Only 'aws'/'azure' is currently supported."
     );
     await expect(
       model.execute([
@@ -52,7 +52,7 @@ describe('cimd:configure test:aws', () => {
         },
       ])
     ).rejects.toThrowError(
-      'cloud-instance-type: t2.micro2 is not supported in vendor: aws'
+      "CloudInstanceMetadataModel(cloud-instance-type): 't2.micro2' is not supported in 'aws'."
     );
   });
 });
@@ -95,7 +95,7 @@ describe('cimd:configure test:azure', () => {
         },
       ])
     ).rejects.toThrowError(
-      'cloud-vendor: Only `aws`/`azure` is currently supported'
+      "CloudInstanceMetadataModel(cloud-vendor): Only 'aws'/'azure' is currently supported."
     );
     await expect(
       model.execute([
@@ -107,7 +107,7 @@ describe('cimd:configure test:azure', () => {
         },
       ])
     ).rejects.toThrowError(
-      'cloud-instance-type: t2.micro2 is not supported in vendor: azure'
+      "CloudInstanceMetadataModel(cloud-instance-type): 't2.micro2' is not supported in 'azure'."
     );
   });
 });
