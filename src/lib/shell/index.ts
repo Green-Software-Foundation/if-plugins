@@ -15,7 +15,7 @@ export class ShellModel implements ModelPluginInterface {
   name: string | undefined; // The name of the data source.
   staticParams: object | undefined;
   executable = '';
-  errorBuilder = buildErrorMessage(ShellModel.name);
+  errorBuilder = buildErrorMessage(ShellModel);
 
   /**
    * Defined for compatibility. Not used.
