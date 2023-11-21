@@ -8,7 +8,7 @@ import * as AZURE_INSTANCES from './azure-instances.json';
 import {KeyValuePair, ModelParams} from '../../types/common';
 import {buildErrorMessage} from '../../util/helpers';
 
-const {InputValidationError} = ERRORS;
+const {InputValidationError, UnsupportedValueError} = ERRORS;
 
 export class CloudInstanceMetadataModel implements ModelPluginInterface {
   authParams: object | undefined = undefined;
@@ -65,7 +65,7 @@ export class CloudInstanceMetadataModel implements ModelPluginInterface {
       const clouds = ['aws', 'azure'];
 
       if (!clouds.includes(vendor)) {
-        throw new InputValidationError(
+        throw new UnsupportedValueError(
           this.errorBuilder({
             scope: 'cloud-vendor',
             message: "Only 'aws'/'azure' is currently supported",
@@ -97,7 +97,7 @@ export class CloudInstanceMetadataModel implements ModelPluginInterface {
           }
           input['physical-processor'] = `${platform} ${cpuType}`;
         } else {
-          throw new InputValidationError(
+          throw new UnsupportedValueError(
             this.errorBuilder({
               scope: 'cloud-instance-type',
               message: `'${instance_type}' is not supported in '${vendor}'`,
@@ -116,7 +116,7 @@ export class CloudInstanceMetadataModel implements ModelPluginInterface {
           input['memory-available'] = instance['memory-available'];
           input['thermal-design-power'] = instance['thermal-design-power'];
         } else {
-          throw new InputValidationError(
+          throw new UnsupportedValueError(
             this.errorBuilder({
               scope: 'cloud-instance-type',
               message: `'${instance_type}' is not supported in '${vendor}'`,
