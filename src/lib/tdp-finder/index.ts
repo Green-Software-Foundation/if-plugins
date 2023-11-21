@@ -14,7 +14,7 @@ export class TdpFinderModel implements ModelPluginInterface {
   staticParams: object | undefined;
   name: string | undefined;
   data: any;
-  errorBuilder = buildErrorMessage(TdpFinderModel.name);
+  errorBuilder = buildErrorMessage(TdpFinderModel);
 
   authenticate(authParams: object): void {
     this.authParams = authParams;
