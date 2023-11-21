@@ -1,5 +1,5 @@
-import { ModelPluginInterface } from '../../interfaces';
-import { KeyValuePair } from '../../types/common';
+import {ModelPluginInterface} from '../../interfaces';
+import {KeyValuePair} from '../../types/common';
 
 export class SciModel implements ModelPluginInterface {
   authParams: object | undefined = undefined;
