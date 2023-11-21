@@ -7,5 +7,5 @@ export const buildErrorMessage =
   (classInstance: any) => (params: ErrorFormatParams) => {
     const {scope, message} = params;
 
-    return `${classInstance.name}${scope && `(${scope})`}: ${message}.`;
+    return `${classInstance.name}${scope ? `(${scope})` : ''}: ${message}.`;
   };
