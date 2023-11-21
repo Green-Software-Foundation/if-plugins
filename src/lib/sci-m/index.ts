@@ -3,7 +3,7 @@ import {ModelPluginInterface} from '../../interfaces';
 import {ERRORS} from '../../util/errors';
 import {buildErrorMessage} from '../../util/helpers';
 
-import {KeyValuePair} from '../../types/common';
+import {ModelParams} from '../../types/common';
 
 const {InputValidationError} = ERRORS;
 
@@ -17,7 +17,7 @@ export class SciMModel implements ModelPluginInterface {
     this.authParams = authParams;
   }
 
-  async execute(inputs: object | object[] | undefined): Promise<any[]> {
+  async execute(inputs: ModelParams[]): Promise<ModelParams[]> {
     if (!Array.isArray(inputs)) {
       throw new InputValidationError(
         this.errorBuilder({
@@ -26,7 +26,7 @@ export class SciMModel implements ModelPluginInterface {
       );
     }
 
-    const tunedinputs = inputs.map((input: KeyValuePair) => {
+    const tunedinputs = inputs.map((input, index: number) => {
       // te or total-embodied-emissions: Total embodied emissions of some underlying hardware.
       // tir or time-reserved: The length of time the hardware is reserved for use by the software.
       // el or expected-lifespan: The anticipated time that the equipment will be installed.
@@ -40,8 +40,7 @@ export class SciMModel implements ModelPluginInterface {
       if (!('total-embodied-emissions' in input)) {
         throw new InputValidationError(
           this.errorBuilder({
-            message:
-              "'total-embodied-emissions' is missing. Please provide in 'gCO2e'",
+            message: `'total-embodied-emissions' is missing from input[${index}]. Please provide in 'gCO2e'`,
           })
         );
       }
@@ -49,7 +48,7 @@ export class SciMModel implements ModelPluginInterface {
       if (!('time-reserved' in input)) {
         throw new InputValidationError(
           this.errorBuilder({
-            message: "'time-reserved' is missing. Please provide in seconds",
+            message: `'time-reserved' is missing from input[${index}]. Please provide in seconds`,
           })
         );
       }
@@ -57,8 +56,7 @@ export class SciMModel implements ModelPluginInterface {
       if (!('expected-lifespan' in input)) {
         throw new InputValidationError(
           this.errorBuilder({
-            message:
-              "'expected-lifespan' is missing. Please provide in seconds",
+            message: `'expected-lifespan' is missing from input[${index}]. Please provide in seconds`,
           })
         );
       }
@@ -66,8 +64,7 @@ export class SciMModel implements ModelPluginInterface {
       if (!('resources-reserved' in input)) {
         throw new InputValidationError(
           this.errorBuilder({
-            message:
-              "'resources-reserved' is missing. Please provide as a 'count'",
+            message: `'resources-reserved' is missing from input[${index}]. Please provide as a 'count'`,
           })
         );
       }
@@ -75,27 +72,40 @@ export class SciMModel implements ModelPluginInterface {
       if (!('total-resources' in input)) {
         throw new InputValidationError(
           this.errorBuilder({
-            message:
-              "'total-resources' is missing. Please provide as a 'count'",
+            message: `'total-resources' is missing from input[${index}]. Please provide as a 'count'`,
           })
         );
       }
 
       if (!('duration' in input)) {
-        throw new Error('duration is missing. Provide in seconds');
+        throw new InputValidationError(
+          this.errorBuilder({
+            message: `'duration' is missing from input[${index}]. Please provide in 'seconds'`,
+          })
+        );
       }
 
       if (!('expected-lifespan' in input)) {
-        throw new Error('expected-lifespan is missing. Provide in seconds');
+        throw new InputValidationError(
+          this.errorBuilder({
+            message: `'expected-lifespan' is missing from input[${index}]. Please provide in 'seconds'`,
+          })
+        );
       }
 
       if (!('resources-reserved' in input) && !('vcpus-allocated' in input)) {
-        throw new Error('resources-reserved is missing. Provide as a count');
+        throw new InputValidationError(
+          this.errorBuilder({
+            message: `'resources-reserved' is missing from input[${index}]. Please provide as a 'count'`,
+          })
+        );
       }
 
       if (!('total-resources' in input) && !('vcpus-total' in input)) {
-        throw new Error(
-          'total-resources: total-resources is missing. Provide as a count'
+        throw new InputValidationError(
+          this.errorBuilder({
+            message: `'total-resources' is missing from input[${index}]. Please provide as a 'count'`,
+          })
         );
       }
 
