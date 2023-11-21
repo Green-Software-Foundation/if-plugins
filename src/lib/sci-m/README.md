@@ -9,15 +9,16 @@ Read more on [embodied carbon](https://github.com/Green-Software-Foundation/sci/
 ### Model config
 
 - `total-embodied-emissions`: the sum of Life Cycle Assessment (LCA) emissions for the component
-- `time-reserved`: the share of the total life span of the hardware reserved for use by an application
 - `expected-lifespan`: the length of time, in seconds, between a component's manufacture and its disposal
 - `reserved-resources`: the number of resources reserved for use by the software
 - `total-resources`: the total number of resources available
 
+> Note that if you have a model pipeline that adds `vcpus-allocated` and `vcpus-total` to each observation, such as the `cloud-instance-metadata` model, those values will be used **in preference** to the given `reserved-resources` anf `total-resources` fields. 
+
 ### Inputs
 
 - `timestamp`: a timestamp for the input
-- `duration`: the amount of time, in seconds, that the input covers.
+- `duration`: the amount of time covered by an observation, in this context it is used as the share of the total life span of the hardware reserved for use by an application, in seconds.
 
 ## Returns
 
@@ -37,8 +38,8 @@ Where:
 
 - `timeShare` = Time-share; the share of the total life span of the hardware reserved for use by an application.
 
-  - `timeShare` is calculated as `time-reserved/expedted-lifespan`, where:
-    - `time-reserved` = Time Reserved; the length of time the hardware is reserved for use by the software.
+  - `timeShare` is calculated as `duration/expected-lifespan`, where:
+    - `duration` = the length of time the hardware is reserved for use by the software.
     - `expected-lifespan` = Expected lifespan: the length of time, in seconds, between a component's manufacture and its disposal
 
 - `resourceshare` = Resource-share; the share of the total available resources of the hardware reserved for use by an application.
@@ -62,7 +63,7 @@ sciMModel.configure()
 const results = sciMModel.execute([
   {
     'total-embodied-emissions': 200, // in gCO2e for total resource units
-    'time-reserved': 60 * 60 * 24 * 30, // time reserved in seconds, can point to another field "duration"
+    'duration': 60 * 60 * 24 * 30, // time reserved in seconds, can point to another field "duration"
     'expected-lifespan': 60 * 60 * 24 * 365 * 4, // lifespan in seconds (4 years)
     'resources-reserved': 1, // resource units reserved / used
     'total-resources': 1, // total resource units available
@@ -91,7 +92,6 @@ graph:
       config:
         sci-m:
           total-embodied-emissions: 1533.120 # gCO2eq
-          time-reserved: 1 # s per hour
           expected-lifespan: 3 # 3 years in seconds
           resources-reserved: 1
           total-resources: 8
