@@ -45,14 +45,6 @@ export class SciMModel implements ModelPluginInterface {
         );
       }
 
-      if (!('time-reserved' in input)) {
-        throw new InputValidationError(
-          this.errorBuilder({
-            message: `'time-reserved' is missing from input[${index}]. Please provide in seconds`,
-          })
-        );
-      }
-
       if (!('expected-lifespan' in input)) {
         throw new InputValidationError(
           this.errorBuilder({
@@ -111,7 +103,7 @@ export class SciMModel implements ModelPluginInterface {
 
       if (
         'total-embodied-emissions' in input &&
-        'time-reserved' in input &&
+        'duration' in input &&
         'expected-lifespan' in input &&
         'duration' in input &&
         'expected-lifespan' in input &&
