@@ -46,6 +46,7 @@ describe('sci-m:configure test', () => {
         'embodied-carbon': 4.10958904109589 * 2,
       },
     ]);
+
     await expect(
       model.execute([
         {
@@ -55,6 +56,8 @@ describe('sci-m:configure test', () => {
           'expected-lifespan': 60 * 60 * 24 * 365 * 4,
           'vcpus-allocated': 1,
           'vcpus-total': 64,
+          'resources-reserved': 1,
+          'total-resources': 1,
         },
         {
           timestamp: '2021-01-01T00:00:00Z',
@@ -63,6 +66,8 @@ describe('sci-m:configure test', () => {
           'expected-lifespan': 60 * 60 * 24 * 365 * 4,
           'vcpus-allocated': 1,
           'vcpus-total': 32,
+          'resources-reserved': 1,
+          'total-resources': 1,
         },
       ])
     ).resolves.toStrictEqual([
@@ -74,6 +79,8 @@ describe('sci-m:configure test', () => {
         'vcpus-allocated': 1,
         'vcpus-total': 64,
         'embodied-carbon': 0.06421232876712328,
+        'resources-reserved': 1,
+        'total-resources': 1,
       },
       {
         timestamp: '2021-01-01T00:00:00Z',
@@ -83,6 +90,8 @@ describe('sci-m:configure test', () => {
         'vcpus-allocated': 1,
         'vcpus-total': 32,
         'embodied-carbon': 0.2568493150684931,
+        'resources-reserved': 1,
+        'total-resources': 1,
       },
     ]);
     await expect(

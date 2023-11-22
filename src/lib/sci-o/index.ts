@@ -1,11 +1,17 @@
 import {ModelPluginInterface} from '../../interfaces';
 
+import {ERRORS} from '../../util/errors';
+import {buildErrorMessage} from '../../util/helpers';
+
 import {KeyValuePair} from '../../types/common';
+
+const {InputValidationError} = ERRORS;
 
 export class SciOModel implements ModelPluginInterface {
   authParams: object | undefined = undefined;
   staticParams: object | undefined;
   name: string | undefined;
+  errorBuilder = buildErrorMessage(SciOModel);
 
   authenticate(authParams: object): void {
     this.authParams = authParams;
@@ -20,22 +26,39 @@ export class SciOModel implements ModelPluginInterface {
    */
   async execute(inputs: object | object[] | undefined): Promise<any[]> {
     if (inputs === undefined) {
-      throw new Error('Required Parameters not provided');
-    } else if (!Array.isArray(inputs)) {
-      throw new Error('inputs must be an array');
+      throw new InputValidationError(
+        this.errorBuilder({message: 'Input data is missing'})
+      );
     }
 
-    return inputs.map((input: KeyValuePair) => {
+    if (!Array.isArray(inputs)) {
+      throw new InputValidationError(
+        this.errorBuilder({message: 'Input data is not an array'})
+      );
+    }
+
+    return inputs.map((input: KeyValuePair, index: number) => {
       if (!('grid-carbon-intensity' in input)) {
-        throw new Error('input missing `grid-carbon-intensity`');
+        throw new InputValidationError(
+          this.errorBuilder({
+            message: `'grid-carbon-intensity' is missing from input[${index}]`,
+          })
+        );
       }
+
       if (!('energy' in input)) {
-        throw new Error('input missing `energy`');
+        throw new InputValidationError(
+          this.errorBuilder({
+            message: `'energy' is missing from input[${index}].`,
+          })
+        );
       }
+
       this.configure(input);
       const grid_ci = parseFloat(input['grid-carbon-intensity']);
       const energy = parseFloat(input['energy']);
       input['operational-carbon'] = grid_ci * energy;
+
       return input;
     });
   }

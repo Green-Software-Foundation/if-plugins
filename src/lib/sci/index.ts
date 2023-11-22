@@ -1,5 +1,11 @@
 import {ModelPluginInterface} from '../../interfaces';
+
+import {ERRORS} from '../../util/errors';
+import {buildErrorMessage} from '../../util/helpers';
+
 import {KeyValuePair} from '../../types/common';
+
+const {InputValidationError, UnsupportedValueError} = ERRORS;
 
 export class SciModel implements ModelPluginInterface {
   authParams: object | undefined = undefined;
@@ -9,14 +15,27 @@ export class SciModel implements ModelPluginInterface {
   functionalUnitTimeValue = 1;
   functionalUnitTimeUnit = '';
   factor = 1;
+  errorBuilder = buildErrorMessage(SciModel);
 
   authenticate(authParams: object): void {
     this.authParams = authParams;
   }
 
   async execute(inputs: object | object[] | undefined): Promise<any[]> {
+    if (inputs === undefined) {
+      throw new InputValidationError(
+        this.errorBuilder({
+          message: 'Input data is missing',
+        })
+      );
+    }
+
     if (!Array.isArray(inputs)) {
-      throw new Error('inputs should be an array');
+      throw new InputValidationError(
+        this.errorBuilder({
+          message: 'Input data is not an array',
+        })
+      );
     }
 
     // parseout time value and unit from input string
@@ -24,20 +43,27 @@ export class SciModel implements ModelPluginInterface {
 
     const tunedinputs = inputs.map((input: KeyValuePair) => {
       if (!('operational-carbon' in input)) {
-        throw new Error('input missing `operational-carbon`');
+        throw new InputValidationError(
+          this.errorBuilder({
+            message: "Input missing 'operational-carbon'",
+          })
+        );
       }
+
       if (!('embodied-carbon' in input)) {
-        throw new Error('input missing `embodied-carbon`');
+        throw new InputValidationError(
+          this.errorBuilder({message: "Input missing 'embodied-carbon'"})
+        );
       }
 
       const operational = parseFloat(input['operational-carbon']);
       const embodied = parseFloat(input['embodied-carbon']);
 
       /*
-      If `carbon` is in inputs, use it.
-      If not, calculate it from operational and embodied carbon.
-      Divide by input[duration] to ensure time unit is /s
-      */
+       * If `carbon` is in inputs, use it.
+       * If not, calculate it from operational and embodied carbon.
+       * Divide by input[duration] to ensure time unit is /s
+       */
       let sci_secs = 0;
       if ('carbon' in input) {
         sci_secs = input['carbon'] / input['duration'];
@@ -58,10 +84,10 @@ export class SciModel implements ModelPluginInterface {
       const years = ['y', 'ys', 'yr', 'yrs', 'year', 'years'];
 
       /*
-      Convert C to desired time unit
-      */
+       * Convert C to desired time unit
+       */
       if (seconds.includes(this.functionalUnitTimeUnit)) {
-        //pass
+        // pass
       } else if (minutes.includes(this.functionalUnitTimeUnit)) {
         sci_timed = sci_secs * 60;
       } else if (hours.includes(this.functionalUnitTimeUnit)) {
@@ -95,10 +121,10 @@ export class SciModel implements ModelPluginInterface {
       ) {
         factor = input[this.functionalUnit];
       }
+
       /*
-      sci currently in whole single units of time - multiply by duration to
-      convert to user-defined span of time.
-      */
+       * Sci currently in whole single units of time - multiply by duration to convert to user-defined span of time.
+       */
       sci_timed_duration = sci_timed * this.functionalUnitTimeValue;
       input['sci'] = sci_timed_duration / factor;
 
@@ -112,21 +138,34 @@ export class SciModel implements ModelPluginInterface {
     staticParams: object | undefined
   ): Promise<ModelPluginInterface> {
     if (staticParams === undefined) {
-      throw new Error('Required Parameters not provided');
+      throw new InputValidationError(
+        this.errorBuilder({
+          scope: 'configure',
+          message: 'Missing input data',
+        })
+      );
     }
+
     return this;
   }
 
   private parseTime(inputs: object) {
     if (!Array.isArray(inputs)) {
-      throw new Error('inputs should be an array');
+      throw new InputValidationError(
+        this.errorBuilder({
+          message: 'Input data is not an array',
+          scope: 'parse-time',
+        })
+      );
     }
+
     let splits;
     if (
       'functional-unit-time' in inputs[0] &&
       typeof inputs[0]['functional-unit-time'] === 'string'
     ) {
       const timeString = inputs[0]['functional-unit-time'];
+
       if (timeString.includes('-')) {
         splits = timeString.split('-');
       } else if (timeString.includes('_')) {
@@ -134,20 +173,35 @@ export class SciModel implements ModelPluginInterface {
       } else {
         splits = timeString.split(' ');
       }
+
       if (splits.length !== 2) {
-        throw new Error(
-          'Error parsing functional-unit-time. Please ensure you have provided one value and one unit and they are either space, underscore or hyphen separated'
+        throw new InputValidationError(
+          this.errorBuilder({
+            message:
+              "Error while parsing 'functional-unit-time'. Please ensure you have provided one value and one unit and they are either space, underscore or hyphen separated",
+          })
         );
       }
+
       const timeValue = parseFloat(splits[0]);
+
       if (typeof timeValue !== 'number' || timeValue <= 0 || isNaN(timeValue)) {
-        throw new Error('functional-unit-time is not a valid positive number');
+        throw new InputValidationError(
+          this.errorBuilder({
+            message: "'functional-unit-time' is not a valid positive number",
+          })
+        );
       }
+
       const timeUnit = splits[1];
       this.functionalUnitTimeUnit = timeUnit;
       this.functionalUnitTimeValue = timeValue;
     } else {
-      throw new Error('functional-unit-time is not available');
+      throw new UnsupportedValueError(
+        this.errorBuilder({
+          message: "'functional-unit-time' is not available",
+        })
+      );
     }
   }
 }

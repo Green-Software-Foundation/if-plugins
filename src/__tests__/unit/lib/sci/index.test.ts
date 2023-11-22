@@ -59,6 +59,7 @@ describe('sci:configure test', () => {
       },
     ]);
   });
+
   it('initialize and test: vary input duration ', async () => {
     const model = await new SciModel().configure({});
     expect(model).toBeInstanceOf(SciModel);
@@ -109,6 +110,7 @@ describe('sci:configure test', () => {
       },
     ]);
   });
+
   it('initialize and test: vary time unit', async () => {
     const model = await new SciModel().configure({});
     expect(model).toBeInstanceOf(SciModel);
@@ -136,6 +138,7 @@ describe('sci:configure test', () => {
       },
     ]);
   });
+
   it('tests model throws excetion on missing functional unit data', async () => {
     const model = await new SciModel().configure({});
     expect(model).toBeInstanceOf(SciModel);
@@ -149,8 +152,11 @@ describe('sci:configure test', () => {
           duration: 1,
         },
       ])
-    ).rejects.toThrowError('functional-unit-time is not available');
+    ).rejects.toThrowError(
+      "SciModel: 'functional-unit-time' is not available."
+    );
   });
+
   it('tests model throws exception on invalid functional unit data', async () => {
     const model = await new SciModel().configure({});
     expect(model).toBeInstanceOf(SciModel);
@@ -166,9 +172,10 @@ describe('sci:configure test', () => {
         },
       ])
     ).rejects.toThrowError(
-      'functional-unit-time is not a valid positive number'
+      "SciModel: 'functional-unit-time' is not a valid positive number."
     );
   });
+
   it('tests model throws exception on negative time value', async () => {
     const model = await new SciModel().configure({});
     expect(model).toBeInstanceOf(SciModel);
@@ -184,9 +191,10 @@ describe('sci:configure test', () => {
         },
       ])
     ).rejects.toThrowError(
-      'functional-unit-time is not a valid positive number'
+      "SciModel: 'functional-unit-time' is not a valid positive number."
     );
   });
+
   it('tests model throws exception on invalid time unit', async () => {
     const model = await new SciModel().configure({});
     expect(model).toBeInstanceOf(SciModel);
@@ -205,6 +213,7 @@ describe('sci:configure test', () => {
       'functional-unit-time is not in recognized unit of time'
     );
   });
+
   it('tests model accepts underscore separated values in functional-unit-time', async () => {
     const model = await new SciModel().configure({});
     expect(model).toBeInstanceOf(SciModel);
@@ -232,6 +241,7 @@ describe('sci:configure test', () => {
       },
     ]);
   });
+
   it('tests model accepts hyphen separated values in functional-unit-time', async () => {
     const model = await new SciModel().configure({});
     expect(model).toBeInstanceOf(SciModel);
@@ -259,6 +269,7 @@ describe('sci:configure test', () => {
       },
     ]);
   });
+
   it('tests model throws exception on bad string formatting (bad separator) in functional-unit-time', async () => {
     const model = await new SciModel().configure({});
     expect(model).toBeInstanceOf(SciModel);
@@ -274,9 +285,10 @@ describe('sci:configure test', () => {
         },
       ])
     ).rejects.toThrowError(
-      'Error parsing functional-unit-time. Please ensure you have provided one value and one unit and they are either space, underscore or hyphen separated'
+      "SciModel: Error while parsing 'functional-unit-time'. Please ensure you have provided one value and one unit and they are either space, underscore or hyphen separated."
     );
   });
+
   it('tests model throws exception on bad string formatting (no separator) in functional-unit-time', async () => {
     const model = await new SciModel().configure({});
     expect(model).toBeInstanceOf(SciModel);
@@ -292,7 +304,7 @@ describe('sci:configure test', () => {
         },
       ])
     ).rejects.toThrowError(
-      'Error parsing functional-unit-time. Please ensure you have provided one value and one unit and they are either space, underscore or hyphen separated'
+      "SciModel: Error while parsing 'functional-unit-time'. Please ensure you have provided one value and one unit and they are either space, underscore or hyphen separated."
     );
   });
 });

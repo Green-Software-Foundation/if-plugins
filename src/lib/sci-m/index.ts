@@ -1,22 +1,32 @@
 import {ModelPluginInterface} from '../../interfaces';
 
-import {KeyValuePair} from '../../types/common';
+import {ERRORS} from '../../util/errors';
+import {buildErrorMessage} from '../../util/helpers';
+
+import {ModelParams} from '../../types/common';
+
+const {InputValidationError} = ERRORS;
 
 export class SciMModel implements ModelPluginInterface {
   authParams: object | undefined = undefined;
   staticParams: object | undefined;
   name: string | undefined;
+  errorBuilder = buildErrorMessage(SciMModel);
 
   authenticate(authParams: object): void {
     this.authParams = authParams;
   }
 
-  async execute(inputs: object | object[] | undefined): Promise<any[]> {
+  async execute(inputs: ModelParams[]): Promise<ModelParams[]> {
     if (!Array.isArray(inputs)) {
-      throw new Error('inputs should be an array');
+      throw new InputValidationError(
+        this.errorBuilder({
+          message: 'Input data is missing',
+        })
+      );
     }
 
-    const tunedinputs = inputs.map((input: KeyValuePair) => {
+    const tunedinputs = inputs.map((input, index: number) => {
       // te or total-embodied-emissions: Total embodied emissions of some underlying hardware.
       // tir or time-reserved: The length of time the hardware is reserved for use by the software.
       // el or expected-lifespan: The anticipated time that the equipment will be installed.
@@ -27,32 +37,58 @@ export class SciMModel implements ModelPluginInterface {
       let el = 0.0;
       let rr = 0.0;
       let tor = 0.0;
-      if (
-        !(
-          'total-embodied-emissions' in input ||
-          'total-embodied-emissions' in input
-        )
-      ) {
-        throw new Error(
-          'total-embodied-emissions is missing. Provide in gCO2e'
+      if (!('total-embodied-emissions' in input)) {
+        throw new InputValidationError(
+          this.errorBuilder({
+            message: `'total-embodied-emissions' is missing from input[${index}]. Please provide in 'gCO2e'`,
+          })
         );
       }
-      if (!('duration' in input)) {
-        throw new Error('duration is missing. Provide in seconds');
-      }
+
       if (!('expected-lifespan' in input)) {
-        throw new Error('expected-lifespan is missing. Provide in seconds');
-      }
-      if (!('resources-reserved' in input) && !('vcpus-allocated' in input)) {
-        throw new Error('resources-reserved is missing. Provide as a count');
-      }
-      if (!('total-resources' in input) && !('vcpus-total' in input)) {
-        throw new Error(
-          'total-resources: total-resources is missing. Provide as a count'
+        throw new InputValidationError(
+          this.errorBuilder({
+            message: `'expected-lifespan' is missing from input[${index}]. Please provide in seconds`,
+          })
         );
       }
+
+      if (!('resources-reserved' in input) && !('vcpus-allocated' in input)) {
+        throw new InputValidationError(
+          this.errorBuilder({
+            message: `'resources-reserved' and 'vcpus-allocated' are missing from input[${index}]. Please provide one of them as a 'count'`,
+          })
+        );
+      }
+
+      if (!('total-resources' in input) && !('vcpus-total' in input)) {
+        throw new InputValidationError(
+          this.errorBuilder({
+            message: `'total-resources' and 'vcpus-total' are missing from input[${index}]. Please provide one of them as a 'count'`,
+          })
+        );
+      }
+
+      if (!('duration' in input)) {
+        throw new InputValidationError(
+          this.errorBuilder({
+            message: `'duration' is missing from input[${index}]. Please provide in 'seconds'`,
+          })
+        );
+      }
+
+      if (!('expected-lifespan' in input)) {
+        throw new InputValidationError(
+          this.errorBuilder({
+            message: `'expected-lifespan' is missing from input[${index}]. Please provide in 'seconds'`,
+          })
+        );
+      }
+
       if (
         'total-embodied-emissions' in input &&
+        'duration' in input &&
+        'expected-lifespan' in input &&
         'duration' in input &&
         'expected-lifespan' in input &&
         ('resources-reserved' in input || 'vcpus-allocated') &&
@@ -111,7 +147,6 @@ export class SciMModel implements ModelPluginInterface {
           typeof input['vcpus-total'] === 'number'
         ) {
           tor = input['vcpus-total'];
-          console.log('IN HERE');
         } else if (
           'resources-reserved' in input &&
           typeof input['resources-reserved'] === 'string'

@@ -3,13 +3,19 @@ import * as yaml from 'js-yaml';
 
 import {ModelPluginInterface} from '../../interfaces';
 
+import {ERRORS} from '../../util/errors';
+import {buildErrorMessage} from '../../util/helpers';
+
 import {KeyValuePair} from '../../types/common';
+
+const {InputValidationError} = ERRORS;
 
 export class ShellModel implements ModelPluginInterface {
   authParams: object | undefined; // Defined for compatibility. Not used.
   name: string | undefined; // The name of the data source.
   staticParams: object | undefined;
   executable = '';
+  errorBuilder = buildErrorMessage(ShellModel);
 
   /**
    * Defined for compatibility. Not used.
@@ -26,19 +32,34 @@ export class ShellModel implements ModelPluginInterface {
     staticParams: object | undefined = undefined
   ): Promise<ModelPluginInterface> {
     if (staticParams === undefined) {
-      throw new Error('Required staticParams not provided');
+      throw new InputValidationError(
+        this.errorBuilder({
+          scope: 'configure',
+          message: 'Missing input data',
+        })
+      );
     }
+
     if ('executable' in staticParams) {
       this.executable = staticParams['executable'] as string;
       delete staticParams['executable'];
     }
     this.staticParams = staticParams;
+
     return this;
   }
 
   async execute(inputs: object | object[] | undefined): Promise<any[]> {
     if (inputs === undefined) {
-      throw new Error('Required Parameters not provided');
+      throw new InputValidationError(
+        this.errorBuilder({message: 'Input data is missing'})
+      );
+    }
+
+    if (!Array.isArray(inputs)) {
+      throw new InputValidationError(
+        this.errorBuilder({message: 'Input data is not an array'})
+      );
     }
 
     const input: KeyValuePair = {};
