@@ -53,18 +53,18 @@ export class SciMModel implements ModelPluginInterface {
         );
       }
 
-      if (!('resources-reserved' in input)) {
+      if (!('resources-reserved' in input) && !('vcpus-allocated' in input)) {
         throw new InputValidationError(
           this.errorBuilder({
-            message: `'resources-reserved' is missing from input[${index}]. Please provide as a 'count'`,
+            message: `'resources-reserved' and 'vcpus-allocated' are missing from input[${index}]. Please provide one of them as a 'count'`,
           })
         );
       }
 
-      if (!('total-resources' in input)) {
+      if (!('total-resources' in input) && !('vcpus-total' in input)) {
         throw new InputValidationError(
           this.errorBuilder({
-            message: `'total-resources' is missing from input[${index}]. Please provide as a 'count'`,
+            message: `'total-resources' and 'vcpus-total' are missing from input[${index}]. Please provide one of them as a 'count'`,
           })
         );
       }
@@ -81,22 +81,6 @@ export class SciMModel implements ModelPluginInterface {
         throw new InputValidationError(
           this.errorBuilder({
             message: `'expected-lifespan' is missing from input[${index}]. Please provide in 'seconds'`,
-          })
-        );
-      }
-
-      if (!('resources-reserved' in input) && !('vcpus-allocated' in input)) {
-        throw new InputValidationError(
-          this.errorBuilder({
-            message: `'resources-reserved' is missing from input[${index}]. Please provide as a 'count'`,
-          })
-        );
-      }
-
-      if (!('total-resources' in input) && !('vcpus-total' in input)) {
-        throw new InputValidationError(
-          this.errorBuilder({
-            message: `'total-resources' is missing from input[${index}]. Please provide as a 'count'`,
           })
         );
       }
