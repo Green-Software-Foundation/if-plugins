@@ -11,12 +11,12 @@ None
 
 ### Inputs
 
-- `mem-util`: percentage total available memory being used in the input period
+- `mem-util`: percentage of the total available memory being used in the input period
 - `total-memoryGB`: the total amount of memory available, in GB
 
 optional:
 
-- `mem-energy`: a coefficient for energy in kWh per GB. If not provided,
+- `coefficient`: a coefficient for energy in kWh per GB. If not provided,
   defaults to 0.38.
 
 ## Returns
