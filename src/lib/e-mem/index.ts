@@ -1,11 +1,11 @@
-import { ModelPluginInterface } from '../../interfaces';
+import {ModelPluginInterface} from '../../interfaces';
 
-import { ERRORS } from '../../util/errors';
-import { buildErrorMessage } from '../../util/helpers';
+import {ERRORS} from '../../util/errors';
+import {buildErrorMessage} from '../../util/helpers';
 
-import { KeyValuePair, ModelParams } from '../../types/common';
+import {KeyValuePair, ModelParams} from '../../types/common';
 
-const { InputValidationError } = ERRORS;
+const {InputValidationError} = ERRORS;
 
 export class EMemModel implements ModelPluginInterface {
   authParams: object | undefined; // Defined for compatibility. Not used in this.
@@ -65,9 +65,8 @@ export class EMemModel implements ModelPluginInterface {
    * multiplies memory used (GB) by a coefficient (wh/GB) and converts to kwh
    */
   private calculateEnergy(input: KeyValuePair) {
-
-    if (!('timestamp' in input) || (input['timestamp'] == undefined)) {
-      console.log("HELLO! TIMESTAMP IS : ", input['timestamp'])
+    if (!('timestamp' in input) || input['timestamp'] === undefined) {
+      console.log('HELLO! TIMESTAMP IS : ', input['timestamp']);
       throw new InputValidationError(
         this.errorBuilder({
           message: 'Timestamp is missing or invalid',
@@ -75,7 +74,7 @@ export class EMemModel implements ModelPluginInterface {
       );
     }
 
-    if (!('mem-util' in input) || (input['mem-util'] == undefined)) {
+    if (!('mem-util' in input) || input['mem-util'] === undefined) {
       throw new InputValidationError(
         this.errorBuilder({
           message: 'mem-util is missing or invalid',
@@ -83,7 +82,7 @@ export class EMemModel implements ModelPluginInterface {
       );
     }
 
-    if (!('mem-alloc' in input) || (input['mem-alloc'] == undefined)) {
+    if (!('mem-alloc' in input) || input['mem-alloc'] === undefined) {
       throw new InputValidationError(
         this.errorBuilder({
           message: 'mem-alloc is missing or invalid',
@@ -121,6 +120,6 @@ export class EMemModel implements ModelPluginInterface {
     }
 
     // GB * kWh/GB == kWh
-    return (mem_alloc * (mem_util / 100) * memoryEnergy);
+    return mem_alloc * (mem_util / 100) * memoryEnergy;
   }
 }
