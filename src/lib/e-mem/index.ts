@@ -82,18 +82,18 @@ export class EMemModel implements ModelPluginInterface {
       );
     }
 
-    if (!('mem-alloc' in input) || input['mem-alloc'] === undefined) {
+    if (!('total-memoryGB' in input) || input['total-memoryGB'] === undefined) {
       throw new InputValidationError(
         this.errorBuilder({
-          message: 'mem-alloc is missing or invalid',
+          message: 'total-memoryGB is missing or invalid',
         })
       );
     }
 
-    if (input['mem-alloc'] === 0) {
+    if (input['total-memoryGB'] === 0) {
       throw new InputValidationError(
         this.errorBuilder({
-          message: "'mem-alloc' is either not defined or set to zero.",
+          message: "'total-memoryGB' is either not defined or set to zero.",
         })
       );
     }
@@ -106,7 +106,7 @@ export class EMemModel implements ModelPluginInterface {
       );
     }
 
-    const mem_alloc = input['mem-alloc'];
+    const mem_alloc = input['total-memoryGB'];
     const mem_util = input['mem-util']; // convert cpu usage to percentage
     const memoryEnergy = input['coefficient'] ?? 0.38; //coefficient for GB -> kWh, use 0.38 as default
 

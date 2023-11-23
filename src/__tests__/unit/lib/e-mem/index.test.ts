@@ -60,7 +60,7 @@ describe('lib/e-mem: ', () => {
           {
             timestamp: '2023-11-02T10:35:31.820Z',
             duration: 3600,
-            'mem-alloc': 3,
+            'total-memoryGB': 3,
             'mem-energy': 0.38,
           },
         ]);
@@ -73,7 +73,7 @@ describe('lib/e-mem: ', () => {
         }
       }
     });
-    it('throws error for missing mem-alloc input field.', async () => {
+    it('throws error for missing total-memoryGB input field.', async () => {
       const eMemModel = new EMemModel();
       expect.assertions(3);
       expect(await eMemModel.configure({})).toBeInstanceOf(EMemModel);
@@ -90,7 +90,7 @@ describe('lib/e-mem: ', () => {
         if (error instanceof Error) {
           expect(error).toBeInstanceOf(Error);
           expect(error.message).toEqual(
-            'EMemModel: mem-alloc is missing or invalid.'
+            'EMemModel: total-memoryGB is missing or invalid.'
           );
         }
       }
@@ -103,7 +103,7 @@ describe('lib/e-mem: ', () => {
             timestamp: '2023-11-02T10:35:31.820Z',
             duration: 3600,
             'mem-util': 30,
-            'mem-alloc': 3,
+            'total-memoryGB': 3,
           },
         ])
       ).resolves.toEqual([
@@ -111,7 +111,7 @@ describe('lib/e-mem: ', () => {
           timestamp: '2023-11-02T10:35:31.820Z',
           duration: 3600,
           'mem-util': 30,
-          'mem-alloc': 3,
+          'total-memoryGB': 3,
           'energy-memory': 0.34199999999999997,
         },
       ]);
@@ -126,7 +126,7 @@ describe('lib/e-mem: ', () => {
             timestamp: '2023-11-02T10:35:31.820Z',
             duration: 3600,
             'mem-util': 30,
-            'mem-alloc': 3,
+            'total-memoryGB': 3,
             coefficient: 0.98,
           },
         ])
@@ -135,7 +135,7 @@ describe('lib/e-mem: ', () => {
           timestamp: '2023-11-02T10:35:31.820Z',
           duration: 3600,
           'mem-util': 30,
-          'mem-alloc': 3,
+          'total-memoryGB': 3,
           coefficient: 0.98,
           'energy-memory': 0.8819999999999999,
         },
@@ -151,7 +151,7 @@ describe('lib/e-mem: ', () => {
             timestamp: '2023-11-02T10:35:31.820Z',
             duration: 3600,
             'mem-util': 10,
-            'mem-alloc': 1,
+            'total-memoryGB': 1,
             coefficient: 0.38,
           },
         ])
@@ -160,7 +160,7 @@ describe('lib/e-mem: ', () => {
           timestamp: '2023-11-02T10:35:31.820Z',
           duration: 3600,
           'mem-util': 10,
-          'mem-alloc': 1,
+          'total-memoryGB': 1,
           coefficient: 0.38,
           'energy-memory': 0.038000000000000006,
         },
@@ -174,7 +174,7 @@ describe('lib/e-mem: ', () => {
             timestamp: '2023-11-02T10:35:31.820Z',
             duration: 3600,
             'mem-util': 30,
-            'mem-alloc': 1,
+            'total-memoryGB': 1,
             coefficient: 0.38,
           },
         ])
@@ -183,7 +183,7 @@ describe('lib/e-mem: ', () => {
           timestamp: '2023-11-02T10:35:31.820Z',
           duration: 3600,
           'mem-util': 30,
-          'mem-alloc': 1,
+          'total-memoryGB': 1,
           coefficient: 0.38,
           'energy-memory': 0.11399999999999999,
         },
