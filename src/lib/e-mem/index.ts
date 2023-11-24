@@ -66,7 +66,6 @@ export class EMemModel implements ModelPluginInterface {
    */
   private calculateEnergy(input: KeyValuePair) {
     if (!('timestamp' in input) || input['timestamp'] === undefined) {
-      console.log('HELLO! TIMESTAMP IS : ', input['timestamp']);
       throw new InputValidationError(
         this.errorBuilder({
           message: 'Timestamp is missing or invalid',
