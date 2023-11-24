@@ -1,11 +1,11 @@
-import { ModelPluginInterface } from '../../interfaces';
+import {ModelPluginInterface} from '../../interfaces';
 
-import { ERRORS } from '../../util/errors';
-import { buildErrorMessage } from '../../util/helpers';
+import {ERRORS} from '../../util/errors';
+import {buildErrorMessage} from '../../util/helpers';
 
-import { KeyValuePair, ModelParams } from '../../types/common';
+import {KeyValuePair, ModelParams} from '../../types/common';
 
-const { InputValidationError } = ERRORS;
+const {InputValidationError} = ERRORS;
 
 export class EMemModel implements ModelPluginInterface {
   authParams: object | undefined; // Defined for compatibility. Not used in this.
