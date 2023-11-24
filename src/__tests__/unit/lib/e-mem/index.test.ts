@@ -22,13 +22,6 @@ describe('lib/e-mem: ', () => {
     });
   });
 
-  describe('authenticate(): ', () => {
-    it('authenticate is undefined', async () => {
-      const eMemModel = await new EMemModel().configure({});
-      expect(eMemModel).toBeInstanceOf(EMemModel);
-    });
-  });
-
   describe('configure(): ', () => {
     it('configure returns name and empty config', async () => {
       const eMemModel = new EMemModel();
