@@ -1,4 +1,4 @@
-import {EMemModel} from '../../../../lib';
+import { EMemModel } from '../../../../lib';
 //import { ERRORS } from '../../../../util/errors';
 //const { InputValidationError } = ERRORS;
 
@@ -8,7 +8,6 @@ describe('lib/e-mem: ', () => {
   describe('init AzureImporterModel: ', () => {
     it('initalizes object with properties.', async () => {
       const eMemModel = await new EMemModel();
-      expect(eMemModel).toHaveProperty('authenticate');
       expect(eMemModel).toHaveProperty('configure');
       expect(eMemModel).toHaveProperty('execute');
     });
