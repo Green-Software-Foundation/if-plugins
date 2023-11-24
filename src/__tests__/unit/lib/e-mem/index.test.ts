@@ -1,4 +1,4 @@
-import { EMemModel } from '../../../../lib';
+import {EMemModel} from '../../../../lib';
 //import { ERRORS } from '../../../../util/errors';
 //const { InputValidationError } = ERRORS;
 
