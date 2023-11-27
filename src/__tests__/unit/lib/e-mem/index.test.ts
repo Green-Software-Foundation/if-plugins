@@ -5,7 +5,7 @@ import {EMemModel} from '../../../../lib';
 jest.setTimeout(30000);
 
 describe('lib/e-mem: ', () => {
-  describe('init AzureImporterModel: ', () => {
+  describe('init EMemModel: ', () => {
     it('initalizes object with properties.', async () => {
       const eMemModel = await new EMemModel();
       expect(eMemModel).toHaveProperty('configure');
