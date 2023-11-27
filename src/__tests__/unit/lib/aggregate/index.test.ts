@@ -115,7 +115,7 @@ describe('lib/aggregate: ', () => {
             );
         });
         it('Throws when expected metrics are not in inputs.', async () => {
-            const aggregateModel = await new AggregateModel().configure({ 'aggregation-method': 'avg', 'aggregation-metrics': ['dummy'] });
+            const aggregateModel = await new AggregateModel().configure({ 'aggregation-method': 'avg', 'aggregation-metrics': ['carbon', 'energy', 'dummy'] });
             expect(aggregateModel).toBeInstanceOf(AggregateModel);
             await expect(
                 aggregateModel.execute([
@@ -139,7 +139,54 @@ describe('lib/aggregate: ', () => {
                     },
                 ])
             ).rejects.toStrictEqual(new InputValidationError('AggregateModel: aggregation metric dummy not found in input data.'));
-
+        });
+        it('Falls back to sum when aggregation method is invalid.', async () => {
+            const aggregateModel = await new AggregateModel().configure({ 'aggregation-method': 'dummy', 'aggregation-metrics': ['carbon'] });
+            expect(aggregateModel).toBeInstanceOf(AggregateModel);
+            await expect(
+                aggregateModel.execute([
+                    {
+                        timestamp: '2023-11-02T10:35:31.820Z',
+                        duration: 3600,
+                        energy: 10,
+                        carbon: 5
+                    },
+                    {
+                        timestamp: '2023-11-02T10:35:31.820Z',
+                        duration: 3600,
+                        energy: 10,
+                        carbon: 5
+                    },
+                    {
+                        timestamp: '2023-11-02T10:35:31.820Z',
+                        duration: 3600,
+                        energy: 10,
+                        carbon: 5
+                    },
+                ])
+            ).resolves.toStrictEqual([
+                {
+                    timestamp: '2023-11-02T10:35:31.820Z',
+                    duration: 3600,
+                    energy: 10,
+                    carbon: 5,
+                    'aggregate-carbon': 15
+                },
+                {
+                    timestamp: '2023-11-02T10:35:31.820Z',
+                    duration: 3600,
+                    energy: 10,
+                    carbon: 5,
+                    'aggregate-carbon': 15
+                },
+                {
+                    timestamp: '2023-11-02T10:35:31.820Z',
+                    duration: 3600,
+                    energy: 10,
+                    carbon: 5,
+                    'aggregate-carbon': 15
+                },
+            ])
         });
     })
-});
+})
