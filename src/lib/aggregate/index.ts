@@ -11,7 +11,7 @@ export class AggregateModel implements ModelPluginInterface {
     authParams: object | undefined; // Defined for compatibility. Not used in this.
     staticParams: object | undefined;
     // todo: get aggregateMetrics and method from impl
-    aggregationMetrics: Array<string> = ['energy', 'carbon'];
+    aggregationMetrics: Array<string> = [];
     aggregationMethod: string = 'sum';
 
     errorBuilder = buildErrorMessage(AggregateModel);
@@ -20,6 +20,19 @@ export class AggregateModel implements ModelPluginInterface {
         staticParams: object | undefined = undefined
     ): Promise<ModelPluginInterface> {
         this.staticParams = staticParams;
+        if (staticParams !== undefined && 'aggregation-method' in staticParams && typeof (staticParams['aggregation-method']) === 'string') {
+            this.aggregationMethod = staticParams['aggregation-method'];
+        }
+        else {
+            this.aggregationMethod = 'sum';
+        }
+        if (staticParams !== undefined && 'aggregation-metrics' in staticParams && typeof (staticParams['aggregation-metrics'] === 'string[]')) {
+            this.aggregationMetrics = staticParams['aggregation-metrics'] as Array<string>
+        }
+        else {
+            ERRORS.InputValidationError("aggregation metrics not parsed correctly. Please provide an  array of strings.")
+        }
+        console.log(this.aggregationMetrics)
         return this;
     }
 
@@ -49,24 +62,31 @@ export class AggregateModel implements ModelPluginInterface {
         }
 
         var aggregates: Object[] = [];
-
         for (const metricName of this.aggregationMetrics) {
             var accumulator: number = 0
             inputs.map((input: ModelParams) => {
+                if (!(metricName in input)) {
+                    throw new InputValidationError(this.errorBuilder({ message: `aggregation metric ${metricName} not found in input data` }))
+                }
                 accumulator += parseFloat(input[`${metricName}`])
             });
             aggregates.push({ name: metricName, value: accumulator })
         }
 
+        const denominator = inputs.length
+        const averages = ['av', 'avg', 'avrg', 'average', 'mean'];
+
         return inputs.map((input: ModelParams) => {
             aggregates.forEach(item => {
                 const arr = Object.values(item)
-                console.log("ignore", input)
-                input["aggregate-" + arr[0]] = arr[1]
+                var outValue = arr[1]
+                if (averages.includes(this.aggregationMethod)) {
+                    outValue = outValue / denominator
+                }
+
+                input["aggregate-" + arr[0]] = outValue;
             })
             return input
         });
     }
-
-
 }
