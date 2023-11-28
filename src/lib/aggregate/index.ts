@@ -42,7 +42,6 @@ export class AggregateModel implements ModelPluginInterface {
         'aggregation metrics not parsed correctly. Please provide an  array of strings.'
       );
     }
-    console.log(this.aggregationMetrics);
     return this;
   }
 
