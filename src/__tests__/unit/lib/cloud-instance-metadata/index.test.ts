@@ -66,7 +66,7 @@ describe('cimd:configure test:azure', () => {
         {
           timestamp: '',
           duration: 5,
-          'cloud-instance-type': 'Standard_NC24s_v3',
+          'cloud-instance-type': 'Standard_NC24-23s_v3',
           'cloud-vendor': 'azure',
         },
       ])
@@ -75,7 +75,7 @@ describe('cimd:configure test:azure', () => {
         {
           timestamp: '',
           duration: 5,
-          'cloud-instance-type': 'Standard_NC24s_v3',
+          'cloud-instance-type': 'Standard_NC24-23s_v3',
           'cloud-vendor': 'azure',
           'physical-processor': 'Intel Xeon E5-2690 v4',
           'vcpus-allocated': '24',

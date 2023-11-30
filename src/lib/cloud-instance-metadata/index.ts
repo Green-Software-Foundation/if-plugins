@@ -105,6 +105,19 @@ export class CloudInstanceMetadataModel implements ModelPluginInterface {
           );
         }
       } else if (vendor === 'azure') {
+        if (instance_type.includes('-')) {
+          const instance_family = instance_type.split('-')[0];
+          const instance_size = instance_type.split('-')[1];
+          let i = 0;
+          // for each letter in instance size check if it is a number
+          for (i = 0; i < instance_size.length; i++) {
+            if (isNaN(Number(instance_size[i]))) {
+              break;
+            }
+          }
+          const instance_size_number = instance_size.slice(i);
+          instance_type = `${instance_family}${instance_size_number}`;
+        }
         const instance = AZURE_INSTANCES.find(
           instance => instance['instance-type'] === instance_type
         );
