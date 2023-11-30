@@ -23,10 +23,11 @@ describe('cimd:configure test:aws', () => {
           duration: 5,
           'cloud-instance-type': 'm5n.large',
           'cloud-vendor': 'aws',
-          'physical-processor': 'Intel Xeon Platinum 8259CL',
-          'vcpus-allocated': '2',
-          'vcpus-total': '96',
-          'memory-available': '8',
+          'physical-processor': 'Intel® Xeon® Platinum 8259CL',
+          'vcpus-allocated': 2,
+          'vcpus-total': 96,
+          'memory-available': 8,
+          'thermal-design-power': 210,
         },
       ])
     );
@@ -77,11 +78,11 @@ describe('cimd:configure test:azure', () => {
           duration: 5,
           'cloud-instance-type': 'Standard_NC24-23s_v3',
           'cloud-vendor': 'azure',
-          'physical-processor': 'Intel Xeon E5-2690 v4',
-          'vcpus-allocated': '24',
-          'vcpus-total': '28',
-          'memory-available': '448',
-          'thermal-design-power': '135',
+          'physical-processor': 'Intel® Xeon® E5-2690 v4',
+          'vcpus-allocated': 24,
+          'vcpus-total': 28,
+          'memory-available': 448,
+          'thermal-design-power': 135,
         },
       ])
     );
