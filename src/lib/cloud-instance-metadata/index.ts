@@ -75,27 +75,15 @@ export class CloudInstanceMetadataModel implements ModelPluginInterface {
 
       if (vendor === 'aws') {
         const instance = AWS_INSTANCES.find(
-          instance => instance['Instance type'] === instance_type
+          instance => instance['instance-class'] === instance_type
         );
 
         if (instance) {
-          input['vcpus-allocated'] = instance['Instance vCPU'];
-          input['vcpus-total'] = instance['Platform Total Number of vCPU'];
-          input['memory-available'] = instance['Instance Memory (in GB)'];
-          const cpuType = instance['Platform CPU Name'];
-
-          let platform = '';
-
-          if (cpuType.startsWith('EPYC')) {
-            platform = 'AMD';
-          } else if (cpuType.startsWith('Xeon')) {
-            platform = 'Intel';
-          } else if (cpuType.startsWith('Graviton')) {
-            platform = 'AWS';
-          } else if (cpuType.startsWith('Core')) {
-            platform = 'Intel';
-          }
-          input['physical-processor'] = `${platform} ${cpuType}`;
+          input['vcpus-allocated'] = parseInt(instance['cpu-cores-utilized']);
+          input['vcpus-total'] = parseInt(instance['cpu-cores-available']);
+          input['memory-available'] = parseInt(instance['memory-available']);
+          input['physical-processor'] = instance['cpu-model-name'];
+          input['thermal-design-power'] = parseFloat(instance['cpu-tdp']);
         } else {
           throw new UnsupportedValueError(
             this.errorBuilder({
@@ -105,16 +93,29 @@ export class CloudInstanceMetadataModel implements ModelPluginInterface {
           );
         }
       } else if (vendor === 'azure') {
+        if (instance_type.includes('-')) {
+          const instance_family = instance_type.split('-')[0];
+          const instance_size = instance_type.split('-')[1];
+          let i = 0;
+          // for each letter in instance size check if it is a number
+          for (i = 0; i < instance_size.length; i++) {
+            if (isNaN(Number(instance_size[i]))) {
+              break;
+            }
+          }
+          const instance_size_number = instance_size.slice(i);
+          instance_type = `${instance_family}${instance_size_number}`;
+        }
         const instance = AZURE_INSTANCES.find(
-          instance => instance['instance-type'] === instance_type
+          instance => instance['instance-class'] === instance_type
         );
 
         if (instance) {
-          input['vcpus-allocated'] = instance['cpu-cores-utilized'];
-          input['vcpus-total'] = instance['cpu-cores-available'];
+          input['vcpus-allocated'] = parseInt(instance['cpu-cores-utilized']);
+          input['vcpus-total'] = parseInt(instance['cpu-cores-available']);
           input['physical-processor'] = instance['cpu-model-name'];
-          input['memory-available'] = instance['memory-available'];
-          input['thermal-design-power'] = instance['thermal-design-power'];
+          input['memory-available'] = parseInt(instance['memory-available']);
+          input['thermal-design-power'] = parseFloat(instance['cpu-tdp']);
         } else {
           throw new UnsupportedValueError(
             this.errorBuilder({
@@ -124,7 +125,6 @@ export class CloudInstanceMetadataModel implements ModelPluginInterface {
           );
         }
       }
-
       return input;
     });
   }
