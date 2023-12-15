@@ -7,6 +7,7 @@ describe('lib/shell-imp: ', () => {
   describe('shell:configure', () => {
     test('initialize with params', async () => {
       const outputModel = new ShellModel();
+      await expect(outputModel.configure()).rejects.toThrow();
       await outputModel.configure({
         executable: 'python3 /usr/local/bin/sampler',
       });
@@ -21,7 +22,15 @@ describe('lib/shell-imp: ', () => {
           timestamp: '2021-01-01T00:00:00Z',
           energy: 1,
         },
-      ]);
+      ])
+      await outputModel.configure({
+        executable: 'python3 /usr/local/bin/sampler2',
+      });
+      await expect(
+        outputModel.execute([
+          {duration: 3600, cpu: 0.5, timestamp: '2021-01-01T00:00:00Z'},
+        ])
+      ).rejects.toThrow();
     });
   });
 });

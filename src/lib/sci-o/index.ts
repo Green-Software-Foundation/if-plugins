@@ -8,14 +8,9 @@ import {KeyValuePair} from '../../types/common';
 const {InputValidationError} = ERRORS;
 
 export class SciOModel implements ModelPluginInterface {
-  authParams: object | undefined = undefined;
   staticParams: object | undefined;
   name: string | undefined;
   errorBuilder = buildErrorMessage(SciOModel);
-
-  authenticate(authParams: object): void {
-    this.authParams = authParams;
-  }
 
   /**
    * Calculate the total emissions for a list of inputs.

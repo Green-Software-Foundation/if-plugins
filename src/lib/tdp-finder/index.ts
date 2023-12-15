@@ -5,20 +5,15 @@ import {ERRORS} from '../../util/errors';
 import {buildErrorMessage} from '../../util/helpers';
 
 import {ModelPluginInterface} from '../../interfaces';
-import {KeyValuePair} from '../../types/common';
+import {KeyValuePair, ModelParams} from '../../types/common';
 
 const {InputValidationError, UnsupportedValueError} = ERRORS;
 
 export class TdpFinderModel implements ModelPluginInterface {
-  authParams: object | undefined = undefined;
   staticParams: object | undefined;
   name: string | undefined;
   data: any;
   errorBuilder = buildErrorMessage(TdpFinderModel);
-
-  authenticate(authParams: object): void {
-    this.authParams = authParams;
-  }
 
   /**
    * Calculate the total emissions for a list of inputs.
@@ -27,18 +22,7 @@ export class TdpFinderModel implements ModelPluginInterface {
    * @param {Object[]} inputs
    * @param {string} inputs[].timestamp RFC3339 timestamp string
    */
-  async execute(inputs: object | object[] | undefined): Promise<any[]> {
-    if (inputs === undefined) {
-      throw new InputValidationError(
-        this.errorBuilder({message: 'Input data is missing'})
-      );
-    }
-
-    if (!Array.isArray(inputs)) {
-      throw new InputValidationError(
-        this.errorBuilder({message: 'Input data is not an array'})
-      );
-    }
+  async execute(inputs: ModelParams[]): Promise<any[]> {
 
     return inputs.map((input: KeyValuePair, index: number) => {
       input['thermal-design-power'] = 0;

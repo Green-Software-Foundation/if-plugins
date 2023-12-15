@@ -61,6 +61,7 @@
     "build": "yarn clean && tsc --project tsconfig.build.json && yarn copy-files",
     "clean": "rimraf build/",
     "copy-files": "copyfiles -u 1 src/**/*.csv build",
+    "coverage": "jest --verbose --coverage",
     "fix": "gts fix",
     "fix:package": "fixpack",
     "lint": "gts lint",
