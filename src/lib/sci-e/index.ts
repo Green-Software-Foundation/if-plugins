@@ -3,21 +3,14 @@ import {ModelPluginInterface} from '../../interfaces';
 import {ERRORS} from '../../util/errors';
 import {buildErrorMessage} from '../../util/helpers';
 
-import {KeyValuePair} from '../../types/common';
+import {KeyValuePair, ModelParams} from '../../types/common';
 
 const {InputValidationError} = ERRORS;
 
 export class SciEModel implements ModelPluginInterface {
-  authParams: object | undefined; // Defined for compatibility. Not used in thi smodel.
   name: string | undefined; // name of the data source
   errorBuilder = buildErrorMessage(SciEModel);
-
-  /**
-   * Defined for compatibility. Not used in energy-network.
-   */
-  authenticate(authParams: object): void {
-    this.authParams = authParams;
-  }
+  staticParams: object = {};
 
   /**
    * Configures the sci-e Plugin for IEF
@@ -28,14 +21,9 @@ export class SciEModel implements ModelPluginInterface {
     staticParams: object | undefined = undefined
   ): Promise<ModelPluginInterface> {
     if (staticParams === undefined) {
-      throw new InputValidationError(
-        this.errorBuilder({
-          scope: 'configure',
-          message: 'Missing input data',
-        })
-      );
+      staticParams = {};
     }
-
+    this.staticParams = staticParams;
     return this;
   }
 
@@ -46,27 +34,10 @@ export class SciEModel implements ModelPluginInterface {
    * @param {Object[]} inputs
    * @param {string} inputs[].timestamp RFC3339 timestamp string
    */
-  async execute(inputs: object | object[] | undefined): Promise<any[]> {
-    if (inputs === undefined) {
-      throw new InputValidationError(
-        this.errorBuilder({
-          message: 'Input data is missing',
-        })
-      );
-    }
-
-    if (!Array.isArray(inputs)) {
-      throw new InputValidationError(
-        this.errorBuilder({
-          message: 'Input data is not an array',
-        })
-      );
-    }
-
-    return inputs.map((input: KeyValuePair) => {
+  async execute(inputs: ModelParams[]): Promise<ModelParams[]> {
+    return inputs.map((input: ModelParams) => {
       this.configure(input);
       input['energy'] = this.calculateEnergy(input);
-
       return input;
     });
   }

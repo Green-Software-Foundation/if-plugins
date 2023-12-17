@@ -6,6 +6,7 @@ jest.setTimeout(30000);
 describe('sci-e:configure test', () => {
   test('initialize with params', async () => {
     const outputModel = new SciEModel();
+    await outputModel.configure();
     await outputModel.configure({});
     await expect(
       outputModel.execute([
@@ -27,5 +28,13 @@ describe('sci-e:configure test', () => {
         timestamp: '2021-01-01T00:00:00Z',
       },
     ]);
+    await expect(
+      outputModel.execute([
+        {
+          duration: 3600,
+          timestamp: '2021-01-01T00:00:00Z',
+        },
+      ])
+    ).rejects.toThrow();
   });
 });
