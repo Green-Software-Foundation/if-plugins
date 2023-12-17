@@ -11,14 +11,9 @@ import {buildErrorMessage} from '../../util/helpers';
 const {InputValidationError, UnsupportedValueError} = ERRORS;
 
 export class CloudInstanceMetadataModel implements ModelPluginInterface {
-  authParams: object | undefined = undefined;
   staticParams: object | undefined;
   name: string | undefined;
   errorBuilder = buildErrorMessage(CloudInstanceMetadataModel);
-
-  authenticate(authParams: object): void {
-    this.authParams = authParams;
-  }
 
   /**
    * Each input require:
@@ -26,17 +21,6 @@ export class CloudInstanceMetadataModel implements ModelPluginInterface {
    * @param {string} inputs[].timestamp RFC3339 timestamp string
    */
   async execute(inputs: ModelParams[]): Promise<any[]> {
-    if (inputs === undefined) {
-      throw new InputValidationError(
-        this.errorBuilder({message: 'Input data is missing'})
-      );
-    }
-
-    if (!Array.isArray(inputs)) {
-      throw new InputValidationError(
-        this.errorBuilder({message: 'Input data is not an array'})
-      );
-    }
 
     return inputs.map((input: KeyValuePair) => {
       let vendor = '';

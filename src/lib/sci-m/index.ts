@@ -8,24 +8,11 @@ import {ModelParams} from '../../types/common';
 const {InputValidationError} = ERRORS;
 
 export class SciMModel implements ModelPluginInterface {
-  authParams: object | undefined = undefined;
   staticParams: object | undefined;
   name: string | undefined;
   errorBuilder = buildErrorMessage(SciMModel);
 
-  authenticate(authParams: object): void {
-    this.authParams = authParams;
-  }
-
   async execute(inputs: ModelParams[]): Promise<ModelParams[]> {
-    if (!Array.isArray(inputs)) {
-      throw new InputValidationError(
-        this.errorBuilder({
-          message: 'Input data is missing',
-        })
-      );
-    }
-
     const tunedinputs = inputs.map((input, index: number) => {
       // te or total-embodied-emissions: Total embodied emissions of some underlying hardware.
       // tir or time-reserved: The length of time the hardware is reserved for use by the software.
@@ -69,27 +56,10 @@ export class SciMModel implements ModelPluginInterface {
         );
       }
 
-      if (!('duration' in input)) {
-        throw new InputValidationError(
-          this.errorBuilder({
-            message: `'duration' is missing from input[${index}]. Please provide in 'seconds'`,
-          })
-        );
-      }
-
-      if (!('expected-lifespan' in input)) {
-        throw new InputValidationError(
-          this.errorBuilder({
-            message: `'expected-lifespan' is missing from input[${index}]. Please provide in 'seconds'`,
-          })
-        );
-      }
-
       if (
         'total-embodied-emissions' in input &&
         'duration' in input &&
         'expected-lifespan' in input &&
-        'duration' in input &&
         'expected-lifespan' in input &&
         ('resources-reserved' in input || 'vcpus-allocated') &&
         ('total-resources' in input || 'vcpus-total' in input)

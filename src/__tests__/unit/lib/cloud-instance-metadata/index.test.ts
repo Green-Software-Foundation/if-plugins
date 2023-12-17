@@ -48,6 +48,23 @@ describe('cimd:configure test:aws', () => {
         {
           timestamp: '',
           duration: 5,
+          'cloud-vendor': 'aws2',
+        },
+      ])
+    ).rejects.toThrowError();
+    await expect(
+      model.execute([
+        {
+          timestamp: '',
+          duration: 5,
+        },
+      ])
+    ).rejects.toThrowError();
+    await expect(
+      model.execute([
+        {
+          timestamp: '',
+          duration: 5,
           'cloud-instance-type': 't2.micro2',
           'cloud-vendor': 'aws',
         },
