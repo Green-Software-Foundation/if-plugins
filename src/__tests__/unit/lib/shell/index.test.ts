@@ -22,7 +22,7 @@ describe('lib/shell-imp: ', () => {
           timestamp: '2021-01-01T00:00:00Z',
           energy: 1,
         },
-      ])
+      ]);
       await outputModel.configure({
         executable: 'python3 /usr/local/bin/sampler2',
       });

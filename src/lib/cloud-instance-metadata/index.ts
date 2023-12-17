@@ -21,7 +21,6 @@ export class CloudInstanceMetadataModel implements ModelPluginInterface {
    * @param {string} inputs[].timestamp RFC3339 timestamp string
    */
   async execute(inputs: ModelParams[]): Promise<any[]> {
-
     return inputs.map((input: KeyValuePair) => {
       let vendor = '';
       let instance_type = '';

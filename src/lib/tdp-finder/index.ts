@@ -23,7 +23,6 @@ export class TdpFinderModel implements ModelPluginInterface {
    * @param {string} inputs[].timestamp RFC3339 timestamp string
    */
   async execute(inputs: ModelParams[]): Promise<any[]> {
-
     return inputs.map((input: KeyValuePair, index: number) => {
       input['thermal-design-power'] = 0;
       if ('physical-processor' in input) {

@@ -42,7 +42,6 @@ export class ShellModel implements ModelPluginInterface {
   }
 
   async execute(inputs: ModelParams[]): Promise<any[]> {
-
     const input: KeyValuePair = {};
     input['inputs'] = inputs;
     if (this.staticParams !== undefined) {

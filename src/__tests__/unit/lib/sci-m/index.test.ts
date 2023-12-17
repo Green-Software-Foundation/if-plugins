@@ -208,7 +208,6 @@ describe('sci-m:configure test', () => {
       ])
     ).rejects.toThrow();
 
-
     await expect(
       model.execute([
         {
@@ -220,7 +219,6 @@ describe('sci-m:configure test', () => {
         },
       ])
     ).rejects.toThrow();
-
 
     await expect(
       model.execute([
