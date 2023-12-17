@@ -137,6 +137,146 @@ describe('sci:configure test', () => {
         sci: 432,
       },
     ]);
+    await expect(
+      model.execute([
+        {
+          timestamp: '2021-01-01T00:00:00Z',
+          'operational-carbon': 0.002,
+          'embodied-carbon': 0.0005,
+          'functional-unit': 'requests',
+          'functional-unit-time': '2 h',
+          duration: 1,
+        },
+      ])
+    ).resolves.toStrictEqual([
+      {
+        timestamp: '2021-01-01T00:00:00Z',
+        'operational-carbon': 0.002,
+        'embodied-carbon': 0.0005,
+        'functional-unit': 'requests',
+        'functional-unit-time': '2 h',
+        carbon: 0.0025,
+        duration: 1,
+        sci: 18,
+      },
+    ]);
+
+    await expect(
+      model.execute([
+        {
+          timestamp: '2021-01-01T00:00:00Z',
+          'operational-carbon': 0.002,
+          'embodied-carbon': 0.0005,
+          'functional-unit': 'requests',
+          'functional-unit-time': '2 month',
+          duration: 1,
+        },
+      ])
+    ).resolves.toStrictEqual([
+      {
+        timestamp: '2021-01-01T00:00:00Z',
+        'operational-carbon': 0.002,
+        'embodied-carbon': 0.0005,
+        'functional-unit': 'requests',
+        'functional-unit-time': '2 month',
+        carbon: 0.0025,
+        duration: 1,
+        sci: 12096,
+      },
+    ]);
+    await expect(
+      model.execute([
+        {
+          timestamp: '2021-01-01T00:00:00Z',
+          'operational-carbon': 0.002,
+          'embodied-carbon': 0.0005,
+          'functional-unit': 'requests',
+          'functional-unit-time': '2 m',
+          duration: 1,
+        },
+      ])
+    ).resolves.toStrictEqual([
+      {
+        timestamp: '2021-01-01T00:00:00Z',
+        'operational-carbon': 0.002,
+        'embodied-carbon': 0.0005,
+        'functional-unit': 'requests',
+        'functional-unit-time': '2 m',
+        carbon: 0.0025,
+        duration: 1,
+        sci: 12096,
+      },
+    ]);
+
+    await expect(
+      model.execute([
+        {
+          timestamp: '2021-01-01T00:00:00Z',
+          'operational-carbon': 0.002,
+          'embodied-carbon': 0.0005,
+          'functional-unit': 'requests',
+          'functional-unit-time': '2 s',
+          duration: 1,
+        },
+      ])
+    ).resolves.toStrictEqual([
+      {
+        timestamp: '2021-01-01T00:00:00Z',
+        'operational-carbon': 0.002,
+        'embodied-carbon': 0.0005,
+        'functional-unit': 'requests',
+        'functional-unit-time': '2 s',
+        carbon: 0.0025,
+        duration: 1,
+        sci: 0.005,
+      },
+    ]);
+    await expect(
+      model.execute([
+        {
+          timestamp: '2021-01-01T00:00:00Z',
+          'operational-carbon': 0.002,
+          'embodied-carbon': 0.0005,
+          'functional-unit': 'requests',
+          'functional-unit-time': '2 w',
+          duration: 1,
+        },
+      ])
+    ).resolves.toStrictEqual([
+      {
+        timestamp: '2021-01-01T00:00:00Z',
+        'operational-carbon': 0.002,
+        'embodied-carbon': 0.0005,
+        'functional-unit': 'requests',
+        'functional-unit-time': '2 w',
+        carbon: 0.0025,
+        duration: 1,
+        sci: 3024,
+      },
+    ]);
+    await expect(
+      model.execute([
+        {
+          timestamp: '2021-01-01T00:00:00Z',
+          'operational-carbon': 0.002,
+          'embodied-carbon': 0.0005,
+          'functional-unit': 'requests',
+          'functional-unit-time': '2 y',
+          duration: 1,
+        },
+      ])
+    ).resolves.toStrictEqual([
+      {
+        timestamp: '2021-01-01T00:00:00Z',
+        'operational-carbon': 0.002,
+        'embodied-carbon': 0.0005,
+        'functional-unit': 'requests',
+        'functional-unit-time': '2 y',
+        carbon: 0.0025,
+        duration: 1,
+        sci: 157680,
+      },
+    ]);
   });
 
   it('tests model throws excetion on missing functional unit data', async () => {
@@ -155,6 +295,28 @@ describe('sci:configure test', () => {
     ).rejects.toThrowError(
       "SciModel: 'functional-unit-time' is not available."
     );
+    await expect(
+      model.execute([
+        {
+          timestamp: '2021-01-01T00:00:00Z',
+          'embodied-carbon': 0.0005,
+          'functional-unit': 'requests',
+          'functional-unit-time': '1 hour',
+          duration: 1,
+        },
+      ])
+    ).rejects.toThrowError();
+    await expect(
+      model.execute([
+        {
+          timestamp: '2021-01-01T00:00:00Z',
+          'operational-carbon': 0.0005,
+          'functional-unit': 'requests',
+          'functional-unit-time': '1 hour',
+          duration: 1,
+        },
+      ])
+    ).rejects.toThrowError();
   });
 
   it('tests model throws exception on invalid functional unit data', async () => {
