@@ -53,5 +53,14 @@ describe('ccf:configure test', () => {
         },
       ])
     ).rejects.toThrowError();
+    await expect(
+      model.execute([
+        {
+          timestamp: '2021-01-01T00:00:00Z',
+          duration: 1,
+          'grid-carbon-intensity': 212.1,
+        },
+      ])
+    ).rejects.toThrowError();
   });
 });

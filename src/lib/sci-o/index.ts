@@ -3,7 +3,7 @@ import {ModelPluginInterface} from '../../interfaces';
 import {ERRORS} from '../../util/errors';
 import {buildErrorMessage} from '../../util/helpers';
 
-import {KeyValuePair} from '../../types/common';
+import {ModelParams} from '../../types/common';
 
 const {InputValidationError} = ERRORS;
 
@@ -19,20 +19,8 @@ export class SciOModel implements ModelPluginInterface {
    * @param {Object[]} inputs
    * @param {string} inputs[].timestamp RFC3339 timestamp string
    */
-  async execute(inputs: object | object[] | undefined): Promise<any[]> {
-    if (inputs === undefined) {
-      throw new InputValidationError(
-        this.errorBuilder({message: 'Input data is missing'})
-      );
-    }
-
-    if (!Array.isArray(inputs)) {
-      throw new InputValidationError(
-        this.errorBuilder({message: 'Input data is not an array'})
-      );
-    }
-
-    return inputs.map((input: KeyValuePair, index: number) => {
+  async execute(inputs: ModelParams[]): Promise<ModelParams[]> {
+    return inputs.map((input: ModelParams, index: number) => {
       if (!('grid-carbon-intensity' in input)) {
         throw new InputValidationError(
           this.errorBuilder({
