@@ -3,7 +3,7 @@ import {ModelPluginInterface} from '../../interfaces';
 import {ERRORS} from '../../util/errors';
 import {buildErrorMessage} from '../../util/helpers';
 
-import {KeyValuePair, ModelParams} from '../../types/common';
+import {ModelParams} from '../../types/common';
 
 const {InputValidationError} = ERRORS;
 
@@ -16,6 +16,9 @@ export class EMemModel implements ModelPluginInterface {
   async configure(
     staticParams: object | undefined = undefined
   ): Promise<ModelPluginInterface> {
+    if (staticParams === undefined) {
+      staticParams = {};
+    }
     this.staticParams = staticParams;
     return this;
   }
@@ -29,22 +32,13 @@ export class EMemModel implements ModelPluginInterface {
    * @param {number} inputs[].mem-util percentage mem usage
    */
   async execute(inputs: ModelParams[]): Promise<ModelParams[]> {
-    if (inputs === undefined) {
+    if (inputs.length === 0) {
       throw new InputValidationError(
         this.errorBuilder({
           message: 'Input data is missing',
         })
       );
     }
-
-    if (!Array.isArray(inputs)) {
-      throw new InputValidationError(
-        this.errorBuilder({
-          message: 'Input data is not an array',
-        })
-      );
-    }
-
     return inputs.map((input: ModelParams) => {
       input['energy-memory'] = this.calculateEnergy(input);
       return input;
@@ -60,15 +54,7 @@ export class EMemModel implements ModelPluginInterface {
    *
    * multiplies memory used (GB) by a coefficient (wh/GB) and converts to kwh
    */
-  private calculateEnergy(input: KeyValuePair) {
-    if (!('timestamp' in input) || input['timestamp'] === undefined) {
-      throw new InputValidationError(
-        this.errorBuilder({
-          message: 'Timestamp is missing or invalid',
-        })
-      );
-    }
-
+  private calculateEnergy(input: ModelParams) {
     if (!('mem-util' in input) || input['mem-util'] === undefined) {
       throw new InputValidationError(
         this.errorBuilder({
@@ -96,13 +82,13 @@ export class EMemModel implements ModelPluginInterface {
     if (input['coefficient'] === 0) {
       throw new InputValidationError(
         this.errorBuilder({
-          message: "'mem-energy' is either set to zero or not defined",
+          message: "'coefficient' is either set to zero",
         })
       );
     }
 
     const mem_alloc = input['total-memoryGB'];
-    const mem_util = input['mem-util']; // convert cpu usage to percentage
+    const mem_util = input['mem-util'];
     const memoryEnergy = input['coefficient'] ?? 0.38; //coefficient for GB -> kWh, use 0.38 as default
 
     if (mem_util < 0 || mem_util > 100) {
