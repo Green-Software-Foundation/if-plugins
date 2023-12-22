@@ -8,24 +8,11 @@ import {ModelParams} from '../../types/common';
 const {InputValidationError} = ERRORS;
 
 export class SciMModel implements ModelPluginInterface {
-  authParams: object | undefined = undefined;
   staticParams: object | undefined;
   name: string | undefined;
   errorBuilder = buildErrorMessage(SciMModel);
 
-  authenticate(authParams: object): void {
-    this.authParams = authParams;
-  }
-
   async execute(inputs: ModelParams[]): Promise<ModelParams[]> {
-    if (!Array.isArray(inputs)) {
-      throw new InputValidationError(
-        this.errorBuilder({
-          message: 'Input data is missing',
-        })
-      );
-    }
-
     const tunedinputs = inputs.map((input, index: number) => {
       // te or total-embodied-emissions: Total embodied emissions of some underlying hardware.
       // tir or time-reserved: The length of time the hardware is reserved for use by the software.
@@ -69,27 +56,10 @@ export class SciMModel implements ModelPluginInterface {
         );
       }
 
-      if (!('duration' in input)) {
-        throw new InputValidationError(
-          this.errorBuilder({
-            message: `'duration' is missing from input[${index}]. Please provide in 'seconds'`,
-          })
-        );
-      }
-
-      if (!('expected-lifespan' in input)) {
-        throw new InputValidationError(
-          this.errorBuilder({
-            message: `'expected-lifespan' is missing from input[${index}]. Please provide in 'seconds'`,
-          })
-        );
-      }
-
       if (
         'total-embodied-emissions' in input &&
         'duration' in input &&
         'expected-lifespan' in input &&
-        'duration' in input &&
         'expected-lifespan' in input &&
         ('resources-reserved' in input || 'vcpus-allocated') &&
         ('total-resources' in input || 'vcpus-total' in input)
@@ -99,21 +69,25 @@ export class SciMModel implements ModelPluginInterface {
         } else if (typeof input['total-embodied-emissions'] === 'number') {
           te = input['total-embodied-emissions'];
         } else {
-          te = parseFloat(input['total-embodied-emissions']);
+          throw new InputValidationError(
+            this.errorBuilder({
+              message: `'total-embodied-emissions' is not a number in input[${index}]. Please provide in 'gCO2e'`,
+            })
+          );
         }
-        if (typeof input['duration'] === 'string') {
-          tir = parseFloat(input['duration']);
-        } else if (typeof input['duration'] === 'number') {
+        if (typeof input['duration'] === 'number') {
           tir = input['duration'];
-        } else {
-          tir = parseFloat(input['duration']);
         }
         if (typeof input['expected-lifespan'] === 'string') {
           el = parseFloat(input['expected-lifespan']);
         } else if (typeof input['expected-lifespan'] === 'number') {
           el = input['expected-lifespan'];
         } else {
-          el = parseFloat(input['expected-lifespan']);
+          throw new InputValidationError(
+            this.errorBuilder({
+              message: `'expected-lifespan' is not a number in input[${index}]. Please provide in seconds`,
+            })
+          );
         }
         if (
           'vcpus-allocated' in input &&
@@ -135,6 +109,12 @@ export class SciMModel implements ModelPluginInterface {
           typeof input['resources-reserved'] === 'number'
         ) {
           rr = input['resources-reserved'];
+        } else {
+          throw new InputValidationError(
+            this.errorBuilder({
+              message: `'resources-reserved' or 'vcpus-allocated' is not a number in input[${index}]. Please provide in 'count'`,
+            })
+          );
         }
 
         if (
@@ -148,15 +128,21 @@ export class SciMModel implements ModelPluginInterface {
         ) {
           tor = input['vcpus-total'];
         } else if (
-          'resources-reserved' in input &&
-          typeof input['resources-reserved'] === 'string'
+          'total-resources' in input &&
+          typeof input['total-resources'] === 'string'
         ) {
-          tor = parseFloat(input['resources-reserved']);
+          tor = parseFloat(input['total-resources']);
         } else if (
-          'resources-reserved' in input &&
-          typeof input['resources-reserved'] === 'number'
+          'total-resources' in input &&
+          typeof input['total-resources'] === 'number'
         ) {
-          tor = input['resources-reserved'];
+          tor = input['total-resources'];
+        } else {
+          throw new InputValidationError(
+            this.errorBuilder({
+              message: `'total-resources' or 'vcpus-total' is not a number in input[${index}]. Please provide in 'count'`,
+            })
+          );
         }
 
         // M = TE * (TiR/EL) * (RR/ToR)

@@ -46,7 +46,191 @@ describe('sci-m:configure test', () => {
         'embodied-carbon': 4.10958904109589 * 2,
       },
     ]);
+    await expect(
+      model.execute([
+        {
+          timestamp: '2021-01-01T00:00:00Z',
+          duration: 60 * 60 * 24 * 30,
+          'total-embodied-emissions': '200',
+          'expected-lifespan': (60 * 60 * 24 * 365 * 4).toString(10),
+          'vcpus-allocated': '1',
+          'vcpus-total': '1',
+        },
+        {
+          timestamp: '2021-01-01T00:00:00Z',
+          'total-embodied-emissions': 200,
+          duration: 60 * 60 * 24 * 30 * 2,
+          'expected-lifespan': 60 * 60 * 24 * 365 * 4,
+          'vcpus-allocated': 1,
+          'vcpus-total': 1,
+        },
+      ])
+    ).resolves.toStrictEqual([
+      {
+        timestamp: '2021-01-01T00:00:00Z',
+        duration: 60 * 60 * 24 * 30,
+        'total-embodied-emissions': '200',
+        'expected-lifespan': (60 * 60 * 24 * 365 * 4).toString(10),
+        'vcpus-allocated': '1',
+        'vcpus-total': '1',
+        'embodied-carbon': 4.10958904109589,
+      },
+      {
+        timestamp: '2021-01-01T00:00:00Z',
+        'total-embodied-emissions': 200,
+        duration: 60 * 60 * 24 * 30 * 2,
+        'expected-lifespan': 60 * 60 * 24 * 365 * 4,
+        'vcpus-allocated': 1,
+        'vcpus-total': 1,
+        'embodied-carbon': 4.10958904109589 * 2,
+      },
+    ]);
+    await expect(
+      model.execute([
+        {
+          timestamp: '2021-01-01T00:00:00Z',
+          duration: 60 * 60 * 24 * 30,
+          'total-embodied-emissions': '200',
+          'expected-lifespan': (60 * 60 * 24 * 365 * 4).toString(10),
+          'resources-reserved': '1',
+          'total-resources': '1',
+        },
+        {
+          timestamp: '2021-01-01T00:00:00Z',
+          'total-embodied-emissions': 200,
+          duration: 60 * 60 * 24 * 30 * 2,
+          'expected-lifespan': 60 * 60 * 24 * 365 * 4,
+          'resources-reserved': 1,
+          'total-resources': 1,
+        },
+      ])
+    ).resolves.toStrictEqual([
+      {
+        timestamp: '2021-01-01T00:00:00Z',
+        duration: 60 * 60 * 24 * 30,
+        'total-embodied-emissions': '200',
+        'expected-lifespan': (60 * 60 * 24 * 365 * 4).toString(10),
+        'resources-reserved': '1',
+        'total-resources': '1',
+        'embodied-carbon': 4.10958904109589,
+      },
+      {
+        timestamp: '2021-01-01T00:00:00Z',
+        'total-embodied-emissions': 200,
+        duration: 60 * 60 * 24 * 30 * 2,
+        'expected-lifespan': 60 * 60 * 24 * 365 * 4,
+        'resources-reserved': 1,
+        'total-resources': 1,
+        'embodied-carbon': 4.10958904109589 * 2,
+      },
+    ]);
+    await expect(
+      model.execute([
+        {
+          timestamp: '2021-01-01T00:00:00Z',
+          duration: 60 * 60 * 24 * 30,
+          'expected-lifespan': 60 * 60 * 24 * 365 * 4,
+          'resources-reserved': 1,
+          'total-resources': 1,
+        },
+      ])
+    ).rejects.toThrow();
+    await expect(
+      model.execute([
+        {
+          timestamp: '2021-01-01T00:00:00Z',
+          duration: 60 * 60 * 24 * 30,
+          'total-embodied-emissions': false,
+          'expected-lifespan': 60 * 60 * 24 * 365 * 4,
+          'resources-reserved': 1,
+          'total-resources': 1,
+        },
+      ])
+    ).rejects.toThrow();
+    await expect(
+      model.execute([
+        {
+          timestamp: '2021-01-01T00:00:00Z',
+          duration: 60 * 60 * 24 * 30,
+          'total-embodied-emissions': 200,
+          'expected-lifespan': false,
+          'resources-reserved': 1,
+          'total-resources': 1,
+        },
+      ])
+    ).rejects.toThrow();
+    await expect(
+      model.execute([
+        {
+          timestamp: '2021-01-01T00:00:00Z',
+          duration: 60 * 60 * 24 * 30,
+          'total-embodied-emissions': 200,
+          'expected-lifespan': 60 * 60 * 24 * 365 * 4,
+          'resources-reserved': false,
+          'total-resources': 1,
+        },
+      ])
+    ).rejects.toThrow();
+    await expect(
+      model.execute([
+        {
+          timestamp: '2021-01-01T00:00:00Z',
+          duration: 60 * 60 * 24 * 30,
+          'total-embodied-emissions': 200,
+          'expected-lifespan': 60 * 60 * 24 * 365 * 4,
+          'resources-reserved': 1,
+          'total-resources': false,
+        },
+      ])
+    ).rejects.toThrow();
 
+    await expect(
+      model.execute([
+        {
+          timestamp: '2021-01-01T00:00:00Z',
+          duration: 60 * 60 * 24 * 30,
+          'total-embodied-emissions': 200,
+          'expected-lifespan': 60 * 60 * 24 * 365 * 4,
+          'total-resources': 1,
+        },
+      ])
+    ).rejects.toThrow();
+
+    await expect(
+      model.execute([
+        {
+          timestamp: '2021-01-01T00:00:00Z',
+          duration: 60 * 60 * 24 * 30,
+          'total-embodied-emissions': 200,
+          'expected-lifespan': 60 * 60 * 24 * 365 * 4,
+          'resources-reserved': 1,
+        },
+      ])
+    ).rejects.toThrow();
+
+    await expect(
+      model.execute([
+        {
+          timestamp: '2021-01-01T00:00:00Z',
+          duration: 60 * 60 * 24 * 30,
+          'total-embodied-emissions': 200,
+          'resources-reserved': 1,
+          'total-resources': 1,
+        },
+      ])
+    ).rejects.toThrow();
+
+    await expect(
+      model.execute([
+        {
+          timestamp: '2021-01-01T00:00:00Z',
+          duration: 60 * 60 * 24 * 30,
+          'total-embodied-emissions': 200,
+          'resources-reserved': 1,
+          'total-resources': 1,
+        },
+      ])
+    ).rejects.toThrow();
     await expect(
       model.execute([
         {

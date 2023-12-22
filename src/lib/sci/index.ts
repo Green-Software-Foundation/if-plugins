@@ -3,12 +3,11 @@ import {ModelPluginInterface} from '../../interfaces';
 import {ERRORS} from '../../util/errors';
 import {buildErrorMessage} from '../../util/helpers';
 
-import {KeyValuePair} from '../../types/common';
+import {KeyValuePair, ModelParams} from '../../types/common';
 
 const {InputValidationError, UnsupportedValueError} = ERRORS;
 
 export class SciModel implements ModelPluginInterface {
-  authParams: object | undefined = undefined;
   staticParams: object | undefined;
   name: string | undefined;
   functionalUnit = 'none';
@@ -17,27 +16,7 @@ export class SciModel implements ModelPluginInterface {
   factor = 1;
   errorBuilder = buildErrorMessage(SciModel);
 
-  authenticate(authParams: object): void {
-    this.authParams = authParams;
-  }
-
-  async execute(inputs: object | object[] | undefined): Promise<any[]> {
-    if (inputs === undefined) {
-      throw new InputValidationError(
-        this.errorBuilder({
-          message: 'Input data is missing',
-        })
-      );
-    }
-
-    if (!Array.isArray(inputs)) {
-      throw new InputValidationError(
-        this.errorBuilder({
-          message: 'Input data is not an array',
-        })
-      );
-    }
-
+  async execute(inputs: ModelParams[]): Promise<any[]> {
     // parseout time value and unit from input string
     this.parseTime(inputs);
 
@@ -137,28 +116,11 @@ export class SciModel implements ModelPluginInterface {
   async configure(
     staticParams: object | undefined
   ): Promise<ModelPluginInterface> {
-    if (staticParams === undefined) {
-      throw new InputValidationError(
-        this.errorBuilder({
-          scope: 'configure',
-          message: 'Missing input data',
-        })
-      );
-    }
-
+    this.staticParams = staticParams;
     return this;
   }
 
-  private parseTime(inputs: object) {
-    if (!Array.isArray(inputs)) {
-      throw new InputValidationError(
-        this.errorBuilder({
-          message: 'Input data is not an array',
-          scope: 'parse-time',
-        })
-      );
-    }
-
+  private parseTime(inputs: ModelParams[]) {
     let splits;
     if (
       'functional-unit-time' in inputs[0] &&

@@ -6,23 +6,15 @@ import {ModelPluginInterface} from '../../interfaces';
 import {ERRORS} from '../../util/errors';
 import {buildErrorMessage} from '../../util/helpers';
 
-import {KeyValuePair} from '../../types/common';
+import {KeyValuePair, ModelParams} from '../../types/common';
 
 const {InputValidationError} = ERRORS;
 
 export class ShellModel implements ModelPluginInterface {
-  authParams: object | undefined; // Defined for compatibility. Not used.
   name: string | undefined; // The name of the data source.
   staticParams: object | undefined;
   executable = '';
   errorBuilder = buildErrorMessage(ShellModel);
-
-  /**
-   * Defined for compatibility. Not used.
-   */
-  authenticate(authParams: object): void {
-    this.authParams = authParams;
-  }
 
   /**
    * Configures the Plugin for IEF
@@ -49,19 +41,7 @@ export class ShellModel implements ModelPluginInterface {
     return this;
   }
 
-  async execute(inputs: object | object[] | undefined): Promise<any[]> {
-    if (inputs === undefined) {
-      throw new InputValidationError(
-        this.errorBuilder({message: 'Input data is missing'})
-      );
-    }
-
-    if (!Array.isArray(inputs)) {
-      throw new InputValidationError(
-        this.errorBuilder({message: 'Input data is not an array'})
-      );
-    }
-
+  async execute(inputs: ModelParams[]): Promise<any[]> {
     const input: KeyValuePair = {};
     input['inputs'] = inputs;
     if (this.staticParams !== undefined) {

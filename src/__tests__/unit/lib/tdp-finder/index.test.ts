@@ -28,6 +28,14 @@ describe('tdp-finder:configure test', () => {
         {
           timestamp: '2023-11-02T10:35:31.820Z',
           duration: 3600,
+        },
+      ])
+    ).rejects.toThrow();
+    await expect(
+      model.execute([
+        {
+          timestamp: '2023-11-02T10:35:31.820Z',
+          duration: 3600,
           'physical-processor': 'Intel Xeon E5-2676 v3',
         },
       ])
