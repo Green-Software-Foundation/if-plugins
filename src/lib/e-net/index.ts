@@ -60,15 +60,14 @@ export class ENetModel implements ModelPluginInterface {
     this.validateInput(input);
     const data_in = input['data-in'];
     const data_out = input['data-out'];
-    const net_energy = input['net-energy']
+    const net_energy = input['net-energy'];
     return ((data_in + data_out) * net_energy) / 1000;
   }
 
   private validateInput(input: ModelParams) {
-    this.validateFieldInInput(input, 'data-in')
-    this.validateFieldInInput(input, 'data-out')
-    this.validateFieldInInput(input, 'net-energy')
-
+    this.validateFieldInInput(input, 'data-in');
+    this.validateFieldInInput(input, 'data-out');
+    this.validateFieldInInput(input, 'net-energy');
     if (input['net-energy'] === 0) {
       throw new InputValidationError(
         this.errorBuilder({
@@ -87,5 +86,4 @@ export class ENetModel implements ModelPluginInterface {
       );
     }
   }
-
 }
