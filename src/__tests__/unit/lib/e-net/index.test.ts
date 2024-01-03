@@ -112,73 +112,25 @@ describe('lib/e-mem: ', () => {
   });
   describe('calculateEnergy(): ', () => {
     it('allows coefficient to vary.', async () => {
-      const eMemModel = new EMemModel();
+      const eNetModel = new ENetModel();
       await expect(
-        eMemModel.execute([
+        eNetModel.execute([
           {
             timestamp: '2023-11-02T10:35:31.820Z',
             duration: 3600,
-            'mem-util': 30,
-            'total-memoryGB': 3,
-            coefficient: 0.98,
+            'data-in': 3,
+            'data-out': 4,
+            'net-energy': 100,
           },
         ])
       ).resolves.toEqual([
         {
           timestamp: '2023-11-02T10:35:31.820Z',
           duration: 3600,
-          'mem-util': 30,
-          'total-memoryGB': 3,
-          coefficient: 0.98,
-          'energy-memory': 0.8819999999999999,
-        },
-      ]);
-    });
-  });
-  describe('calculateEnergy(): ', () => {
-    it('calculates correct energy-memory with input set 1.', async () => {
-      const eMemModel = new EMemModel();
-      await expect(
-        eMemModel.execute([
-          {
-            timestamp: '2023-11-02T10:35:31.820Z',
-            duration: 3600,
-            'mem-util': 10,
-            'total-memoryGB': 1,
-            coefficient: 0.38,
-          },
-        ])
-      ).resolves.toEqual([
-        {
-          timestamp: '2023-11-02T10:35:31.820Z',
-          duration: 3600,
-          'mem-util': 10,
-          'total-memoryGB': 1,
-          coefficient: 0.38,
-          'energy-memory': 0.038000000000000006,
-        },
-      ]);
-    });
-    it('calculates correct energy-memory with input set 2.', async () => {
-      const eMemModel = new EMemModel();
-      await expect(
-        eMemModel.execute([
-          {
-            timestamp: '2023-11-02T10:35:31.820Z',
-            duration: 3600,
-            'mem-util': 30,
-            'total-memoryGB': 1,
-            coefficient: 0.38,
-          },
-        ])
-      ).resolves.toEqual([
-        {
-          timestamp: '2023-11-02T10:35:31.820Z',
-          duration: 3600,
-          'mem-util': 30,
-          'total-memoryGB': 1,
-          coefficient: 0.38,
-          'energy-memory': 0.11399999999999999,
+          'data-in': 3,
+          'data-out': 4,
+          'net-energy': 100,
+          'energy-network': 0.7,
         },
       ]);
     });
