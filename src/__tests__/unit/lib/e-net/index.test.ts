@@ -117,8 +117,8 @@ describe('lib/e-mem: ', () => {
           {
             timestamp: '2023-11-02T10:35:31.820Z',
             duration: 3600,
-            'data-in': 3,
-            'data-out': 4,
+            'data-in': 0.003,
+            'data-out': 0.004,
             'net-energy': 100,
           },
         ])
@@ -126,8 +126,8 @@ describe('lib/e-mem: ', () => {
         {
           timestamp: '2023-11-02T10:35:31.820Z',
           duration: 3600,
-          'data-in': 3,
-          'data-out': 4,
+          'data-in': 0.003,
+          'data-out': 0.004,
           'net-energy': 100,
           'energy-network': 0.7,
         },

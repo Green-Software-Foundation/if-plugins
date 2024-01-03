@@ -45,23 +45,22 @@ export class ENetModel implements ModelPluginInterface {
     });
   }
 
-  // TODO PB - add units and better explanations to required params
   /**
    * Calculates the energy consumption for a single input
    * requires
    *
-   * data-in: inbound data
-   * data-out: outbound data
-   * net-energy: network energy cofficient
+   * data-in: inbound data [GB]
+   * data-out: outbound data [GB]
+   * net-energy: network energy cofficient [kWh/GB]
    *
-   * multiplies (data-in + data-out) by net-energy and converts to kWh (div by 1000)
+   * multiplies (data-in + data-out) by net-energy
    */
   private calculateEnergy(input: ModelParams) {
     this.validateInput(input);
     const data_in = input['data-in'];
     const data_out = input['data-out'];
     const net_energy = input['net-energy'];
-    return ((data_in + data_out) * net_energy) / 1000;
+    return (data_in + data_out) * net_energy;
   }
 
   private validateInput(input: ModelParams) {
