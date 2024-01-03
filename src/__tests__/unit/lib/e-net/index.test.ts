@@ -60,7 +60,7 @@ describe('lib/e-net: ', () => {
             'network-energy-coefficient': 100,
           },
         ])
-      ).rejects.toThrowError();
+      ).rejects.toThrow();
     });
     it('throws error for missing data-out input field.', async () => {
       const eNetModel = new ENetModel();
@@ -75,7 +75,7 @@ describe('lib/e-net: ', () => {
             'network-energy-coefficient': 100,
           },
         ])
-      ).rejects.toThrowError();
+      ).rejects.toThrow();
     });
     it('throws error for invalid network-energy-coefficient input field.', async () => {
       const eNetModel = new ENetModel();
@@ -90,7 +90,7 @@ describe('lib/e-net: ', () => {
             'data-out': 4,
           },
         ])
-      ).rejects.toThrowError();
+      ).rejects.toThrow();
     });
     it('throws error for invalid network-energy-coefficient input field value.', async () => {
       const eNetModel = new ENetModel();
@@ -106,7 +106,7 @@ describe('lib/e-net: ', () => {
             'network-energy-coefficient': 0,
           },
         ])
-      ).rejects.toThrowError();
+      ).rejects.toThrow();
     });
   });
   describe('calculateEnergy(): ', () => {
