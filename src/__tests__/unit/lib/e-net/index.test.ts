@@ -1,4 +1,3 @@
-import {EMemModel} from '../../../../lib';
 import {ENetModel} from '../../../../lib';
 //import { ERRORS } from '../../../../util/errors';
 //const { InputValidationError } = ERRORS;
