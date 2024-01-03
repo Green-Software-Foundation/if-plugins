@@ -4,7 +4,7 @@ import {ENetModel} from '../../../../lib';
 
 jest.setTimeout(30000);
 
-describe('lib/e-mem: ', () => {
+describe('lib/e-net: ', () => {
   describe('init: ', () => {
     it('initalizes object with properties.', async () => {
       const eNetModel = await new ENetModel();
@@ -110,15 +110,15 @@ describe('lib/e-mem: ', () => {
     });
   });
   describe('calculateEnergy(): ', () => {
-    it('allows coefficient to vary.', async () => {
+    it('calculate happy path.', async () => {
       const eNetModel = new ENetModel();
       await expect(
         eNetModel.execute([
           {
             timestamp: '2023-11-02T10:35:31.820Z',
             duration: 3600,
-            'data-in': 0.003,
-            'data-out': 0.004,
+            'data-in': 3,
+            'data-out': 4,
             'net-energy': 100,
           },
         ])
@@ -126,10 +126,10 @@ describe('lib/e-mem: ', () => {
         {
           timestamp: '2023-11-02T10:35:31.820Z',
           duration: 3600,
-          'data-in': 0.003,
-          'data-out': 0.004,
+          'data-in': 3,
+          'data-out': 4,
           'net-energy': 100,
-          'energy-network': 0.7,
+          'energy-network': 700,
         },
       ]);
     });
