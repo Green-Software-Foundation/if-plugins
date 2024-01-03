@@ -1,15 +1,16 @@
 import {EMemModel} from '../../../../lib';
+import {ENetModel} from '../../../../lib';
 //import { ERRORS } from '../../../../util/errors';
 //const { InputValidationError } = ERRORS;
 
 jest.setTimeout(30000);
 
 describe('lib/e-mem: ', () => {
-  describe('init AzureImporterModel: ', () => {
+  describe('init: ', () => {
     it('initalizes object with properties.', async () => {
-      const eMemModel = await new EMemModel();
-      expect(eMemModel).toHaveProperty('configure');
-      expect(eMemModel).toHaveProperty('execute');
+      const eNetModel = await new ENetModel();
+      expect(eNetModel).toHaveProperty('configure');
+      expect(eNetModel).toHaveProperty('execute');
     });
   });
 
