@@ -48,104 +48,66 @@ describe('lib/e-mem: ', () => {
         }
       }
     });
-    it('throws error for missing mem-util input field.', async () => {
-      const eMemModel = new EMemModel();
+    it('throws error for missing data-in input field.', async () => {
+      const eNetModel = new ENetModel();
       expect.assertions(2);
-      expect(await eMemModel.configure({})).toBeInstanceOf(EMemModel);
+      expect(await eNetModel.configure({})).toBeInstanceOf(ENetModel);
       await expect(
-        eMemModel.execute([
+        eNetModel.execute([
           {
             timestamp: '2023-11-02T10:35:31.820Z',
             duration: 3600,
-            'total-memoryGB': 3,
-            coefficient: 0.38,
+            'data-out': 4,
+            'net-energy': 100,
           },
         ])
       ).rejects.toThrowError();
     });
-    it('throws error for missing total-memoryGB input field.', async () => {
-      const eMemModel = new EMemModel();
+    it('throws error for missing data-out input field.', async () => {
+      const eNetModel = new ENetModel();
       expect.assertions(2);
-      expect(await eMemModel.configure({})).toBeInstanceOf(EMemModel);
+      expect(await eNetModel.configure({})).toBeInstanceOf(ENetModel);
       await expect(
-        eMemModel.execute([
+        eNetModel.execute([
           {
             timestamp: '2023-11-02T10:35:31.820Z',
             duration: 3600,
-            'mem-util': 30,
-            coefficient: 0.38,
+            'data-in': 3,
+            'net-energy': 100,
           },
         ])
       ).rejects.toThrowError();
     });
-    it('throws error for invalid total-memoryGB input field.', async () => {
-      const eMemModel = new EMemModel();
+    it('throws error for invalid net-energy input field.', async () => {
+      const eNetModel = new ENetModel();
       expect.assertions(2);
-      expect(await eMemModel.configure({})).toBeInstanceOf(EMemModel);
+      expect(await eNetModel.configure({})).toBeInstanceOf(ENetModel);
       await expect(
-        eMemModel.execute([
+        eNetModel.execute([
           {
             timestamp: '2023-11-02T10:35:31.820Z',
             duration: 3600,
-            'mem-util': 30,
-            coefficient: 0.38,
-            'total-memoryGB': 0,
+            'data-in': 3,
+            'data-out': 4,
           },
         ])
       ).rejects.toThrowError();
     });
-    it('throws error for invalid coefficient input field.', async () => {
-      const eMemModel = new EMemModel();
+    it('throws error for invalid net-energy input field value.', async () => {
+      const eNetModel = new ENetModel();
       expect.assertions(2);
-      expect(await eMemModel.configure({})).toBeInstanceOf(EMemModel);
+      expect(await eNetModel.configure({})).toBeInstanceOf(ENetModel);
       await expect(
-        eMemModel.execute([
+        eNetModel.execute([
           {
             timestamp: '2023-11-02T10:35:31.820Z',
             duration: 3600,
-            'mem-util': 30,
-            coefficient: 0,
-            'total-memoryGB': 2,
+            'data-in': 3,
+            'data-out': 4,
+            'net-energy': 0,
           },
         ])
       ).rejects.toThrowError();
-    });
-    it('throws error for invalid mem-util input field.', async () => {
-      const eMemModel = new EMemModel();
-      expect.assertions(2);
-      expect(await eMemModel.configure({})).toBeInstanceOf(EMemModel);
-      await expect(
-        eMemModel.execute([
-          {
-            timestamp: '2023-11-02T10:35:31.820Z',
-            duration: 3600,
-            'mem-util': 300,
-            coefficient: 0.2,
-            'total-memoryGB': 2,
-          },
-        ])
-      ).rejects.toThrowError();
-    });
-    it('does not throw error for missing coefficient, but uses default 0.38.', async () => {
-      const eMemModel = new EMemModel();
-      await expect(
-        eMemModel.execute([
-          {
-            timestamp: '2023-11-02T10:35:31.820Z',
-            duration: 3600,
-            'mem-util': 30,
-            'total-memoryGB': 3,
-          },
-        ])
-      ).resolves.toEqual([
-        {
-          timestamp: '2023-11-02T10:35:31.820Z',
-          duration: 3600,
-          'mem-util': 30,
-          'total-memoryGB': 3,
-          'energy-memory': 0.34199999999999997,
-        },
-      ]);
     });
   });
   describe('calculateEnergy(): ', () => {
