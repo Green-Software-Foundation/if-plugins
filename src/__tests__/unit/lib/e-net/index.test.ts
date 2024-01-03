@@ -1,4 +1,4 @@
-import {ENetModel} from '../../../../lib';
+import { ENetModel } from '../../../../lib';
 //import { ERRORS } from '../../../../util/errors';
 //const { InputValidationError } = ERRORS;
 
@@ -57,7 +57,7 @@ describe('lib/e-net: ', () => {
             timestamp: '2023-11-02T10:35:31.820Z',
             duration: 3600,
             'data-out': 4,
-            'net-energy': 100,
+            'network-energy-coefficient': 100,
           },
         ])
       ).rejects.toThrowError();
@@ -72,12 +72,12 @@ describe('lib/e-net: ', () => {
             timestamp: '2023-11-02T10:35:31.820Z',
             duration: 3600,
             'data-in': 3,
-            'net-energy': 100,
+            'network-energy-coefficient': 100,
           },
         ])
       ).rejects.toThrowError();
     });
-    it('throws error for invalid net-energy input field.', async () => {
+    it('throws error for invalid network-energy-coefficient input field.', async () => {
       const eNetModel = new ENetModel();
       expect.assertions(2);
       expect(await eNetModel.configure({})).toBeInstanceOf(ENetModel);
@@ -92,7 +92,7 @@ describe('lib/e-net: ', () => {
         ])
       ).rejects.toThrowError();
     });
-    it('throws error for invalid net-energy input field value.', async () => {
+    it('throws error for invalid network-energy-coefficient input field value.', async () => {
       const eNetModel = new ENetModel();
       expect.assertions(2);
       expect(await eNetModel.configure({})).toBeInstanceOf(ENetModel);
@@ -103,7 +103,7 @@ describe('lib/e-net: ', () => {
             duration: 3600,
             'data-in': 3,
             'data-out': 4,
-            'net-energy': 0,
+            'network-energy-coefficient': 0,
           },
         ])
       ).rejects.toThrowError();
@@ -119,7 +119,7 @@ describe('lib/e-net: ', () => {
             duration: 3600,
             'data-in': 3,
             'data-out': 4,
-            'net-energy': 100,
+            'network-energy-coefficient': 100,
           },
         ])
       ).resolves.toEqual([
@@ -128,7 +128,7 @@ describe('lib/e-net: ', () => {
           duration: 3600,
           'data-in': 3,
           'data-out': 4,
-          'net-energy': 100,
+          'network-energy-coefficient': 100,
           'energy-network': 700,
         },
       ]);
