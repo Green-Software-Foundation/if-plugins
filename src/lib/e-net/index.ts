@@ -1,11 +1,11 @@
-import {ModelPluginInterface} from '../../interfaces';
+import { ModelPluginInterface } from '../../interfaces';
 
-import {ERRORS} from '../../util/errors';
-import {buildErrorMessage} from '../../util/helpers';
+import { ERRORS } from '../../util/errors';
+import { buildErrorMessage } from '../../util/helpers';
 
-import {ModelParams} from '../../types/common';
+import { ModelParams } from '../../types/common';
 
-const {InputValidationError} = ERRORS;
+const { InputValidationError } = ERRORS;
 
 export class ENetModel implements ModelPluginInterface {
   authParams: object | undefined; // Defined for compatibility. Not used in this.
@@ -67,22 +67,21 @@ export class ENetModel implements ModelPluginInterface {
     this.validateFieldInInput(input, 'data-in');
     this.validateFieldInInput(input, 'data-out');
     this.validateFieldInInput(input, 'network-energy-coefficient');
-    if (input['network-energy-coefficient'] === 0) {
-      throw new InputValidationError(
-        this.errorBuilder({
-          message: "'network-energy-coefficient' set to zero",
-        })
-      );
-    }
   }
 
   private validateFieldInInput(input: ModelParams, field: string) {
-    if (!(field in input) || input[field] === undefined) {
-      throw new InputValidationError(
-        this.errorBuilder({
-          message: field + ' is missing or invalid',
-        })
-      );
+    if (field == 'network-energy-coefficient') {
+      if (!(field in input) || input[field] === undefined || input[field] == 0) {
+        input['network-energy-coefficient'] = 0.001 // default value taken from msft-eshoppen case study
+      }
+    } else {
+      if (!(field in input) || input[field] === undefined) {
+        throw new InputValidationError(
+          this.errorBuilder({
+            message: field + ' is missing or invalid',
+          })
+        );
+      }
     }
   }
 }

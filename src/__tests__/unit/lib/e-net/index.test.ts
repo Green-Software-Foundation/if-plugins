@@ -77,7 +77,7 @@ describe('lib/e-net: ', () => {
         ])
       ).rejects.toThrow();
     });
-    it('throws error for invalid network-energy-coefficient input field.', async () => {
+    it('falls back to default value for invalid network-energy-coefficient input field value', async () => {
       const eNetModel = new ENetModel();
       expect.assertions(2);
       expect(await eNetModel.configure({})).toBeInstanceOf(ENetModel);
@@ -90,9 +90,20 @@ describe('lib/e-net: ', () => {
             'data-out': 4,
           },
         ])
-      ).rejects.toThrow();
+      ).resolves.toEqual([
+        {
+          timestamp: '2023-11-02T10:35:31.820Z',
+          duration: 3600,
+          'data-in': 3,
+          'data-out': 4,
+          'network-energy-coefficient': 0.001,
+          'energy-network': 0.007,
+        },
+      ]
+
+      );
     });
-    it('throws error for invalid network-energy-coefficient input field value.', async () => {
+    it('falls back to default value for network-energy-coefficient == 0', async () => {
       const eNetModel = new ENetModel();
       expect.assertions(2);
       expect(await eNetModel.configure({})).toBeInstanceOf(ENetModel);
@@ -106,7 +117,18 @@ describe('lib/e-net: ', () => {
             'network-energy-coefficient': 0,
           },
         ])
-      ).rejects.toThrow();
+      ).resolves.toEqual([
+        {
+          timestamp: '2023-11-02T10:35:31.820Z',
+          duration: 3600,
+          'data-in': 3,
+          'data-out': 4,
+          'network-energy-coefficient': 0.001,
+          'energy-network': 0.007,
+        },
+      ]
+
+      );
     });
   });
   describe('calculateEnergy(): ', () => {
@@ -130,6 +152,31 @@ describe('lib/e-net: ', () => {
           'data-out': 4,
           'network-energy-coefficient': 100,
           'energy-network': 700,
+        },
+      ]);
+    });
+  });
+  describe('calculateEnergy(): ', () => {
+    it('calculates network energy consistewnt with case study example.', async () => {
+      const eNetModel = new ENetModel();
+      await expect(
+        eNetModel.execute([
+          {
+            timestamp: '2023-11-02T10:35:31.820Z',
+            duration: 3600,
+            'data-in': 1.16,
+            'data-out': 14.3,
+            'network-energy-coefficient': 0.001,
+          },
+        ])
+      ).resolves.toEqual([
+        {
+          timestamp: '2023-11-02T10:35:31.820Z',
+          duration: 3600,
+          'data-in': 1.16,
+          'data-out': 14.3,
+          'network-energy-coefficient': 0.001,
+          'energy-network': 0.015460000000000002,
         },
       ]);
     });
