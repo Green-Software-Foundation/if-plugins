@@ -1,4 +1,4 @@
-import { ENetModel } from '../../../../lib';
+import {ENetModel} from '../../../../lib';
 //import { ERRORS } from '../../../../util/errors';
 //const { InputValidationError } = ERRORS;
 
@@ -99,9 +99,7 @@ describe('lib/e-net: ', () => {
           'network-energy-coefficient': 0.001,
           'energy-network': 0.007,
         },
-      ]
-
-      );
+      ]);
     });
     it('falls back to default value for network-energy-coefficient == 0', async () => {
       const eNetModel = new ENetModel();
@@ -126,9 +124,7 @@ describe('lib/e-net: ', () => {
           'network-energy-coefficient': 0.001,
           'energy-network': 0.007,
         },
-      ]
-
-      );
+      ]);
     });
   });
   describe('calculateEnergy(): ', () => {
