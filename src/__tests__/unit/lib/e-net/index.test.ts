@@ -17,34 +17,34 @@ describe('lib/e-mem: ', () => {
   describe('configure(): ', () => {
     it('configures model instance with given params.', async () => {
       const params = {};
-      const model = await new EMemModel().configure(params);
-      expect(model).toBeInstanceOf(EMemModel);
+      const model = await new ENetModel().configure(params);
+      expect(model).toBeInstanceOf(ENetModel);
     });
     it('configures model instance with given params.', async () => {
-      const model = await new EMemModel().configure();
-      expect(model).toBeInstanceOf(EMemModel);
+      const model = await new ENetModel().configure();
+      expect(model).toBeInstanceOf(ENetModel);
     });
   });
 
   describe('configure(): ', () => {
     it('configure returns name and empty config', async () => {
-      const eMemModel = new EMemModel();
-      await expect(eMemModel.configure({})).resolves.toBeInstanceOf(EMemModel);
-      expect(eMemModel.staticParams).toStrictEqual({});
+      const eNetModel = new ENetModel();
+      await expect(eNetModel.configure({})).resolves.toBeInstanceOf(ENetModel);
+      expect(eNetModel.staticParams).toStrictEqual({});
     });
   });
 
   describe('execute(): ', () => {
     it('throws error for missing input data.', async () => {
-      const eMemModel = new EMemModel();
+      const eNetModel = new ENetModel();
       expect.assertions(3);
-      expect(await eMemModel.configure({})).toBeInstanceOf(EMemModel);
+      expect(await eNetModel.configure({})).toBeInstanceOf(ENetModel);
       try {
-        await eMemModel.execute([]);
+        await eNetModel.execute([]);
       } catch (error) {
         if (error instanceof Error) {
           expect(error).toBeInstanceOf(Error);
-          expect(error.message).toEqual('EMemModel: Input data is missing.');
+          expect(error.message).toEqual('ENetModel: Input data is missing.');
         }
       }
     });
