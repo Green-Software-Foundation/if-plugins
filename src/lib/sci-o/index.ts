@@ -1,16 +1,20 @@
+import {z} from 'zod';
 import {ModelPluginInterface} from '../../interfaces';
 
-import {ERRORS} from '../../util/errors';
 import {buildErrorMessage} from '../../util/helpers';
+import {validate} from '../../util/validations';
 
 import {ModelParams} from '../../types/common';
 
-const {InputValidationError} = ERRORS;
-
 export class SciOModel implements ModelPluginInterface {
-  staticParams: object | undefined;
-  name: string | undefined;
   errorBuilder = buildErrorMessage(SciOModel);
+
+  /**
+   * Configures the SCI-O Plugin.
+   */
+  async configure(): Promise<ModelPluginInterface> {
+    return Promise.resolve(this);
+  }
 
   /**
    * Calculate the total emissions for a list of inputs.
@@ -20,37 +24,26 @@ export class SciOModel implements ModelPluginInterface {
    * @param {string} inputs[].timestamp RFC3339 timestamp string
    */
   async execute(inputs: ModelParams[]): Promise<ModelParams[]> {
-    return inputs.map((input: ModelParams, index: number) => {
-      if (!('grid-carbon-intensity' in input)) {
-        throw new InputValidationError(
-          this.errorBuilder({
-            message: `'grid-carbon-intensity' is missing from input[${index}]`,
-          })
-        );
-      }
+    return inputs.map((input: ModelParams) => {
+      this.validateSingleInput(input);
 
-      if (!('energy' in input)) {
-        throw new InputValidationError(
-          this.errorBuilder({
-            message: `'energy' is missing from input[${index}].`,
-          })
-        );
-      }
-
-      this.configure(input);
-      const grid_ci = parseFloat(input['grid-carbon-intensity']);
-      const energy = parseFloat(input['energy']);
-      input['operational-carbon'] = grid_ci * energy;
+      input['operational-carbon'] =
+        parseFloat(input['grid-carbon-intensity']) *
+        parseFloat(input['energy']);
 
       return input;
     });
   }
 
-  async configure(
-    staticParams: object | undefined
-  ): Promise<ModelPluginInterface> {
-    this.staticParams = staticParams;
+  /**
+   * Checks for required fields in input.
+   */
+  private validateSingleInput(input: ModelParams) {
+    const schema = z.object({
+      'grid-carbon-intensity': z.number().min(0).default(0),
+      energy: z.number().min(0).default(0),
+    });
 
-    return this;
+    return validate(schema, input);
   }
 }
