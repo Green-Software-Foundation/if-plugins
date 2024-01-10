@@ -26,4 +26,6 @@ export const validate = (schema: ZodSchema, object: any) => {
       prettifyErrorMessage(validationResult.error.message)
     );
   }
+
+  return validationResult.data;
 };
