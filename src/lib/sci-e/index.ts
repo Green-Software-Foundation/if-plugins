@@ -1,87 +1,60 @@
+import {z} from 'zod';
+
 import {ModelPluginInterface} from '../../interfaces';
 
-import {ERRORS} from '../../util/errors';
-import {buildErrorMessage} from '../../util/helpers';
-
-import {KeyValuePair, ModelParams} from '../../types/common';
-
-const {InputValidationError} = ERRORS;
+import {ModelParams} from '../../types/common';
+import {validate, atLeastOneDefined} from '../../util/validations';
 
 export class SciEModel implements ModelPluginInterface {
-  name: string | undefined; // name of the data source
-  errorBuilder = buildErrorMessage(SciEModel);
-  staticParams: object = {};
+  private energyMetrics = ['energy-cpu', 'energy-memory', 'energy-network'];
 
   /**
-   * Configures the sci-e Plugin for IEF
-   * @param {string} name name of the resource
-   * @param {Object} staticParams static parameters for the resource
+   * Configures the SCI-E Plugin.
    */
-  async configure(
-    staticParams: object | undefined = undefined
-  ): Promise<ModelPluginInterface> {
-    if (staticParams === undefined) {
-      staticParams = {};
-    }
-    this.staticParams = staticParams;
+  public async configure(): Promise<ModelPluginInterface> {
     return this;
   }
 
   /**
    * Calculate the total emissions for a list of inputs.
-   *
-   * Each input require:
-   * @param {Object[]} inputs
-   * @param {string} inputs[].timestamp RFC3339 timestamp string
    */
-  async execute(inputs: ModelParams[]): Promise<ModelParams[]> {
-    return inputs.map((input: ModelParams) => {
-      this.configure(input);
+  public async execute(inputs: ModelParams[]): Promise<ModelParams[]> {
+    return inputs.map(input => {
       input['energy'] = this.calculateEnergy(input);
+
       return input;
     });
   }
 
   /**
-   * Calculates the sum of the energy components
-   *
-   * energy-cpu: cpu energy in kwh
-   * energy-memory: energy due to memory usage in kwh
-   * energy-network: energy due to network data in kwh
-   * timestamp: RFC3339 timestamp string
-   *
-   * adds energy + e_net + e_mum
+   * Checks for required fields in input.
    */
-  private calculateEnergy(input: KeyValuePair) {
-    let e_mem = 0;
-    let e_net = 0;
-    let e_cpu = 0;
+  private validateSingleInput(input: ModelParams) {
+    const schema = z
+      .object({
+        'energy-cpu': z.number().gte(0).min(0).optional(),
+        'energy-memory': z.number().gte(0).min(0).optional(),
+        'energy-network': z.number().gte(0).min(0).optional(),
+      })
+      .refine(atLeastOneDefined, {
+        message: `At least one of ${this.energyMetrics} should present.`,
+      });
 
-    if (
-      !('energy-cpu' in input) &&
-      !('energy-memory' in input) &&
-      !('energy-network' in input)
-    ) {
-      throw new InputValidationError(
-        this.errorBuilder({
-          message:
-            "At least one of 'energy-memory', 'energy-network' or 'energy' must be present in 'input'",
-          scope: 'calculate-energy',
-        })
-      );
-    }
+    return validate(schema, input);
+  }
 
-    // If the user gives a negative value it will default to zero.
-    if ('energy-cpu' in input && input['energy-cpu'] > 0) {
-      e_cpu = input['energy-cpu'];
-    }
-    if ('energy-memory' in input && input['energy-memory'] > 0) {
-      e_mem = input['energy-memory'];
-    }
-    if ('energy-network' in input && input['energy-network'] > 0) {
-      e_net = input['energy-network'];
-    }
+  /**
+   * Calculates the sum of the energy components.
+   */
+  private calculateEnergy(input: ModelParams) {
+    const safeInput = this.validateSingleInput(input);
 
-    return e_cpu + e_net + e_mem;
+    return this.energyMetrics.reduce((acc, metric) => {
+      if (safeInput[metric]) {
+        acc += safeInput[metric];
+      }
+
+      return acc;
+    }, 0);
   }
 }

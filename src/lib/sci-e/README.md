@@ -48,21 +48,21 @@ Only `sci-e` takes individual contributions and returns `energy`.
 
 ## Implementation
 
-To run the model, you must first create an instance of `SciEModel` and
-call its `configure()` method. Then, you can call `execute()` to return `energy`.
+To run the model, you must first create an instance of `SciEModel`. Then, you can call `execute()` to return `energy`.
 
 ```typescript
 import { SciEModel } from '@gsf/if-models';
 
 const sciEModel = new SciEModel();
-sciEModel.configure()
-const results = sciEModel.execute([
+sciEModel.execute([
   {
     energy-cpu: 0.001,
     energy-memory: 0.0005,
     energy-network: 0.0005,
   }
-])
+]).then((result) => {
+  console.log(results)
+})
 ```
 
 ## Example impl
