@@ -12,20 +12,18 @@ export class SciEModel implements ModelPluginInterface {
    * Configures the SCI-E Plugin.
    */
   public async configure(): Promise<ModelPluginInterface> {
-    return Promise.resolve(this);
+    return this;
   }
 
   /**
    * Calculate the total emissions for a list of inputs.
    */
   public async execute(inputs: ModelParams[]): Promise<ModelParams[]> {
-    const energyAppendedInputs = inputs.map(input => {
+    return inputs.map(input => {
       input['energy'] = this.calculateEnergy(input);
 
       return input;
     });
-
-    return Promise.resolve(energyAppendedInputs);
   }
 
   /**
