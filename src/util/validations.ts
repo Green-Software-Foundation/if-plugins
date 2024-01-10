@@ -12,6 +12,12 @@ export const atLeastOneDefined = (
 ) => Object.values(obj).some(v => v !== undefined);
 
 /**
+ * All properties are defined handler.
+ */
+export const allDefined = (obj: Record<string | number | symbol, unknown>) =>
+  Object.values(obj).every(v => v !== undefined);
+
+/**
  * Error message formatter for zod issues.
  */
 const prettifyErrorMessage = (issues: string) => {
