@@ -2,11 +2,12 @@ import {z} from 'zod';
 import {ModelPluginInterface} from '../../interfaces';
 
 import {buildErrorMessage} from '../../util/helpers';
-import {validate} from '../../util/validations';
+import {validate, allDefined} from '../../util/validations';
 
 import {ModelParams} from '../../types/common';
 
 export class SciOModel implements ModelPluginInterface {
+  private METRICS = ['grid-carbon-intensity', 'energy'];
   errorBuilder = buildErrorMessage(SciOModel);
 
   /**
@@ -25,11 +26,11 @@ export class SciOModel implements ModelPluginInterface {
    */
   async execute(inputs: ModelParams[]): Promise<ModelParams[]> {
     return inputs.map((input: ModelParams) => {
-      this.validateSingleInput(input);
+      const safeInput = this.validateSingleInput(input);
 
       input['operational-carbon'] =
-        parseFloat(input['grid-carbon-intensity']) *
-        parseFloat(input['energy']);
+        parseFloat(safeInput[this.METRICS[0]]) *
+        parseFloat(safeInput[this.METRICS[1]]);
 
       return input;
     });
@@ -39,10 +40,14 @@ export class SciOModel implements ModelPluginInterface {
    * Checks for required fields in input.
    */
   private validateSingleInput(input: ModelParams) {
-    const schema = z.object({
-      'grid-carbon-intensity': z.number().min(0).default(0),
-      energy: z.number().min(0).default(0),
-    });
+    const schema = z
+      .object({
+        'grid-carbon-intensity': z.number().min(0).default(0),
+        energy: z.number().min(0).default(0),
+      })
+      .refine(allDefined, {
+        message: `Both ${this.METRICS} should present.`,
+      });
 
     return validate(schema, input);
   }
