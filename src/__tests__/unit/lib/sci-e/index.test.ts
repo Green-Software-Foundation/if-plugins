@@ -16,7 +16,7 @@ describe('lib/sci-e: ', () => {
     });
 
     describe('configure(): ', () => {
-      it('should', async () => {
+      it('successfully returns model instance.', async () => {
         const outputModel = new SciEModel();
         await outputModel.configure();
 
@@ -27,7 +27,7 @@ describe('lib/sci-e: ', () => {
     });
 
     describe('execute(): ', () => {
-      it('successfully runs with given input.', async () => {
+      it('successfully applies SCI-E strategy to given input.', async () => {
         const outputModel = new SciEModel();
 
         expect.assertions(1);
@@ -59,7 +59,7 @@ describe('lib/sci-e: ', () => {
       it('should throw error in case if some params are missing from input.', async () => {
         const outputModel = new SciEModel();
         const expectedMessage =
-          '"energy-cpu" parameter is required. Error code: invalid_type.,"energy-memory" parameter is required. Error code: invalid_type.,"energy-network" parameter is required. Error code: invalid_type.';
+          'At least one of energy-cpu,energy-memory,energy-network should present.';
 
         expect.assertions(1);
 
@@ -75,6 +75,25 @@ describe('lib/sci-e: ', () => {
             new InputValidationError(expectedMessage)
           );
         }
+      });
+
+      it('should run with one of the params in inputs.', async () => {
+        const outputModel = new SciEModel();
+
+        expect.assertions(1);
+
+        const data = [
+          {
+            duration: 3600,
+            timestamp: '2021-01-01T00:00:00Z',
+            'energy-cpu': 1,
+          },
+        ];
+        const response = await outputModel.execute(data);
+
+        const expectedResult = [{...data[0], energy: data[0]['energy-cpu']}];
+
+        expect(response).toEqual(expectedResult);
       });
     });
   });
