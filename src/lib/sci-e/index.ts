@@ -19,11 +19,13 @@ export class SciEModel implements ModelPluginInterface {
    * Calculate the total emissions for a list of inputs.
    */
   public async execute(inputs: ModelParams[]): Promise<ModelParams[]> {
-    return inputs.map(input => {
+    const energyAppendedInputs = inputs.map(input => {
       input['energy'] = this.calculateEnergy(input);
 
       return input;
     });
+
+    return Promise.resolve(energyAppendedInputs);
   }
 
   /**
