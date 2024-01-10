@@ -3,9 +3,11 @@ import {z} from 'zod';
 import {ModelPluginInterface} from '../../interfaces';
 
 import {ModelParams} from '../../types/common';
-import {validate} from '../../util/validations';
+import {validate, atLeastOneDefined} from '../../util/validations';
 
 export class SciEModel implements ModelPluginInterface {
+  private energyMetrics = ['energy-cpu', 'energy-memory', 'energy-network'];
+
   /**
    * Configures the SCI-E Plugin.
    */
@@ -28,11 +30,15 @@ export class SciEModel implements ModelPluginInterface {
    * Checks for required fields in input.
    */
   private validateSingleInput(input: ModelParams) {
-    const schema = z.object({
-      'energy-cpu': z.number().gte(0).min(0),
-      'energy-memory': z.number().gte(0).min(0),
-      'energy-network': z.number().gte(0).min(0),
-    });
+    const schema = z
+      .object({
+        'energy-cpu': z.number().gte(0).min(0).optional(),
+        'energy-memory': z.number().gte(0).min(0).optional(),
+        'energy-network': z.number().gte(0).min(0).optional(),
+      })
+      .refine(atLeastOneDefined, {
+        message: `At least one of ${this.energyMetrics} should present.`,
+      });
 
     return validate(schema, input);
   }
@@ -43,10 +49,10 @@ export class SciEModel implements ModelPluginInterface {
   private calculateEnergy(input: ModelParams) {
     const safeInput = this.validateSingleInput(input);
 
-    const energyMetrics = ['energy-cpu', 'energy-memory', 'energy-network'];
-
-    return energyMetrics.reduce((acc, metric) => {
-      acc += safeInput[metric];
+    return this.energyMetrics.reduce((acc, metric) => {
+      if (safeInput[metric]) {
+        acc += safeInput[metric];
+      }
 
       return acc;
     }, 0);
