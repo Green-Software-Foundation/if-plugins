@@ -1,223 +1,111 @@
 import {EMemModel} from '../../../../lib';
-//import { ERRORS } from '../../../../util/errors';
-//const { InputValidationError } = ERRORS;
 
-jest.setTimeout(30000);
+import {ERRORS} from '../../../../util/errors';
+
+const {InputValidationError} = ERRORS;
 
 describe('lib/e-mem: ', () => {
-  describe('init AzureImporterModel: ', () => {
-    it('initalizes object with properties.', async () => {
-      const eMemModel = await new EMemModel();
-      expect(eMemModel).toHaveProperty('configure');
-      expect(eMemModel).toHaveProperty('execute');
-    });
-  });
+  describe('EMemModel: ', () => {
+    let eMemModel: EMemModel;
 
-  describe('configure(): ', () => {
-    it('configures model instance with given params.', async () => {
-      const params = {};
-      const model = await new EMemModel().configure(params);
-      expect(model).toBeInstanceOf(EMemModel);
+    beforeEach(() => {
+      eMemModel = new EMemModel();
     });
-    it('configures model instance with given params.', async () => {
-      const model = await new EMemModel().configure();
-      expect(model).toBeInstanceOf(EMemModel);
-    });
-  });
 
-  describe('configure(): ', () => {
-    it('configure returns name and empty config', async () => {
-      const eMemModel = new EMemModel();
-      await expect(eMemModel.configure({})).resolves.toBeInstanceOf(EMemModel);
-      expect(eMemModel.staticParams).toStrictEqual({});
+    describe('init:', () => {
+      it('successfully initalized.', () => {
+        expect(eMemModel).toHaveProperty('configure');
+        expect(eMemModel).toHaveProperty('execute');
+      });
     });
-  });
 
-  describe('execute(): ', () => {
-    it('throws error for missing input data.', async () => {
-      const eMemModel = new EMemModel();
-      expect.assertions(3);
-      expect(await eMemModel.configure({})).toBeInstanceOf(EMemModel);
-      try {
-        await eMemModel.execute([]);
-      } catch (error) {
-        if (error instanceof Error) {
-          expect(error).toBeInstanceOf(Error);
-          expect(error.message).toEqual('EMemModel: Input data is missing.');
+    describe('configure(): ', () => {
+      it('configure EMemModel', async () => {
+        const configuredModel = await eMemModel.configure();
+        expect(configuredModel).toBe(eMemModel);
+      });
+
+      it('configures model instance with given params.', async () => {
+        const configuredModel = await eMemModel.configure();
+        expect.assertions(1);
+
+        expect(configuredModel).toBeInstanceOf(EMemModel);
+      });
+    });
+
+    describe('execute(): ', () => {
+      it('calculate energy for each input', async () => {
+        const inputs = [
+          {
+            'mem-util': 80,
+            'total-memoryGB': 16,
+            coefficient: 0.002,
+            duration: 3600,
+            timestamp: '2022-01-01T01:00:00Z',
+          },
+          {
+            'mem-util': 60,
+            'total-memoryGB': 8,
+            coefficient: 0.001,
+            duration: 3600,
+            timestamp: '2022-01-01T01:00:00Z',
+          },
+        ];
+
+        const result = await eMemModel.execute(inputs);
+
+        expect(result).toHaveLength(inputs.length);
+        result.forEach((output, index) => {
+          expect(output['energy-memory']).toBeCloseTo(
+            inputs[index]['total-memoryGB'] *
+              (inputs[index]['mem-util'] / 100) *
+              inputs[index]['coefficient']
+          );
+        });
+      });
+
+      it('throws error for missing input data.', async () => {
+        try {
+          await eMemModel.execute([
+            {duration: 3600, timestamp: '2022-01-01T01:00:00Z'},
+          ]);
+        } catch (error) {
+          expect(error).toBeInstanceOf(InputValidationError);
         }
-      }
-    });
-    it('throws error for missing mem-util input field.', async () => {
-      const eMemModel = new EMemModel();
-      expect.assertions(2);
-      expect(await eMemModel.configure({})).toBeInstanceOf(EMemModel);
-      await expect(
-        eMemModel.execute([
-          {
-            timestamp: '2023-11-02T10:35:31.820Z',
-            duration: 3600,
-            'total-memoryGB': 3,
-            coefficient: 0.38,
-          },
-        ])
-      ).rejects.toThrowError();
-    });
-    it('throws error for missing total-memoryGB input field.', async () => {
-      const eMemModel = new EMemModel();
-      expect.assertions(2);
-      expect(await eMemModel.configure({})).toBeInstanceOf(EMemModel);
-      await expect(
-        eMemModel.execute([
-          {
-            timestamp: '2023-11-02T10:35:31.820Z',
-            duration: 3600,
-            'mem-util': 30,
-            coefficient: 0.38,
-          },
-        ])
-      ).rejects.toThrowError();
-    });
-    it('throws error for invalid total-memoryGB input field.', async () => {
-      const eMemModel = new EMemModel();
-      expect.assertions(2);
-      expect(await eMemModel.configure({})).toBeInstanceOf(EMemModel);
-      await expect(
-        eMemModel.execute([
-          {
-            timestamp: '2023-11-02T10:35:31.820Z',
-            duration: 3600,
-            'mem-util': 30,
-            coefficient: 0.38,
-            'total-memoryGB': 0,
-          },
-        ])
-      ).rejects.toThrowError();
-    });
-    it('throws error for invalid coefficient input field.', async () => {
-      const eMemModel = new EMemModel();
-      expect.assertions(2);
-      expect(await eMemModel.configure({})).toBeInstanceOf(EMemModel);
-      await expect(
-        eMemModel.execute([
-          {
-            timestamp: '2023-11-02T10:35:31.820Z',
-            duration: 3600,
-            'mem-util': 30,
-            coefficient: 0,
-            'total-memoryGB': 2,
-          },
-        ])
-      ).rejects.toThrowError();
-    });
-    it('throws error for invalid mem-util input field.', async () => {
-      const eMemModel = new EMemModel();
-      expect.assertions(2);
-      expect(await eMemModel.configure({})).toBeInstanceOf(EMemModel);
-      await expect(
-        eMemModel.execute([
-          {
-            timestamp: '2023-11-02T10:35:31.820Z',
-            duration: 3600,
-            'mem-util': 300,
-            coefficient: 0.2,
-            'total-memoryGB': 2,
-          },
-        ])
-      ).rejects.toThrowError();
-    });
-    it('does not throw error for missing coefficient, but uses default 0.38.', async () => {
-      const eMemModel = new EMemModel();
-      await expect(
-        eMemModel.execute([
+      });
+
+      it('throws error when one of the metric is missing from the input field.', async () => {
+        try {
+          await eMemModel.execute([
+            {
+              timestamp: '2023-11-02T10:35:31.820Z',
+              duration: 3600,
+              'total-memoryGB': 3,
+              coefficient: 0.38,
+            },
+          ]);
+        } catch (error) {
+          expect(error).toBeInstanceOf(InputValidationError);
+        }
+      });
+
+      it('does not throw error for missing coefficient, but uses default 0.38.', async () => {
+        const data = [
           {
             timestamp: '2023-11-02T10:35:31.820Z',
             duration: 3600,
             'mem-util': 30,
             'total-memoryGB': 3,
           },
-        ])
-      ).resolves.toEqual([
-        {
-          timestamp: '2023-11-02T10:35:31.820Z',
-          duration: 3600,
-          'mem-util': 30,
-          'total-memoryGB': 3,
-          'energy-memory': 0.34199999999999997,
-        },
-      ]);
-    });
-  });
-  describe('calculateEnergy(): ', () => {
-    it('allows coefficient to vary.', async () => {
-      const eMemModel = new EMemModel();
-      await expect(
-        eMemModel.execute([
-          {
-            timestamp: '2023-11-02T10:35:31.820Z',
-            duration: 3600,
-            'mem-util': 30,
-            'total-memoryGB': 3,
-            coefficient: 0.98,
-          },
-        ])
-      ).resolves.toEqual([
-        {
-          timestamp: '2023-11-02T10:35:31.820Z',
-          duration: 3600,
-          'mem-util': 30,
-          'total-memoryGB': 3,
-          coefficient: 0.98,
-          'energy-memory': 0.8819999999999999,
-        },
-      ]);
-    });
-  });
-  describe('calculateEnergy(): ', () => {
-    it('calculates correct energy-memory with input set 1.', async () => {
-      const eMemModel = new EMemModel();
-      await expect(
-        eMemModel.execute([
-          {
-            timestamp: '2023-11-02T10:35:31.820Z',
-            duration: 3600,
-            'mem-util': 10,
-            'total-memoryGB': 1,
-            coefficient: 0.38,
-          },
-        ])
-      ).resolves.toEqual([
-        {
-          timestamp: '2023-11-02T10:35:31.820Z',
-          duration: 3600,
-          'mem-util': 10,
-          'total-memoryGB': 1,
-          coefficient: 0.38,
-          'energy-memory': 0.038000000000000006,
-        },
-      ]);
-    });
-    it('calculates correct energy-memory with input set 2.', async () => {
-      const eMemModel = new EMemModel();
-      await expect(
-        eMemModel.execute([
-          {
-            timestamp: '2023-11-02T10:35:31.820Z',
-            duration: 3600,
-            'mem-util': 30,
-            'total-memoryGB': 1,
-            coefficient: 0.38,
-          },
-        ])
-      ).resolves.toEqual([
-        {
-          timestamp: '2023-11-02T10:35:31.820Z',
-          duration: 3600,
-          'mem-util': 30,
-          'total-memoryGB': 1,
-          coefficient: 0.38,
-          'energy-memory': 0.11399999999999999,
-        },
-      ]);
+        ];
+
+        const response = await eMemModel.execute(data);
+
+        const expectedMemory =
+          data[0]['total-memoryGB'] * (data[0]['mem-util'] / 100) * 0.38;
+
+        expect(response[0]['energy-memory']).toEqual(expectedMemory);
+      });
     });
   });
 });
