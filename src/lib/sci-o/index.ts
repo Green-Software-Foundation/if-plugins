@@ -1,11 +1,10 @@
 import {z} from 'zod';
 
 import {ModelPluginInterface} from '../../interfaces';
+import {ModelParams} from '../../types/common';
 
 import {buildErrorMessage} from '../../util/helpers';
 import {validate, allDefined} from '../../util/validations';
-
-import {ModelParams} from '../../types/common';
 
 export class SciOModel implements ModelPluginInterface {
   private METRICS = ['grid-carbon-intensity', 'energy'];
@@ -14,14 +13,14 @@ export class SciOModel implements ModelPluginInterface {
   /**
    * Configures the SCI-O Plugin.
    */
-  async configure(): Promise<ModelPluginInterface> {
+  public async configure(): Promise<ModelPluginInterface> {
     return this;
   }
 
   /**
    * Calculate the total emissions for a list of inputs.
    */
-  async execute(inputs: ModelParams[]): Promise<ModelParams[]> {
+  public async execute(inputs: ModelParams[]): Promise<ModelParams[]> {
     return inputs.map(input => {
       const safeInput = this.validateSingleInput(input);
 
