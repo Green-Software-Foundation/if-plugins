@@ -3,12 +3,10 @@ import {z} from 'zod';
 import {ModelPluginInterface} from '../../interfaces';
 import {ModelParams} from '../../types/common';
 
-import {buildErrorMessage} from '../../util/helpers';
 import {validate, allDefined} from '../../util/validations';
 
 export class SciOModel implements ModelPluginInterface {
   private METRICS = ['grid-carbon-intensity', 'energy'];
-  errorBuilder = buildErrorMessage(SciOModel);
 
   /**
    * Configures the SCI-O Plugin.

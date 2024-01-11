@@ -3,12 +3,9 @@ import {z} from 'zod';
 import {ModelPluginInterface} from '../../interfaces';
 import {ModelParams} from '../../types/common';
 
-import {buildErrorMessage} from '../../util/helpers';
 import {validate} from '../../util/validations';
 
 export class ENetModel implements ModelPluginInterface {
-  errorBuilder = buildErrorMessage(ENetModel);
-
   /**
    * Configures the SCI-O Plugin.
    */
