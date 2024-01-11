@@ -1,106 +1,58 @@
+import {z} from 'zod';
+
 import {ModelPluginInterface} from '../../interfaces';
-
-import {ERRORS} from '../../util/errors';
-import {buildErrorMessage} from '../../util/helpers';
-
 import {ModelParams} from '../../types/common';
 
-const {InputValidationError} = ERRORS;
+import {validate, allDefined} from '../../util/validations';
 
 export class EMemModel implements ModelPluginInterface {
-  authParams: object | undefined; // Defined for compatibility. Not used in this.
-  staticParams: object | undefined;
-
-  errorBuilder = buildErrorMessage(EMemModel);
-
-  async configure(
-    staticParams: object | undefined = undefined
-  ): Promise<ModelPluginInterface> {
-    if (staticParams === undefined) {
-      staticParams = {};
-    }
-    this.staticParams = staticParams;
+  /**
+   * Configures the E-Mem Plugin.
+   */
+  public async configure(): Promise<ModelPluginInterface> {
     return this;
   }
 
   /**
    * Calculate the total emissions for a list of inputs.
-   *
-   * Each input require:
-   * @param {Object[]} inputs
-   * @param {string} inputs[].timestamp RFC3339 timestamp string
-   * @param {number} inputs[].mem-util percentage mem usage
    */
-  async execute(inputs: ModelParams[]): Promise<ModelParams[]> {
-    if (inputs.length === 0) {
-      throw new InputValidationError(
-        this.errorBuilder({
-          message: 'Input data is missing',
-        })
-      );
-    }
+  public async execute(inputs: ModelParams[]): Promise<ModelParams[]> {
     return inputs.map((input: ModelParams) => {
-      input['energy-memory'] = this.calculateEnergy(input);
-      return input;
+      const safeInput = this.validateSingleInput(input);
+      safeInput['energy-memory'] = this.calculateEnergy(safeInput);
+
+      return safeInput;
     });
   }
 
   /**
-   * Calculates the energy consumption for a single input
-   * requires
-   *
-   * mem-util: ram usage in percentage
-   * timestamp: RFC3339 timestamp string
-   *
-   * multiplies memory used (GB) by a coefficient (wh/GB) and converts to kwh
+   * Calculates the energy consumption for a single input.
    */
   private calculateEnergy(input: ModelParams) {
-    if (!('mem-util' in input) || input['mem-util'] === undefined) {
-      throw new InputValidationError(
-        this.errorBuilder({
-          message: 'mem-util is missing or invalid',
-        })
-      );
-    }
-
-    if (!('total-memoryGB' in input) || input['total-memoryGB'] === undefined) {
-      throw new InputValidationError(
-        this.errorBuilder({
-          message: 'total-memoryGB is missing or invalid',
-        })
-      );
-    }
-
-    if (input['total-memoryGB'] === 0) {
-      throw new InputValidationError(
-        this.errorBuilder({
-          message: "'total-memoryGB' is either not defined or set to zero.",
-        })
-      );
-    }
-
-    if (input['coefficient'] === 0) {
-      throw new InputValidationError(
-        this.errorBuilder({
-          message: "'coefficient' is either set to zero",
-        })
-      );
-    }
-
-    const mem_alloc = input['total-memoryGB'];
-    const mem_util = input['mem-util'];
-    const memoryEnergy = input['coefficient'] ?? 0.38; //coefficient for GB -> kWh, use 0.38 as default
-
-    if (mem_util < 0 || mem_util > 100) {
-      throw new InputValidationError(
-        this.errorBuilder({
-          message:
-            "Invalid value for 'mem-util'. Must be between '0' and '100'",
-        })
-      );
-    }
+    const {
+      'total-memoryGB': totalMemory,
+      'mem-util': memoryUtil,
+      coefficient,
+    } = input;
 
     // GB * kWh/GB == kWh
-    return mem_alloc * (mem_util / 100) * memoryEnergy;
+    return totalMemory * (memoryUtil / 100) * coefficient;
+  }
+
+  /**
+   * Checks for required fields in input.
+   */
+  private validateSingleInput(input: ModelParams) {
+    const schema = z
+      .object({
+        'total-memoryGB': z.number().gt(0),
+        coefficient: z.number().gt(0).default(0.38),
+        'mem-util': z.number().min(0).max(100),
+      })
+      .refine(allDefined, {
+        message: `All metrics, including mem-util, total-memoryGB, coefficient, and mem_util-out should be present.`,
+      });
+
+    return validate(schema, input);
   }
 }

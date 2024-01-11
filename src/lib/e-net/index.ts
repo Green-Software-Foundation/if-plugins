@@ -7,7 +7,7 @@ import {validate} from '../../util/validations';
 
 export class ENetModel implements ModelPluginInterface {
   /**
-   * Configures the SCI-O Plugin.
+   * Configures the E-Net Plugin.
    */
   public async configure(): Promise<ENetModel> {
     return this;
