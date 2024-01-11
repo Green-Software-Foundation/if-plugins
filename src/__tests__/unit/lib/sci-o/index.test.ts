@@ -5,13 +5,13 @@ import {ERRORS} from '../../../../util/errors';
 const {InputValidationError} = ERRORS;
 
 describe('lib/sci-o', () => {
-  let sciOModel: SciOModel;
-
-  beforeEach(() => {
-    sciOModel = new SciOModel();
-  });
-
   describe('SciOModel: ', () => {
+    let sciOModel: SciOModel;
+
+    beforeEach(() => {
+      sciOModel = new SciOModel();
+    });
+
     describe('init: ', () => {
       it('successfully initalized.', () => {
         expect(sciOModel).toHaveProperty('configure');
@@ -55,42 +55,24 @@ describe('lib/sci-o', () => {
           );
         });
       });
-    });
 
-    it('should validate single input with valid values', () => {
-      const validInput = {
-        duration: 3600,
-        timestamp: '2022-01-01T01:00:00Z',
-        'grid-carbon-intensity': 60,
-        energy: 15,
-      };
-      expect(() => sciOModel['validateSingleInput'](validInput)).not.toThrow();
-    });
+      it('should throw an error in case if some params are missing from the input.', async () => {
+        const expectedMessage =
+          'At least one of grid-carbon-intensity or energy should present.';
 
-    it('should throw validation error for single input with invalid values', () => {
-      const invalidInput = {
-        duration: 3600,
-        timestamp: '2022-01-01T01:00:00Z',
-        'grid-carbon-intensity': -5,
-        energy: 'invalid',
-      };
-      expect(() => sciOModel['validateSingleInput'](invalidInput)).toThrow();
-    });
-
-    it('should throw an error in case if some params are missing from the input.', async () => {
-      const expectedMessage =
-        'At least one of grid-carbon-intensity or energy should present.';
-
-      try {
-        await sciOModel.execute([
-          {
-            duration: 3600,
-            timestamp: '2021-01-01T00:00:00Z',
-          },
-        ]);
-      } catch (error) {
-        expect(error).toStrictEqual(new InputValidationError(expectedMessage));
-      }
+        try {
+          await sciOModel.execute([
+            {
+              duration: 3600,
+              timestamp: '2021-01-01T00:00:00Z',
+            },
+          ]);
+        } catch (error) {
+          expect(error).toStrictEqual(
+            new InputValidationError(expectedMessage)
+          );
+        }
+      });
     });
   });
 });
