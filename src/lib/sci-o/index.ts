@@ -22,11 +22,11 @@ export class SciOModel implements ModelPluginInterface {
     return inputs.map(input => {
       const safeInput = this.validateSingleInput(input);
 
-      input['operational-carbon'] =
+      safeInput['operational-carbon'] =
         parseFloat(safeInput[this.METRICS[0]]) *
         parseFloat(safeInput[this.METRICS[1]]);
 
-      return input;
+      return safeInput;
     });
   }
 
