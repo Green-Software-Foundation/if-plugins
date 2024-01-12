@@ -36,8 +36,8 @@ export class SciOModel implements ModelPluginInterface {
   private validateSingleInput(input: ModelParams) {
     const schema = z
       .object({
-        'grid-carbon-intensity': z.number().min(0).default(0),
-        energy: z.number().min(0).default(0),
+        'grid-carbon-intensity': z.number().min(0),
+        energy: z.number().min(0),
       })
       .refine(allDefined, {
         message: `Both ${this.METRICS} should present.`,
