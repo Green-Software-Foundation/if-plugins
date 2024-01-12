@@ -23,6 +23,8 @@ describe('lib/shell', () => {
 
     describe('configure(): ', () => {
       it('configure ShellModel', async () => {
+        expect.assertions(1);
+
         const configuredModel = await shellModel.configure();
         expect(configuredModel).toBe(shellModel);
       });
@@ -46,6 +48,8 @@ describe('lib/shell', () => {
           },
         ];
 
+        expect.assertions(2);
+
         await shellModel.execute(inputs);
 
         expect(mockSpawnSync).toHaveBeenCalledWith(
@@ -62,6 +66,7 @@ describe('lib/shell', () => {
         const invalidInputs = [
           {duration: 3600, timestamp: '2022-01-01T00:00:00Z', command: 123},
         ];
+        expect.assertions(1);
 
         await expect(shellModel.execute(invalidInputs)).rejects.toThrow();
       });

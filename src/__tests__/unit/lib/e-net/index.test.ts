@@ -47,6 +47,8 @@ describe('lib/sci-o', () => {
           },
         ];
 
+        expect.assertions(3);
+
         const result = await eNetModel.execute(inputs);
 
         expect(result).toHaveLength(inputs.length);
@@ -75,6 +77,9 @@ describe('lib/sci-o', () => {
           timestamp: '2022-01-01T01:00:00Z',
         },
       ];
+
+      expect.assertions(3);
+
       const result = await eNetModel.execute(inputs);
 
       expect(result).toHaveLength(inputs.length);
@@ -84,6 +89,8 @@ describe('lib/sci-o', () => {
     });
 
     it('should throw an error in case if data-in and data-out params are missing from the input.', async () => {
+      expect.assertions(1);
+
       try {
         await eNetModel.execute([
           {

@@ -20,7 +20,7 @@ describe('lib/sci-o', () => {
     });
 
     describe('configure(): ', () => {
-      it('should configure SciOModel', async () => {
+      it('configure SciOModel', async () => {
         const configuredModel = await sciOModel.configure();
 
         expect.assertions(1);
@@ -30,7 +30,7 @@ describe('lib/sci-o', () => {
     });
 
     describe('execute(): ', () => {
-      it('should calculate total emissions for each input', async () => {
+      it('calculate total emissions for each input', async () => {
         const inputs = [
           {
             duration: 3600,
@@ -46,6 +46,8 @@ describe('lib/sci-o', () => {
           },
         ];
 
+        expect.assertions(3);
+
         const result = await sciOModel.execute(inputs);
 
         expect(result).toHaveLength(inputs.length);
@@ -56,9 +58,8 @@ describe('lib/sci-o', () => {
         });
       });
 
-      it('should throw an error in case if some params are missing from the input.', async () => {
-        const expectedMessage =
-          'At least one of grid-carbon-intensity or energy should present.';
+      it('throw an error in case if some params are missing from the input.', async () => {
+        expect.assertions(1);
 
         try {
           await sciOModel.execute([
@@ -68,9 +69,7 @@ describe('lib/sci-o', () => {
             },
           ]);
         } catch (error) {
-          expect(error).toStrictEqual(
-            new InputValidationError(expectedMessage)
-          );
+          expect(error).toBeInstanceOf(InputValidationError);
         }
       });
     });

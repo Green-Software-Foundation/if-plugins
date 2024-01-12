@@ -22,11 +22,15 @@ describe('lib/e-mem: ', () => {
     describe('configure(): ', () => {
       it('configure EMemModel', async () => {
         const configuredModel = await eMemModel.configure();
+
+        expect.assertions(1);
+
         expect(configuredModel).toBe(eMemModel);
       });
 
       it('configures model instance with given params.', async () => {
         const configuredModel = await eMemModel.configure();
+
         expect.assertions(1);
 
         expect(configuredModel).toBeInstanceOf(EMemModel);
@@ -51,6 +55,7 @@ describe('lib/e-mem: ', () => {
             timestamp: '2022-01-01T01:00:00Z',
           },
         ];
+        expect.assertions(3);
 
         const result = await eMemModel.execute(inputs);
 
@@ -65,6 +70,7 @@ describe('lib/e-mem: ', () => {
       });
 
       it('throws error for missing input data.', async () => {
+        expect.assertions(1);
         try {
           await eMemModel.execute([
             {duration: 3600, timestamp: '2022-01-01T01:00:00Z'},
@@ -75,6 +81,7 @@ describe('lib/e-mem: ', () => {
       });
 
       it('throws error when one of the metric is missing from the input field.', async () => {
+        expect.assertions(1);
         try {
           await eMemModel.execute([
             {
@@ -99,8 +106,9 @@ describe('lib/e-mem: ', () => {
           },
         ];
 
-        const response = await eMemModel.execute(data);
+        expect.assertions(1);
 
+        const response = await eMemModel.execute(data);
         const expectedMemory =
           data[0]['total-memoryGB'] * (data[0]['mem-util'] / 100) * 0.38;
 
