@@ -58,7 +58,7 @@ graph:
           network-energy-coefficient: 0.02
 ```
 
-You can run this example `impl` by saving it as `examples/impls/e-net.yml` and executing the following command from the project root:
+You can run this example `impl` by saving it as `examples/impls/test/e-net.yml` and executing the following command from the project root:
 
 ```sh
 npm i -g @grnsft/if

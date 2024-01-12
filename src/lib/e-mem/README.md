@@ -62,7 +62,7 @@ graph:
           total-memoryGB: 1
 ```
 
-You can run this example `impl` by saving it as `examples/impls/e-mem.yml` and executing the following command from the project root:
+You can run this example `impl` by saving it as `examples/impls/teste-mem.yml` and executing the following command from the project root:
 
 ```sh
 npm i -g @grnsft/if
