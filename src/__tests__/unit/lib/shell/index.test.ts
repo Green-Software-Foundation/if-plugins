@@ -1,36 +1,75 @@
-import {describe, expect, jest, test} from '@jest/globals';
+import {spawnSync} from 'child_process';
+import {loadAll} from 'js-yaml';
+
 import {ShellModel} from '../../../../lib';
 
-jest.setTimeout(30000);
+jest.mock('child_process');
+jest.mock('js-yaml');
 
-describe('lib/shell-imp: ', () => {
-  describe('shell:configure', () => {
-    test('initialize with params', async () => {
-      const outputModel = new ShellModel();
-      await expect(outputModel.configure()).rejects.toThrow();
-      await outputModel.configure({
-        executable: 'python3 /usr/local/bin/sampler',
+describe('lib/shell', () => {
+  describe('ShellModel', () => {
+    let shellModel: ShellModel;
+
+    beforeEach(() => {
+      shellModel = new ShellModel();
+    });
+
+    describe('init: ', () => {
+      it('successfully initalized.', () => {
+        expect(shellModel).toHaveProperty('configure');
+        expect(shellModel).toHaveProperty('execute');
       });
-      await expect(
-        outputModel.execute([
-          {duration: 3600, cpu: 0.5, timestamp: '2021-01-01T00:00:00Z'},
-        ])
-      ).resolves.toStrictEqual([
-        {
-          duration: 3600,
-          cpu: 0.5,
-          timestamp: '2021-01-01T00:00:00Z',
-          energy: 1,
-        },
-      ]);
-      await outputModel.configure({
-        executable: 'python3 /usr/local/bin/sampler2',
+    });
+
+    describe('configure(): ', () => {
+      it('configure ShellModel', async () => {
+        expect.assertions(1);
+
+        const configuredModel = await shellModel.configure();
+        expect(configuredModel).toBe(shellModel);
       });
-      await expect(
-        outputModel.execute([
-          {duration: 3600, cpu: 0.5, timestamp: '2021-01-01T00:00:00Z'},
-        ])
-      ).rejects.toThrow();
+    });
+
+    describe('execute(): ', () => {
+      it('execute with valid inputs and command', async () => {
+        const mockSpawnSync = spawnSync as jest.MockedFunction<
+          typeof spawnSync
+        >;
+        mockSpawnSync.mockReturnValueOnce({stdout: 'mocked stdout'} as any);
+
+        const mockLoadAll = loadAll as jest.MockedFunction<typeof loadAll>;
+        mockLoadAll.mockReturnValueOnce(['mocked output'] as any);
+
+        const inputs = [
+          {
+            duration: 3600,
+            timestamp: '2022-01-01T00:00:00Z',
+            command: 'python3 /path/to/script.py',
+          },
+        ];
+
+        expect.assertions(2);
+
+        await shellModel.execute(inputs);
+
+        expect(mockSpawnSync).toHaveBeenCalledWith(
+          'python3',
+          ['/path/to/script.py'],
+          {
+            encoding: 'utf8',
+          }
+        );
+        expect(mockLoadAll).toHaveBeenCalledWith('mocked stdout');
+      });
+
+      it('throw an error if validation fails', async () => {
+        const invalidInputs = [
+          {duration: 3600, timestamp: '2022-01-01T00:00:00Z', command: 123},
+        ];
+        expect.assertions(1);
+
+        await expect(shellModel.execute(invalidInputs)).rejects.toThrow();
+      });
     });
   });
 });

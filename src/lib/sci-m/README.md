@@ -13,7 +13,7 @@ Read more on [embodied carbon](https://github.com/Green-Software-Foundation/sci/
 - `reserved-resources`: the number of resources reserved for use by the software
 - `total-resources`: the total number of resources available
 
-> Note that if you have a model pipeline that adds `vcpus-allocated` and `vcpus-total` to each observation, such as the `cloud-instance-metadata` model, those values will be used **in preference** to the given `reserved-resources` anf `total-resources` fields. 
+> Note that if you have a model pipeline that adds `vcpus-allocated` and `vcpus-total` to each observation, such as the `cloud-instance-metadata` model, those values will be used **in preference** to the given `reserved-resources` anf `total-resources` fields.
 
 ### Inputs
 
@@ -56,19 +56,19 @@ IEF implements the plugin based on the logic described above. To run the model, 
 The following snippet demonstrates how to call the `sci-m` model from Typescript.
 
 ```typescript
-import { SciMModel } from '@grnsft/if-models';
+import {SciMModel} from '@grnsft/if-models';
 
 const sciMModel = new SciMModel();
-sciMModel.configure()
+sciMModel.configure();
 const results = sciMModel.execute([
   {
     'total-embodied-emissions': 200, // in gCO2e for total resource units
-    'duration': 60 * 60 * 24 * 30, // time reserved in seconds, can point to another field "duration"
+    duration: 60 * 60 * 24 * 30, // time reserved in seconds, can point to another field "duration"
     'expected-lifespan': 60 * 60 * 24 * 365 * 4, // lifespan in seconds (4 years)
     'resources-reserved': 1, // resource units reserved / used
     'total-resources': 1, // total resource units available
-  }
-])
+  },
+]);
 ```
 
 ## Example impl
@@ -105,7 +105,7 @@ You can run this example `impl` by executing the following command from the proj
 ```sh
 npm i -g @grnsft/if
 npm i -g @grnsft/if-models
-impact-engine --impl ./examples/impls/sci-m.yml --ompl ./examples/ompls/sci-m.yml
+impact-engine --impl ./examples/impls/test/sci-m.yml --ompl ./examples/ompls/sci-m.yml
 ```
 
 The results will be saved to a new `yaml` file in `./examples/ompls`.

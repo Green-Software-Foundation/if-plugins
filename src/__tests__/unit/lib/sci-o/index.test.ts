@@ -1,66 +1,77 @@
-import {describe, expect, jest, test} from '@jest/globals';
 import {SciOModel} from '../../../../lib';
 
-jest.setTimeout(30000);
+import {ERRORS} from '../../../../util/errors';
 
-describe('ccf:configure test', () => {
-  test('initialize and test', async () => {
-    const model = await new SciOModel().configure({});
-    expect(model).toBeInstanceOf(SciOModel);
-    await expect(
-      model.execute([
-        {
-          timestamp: '2021-01-01T00:00:00Z',
-          duration: 1,
-          'grid-carbon-intensity': 200.0,
-          energy: 100.0,
-        },
-      ])
-    ).resolves.toStrictEqual([
-      {
-        timestamp: '2021-01-01T00:00:00Z',
-        duration: 1,
-        'grid-carbon-intensity': 200.0,
-        energy: 100.0,
-        'operational-carbon': 100.0 * 200.0,
-      },
-    ]);
-    await expect(
-      model.execute([
-        {
-          timestamp: '2021-01-01T00:00:00Z',
-          duration: 1,
-          'grid-carbon-intensity': 212.1,
-          energy: 100.0,
-        },
-      ])
-    ).resolves.toStrictEqual([
-      {
-        timestamp: '2021-01-01T00:00:00Z',
-        duration: 1,
-        'grid-carbon-intensity': 212.1,
-        energy: 100.0,
-        'operational-carbon': 100.0 * 212.1,
-      },
-    ]);
-    await expect(
-      model.execute([
-        {
-          timestamp: '2021-01-01T00:00:00Z',
-          duration: 1,
-          'grid-carbon-intensityd': 212.1,
-          energy: 100.0,
-        },
-      ])
-    ).rejects.toThrowError();
-    await expect(
-      model.execute([
-        {
-          timestamp: '2021-01-01T00:00:00Z',
-          duration: 1,
-          'grid-carbon-intensity': 212.1,
-        },
-      ])
-    ).rejects.toThrowError();
+const {InputValidationError} = ERRORS;
+
+describe('lib/sci-o', () => {
+  describe('SciOModel: ', () => {
+    let sciOModel: SciOModel;
+
+    beforeEach(() => {
+      sciOModel = new SciOModel();
+    });
+
+    describe('init: ', () => {
+      it('successfully initalized.', () => {
+        expect(sciOModel).toHaveProperty('configure');
+        expect(sciOModel).toHaveProperty('execute');
+      });
+    });
+
+    describe('configure(): ', () => {
+      it('configure SciOModel', async () => {
+        const configuredModel = await sciOModel.configure();
+
+        expect.assertions(1);
+
+        expect(configuredModel).toBeInstanceOf(SciOModel);
+      });
+    });
+
+    describe('execute(): ', () => {
+      it('calculate total emissions for each input', async () => {
+        const inputs = [
+          {
+            duration: 3600,
+            timestamp: '2022-01-01T00:00:00Z',
+            'grid-carbon-intensity': 50,
+            energy: 10,
+          },
+          {
+            duration: 3600,
+            timestamp: '2022-01-01T01:00:00Z',
+            'grid-carbon-intensity': 60,
+            energy: 15,
+          },
+        ];
+
+        expect.assertions(3);
+
+        const result = await sciOModel.execute(inputs);
+
+        expect(result).toHaveLength(inputs.length);
+        result.forEach((output, index) => {
+          expect(output['operational-carbon']).toBeCloseTo(
+            inputs[index]['grid-carbon-intensity'] * inputs[index]['energy']
+          );
+        });
+      });
+
+      it('throw an error in case if some params are missing from the input.', async () => {
+        expect.assertions(1);
+
+        try {
+          await sciOModel.execute([
+            {
+              duration: 3600,
+              timestamp: '2021-01-01T00:00:00Z',
+            },
+          ]);
+        } catch (error) {
+          expect(error).toBeInstanceOf(InputValidationError);
+        }
+      });
+    });
   });
 });

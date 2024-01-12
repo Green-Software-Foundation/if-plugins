@@ -6,14 +6,13 @@
 
 ### Model config
 
-None
+Not needed
 
 ### Inputs
 
 - `data-in`: inbound data in GB
 - `data-out`: outbound data in GB
 - `network-energy-coefficient`: coefficient for converting data transferred to energy, in kWh/GB. The default, if no data or invalid data is provided, is 0.001 kWh/GB, taken from [this case study](https://github.com/Green-Software-Foundation/sci-guide/blob/dev/use-case-submissions/msft-eShoppen.md).
-
 
 ## Returns
 
@@ -59,12 +58,12 @@ graph:
           network-energy-coefficient: 0.02
 ```
 
-You can run this example `impl` by saving it as `examples/impls/e-net.yml` and executing the following command from the project root:
+You can run this example `impl` by saving it as `examples/impls/test/e-net.yml` and executing the following command from the project root:
 
 ```sh
 npm i -g @grnsft/if
 npm i -g @grnsft/if-models
-impact-engine --impl ./examples/impls/e-net.yml --ompl ./examples/ompls/e-net.yml
+impact-engine --impl ./examples/impls/test/e-net.yml --ompl ./examples/ompls/e-net.yml
 ```
 
 The results will be saved to a new `yaml` file in `./examples/ompls`.

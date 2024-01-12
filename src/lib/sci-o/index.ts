@@ -1,56 +1,48 @@
+import {z} from 'zod';
+
+import {validate, allDefined} from '../../util/validations';
+
 import {ModelPluginInterface} from '../../interfaces';
-
-import {ERRORS} from '../../util/errors';
-import {buildErrorMessage} from '../../util/helpers';
-
 import {ModelParams} from '../../types/common';
 
-const {InputValidationError} = ERRORS;
-
 export class SciOModel implements ModelPluginInterface {
-  staticParams: object | undefined;
-  name: string | undefined;
-  errorBuilder = buildErrorMessage(SciOModel);
+  private METRICS = ['grid-carbon-intensity', 'energy'];
+
+  /**
+   * Configures the SCI-O Plugin.
+   */
+  public async configure(): Promise<ModelPluginInterface> {
+    return this;
+  }
 
   /**
    * Calculate the total emissions for a list of inputs.
-   *
-   * Each input require:
-   * @param {Object[]} inputs
-   * @param {string} inputs[].timestamp RFC3339 timestamp string
    */
-  async execute(inputs: ModelParams[]): Promise<ModelParams[]> {
-    return inputs.map((input: ModelParams, index: number) => {
-      if (!('grid-carbon-intensity' in input)) {
-        throw new InputValidationError(
-          this.errorBuilder({
-            message: `'grid-carbon-intensity' is missing from input[${index}]`,
-          })
-        );
-      }
+  public async execute(inputs: ModelParams[]): Promise<ModelParams[]> {
+    return inputs.map(input => {
+      const safeInput = this.validateSingleInput(input);
 
-      if (!('energy' in input)) {
-        throw new InputValidationError(
-          this.errorBuilder({
-            message: `'energy' is missing from input[${index}].`,
-          })
-        );
-      }
+      safeInput['operational-carbon'] =
+        parseFloat(safeInput[this.METRICS[0]]) *
+        parseFloat(safeInput[this.METRICS[1]]);
 
-      this.configure(input);
-      const grid_ci = parseFloat(input['grid-carbon-intensity']);
-      const energy = parseFloat(input['energy']);
-      input['operational-carbon'] = grid_ci * energy;
-
-      return input;
+      return safeInput;
     });
   }
 
-  async configure(
-    staticParams: object | undefined
-  ): Promise<ModelPluginInterface> {
-    this.staticParams = staticParams;
+  /**
+   * Checks for required fields in input.
+   */
+  private validateSingleInput(input: ModelParams) {
+    const schema = z
+      .object({
+        'grid-carbon-intensity': z.number().min(0),
+        energy: z.number().min(0),
+      })
+      .refine(allDefined, {
+        message: `Both ${this.METRICS} should present.`,
+      });
 
-    return this;
+    return validate(schema, input);
   }
 }

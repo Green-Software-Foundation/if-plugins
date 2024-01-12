@@ -12,7 +12,7 @@ IF recognizes the SCI-E model as `sci-e`
 
 ### Model config
 
-None
+Not Needed
 
 ### Inputs
 
@@ -91,12 +91,12 @@ graph:
           energy-cpu: 0.001
 ```
 
-You can run this example `impl` by saving it as `./examples/impls/sci-e.yml` and executing the following command from the project root:
+You can run this example `impl` by saving it as `./examples/impls/test/sci-e.yml` and executing the following command from the project root:
 
 ```sh
 npm i -g @grnsft/if
 npm i -g @grnsft/if-models
-impact-engine --impl ./examples/impls/sci-e.yml --ompl ./examples/ompls/sci-e.yml
+impact-engine --impl ./examples/impls/test/sci-e.yml --ompl ./examples/ompls/sci-e.yml
 ```
 
 The results will be saved to a new `yaml` file in `./examples/ompls`.

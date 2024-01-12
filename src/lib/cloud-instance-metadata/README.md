@@ -49,7 +49,8 @@ const results = cimm.execute([
 
 The following is an example of how cloud instance metadata can be invoked using an `impl`.
 
-./impls/cimd-test.yml
+./examples/impls/test/cimd-test.yml
+
 ```yaml
 name: cloud-instance-metadata-demo
 description: example impl invoking Cloud Instance Metadata model
@@ -79,7 +80,7 @@ the project root:
 ```sh
 npm i -g @grnsft/if
 npm i -g @grnsft/if-models
-impact-engine --impl ./impls/cimd-test.yml --ompl ./ompls/cimd-test.yml
+impact-engine --impl ./examples/impls/test/cimd-test.yml --ompl ./ompls/cimd-test.yml
 ```
 
 This yields a result that looks like the following (saved to `./ompls/cimd-test.yml`):
@@ -112,13 +113,12 @@ graph:
           cpu: 10
 ```
 
-
-You can run this example `impl` by saving it as `./examples/impls/ccf.yml` and executing the following command from the project root:
+You can run this example `impl` by saving it as `./examples/impls/test/ccf.yml` and executing the following command from the project root:
 
 ```sh
 npm i -g @grnsft/if
 npm i -g @grnsft/if-models
-impact-engine --impl ./examples/impls/sccf.yml --ompl ./examples/ompls/ccf.yml
+impact-engine --impl ./examples/impls/test/ccf.yml --ompl ./examples/ompls/ccf.yml
 ```
 
 The results will be saved to a new `yaml` file in `./examples/ompls`.

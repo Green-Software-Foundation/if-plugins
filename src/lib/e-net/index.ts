@@ -1,91 +1,56 @@
+import {z} from 'zod';
+
+import {validate} from '../../util/validations';
+
 import {ModelPluginInterface} from '../../interfaces';
-
-import {ERRORS} from '../../util/errors';
-import {buildErrorMessage} from '../../util/helpers';
-
 import {ModelParams} from '../../types/common';
 
-const {InputValidationError} = ERRORS;
-
 export class ENetModel implements ModelPluginInterface {
-  authParams: object | undefined; // Defined for compatibility. Not used in this.
-  staticParams: object | undefined;
-
-  errorBuilder = buildErrorMessage(ENetModel);
-
-  async configure(
-    staticParams: object | undefined = undefined
-  ): Promise<ModelPluginInterface> {
-    if (staticParams === undefined) {
-      staticParams = {};
-    }
-    this.staticParams = staticParams;
+  /**
+   * Configures the E-Net Plugin.
+   */
+  public async configure(): Promise<ENetModel> {
     return this;
   }
 
   /**
    * Calculate the total emissions for a list of inputs.
-   *
-   * Each input require:
-   * @param {Object[]} inputs
-   * @param {string} inputs[].timestamp RFC3339 timestamp string
-   * @param {number} inputs[].mem-util percentage mem usage
    */
-  async execute(inputs: ModelParams[]): Promise<ModelParams[]> {
-    if (inputs.length === 0) {
-      throw new InputValidationError(
-        this.errorBuilder({
-          message: 'Input data is missing',
-        })
-      );
-    }
+  public async execute(inputs: ModelParams[]): Promise<ModelParams[]> {
     return inputs.map((input: ModelParams) => {
-      input['energy-network'] = this.calculateEnergy(input);
-      return input;
+      const safeInput = this.validateSingleInput(input);
+      safeInput['energy-network'] = this.calculateEnergy(safeInput);
+
+      return safeInput;
     });
   }
 
   /**
-   * Calculates the energy consumption for a single input
-   * requires
-   *
-   * data-in: inbound data [GB]
-   * data-out: outbound data [GB]
-   * network-energy-coefficient: network energy cofficient [kWh/GB]
-   *
-   * multiplies (data-in + data-out) by network-energy-coefficient
+   * Calculates the energy consumption for a single input.
    */
   private calculateEnergy(input: ModelParams) {
-    this.validateInput(input);
-    const data_in = input['data-in'];
-    const data_out = input['data-out'];
-    const net_energy = input['network-energy-coefficient'];
-    return (data_in + data_out) * net_energy;
+    const {
+      'data-in': dataIn,
+      'data-out': dataOut,
+      'network-energy-coefficient': netEnergy,
+    } = input;
+
+    return (dataIn + dataOut) * netEnergy;
   }
 
-  private validateInput(input: ModelParams) {
-    this.validateFieldInInput(input, 'data-in');
-    this.validateFieldInInput(input, 'data-out');
-    this.validateFieldInInput(input, 'network-energy-coefficient');
-  }
+  /**
+   * Checks for required fields in input.
+   */
+  private validateSingleInput(input: ModelParams) {
+    const schema = z.object({
+      'network-energy-coefficient': z
+        .number()
+        .transform(value => (!value || value === 0 ? 0.001 : value))
+        .default(0.001),
+      'data-in': z.number().gte(0).min(0),
+      'data-out': z.number().gte(0).min(0),
+    });
 
-  private validateFieldInInput(input: ModelParams, field: string) {
-    if (field === 'network-energy-coefficient') {
-      if (
-        !(field in input) ||
-        input[field] === undefined ||
-        input[field] === 0
-      ) {
-        input['network-energy-coefficient'] = 0.001; // default value taken from msft-eshoppen case study
-      }
-    } else {
-      if (!(field in input) || input[field] === undefined) {
-        throw new InputValidationError(
-          this.errorBuilder({
-            message: field + ' is missing or invalid',
-          })
-        );
-      }
-    }
+    return validate(schema, input);
   }
 }
