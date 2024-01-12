@@ -118,7 +118,7 @@ You can run this example `impl` by saving it as `./examples/impls/test/ccf.yml` 
 ```sh
 npm i -g @grnsft/if
 npm i -g @grnsft/if-models
-impact-engine --impl ./examples/impls/test/sccf.yml --ompl ./examples/ompls/ccf.yml
+impact-engine --impl ./examples/impls/test/ccf.yml --ompl ./examples/ompls/ccf.yml
 ```
 
 The results will be saved to a new `yaml` file in `./examples/ompls`.
