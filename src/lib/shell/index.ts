@@ -2,10 +2,13 @@ import {spawnSync, SpawnSyncReturns} from 'child_process';
 import {loadAll, dump} from 'js-yaml';
 import {z} from 'zod';
 
-import {ModelPluginInterface} from '../../interfaces';
-import {KeyValuePair, ModelParams} from '../../types/common';
-
 import {validate} from '../../util/validations';
+import {ERRORS} from '../../util/errors';
+
+import {ModelPluginInterface} from '../../interfaces';
+import {ModelParams} from '../../types/common';
+
+const {InputValidationError} = ERRORS;
 
 export class ShellModel implements ModelPluginInterface {
   /**
@@ -32,7 +35,7 @@ export class ShellModel implements ModelPluginInterface {
    */
   private validateSingleInput(input: ModelParams) {
     const schema = z.object({
-      command: z.string().optional(),
+      command: z.string(),
     });
 
     return validate(schema, input);
@@ -43,7 +46,7 @@ export class ShellModel implements ModelPluginInterface {
    * an executable with a CLI exposing two methods: `--execute` and `--impl`.
    * The shell command then calls the `--command` method passing var impl as the path to the desired impl file.
    */
-  private runModelInShell(input: string, command: string): KeyValuePair {
+  private runModelInShell(input: string, command: string) {
     try {
       const [executable, ...args] = command.split(' ');
 
@@ -56,7 +59,7 @@ export class ShellModel implements ModelPluginInterface {
 
       return {outputs};
     } catch (error: any) {
-      throw new Error(error.message);
+      throw new InputValidationError(error.message);
     }
   }
 }

@@ -1,9 +1,9 @@
 import {z} from 'zod';
 
+import {validate} from '../../util/validations';
+
 import {ModelPluginInterface} from '../../interfaces';
 import {ModelParams} from '../../types/common';
-
-import {validate} from '../../util/validations';
 
 export class ENetModel implements ModelPluginInterface {
   /**

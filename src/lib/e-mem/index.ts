@@ -1,9 +1,9 @@
 import {z} from 'zod';
 
+import {validate, allDefined} from '../../util/validations';
+
 import {ModelPluginInterface} from '../../interfaces';
 import {ModelParams} from '../../types/common';
-
-import {validate, allDefined} from '../../util/validations';
 
 export class EMemModel implements ModelPluginInterface {
   /**
@@ -50,7 +50,8 @@ export class EMemModel implements ModelPluginInterface {
         'mem-util': z.number().min(0).max(100),
       })
       .refine(allDefined, {
-        message: `All metrics, including mem-util, total-memoryGB, coefficient, and mem_util-out should be present.`,
+        message:
+          'All metrics, including mem-util, total-memoryGB, coefficient, and mem_util-out should be present.',
       });
 
     return validate(schema, input);

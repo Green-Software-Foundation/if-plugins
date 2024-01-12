@@ -1,9 +1,9 @@
 import {z} from 'zod';
 
+import {validate, allDefined} from '../../util/validations';
+
 import {ModelPluginInterface} from '../../interfaces';
 import {ModelParams} from '../../types/common';
-
-import {validate, allDefined} from '../../util/validations';
 
 export class SciOModel implements ModelPluginInterface {
   private METRICS = ['grid-carbon-intensity', 'energy'];
