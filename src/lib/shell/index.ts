@@ -1,84 +1,62 @@
-import * as cp from 'child_process';
-import * as yaml from 'js-yaml';
+import {spawnSync, SpawnSyncReturns} from 'child_process';
+import {loadAll, dump} from 'js-yaml';
+import {z} from 'zod';
 
 import {ModelPluginInterface} from '../../interfaces';
-
-import {ERRORS} from '../../util/errors';
-import {buildErrorMessage} from '../../util/helpers';
-
 import {KeyValuePair, ModelParams} from '../../types/common';
 
-const {InputValidationError} = ERRORS;
+import {validate} from '../../util/validations';
 
 export class ShellModel implements ModelPluginInterface {
-  name: string | undefined; // The name of the data source.
-  staticParams: object | undefined;
-  executable = '';
-  errorBuilder = buildErrorMessage(ShellModel);
-
   /**
-   * Configures the Plugin for IEF
-   * @param {Object} staticParams static parameters for the resource
+   * Configures the ShellModel Plugin.
    */
-  async configure(
-    staticParams: object | undefined = undefined
-  ): Promise<ModelPluginInterface> {
-    if (staticParams === undefined) {
-      throw new InputValidationError(
-        this.errorBuilder({
-          scope: 'configure',
-          message: 'Missing input data',
-        })
-      );
-    }
-
-    if ('executable' in staticParams) {
-      this.executable = staticParams['executable'] as string;
-      delete staticParams['executable'];
-    }
-    this.staticParams = staticParams;
-
+  public async configure(): Promise<ModelPluginInterface> {
     return this;
   }
 
-  async execute(inputs: ModelParams[]): Promise<any[]> {
-    const input: KeyValuePair = {};
-    input['inputs'] = inputs;
-    if (this.staticParams !== undefined) {
-      input['config'] = this.staticParams;
-    }
+  /**
+   * Calculate the total emissions for a list of inputs.
+   */
+  public async execute(inputs: ModelParams[]): Promise<any[]> {
+    const inputAsString: string = dump(inputs, {indent: 2});
 
-    const inputAsString: string = yaml.dump(input, {
-      indent: 2,
+    const command = this.validateSingleInput(inputs[0]).command;
+    const results = this.runModelInShell(inputAsString, command);
+
+    return results.outputs;
+  }
+
+  /**
+   * Checks for required fields in input.
+   */
+  private validateSingleInput(input: ModelParams) {
+    const schema = z.object({
+      command: z.string().optional(),
     });
 
-    const results = this.runModelInShell(inputAsString, this.executable);
-
-    return results['outputs'];
+    return validate(schema, input);
   }
 
   /**
    * Runs the model in a shell. Spawns a child process to run an external IMP,
-   *  expects `execPath` to be a path to an executable with a CLI exposing two methods: `--execute` and `--impl`.
+   * an executable with a CLI exposing two methods: `--execute` and `--impl`.
    * The shell command then calls the `--command` method passing var impl as the path to the desired impl file.
-   * @param input Yaml string (impl minus top level config).
-   * @param {string} execPath Path to executable.
-   * @param {string} omplName Savename for ompl file.
-   * @returns - ompl data to stdout
-   *          - ompl data to disk as omplName.yaml
    */
-  private runModelInShell(input: string, execPath: string): KeyValuePair {
+  private runModelInShell(input: string, command: string): KeyValuePair {
     try {
-      const execs = execPath.split(' ');
-      const executable = execs.shift() ?? '';
+      const [executable, ...args] = command.split(' ');
 
-      const result = cp.spawnSync(executable, [...execs], {
-        input: input,
+      const result: SpawnSyncReturns<string> = spawnSync(executable, args, {
+        input,
         encoding: 'utf8',
-      }).stdout;
-      return yaml.load(result) as KeyValuePair;
-    } catch (e: any) {
-      throw new Error(e.message);
+      });
+
+      const outputs = loadAll(result.stdout);
+
+      return {outputs};
+    } catch (error: any) {
+      throw new Error(error.message);
     }
   }
 }
