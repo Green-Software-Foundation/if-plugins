@@ -107,21 +107,21 @@ To run the model, you must first create an instance of `SciModel` and call
 its `configure()` method. Then, you can call `execute()` to return `sci`.
 
 ```typescript
-import { SciModel } from '@grnsft/if-models';
+import {SciModel} from '@grnsft/if-models';
 
 const sciModel = new SciModel();
 sciModel.configure('name', {
-      'functional-unit-time': '1 day',
-      'functional-unit': 'requests',
-})
+  'functional-unit-time': '1 day',
+  'functional-unit': 'requests',
+});
 const results = sciModel.execute([
   {
     'operational-carbon': 0.02,
     'embodied-carbon': 5,
     duration: 1,
     requests: 100,
-  }
-])
+  },
+]);
 ```
 
 ## Example impl
@@ -157,12 +157,12 @@ graph:
           requests: 100
 ```
 
-You can run this example `impl` by saving it as `./examples/impls/sci.yml` and executing the following command from the project root:
+You can run this example `impl` by saving it as `./examples/impls/test/sci.yml` and executing the following command from the project root:
 
 ```sh
 npm i -g @grnsft/if
 npm i -g @grnsft/if-models
-impact-engine --impl ./examples/impls/sci.yml --ompl ./examples/ompls/sci.yml
+impact-engine --impl ./examples/impls/test/sci.yml --ompl ./examples/ompls/sci.yml
 ```
 
 The results will be saved to a new `yaml` file in `./examples/ompls`.

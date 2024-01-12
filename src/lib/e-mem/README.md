@@ -7,7 +7,7 @@
 
 ### Model config
 
-None
+Not Needed
 
 ### Inputs
 
@@ -67,7 +67,7 @@ You can run this example `impl` by saving it as `examples/impls/e-mem.yml` and e
 ```sh
 npm i -g @grnsft/if
 npm i -g @grnsft/if-models
-impact-engine --impl ./examples/impls/e-mem.yml --ompl ./examples/ompls/e-mem.yml
+impact-engine --impl ./examples/impls/test/e-mem.yml --ompl ./examples/ompls/e-mem.yml
 ```
 
 The results will be saved to a new `yaml` file in `./examples/ompls`.

@@ -6,7 +6,7 @@ The `shell` is a wrapper enabling models implemented in any other programming la
 
 ### Model config
 
-None
+Not Needed
 
 ### inputs
 
@@ -103,12 +103,12 @@ graph:
           energy: 0.02 # added by model
 ```
 
-You can run this example `impl` by saving it as `./examples/impls/sci.yml` and executing the following command from the project root:
+You can run this example `impl` by saving it as `./examples/impls/test/sci.yml` and executing the following command from the project root:
 
 ```sh
 npm i -g @grnsft/if
 npm i -g @grnsft/if-models
-impact-engine --impl ./examples/impls/shell.yml --ompl ./examples/ompls/shell.yml
+impact-engine --impl ./examples/impls/test/shell.yml --ompl ./examples/ompls/shell.yml
 ```
 
 The results will be saved to a new `yaml` file in `./examples/ompls`.
