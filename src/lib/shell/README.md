@@ -6,13 +6,16 @@ The `shell` is a wrapper enabling models implemented in any other programming la
 
 ### Model config
 
-Not Needed
+The model should be initialized as follows:
+
+The shell model interface requires a path to the model command. This path is provided in the model configuration with the name command. The path should be appended by the execution command, for example if the executable is a binary, the path would be prepended with ./ on a Linux system. If the model is intended to be run as Python, you can prepend python.
+
+- `command`: the path to the model executable along with the execution command as it would be entered into a shell.
 
 ### inputs
 
 The parameters included in the `inputs` field in the `impl` depend entirely on the model itself. A typical model plugin might expect the following common data to be provided as `inputs`:
 
-- `command`: The path to the model executable along with the execution command as it would be entered into a shell.
 - `timestamp`: A timestamp for the specific input
 - `duration`: The length of time these specific inputs cover
 
@@ -64,12 +67,14 @@ graph:
     child:
       pipeline:
         - sampler
+      config:
+        sampler:
+          command: python3 /usr/local/bin/sampler
       inputs:
         - timestamp: 2023-07-06T00:00
           duration: 1 # Secs
           energy-cpu: 0.002
           energy-mem: 0.000005
-          command: python3 /usr/local/bin/sampler
 ```
 
 In this hypothetical example, the model is written in Python and invoked by executing `python3 /usr/local/bin/sampler` in a shell.
@@ -89,12 +94,14 @@ graph:
     child:
       pipeline:
         - sampler
+      config:
+        sampler:
+          command: python3 /usr/local/bin/sampler
       inputs:
         - timestamp: 2023-07-06T00:00
           duration: 1 # Secs
           energy-cpu: 0.002
           energy-mem: 0.000005
-          command: python3 /usr/local/bin/sampler
       outputs:
         - timestamp: 2023-07-06T00:00
           duration: 1 # Secs
