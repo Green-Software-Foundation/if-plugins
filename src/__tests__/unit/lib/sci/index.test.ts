@@ -29,7 +29,7 @@ describe('lib/sci:', () => {
     });
 
     describe('execute():', () => {
-      it('returns a result with vaild inputs', async () => {
+      it('returns a result with vaild inputs.', async () => {
         const inputs = [
           {
             timestamp: '2021-01-01T00:00:00Z',
@@ -188,7 +188,7 @@ describe('lib/sci:', () => {
         }
       });
 
-      it('accepts underscore separated values in functional-unit-time.', async () => {
+      it('returns a result when the value of `functional-unit-time` is separated by underscore.', async () => {
         const inputs = [
           {
             timestamp: '2021-01-01T00:00:00Z',
@@ -216,7 +216,7 @@ describe('lib/sci:', () => {
         ]);
       });
 
-      it('accepts hyphen separated values in functional-unit-time.', async () => {
+      it('returns a result when the value of `functional-unit-time` is separated by hyphen.', async () => {
         const inputs = [
           {
             timestamp: '2021-01-01T00:00:00Z',
@@ -244,7 +244,7 @@ describe('lib/sci:', () => {
         ]);
       });
 
-      it('throws exception on bad string formatting (bad separator) in functional-unit-time.', async () => {
+      it('throws exception on bad string formatting (bad separator) in `functional-unit-time`.', async () => {
         const inputs = [
           {
             timestamp: '2021-01-01T00:00:00Z',
@@ -265,7 +265,7 @@ describe('lib/sci:', () => {
         }
       });
 
-      it('throws exception on bad string formatting (no separator) in functional-unit-time.', async () => {
+      it('throws exception on bad string formatting (no separator) in `functional-unit-time`.', async () => {
         const inputs = [
           {
             timestamp: '2021-01-01T00:00:00Z',
@@ -285,7 +285,7 @@ describe('lib/sci:', () => {
         }
       });
 
-      it('returns result either carbon or both of operational-carbon and embodied-carbon are in the input.', async () => {
+      it('returns result either `carbon` or both of `operational-carbon` and `embodied-carbon` are in the input.', async () => {
         expect.assertions(2);
 
         const inputsWithCarbon = [
