@@ -7,7 +7,7 @@ import {validate, allDefined} from '../../util/validations';
 import {buildErrorMessage} from '../../util/helpers';
 import {ERRORS} from '../../util/errors';
 
-import {TIME_UNITS_IN_SECONDS} from '../../config';
+import {TIME_UNITS_IN_SECONDS} from './config';
 
 const {InputValidationError} = ERRORS;
 
@@ -32,12 +32,12 @@ export class SciModel implements ModelPluginInterface {
 
       this.parseTime(input);
 
-      const sciSecs = this.calculateSciSeconds(input);
-      const sciTimed = this.convertSciToTimeUnit(sciSecs);
+      const sciPerSecond = this.calculateSciSeconds(input);
+      const sciTimed = this.convertSciToTimeUnit(sciPerSecond);
       const factor = this.getFunctionalUnitConversionFactor(input);
       const sciTimedDuration = sciTimed * this.functionalUnitTime.value;
 
-      input['carbon'] = input['carbon'] ?? sciSecs;
+      input['carbon'] = input['carbon'] ?? sciPerSecond;
       input['sci'] = sciTimedDuration / factor;
 
       return input;
@@ -64,7 +64,7 @@ export class SciModel implements ModelPluginInterface {
   /**
    * Converts the given sci value from seconds to the specified time unit.
    */
-  private convertSciToTimeUnit(sciSecs: number): number {
+  private convertSciToTimeUnit(sciPerSecond: number): number {
     const conversionFactor =
       TIME_UNITS_IN_SECONDS[this.functionalUnitTime.unit];
 
@@ -76,7 +76,7 @@ export class SciModel implements ModelPluginInterface {
       );
     }
 
-    return sciSecs * conversionFactor;
+    return sciPerSecond * conversionFactor;
   }
 
   /**
@@ -85,9 +85,11 @@ export class SciModel implements ModelPluginInterface {
   private calculateSciSeconds(input: ModelParams): number {
     const operational = parseFloat(input['operational-carbon']);
     const embodied = parseFloat(input['embodied-carbon']);
-    const sciSecs = (operational + embodied) / input['duration'];
+    const sciPerSecond = (operational + embodied) / input['duration'];
 
-    return 'carbon' in input ? input['carbon'] / input['duration'] : sciSecs;
+    return 'carbon' in input
+      ? input['carbon'] / input['duration']
+      : sciPerSecond;
   }
 
   /**
