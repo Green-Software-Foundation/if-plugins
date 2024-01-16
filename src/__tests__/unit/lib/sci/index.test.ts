@@ -1,472 +1,340 @@
-import {describe, expect, jest} from '@jest/globals';
 import {SciModel} from '../../../../lib';
 
-jest.setTimeout(30000);
+import {ERRORS} from '../../../../util/errors';
 
-describe('sci:configure test', () => {
-  it('initialize and test calculations with vaild inputs', async () => {
-    const model = await new SciModel().configure({});
-    expect(model).toBeInstanceOf(SciModel);
-    await expect(
-      model.execute([
-        {
-          timestamp: '2021-01-01T00:00:00Z',
-          'operational-carbon': 0.02,
-          'embodied-carbon': 5,
-          users: 100,
-          'functional-unit': 'users',
-          'functional-unit-time': '1 min',
-          duration: 1,
-        },
-      ])
-    ).resolves.toStrictEqual([
-      {
-        timestamp: '2021-01-01T00:00:00Z',
-        'operational-carbon': 0.02,
-        'embodied-carbon': 5,
-        'functional-unit': 'users',
-        'functional-unit-time': '1 min',
-        carbon: 5.02,
-        users: 100,
-        duration: 1,
-        sci: 3.012,
-      },
-    ]);
-    await expect(
-      model.execute([
-        {
-          timestamp: '2021-01-01T00:00:00Z',
-          'operational-carbon': 20,
-          'embodied-carbon': 0.005,
-          'functional-unit': 'users',
-          'functional-unit-time': '1 min',
-          carbon: 20.005,
-          users: 1000,
-          duration: 1,
-        },
-      ])
-    ).resolves.toStrictEqual([
-      {
-        timestamp: '2021-01-01T00:00:00Z',
-        'operational-carbon': 20,
-        'embodied-carbon': 0.005,
-        'functional-unit': 'users',
-        'functional-unit-time': '1 min',
-        carbon: 20.005,
-        users: 1000,
-        duration: 1,
-        sci: 1.2003,
-      },
-    ]);
-  });
+const {InputValidationError} = ERRORS;
 
-  it('initialize and test: vary input duration ', async () => {
-    const model = await new SciModel().configure({});
-    expect(model).toBeInstanceOf(SciModel);
-    await expect(
-      model.execute([
-        {
-          timestamp: '2021-01-01T00:00:00Z',
-          'operational-carbon': 0.2,
-          'embodied-carbon': 0.05,
-          'functional-unit': 'requests',
-          'functional-unit-time': '1 day',
-          duration: 100,
-        },
-      ])
-    ).resolves.toStrictEqual([
-      {
-        timestamp: '2021-01-01T00:00:00Z',
-        'operational-carbon': 0.2,
-        'embodied-carbon': 0.05,
-        'functional-unit': 'requests',
-        'functional-unit-time': '1 day',
-        carbon: 0.0025,
-        duration: 100,
-        sci: 216,
-      },
-    ]);
-    await expect(
-      model.execute([
-        {
-          timestamp: '2021-01-01T00:00:00Z',
-          'operational-carbon': 0.002,
-          'embodied-carbon': 0.0005,
-          'functional-unit': 'requests',
-          'functional-unit-time': '1 day',
-          duration: 2,
-        },
-      ])
-    ).resolves.toStrictEqual([
-      {
-        timestamp: '2021-01-01T00:00:00Z',
-        'operational-carbon': 0.002,
-        'embodied-carbon': 0.0005,
-        'functional-unit': 'requests',
-        'functional-unit-time': '1 day',
-        carbon: 0.00125,
-        duration: 2,
-        sci: 108,
-      },
-    ]);
-  });
+describe('lib/sci:', () => {
+  describe('SciModel: ', () => {
+    let sciModel: SciModel;
 
-  it('initialize and test: vary time unit', async () => {
-    const model = await new SciModel().configure({});
-    expect(model).toBeInstanceOf(SciModel);
-    await expect(
-      model.execute([
-        {
-          timestamp: '2021-01-01T00:00:00Z',
-          'operational-carbon': 0.002,
-          'embodied-carbon': 0.0005,
-          'functional-unit': 'requests',
-          'functional-unit-time': '2 d',
-          duration: 1,
-        },
-      ])
-    ).resolves.toStrictEqual([
-      {
-        timestamp: '2021-01-01T00:00:00Z',
-        'operational-carbon': 0.002,
-        'embodied-carbon': 0.0005,
-        'functional-unit': 'requests',
-        'functional-unit-time': '2 d',
-        carbon: 0.0025,
-        duration: 1,
-        sci: 432,
-      },
-    ]);
-    await expect(
-      model.execute([
-        {
-          timestamp: '2021-01-01T00:00:00Z',
-          'operational-carbon': 0.002,
-          'embodied-carbon': 0.0005,
-          'functional-unit': 'requests',
-          'functional-unit-time': '2 h',
-          duration: 1,
-        },
-      ])
-    ).resolves.toStrictEqual([
-      {
-        timestamp: '2021-01-01T00:00:00Z',
-        'operational-carbon': 0.002,
-        'embodied-carbon': 0.0005,
-        'functional-unit': 'requests',
-        'functional-unit-time': '2 h',
-        carbon: 0.0025,
-        duration: 1,
-        sci: 18,
-      },
-    ]);
+    beforeEach(() => {
+      sciModel = new SciModel();
+    });
 
-    await expect(
-      model.execute([
-        {
-          timestamp: '2021-01-01T00:00:00Z',
-          'operational-carbon': 0.002,
-          'embodied-carbon': 0.0005,
-          'functional-unit': 'requests',
-          'functional-unit-time': '2 month',
-          duration: 1,
-        },
-      ])
-    ).resolves.toStrictEqual([
-      {
-        timestamp: '2021-01-01T00:00:00Z',
-        'operational-carbon': 0.002,
-        'embodied-carbon': 0.0005,
-        'functional-unit': 'requests',
-        'functional-unit-time': '2 month',
-        carbon: 0.0025,
-        duration: 1,
-        sci: 12096,
-      },
-    ]);
-    await expect(
-      model.execute([
-        {
-          timestamp: '2021-01-01T00:00:00Z',
-          'operational-carbon': 0.002,
-          'embodied-carbon': 0.0005,
-          'functional-unit': 'requests',
-          'functional-unit-time': '2 m',
-          duration: 1,
-        },
-      ])
-    ).resolves.toStrictEqual([
-      {
-        timestamp: '2021-01-01T00:00:00Z',
-        'operational-carbon': 0.002,
-        'embodied-carbon': 0.0005,
-        'functional-unit': 'requests',
-        'functional-unit-time': '2 m',
-        carbon: 0.0025,
-        duration: 1,
-        sci: 12096,
-      },
-    ]);
+    describe('init: ', () => {
+      it('successfully initalized.', () => {
+        expect(sciModel).toHaveProperty('configure');
+        expect(sciModel).toHaveProperty('execute');
+      });
+    });
 
-    await expect(
-      model.execute([
-        {
-          timestamp: '2021-01-01T00:00:00Z',
-          'operational-carbon': 0.002,
-          'embodied-carbon': 0.0005,
-          'functional-unit': 'requests',
-          'functional-unit-time': '2 s',
-          duration: 1,
-        },
-      ])
-    ).resolves.toStrictEqual([
-      {
-        timestamp: '2021-01-01T00:00:00Z',
-        'operational-carbon': 0.002,
-        'embodied-carbon': 0.0005,
-        'functional-unit': 'requests',
-        'functional-unit-time': '2 s',
-        carbon: 0.0025,
-        duration: 1,
-        sci: 0.005,
-      },
-    ]);
-    await expect(
-      model.execute([
-        {
-          timestamp: '2021-01-01T00:00:00Z',
-          'operational-carbon': 0.002,
-          'embodied-carbon': 0.0005,
-          'functional-unit': 'requests',
-          'functional-unit-time': '2 w',
-          duration: 1,
-        },
-      ])
-    ).resolves.toStrictEqual([
-      {
-        timestamp: '2021-01-01T00:00:00Z',
-        'operational-carbon': 0.002,
-        'embodied-carbon': 0.0005,
-        'functional-unit': 'requests',
-        'functional-unit-time': '2 w',
-        carbon: 0.0025,
-        duration: 1,
-        sci: 3024,
-      },
-    ]);
-    await expect(
-      model.execute([
-        {
-          timestamp: '2021-01-01T00:00:00Z',
-          'operational-carbon': 0.002,
-          'embodied-carbon': 0.0005,
-          'functional-unit': 'requests',
-          'functional-unit-time': '2 y',
-          duration: 1,
-        },
-      ])
-    ).resolves.toStrictEqual([
-      {
-        timestamp: '2021-01-01T00:00:00Z',
-        'operational-carbon': 0.002,
-        'embodied-carbon': 0.0005,
-        'functional-unit': 'requests',
-        'functional-unit-time': '2 y',
-        carbon: 0.0025,
-        duration: 1,
-        sci: 157680,
-      },
-    ]);
-  });
+    describe('configure(): ', () => {
+      it('successfully returns model instance.', async () => {
+        expect.assertions(1);
 
-  it('tests model throws excetion on missing functional unit data', async () => {
-    const model = await new SciModel().configure({});
-    expect(model).toBeInstanceOf(SciModel);
-    await expect(
-      model.execute([
-        {
-          timestamp: '2021-01-01T00:00:00Z',
-          'operational-carbon': 0.002,
-          'embodied-carbon': 0.0005,
-          'functional-unit': 'requests',
-          duration: 1,
-        },
-      ])
-    ).rejects.toThrowError(
-      "SciModel: 'functional-unit-time' is not available."
-    );
-    await expect(
-      model.execute([
-        {
-          timestamp: '2021-01-01T00:00:00Z',
-          'embodied-carbon': 0.0005,
-          'functional-unit': 'requests',
-          'functional-unit-time': '1 hour',
-          duration: 1,
-        },
-      ])
-    ).rejects.toThrowError();
-    await expect(
-      model.execute([
-        {
-          timestamp: '2021-01-01T00:00:00Z',
-          'operational-carbon': 0.0005,
-          'functional-unit': 'requests',
-          'functional-unit-time': '1 hour',
-          duration: 1,
-        },
-      ])
-    ).rejects.toThrowError();
-  });
+        await sciModel.configure();
+        expect(sciModel).toBeInstanceOf(SciModel);
+      });
+    });
 
-  it('tests model throws exception on invalid functional unit data', async () => {
-    const model = await new SciModel().configure({});
-    expect(model).toBeInstanceOf(SciModel);
-    await expect(
-      model.execute([
-        {
-          timestamp: '2021-01-01T00:00:00Z',
-          'operational-carbon': 0.002,
-          'embodied-carbon': 0.0005,
-          'functional-unit': 'requests',
-          'functional-unit-time': 'bad-data',
-          duration: 1,
-        },
-      ])
-    ).rejects.toThrowError(
-      "SciModel: 'functional-unit-time' is not a valid positive number."
-    );
-  });
+    describe('execute():', () => {
+      it('returns a result with vaild inputs.', async () => {
+        const inputs = [
+          {
+            timestamp: '2021-01-01T00:00:00Z',
+            'operational-carbon': 0.02,
+            'embodied-carbon': 5,
+            users: 100,
+            'functional-unit': 'users',
+            'functional-unit-time': '1 min',
+            duration: 1,
+          },
+        ];
+        const result = await sciModel.execute(inputs);
 
-  it('tests model throws exception on negative time value', async () => {
-    const model = await new SciModel().configure({});
-    expect(model).toBeInstanceOf(SciModel);
-    await expect(
-      model.execute([
-        {
-          timestamp: '2021-01-01T00:00:00Z',
-          'operational-carbon': 0.002,
-          'embodied-carbon': 0.0005,
-          'functional-unit': 'requests',
-          'functional-unit-time': '-1 hour',
-          duration: 1,
-        },
-      ])
-    ).rejects.toThrowError(
-      "SciModel: 'functional-unit-time' is not a valid positive number."
-    );
-  });
+        expect.assertions(1);
 
-  it('tests model throws exception on invalid time unit', async () => {
-    const model = await new SciModel().configure({});
-    expect(model).toBeInstanceOf(SciModel);
-    await expect(
-      model.execute([
-        {
-          timestamp: '2021-01-01T00:00:00Z',
-          'operational-carbon': 0.002,
-          'embodied-carbon': 0.0005,
-          'functional-unit': 'requests',
-          'functional-unit-time': '1 badData',
-          duration: 1,
-        },
-      ])
-    ).rejects.toThrowError(
-      'functional-unit-time is not in recognized unit of time'
-    );
-  });
+        expect(result).toStrictEqual([
+          {
+            timestamp: '2021-01-01T00:00:00Z',
+            'operational-carbon': 0.02,
+            'embodied-carbon': 5,
+            'functional-unit': 'users',
+            'functional-unit-time': '1 min',
+            carbon: 5.02,
+            users: 100,
+            duration: 1,
+            sci: 3.012,
+          },
+        ]);
+      });
 
-  it('tests model accepts underscore separated values in functional-unit-time', async () => {
-    const model = await new SciModel().configure({});
-    expect(model).toBeInstanceOf(SciModel);
-    await expect(
-      model.execute([
-        {
-          timestamp: '2021-01-01T00:00:00Z',
-          'operational-carbon': 0.002,
-          'embodied-carbon': 0.0005,
-          'functional-unit': 'requests',
-          'functional-unit-time': '2_d',
-          duration: 1,
-        },
-      ])
-    ).resolves.toStrictEqual([
-      {
-        timestamp: '2021-01-01T00:00:00Z',
-        'operational-carbon': 0.002,
-        'embodied-carbon': 0.0005,
-        'functional-unit': 'requests',
-        'functional-unit-time': '2_d',
-        carbon: 0.0025,
-        duration: 1,
-        sci: 432,
-      },
-    ]);
-  });
+      it('returns a result with vary input duration.', async () => {
+        const inputs = [
+          {
+            timestamp: '2021-01-01T00:00:00Z',
+            'operational-carbon': 0.2,
+            'embodied-carbon': 0.05,
+            'functional-unit': 'requests',
+            'functional-unit-time': '1 day',
+            duration: 100,
+          },
+          {
+            timestamp: '2021-01-01T00:00:00Z',
+            'operational-carbon': 0.002,
+            'embodied-carbon': 0.0005,
+            'functional-unit': 'requests',
+            'functional-unit-time': '1 day',
+            duration: 2,
+          },
+        ];
+        const result = await sciModel.execute(inputs);
 
-  it('tests model accepts hyphen separated values in functional-unit-time', async () => {
-    const model = await new SciModel().configure({});
-    expect(model).toBeInstanceOf(SciModel);
-    await expect(
-      model.execute([
-        {
-          timestamp: '2021-01-01T00:00:00Z',
-          'operational-carbon': 0.002,
-          'embodied-carbon': 0.0005,
-          'functional-unit': 'requests',
-          'functional-unit-time': '2-d',
-          duration: 1,
-        },
-      ])
-    ).resolves.toStrictEqual([
-      {
-        timestamp: '2021-01-01T00:00:00Z',
-        'operational-carbon': 0.002,
-        'embodied-carbon': 0.0005,
-        'functional-unit': 'requests',
-        'functional-unit-time': '2-d',
-        carbon: 0.0025,
-        duration: 1,
-        sci: 432,
-      },
-    ]);
-  });
+        expect.assertions(1);
 
-  it('tests model throws exception on bad string formatting (bad separator) in functional-unit-time', async () => {
-    const model = await new SciModel().configure({});
-    expect(model).toBeInstanceOf(SciModel);
-    await expect(
-      model.execute([
-        {
-          timestamp: '2021-01-01T00:00:00Z',
-          'operational-carbon': 0.002,
-          'embodied-carbon': 0.0005,
-          'functional-unit': 'requests',
-          'functional-unit-time': '1/d',
-          duration: 1,
-        },
-      ])
-    ).rejects.toThrowError(
-      "SciModel: Error while parsing 'functional-unit-time'. Please ensure you have provided one value and one unit and they are either space, underscore or hyphen separated."
-    );
-  });
+        expect(result).toStrictEqual([
+          {
+            timestamp: '2021-01-01T00:00:00Z',
+            'operational-carbon': 0.2,
+            'embodied-carbon': 0.05,
+            'functional-unit': 'requests',
+            'functional-unit-time': '1 day',
+            carbon: 0.0025,
+            duration: 100,
+            sci: 216,
+          },
+          {
+            timestamp: '2021-01-01T00:00:00Z',
+            'operational-carbon': 0.002,
+            'embodied-carbon': 0.0005,
+            'functional-unit': 'requests',
+            'functional-unit-time': '1 day',
+            carbon: 0.00125,
+            duration: 2,
+            sci: 108,
+          },
+        ]);
+      });
 
-  it('tests model throws exception on bad string formatting (no separator) in functional-unit-time', async () => {
-    const model = await new SciModel().configure({});
-    expect(model).toBeInstanceOf(SciModel);
-    await expect(
-      model.execute([
-        {
-          timestamp: '2021-01-01T00:00:00Z',
-          'operational-carbon': 0.002,
-          'embodied-carbon': 0.0005,
-          'functional-unit': 'requests',
-          'functional-unit-time': '1hour',
-          duration: 1,
-        },
-      ])
-    ).rejects.toThrowError(
-      "SciModel: Error while parsing 'functional-unit-time'. Please ensure you have provided one value and one unit and they are either space, underscore or hyphen separated."
-    );
+      it('throws an excetion on missing functional unit data.', async () => {
+        const inputs = [
+          {
+            timestamp: '2021-01-01T00:00:00Z',
+            'operational-carbon': 0.002,
+            'embodied-carbon': 0.0005,
+            'functional-unit': 'requests',
+            duration: 1,
+          },
+        ];
+        expect.assertions(1);
+
+        try {
+          await sciModel.execute(inputs);
+        } catch (error) {
+          expect(error).toBeInstanceOf(InputValidationError);
+        }
+      });
+
+      it('throws exception on invalid functional unit data.', async () => {
+        const inputs = [
+          {
+            timestamp: '2021-01-01T00:00:00Z',
+            'operational-carbon': 0.002,
+            'embodied-carbon': 0.0005,
+            'functional-unit': 'requests',
+            'functional-unit-time': 'bad-data',
+            duration: 1,
+          },
+        ];
+
+        expect.assertions(1);
+
+        try {
+          await sciModel.execute(inputs);
+        } catch (error) {
+          expect(error).toBeInstanceOf(InputValidationError);
+        }
+      });
+
+      it('throws exception on negative time value.', async () => {
+        const inputs = [
+          {
+            timestamp: '2021-01-01T00:00:00Z',
+            'operational-carbon': 0.002,
+            'embodied-carbon': 0.0005,
+            'functional-unit': 'requests',
+            'functional-unit-time': '-1 hour',
+            duration: 1,
+          },
+        ];
+
+        expect.assertions(1);
+
+        try {
+          await sciModel.execute(inputs);
+        } catch (error) {
+          expect(error).toBeInstanceOf(InputValidationError);
+        }
+      });
+
+      it('throws exception on invalid time unit.', async () => {
+        const inputs = [
+          {
+            timestamp: '2021-01-01T00:00:00Z',
+            'operational-carbon': 0.002,
+            'embodied-carbon': 0.0005,
+            'functional-unit': 'requests',
+            'functional-unit-time': '1 badData',
+            duration: 1,
+          },
+        ];
+        expect.assertions(1);
+
+        try {
+          await sciModel.execute(inputs);
+        } catch (error) {
+          expect(error).toBeInstanceOf(InputValidationError);
+        }
+      });
+
+      it('returns a result when the value of `functional-unit-time` is separated by underscore.', async () => {
+        const inputs = [
+          {
+            timestamp: '2021-01-01T00:00:00Z',
+            'operational-carbon': 0.002,
+            'embodied-carbon': 0.0005,
+            'functional-unit': 'requests',
+            'functional-unit-time': '2_d',
+            duration: 1,
+          },
+        ];
+        const result = await sciModel.execute(inputs);
+
+        expect.assertions(1);
+        expect(result).toStrictEqual([
+          {
+            timestamp: '2021-01-01T00:00:00Z',
+            'operational-carbon': 0.002,
+            'embodied-carbon': 0.0005,
+            'functional-unit': 'requests',
+            'functional-unit-time': '2_d',
+            carbon: 0.0025,
+            duration: 1,
+            sci: 432,
+          },
+        ]);
+      });
+
+      it('returns a result when the value of `functional-unit-time` is separated by hyphen.', async () => {
+        const inputs = [
+          {
+            timestamp: '2021-01-01T00:00:00Z',
+            'operational-carbon': 0.002,
+            'embodied-carbon': 0.0005,
+            'functional-unit': 'requests',
+            'functional-unit-time': '2-d',
+            duration: 1,
+          },
+        ];
+        const result = await sciModel.execute(inputs);
+
+        expect.assertions(1);
+        expect(result).toStrictEqual([
+          {
+            timestamp: '2021-01-01T00:00:00Z',
+            'operational-carbon': 0.002,
+            'embodied-carbon': 0.0005,
+            'functional-unit': 'requests',
+            'functional-unit-time': '2-d',
+            carbon: 0.0025,
+            duration: 1,
+            sci: 432,
+          },
+        ]);
+      });
+
+      it('throws exception on bad string formatting (bad separator) in `functional-unit-time`.', async () => {
+        const inputs = [
+          {
+            timestamp: '2021-01-01T00:00:00Z',
+            'operational-carbon': 0.002,
+            'embodied-carbon': 0.0005,
+            'functional-unit': 'requests',
+            'functional-unit-time': '1/d',
+            duration: 1,
+          },
+        ];
+
+        expect.assertions(1);
+
+        try {
+          await sciModel.execute(inputs);
+        } catch (error) {
+          expect(error).toBeInstanceOf(InputValidationError);
+        }
+      });
+
+      it('throws exception on bad string formatting (no separator) in `functional-unit-time`.', async () => {
+        const inputs = [
+          {
+            timestamp: '2021-01-01T00:00:00Z',
+            'operational-carbon': 0.002,
+            'embodied-carbon': 0.0005,
+            'functional-unit': 'requests',
+            'functional-unit-time': '1hour',
+            duration: 1,
+          },
+        ];
+        expect.assertions(1);
+
+        try {
+          await sciModel.execute(inputs);
+        } catch (error) {
+          expect(error).toBeInstanceOf(InputValidationError);
+        }
+      });
+
+      it('returns result either `carbon` or both of `operational-carbon` and `embodied-carbon` are in the input.', async () => {
+        expect.assertions(2);
+
+        const inputsWithCarbon = [
+          {
+            timestamp: '2021-01-01T00:00:00Z',
+            carbon: 0.0025,
+            'functional-unit': 'requests',
+            'functional-unit-time': '2-d',
+            duration: 1,
+          },
+        ];
+        const resultWithCarbon = await sciModel.execute(inputsWithCarbon);
+
+        expect(resultWithCarbon).toStrictEqual([
+          {
+            timestamp: '2021-01-01T00:00:00Z',
+            'functional-unit': 'requests',
+            'functional-unit-time': '2-d',
+            carbon: 0.0025,
+            duration: 1,
+            sci: 432,
+          },
+        ]);
+
+        const inputsWithoutCarbon = [
+          {
+            timestamp: '2021-01-01T00:00:00Z',
+            'operational-carbon': 0.002,
+            'embodied-carbon': 0.0005,
+            'functional-unit': 'requests',
+            'functional-unit-time': '2-d',
+            duration: 1,
+          },
+        ];
+        const resultWithoutCarbon = await sciModel.execute(inputsWithoutCarbon);
+
+        expect(resultWithoutCarbon).toStrictEqual([
+          {
+            timestamp: '2021-01-01T00:00:00Z',
+            'operational-carbon': 0.002,
+            'embodied-carbon': 0.0005,
+            'functional-unit': 'requests',
+            'functional-unit-time': '2-d',
+            carbon: 0.0025,
+            duration: 1,
+            sci: 432,
+          },
+        ]);
+      });
+    });
   });
 });
