@@ -14,7 +14,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 18
-          cache: 'yarn'
+          cache: 'npm'
 
       - name: 'setup python'
         uses: actions/setup-python@v4
@@ -22,13 +22,13 @@ jobs:
           python-version: '3.11'
 
       - name: Install dependencies
-        run: yarn install
+        run: npm install
 
       - name: Copy Sample CLI Mocker to bin folder
         run: pip3 install pyyaml && cp src/lib/shell/sampler /usr/local/bin/sampler && chmod +x /usr/local/bin/sampler
 
       - name: Run lint
-        run: yarn lint
+        run: npm run lint
 
       - name: Run tests
-        run: yarn test --silent
+        run: npm run test --silent
