@@ -13,7 +13,7 @@ Read more on [embodied carbon](https://github.com/Green-Software-Foundation/sci/
 - `reserved-resources`: the number of resources reserved for use by the software
 - `total-resources`: the total number of resources available
 
-> Note that if you have a model pipeline that adds `vcpus-allocated` and `vcpus-total` to each observation, such as the `cloud-instance-metadata` model, those values will be used **in preference** to the given `reserved-resources` anf `total-resources` fields.
+> Note that if you have a model pipeline that adds `vcpus-allocated` and `vcpus-total` to each observation, such as the `cloud-instance-metadata` model, those values will be used **in preference** to the given `reserved-resources` and `total-resources` fields.
 
 ### Inputs
 
@@ -40,9 +40,9 @@ Where:
 
   - `timeShare` is calculated as `duration/expected-lifespan`, where:
     - `duration` = the length of time the hardware is reserved for use by the software.
-    - `expected-lifespan` = Expected lifespan: the length of time, in seconds, between a component's manufacture and its disposal
+    - `expected-lifespan` = Expected lifespan: the length of time, in seconds, between a component's manufacture and its disposal.
 
-- `resourceshare` = Resource-share; the share of the total available resources of the hardware reserved for use by an application.
+- `resourceShare` = Resource-share; the share of the total available resources of the hardware reserved for use by an application.
   - `resourceShare` is calculated as `resources-reserved/total-resources`, where:
     - `resources-reserved` = Resources reserved; the number of resources reserved for use by the software.
     - `total-resources` = Total Resources; the total number of resources available.
