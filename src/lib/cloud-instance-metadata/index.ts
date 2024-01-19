@@ -1,122 +1,113 @@
-import {ModelPluginInterface} from '../../interfaces';
+import {z} from 'zod';
 
+import {ModelPluginInterface} from '../../interfaces';
+import {ModelParams} from '../../types/common';
+
+import {validate, allDefined} from '../../util/validations';
+import {buildErrorMessage} from '../../util/helpers';
 import {ERRORS} from '../../util/errors';
+
+import {InstanceInput} from './types';
 
 import * as AWS_INSTANCES from './aws-instances.json';
 import * as AZURE_INSTANCES from './azure-instances.json';
 
-import {KeyValuePair, ModelParams} from '../../types/common';
-import {buildErrorMessage} from '../../util/helpers';
-
-const {InputValidationError, UnsupportedValueError} = ERRORS;
+const {UnsupportedValueError} = ERRORS;
 
 export class CloudInstanceMetadataModel implements ModelPluginInterface {
-  staticParams: object | undefined;
-  name: string | undefined;
-  errorBuilder = buildErrorMessage(CloudInstanceMetadataModel);
+  SUPPORTED_CLOUDS = ['aws', 'azure'] as const;
+  errorBuilder = buildErrorMessage(this.constructor);
 
   /**
-   * Each input require:
-   * @param {Object[]} inputs
-   * @param {string} inputs[].timestamp RFC3339 timestamp string
+   * Configures the Cloud Instance Metadata Plugin.
    */
-  async execute(inputs: ModelParams[]): Promise<any[]> {
-    return inputs.map((input: KeyValuePair) => {
-      let vendor = '';
-      let instance_type = '';
+  public async configure(): Promise<ModelPluginInterface> {
+    return this;
+  }
 
-      if (!('cloud-vendor' in input)) {
-        throw new InputValidationError(
-          this.errorBuilder({
-            message: "Each input must contain a 'cloud-vendor' key",
-          })
-        );
-      }
+  /**
+   * Get provided cloud data into input.
+   */
+  public async execute(inputs: ModelParams[]): Promise<any[]> {
+    return inputs.map(input => {
+      Object.assign(input, this.validateInput(input));
 
-      vendor = input['cloud-vendor'];
+      const instanceType = input['cloud-instance-type'];
+      const vendor = input['cloud-vendor'];
 
-      if ('cloud-instance-type' in input) {
-        instance_type = input['cloud-instance-type'];
+      const instance: InstanceInput | undefined = this.getVendorInstance(
+        vendor,
+        instanceType
+      );
+
+      // Process instance metadata based on cloud vendor
+      if (instance) {
+        input['vcpus-allocated'] = parseInt(instance['cpu-cores-utilized']);
+        input['vcpus-total'] = parseInt(instance['cpu-cores-available']);
+        input['memory-available'] = parseInt(instance['memory-available']);
+        input['physical-processor'] = instance['cpu-model-name'];
+        input['thermal-design-power'] = parseFloat(instance['cpu-tdp']);
       } else {
-        throw new InputValidationError(
-          this.errorBuilder({
-            message: "Each input must contain a 'cloud-instance-type' key",
-          })
-        );
-      }
-
-      const clouds = ['aws', 'azure'];
-
-      if (!clouds.includes(vendor)) {
         throw new UnsupportedValueError(
           this.errorBuilder({
-            scope: 'cloud-vendor',
-            message: "Only 'aws'/'azure' is currently supported",
+            scope: 'cloud-instance-type',
+            message: `'${instanceType}' is not supported in '${vendor}'`,
           })
         );
-      }
-
-      if (vendor === 'aws') {
-        const instance = AWS_INSTANCES.find(
-          instance => instance['instance-class'] === instance_type
-        );
-
-        if (instance) {
-          input['vcpus-allocated'] = parseInt(instance['cpu-cores-utilized']);
-          input['vcpus-total'] = parseInt(instance['cpu-cores-available']);
-          input['memory-available'] = parseInt(instance['memory-available']);
-          input['physical-processor'] = instance['cpu-model-name'];
-          input['thermal-design-power'] = parseFloat(instance['cpu-tdp']);
-        } else {
-          throw new UnsupportedValueError(
-            this.errorBuilder({
-              scope: 'cloud-instance-type',
-              message: `'${instance_type}' is not supported in '${vendor}'`,
-            })
-          );
-        }
-      } else if (vendor === 'azure') {
-        if (instance_type.includes('-')) {
-          const instance_family = instance_type.split('-')[0];
-          const instance_size = instance_type.split('-')[1];
-          let i = 0;
-          // for each letter in instance size check if it is a number
-          for (i = 0; i < instance_size.length; i++) {
-            if (isNaN(Number(instance_size[i]))) {
-              break;
-            }
-          }
-          const instance_size_number = instance_size.slice(i);
-          instance_type = `${instance_family}${instance_size_number}`;
-        }
-        const instance = AZURE_INSTANCES.find(
-          instance => instance['instance-class'] === instance_type
-        );
-
-        if (instance) {
-          input['vcpus-allocated'] = parseInt(instance['cpu-cores-utilized']);
-          input['vcpus-total'] = parseInt(instance['cpu-cores-available']);
-          input['physical-processor'] = instance['cpu-model-name'];
-          input['memory-available'] = parseInt(instance['memory-available']);
-          input['thermal-design-power'] = parseFloat(instance['cpu-tdp']);
-        } else {
-          throw new UnsupportedValueError(
-            this.errorBuilder({
-              scope: 'cloud-instance-type',
-              message: `'${instance_type}' is not supported in '${vendor}'`,
-            })
-          );
-        }
       }
       return input;
     });
   }
 
-  async configure(
-    staticParams: object | undefined
-  ): Promise<ModelPluginInterface> {
-    this.staticParams = staticParams;
+  /**
+   * Execute the function associated with the specified vendor type and get the instance.
+   */
+  private getVendorInstance(vendor: string, instanceType: string) {
+    const vendorType: Record<string, () => InstanceInput | undefined> = {
+      aws: () => {
+        return AWS_INSTANCES.find(
+          instance => instance['instance-class'] === instanceType
+        );
+      },
+      azure: () => {
+        if (instanceType.includes('-')) {
+          const instanceFamily = instanceType.split('-')[0];
+          const instanceSize = instanceType.split('-')[1];
+          let i = 0;
+          // for each letter in instance size check if it is a number
+          for (i = 0; i < instanceSize.length; i++) {
+            if (isNaN(Number(instanceSize[i]))) {
+              break;
+            }
+          }
+          const instanceSizeNumber = instanceSize.slice(i);
+          instanceType = `${instanceFamily}${instanceSizeNumber}`;
+        }
 
-    return this;
+        return AZURE_INSTANCES.find(
+          instance => instance['instance-class'] === instanceType
+        );
+      },
+    };
+
+    return vendorType[vendor]();
+  }
+
+  /**
+   * Checks for required fields in input.
+   */
+  private validateInput(input: ModelParams): ModelParams {
+    const schema = z
+      .object({
+        'cloud-vendor': z.enum(this.SUPPORTED_CLOUDS, {
+          required_error: `Only ${this.SUPPORTED_CLOUDS} is currently supported`,
+        }),
+        'cloud-instance-type': z.string(),
+      })
+      .refine(allDefined, {
+        message: 'All cloud-vendor and cloud-instance-type should be present.',
+      });
+
+    return validate(schema, input);
   }
 }

@@ -4,7 +4,11 @@ This plugin allows you to determine an instance's physical processor and thermal
 
 ## Parameters
 
-### model config
+## Model Config
+
+Not Needed
+
+### Inputs
 
 - `cloud-vendor`: the cloud platform provider, e.g. `aws`
 - `cloud-instance-type`: the name of the specific instance being used, e.g. `m5n.large`
@@ -80,10 +84,10 @@ the project root:
 ```sh
 npm i -g @grnsft/if
 npm i -g @grnsft/if-models
-impact-engine --impl ./examples/impls/test/cimd-test.yml --ompl ./ompls/cimd-test.yml
+impact-engine --impl ./examples/impls/test/cimd.yml --ompl ./ompls/cimd.yml
 ```
 
-This yields a result that looks like the following (saved to `./ompls/cimd-test.yml`):
+This yields a result that looks like the following (saved to `./ompls/cimd.yml`):
 
 ```yaml
 name: cloud-instance-metadata-demo
@@ -113,12 +117,12 @@ graph:
           cpu: 10
 ```
 
-You can run this example `impl` by saving it as `./examples/impls/test/ccf.yml` and executing the following command from the project root:
+You can run this example `impl` by saving it as `./examples/impls/test/cimd.yml` and executing the following command from the project root:
 
 ```sh
 npm i -g @grnsft/if
 npm i -g @grnsft/if-models
-impact-engine --impl ./examples/impls/test/ccf.yml --ompl ./examples/ompls/ccf.yml
+impact-engine --impl ./examples/impls/test/cimd.yml --ompl ./examples/ompls/cimd.yml
 ```
 
 The results will be saved to a new `yaml` file in `./examples/ompls`.
