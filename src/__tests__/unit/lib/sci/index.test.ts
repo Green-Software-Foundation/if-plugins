@@ -29,7 +29,7 @@ describe('lib/sci:', () => {
     });
 
     describe('execute():', () => {
-      it('returns a result with vaild inputs.', async () => {
+      it('returns a result with valid inputs.', async () => {
         const inputs = [
           {
             timestamp: '2021-01-01T00:00:00Z',
@@ -107,7 +107,7 @@ describe('lib/sci:', () => {
         ]);
       });
 
-      it('throws an excetion on missing functional unit data.', async () => {
+      it('throws an exception on missing functional unit data.', async () => {
         const inputs = [
           {
             timestamp: '2021-01-01T00:00:00Z',
