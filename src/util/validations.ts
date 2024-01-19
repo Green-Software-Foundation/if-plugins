@@ -24,7 +24,8 @@ const prettifyErrorMessage = (issues: string) => {
   const issuesArray = JSON.parse(issues);
 
   return issuesArray.map((issue: ZodIssue) => {
-    let {code, path, message} = issue;
+    const code = issue.code;
+    let {path, message} = issue;
 
     if (issue.code === ZodIssueCode.invalid_union) {
       message = issue.unionErrors[0].issues[0].message;
