@@ -1,6 +1,7 @@
 const CUSTOM_ERRORS = [
   'InputValidationError',
   'UnsupportedValueError',
+  'ReadFileError',
 ] as const;
 
 type CustomErrors = {

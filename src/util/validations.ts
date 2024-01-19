@@ -1,4 +1,4 @@
-import {ZodIssue, ZodSchema} from 'zod';
+import {ZodIssue, ZodIssueCode, ZodSchema} from 'zod';
 
 import {ERRORS} from './errors';
 
@@ -24,11 +24,14 @@ const prettifyErrorMessage = (issues: string) => {
   const issuesArray = JSON.parse(issues);
 
   return issuesArray.map((issue: ZodIssue) => {
-    const {code, path, message} = issue;
-    const flattenPath = path.map(part =>
-      typeof part === 'number' ? `[${part}]` : part
-    );
-    const fullPath = flattenPath.join('.');
+    let {code, path, message} = issue;
+
+    if (issue.code === ZodIssueCode.invalid_union) {
+      message = issue.unionErrors[0].issues[0].message;
+      path = issue.unionErrors[0].issues[0].path;
+    }
+
+    const fullPath = flattenPath(path);
 
     if (!fullPath) {
       return message;
@@ -36,6 +39,16 @@ const prettifyErrorMessage = (issues: string) => {
 
     return `"${fullPath}" parameter is ${message.toLowerCase()}. Error code: ${code}.`;
   });
+};
+
+/**
+ * Flattens an array representing a nested path into a string.
+ */
+const flattenPath = (path: (string | number)[]): string => {
+  const flattenPath = path.map(part =>
+    typeof part === 'number' ? `[${part}]` : part
+  );
+  return flattenPath.join('.');
 };
 
 /**
