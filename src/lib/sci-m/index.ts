@@ -10,7 +10,7 @@ import {ERRORS} from '../../util/errors';
 const {InputValidationError} = ERRORS;
 
 export class SciMModel implements ModelPluginInterface {
-  errorBuilder = buildErrorMessage(SciMModel);
+  errorBuilder = buildErrorMessage(this.constructor.name);
   METRICS = [
     'total-embodied-emissions',
     'expected-lifespan',
@@ -31,7 +31,7 @@ export class SciMModel implements ModelPluginInterface {
    * Calculate the Embodied carbon for a list of inputs.
    */
   public async execute(inputs: ModelParams[]): Promise<ModelParams[]> {
-    const tunedInputs = inputs.map(input => {
+    return inputs.map(input => {
       const safeInput = this.validateInput(input);
       Object.assign(input, safeInput);
 
@@ -70,8 +70,6 @@ export class SciMModel implements ModelPluginInterface {
 
       return input;
     });
-
-    return tunedInputs;
   }
 
   /**
@@ -95,7 +93,7 @@ export class SciMModel implements ModelPluginInterface {
   /**
    * Checks for required fields in input.
    */
-  private validateInput(input: ModelParams): ModelParams {
+  private validateInput(input: ModelParams) {
     const schemaWithVcpus = z.object({
       'total-embodied-emissions': z.number().gte(0).min(0),
       'expected-lifespan': z.number().gte(0).min(0),
@@ -114,6 +112,6 @@ export class SciMModel implements ModelPluginInterface {
       message: `All ${this.METRICS} should be present.`,
     });
 
-    return validate(schema, input);
+    return validate<z.infer<typeof schema>>(schema, input);
   }
 }

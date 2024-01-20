@@ -16,9 +16,9 @@ export class EMemModel implements ModelPluginInterface {
   /**
    * Calculate the total emissions for a list of inputs.
    */
-  public async execute(inputs: ModelParams[]): Promise<ModelParams[]> {
+  public async execute(inputs: ModelParams[]) {
     return inputs.map((input: ModelParams) => {
-      const safeInput = this.validateSingleInput(input);
+      const safeInput = Object.assign(input, this.validateSingleInput(input));
       safeInput['energy-memory'] = this.calculateEnergy(safeInput);
 
       return safeInput;
@@ -46,7 +46,7 @@ export class EMemModel implements ModelPluginInterface {
     const schema = z
       .object({
         'total-memoryGB': z.number().gt(0),
-        coefficient: z.number().gt(0).default(0.38),
+        coefficient: z.number().gt(0),
         'mem-util': z.number().min(0).max(100),
       })
       .refine(allDefined, {
@@ -54,6 +54,9 @@ export class EMemModel implements ModelPluginInterface {
           'All metrics, including mem-util, total-memoryGB, coefficient, and mem_util-out should be present.',
       });
 
-    return validate(schema, input);
+    //Manually add default value
+    input.coefficient = input.coefficient ?? 0.38;
+
+    return validate<z.infer<typeof schema>>(schema, input);
   }
 }

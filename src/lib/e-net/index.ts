@@ -16,9 +16,9 @@ export class ENetModel implements ModelPluginInterface {
   /**
    * Calculate the total emissions for a list of inputs.
    */
-  public async execute(inputs: ModelParams[]): Promise<ModelParams[]> {
+  public async execute(inputs: ModelParams[]) {
     return inputs.map((input: ModelParams) => {
-      const safeInput = this.validateSingleInput(input);
+      const safeInput = Object.assign(input, this.validateSingleInput(input));
       safeInput['energy-network'] = this.calculateEnergy(safeInput);
 
       return safeInput;
@@ -43,14 +43,19 @@ export class ENetModel implements ModelPluginInterface {
    */
   private validateSingleInput(input: ModelParams) {
     const schema = z.object({
-      'network-energy-coefficient': z
-        .number()
-        .transform(value => (!value || value === 0 ? 0.001 : value))
-        .default(0.001),
+      'network-energy-coefficient': z.number(),
       'data-in': z.number().gte(0).min(0),
       'data-out': z.number().gte(0).min(0),
     });
 
-    return validate(schema, input);
+    //Manually add default value
+    if (
+      !input['network-energy-coefficient'] ||
+      input['network-energy-coefficient'] === 0
+    ) {
+      input['network-energy-coefficient'] = 0.001;
+    }
+
+    return validate<z.infer<typeof schema>>(schema, input);
   }
 }

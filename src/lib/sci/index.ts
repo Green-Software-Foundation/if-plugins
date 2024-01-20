@@ -13,7 +13,7 @@ const {InputValidationError} = ERRORS;
 
 export class SciModel implements ModelPluginInterface {
   functionalUnitTime = {unit: '', value: 1};
-  errorBuilder = buildErrorMessage(this.constructor);
+  errorBuilder = buildErrorMessage(this.constructor.name);
 
   /**
    * Configures the SCI Plugin.
@@ -95,7 +95,7 @@ export class SciModel implements ModelPluginInterface {
   /**
    * Checks for fields in input.
    */
-  private validateInput(input: ModelParams): ModelParams {
+  private validateInput(input: ModelParams) {
     const unitWarnMessage =
       'Please ensure you have provided one value and one unit and they are either space, underscore or hyphen separated.';
     const message =
@@ -122,7 +122,7 @@ export class SciModel implements ModelPluginInterface {
       .or(schemaWithoutCarbon)
       .refine(allDefined, {message});
 
-    return validate(schema, input);
+    return validate<z.infer<typeof schema>>(schema, input);
   }
 
   /**
