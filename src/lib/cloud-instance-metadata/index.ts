@@ -16,7 +16,7 @@ const {UnsupportedValueError} = ERRORS;
 
 export class CloudInstanceMetadataModel implements ModelPluginInterface {
   SUPPORTED_CLOUDS = ['aws', 'azure'] as const;
-  errorBuilder = buildErrorMessage(this.constructor);
+  errorBuilder = buildErrorMessage(this.constructor.name);
 
   /**
    * Configures the Cloud Instance Metadata Plugin.
@@ -30,10 +30,10 @@ export class CloudInstanceMetadataModel implements ModelPluginInterface {
    */
   public async execute(inputs: ModelParams[]): Promise<any[]> {
     return inputs.map(input => {
-      Object.assign(input, this.validateInput(input));
+      const safeInput = Object.assign(input, this.validateInput(input));
 
-      const instanceType = input['cloud-instance-type'];
-      const vendor = input['cloud-vendor'];
+      const instanceType = safeInput['cloud-instance-type'];
+      const vendor = safeInput['cloud-vendor'];
 
       const instance: InstanceInput | undefined = this.getVendorInstance(
         vendor,
@@ -42,11 +42,11 @@ export class CloudInstanceMetadataModel implements ModelPluginInterface {
 
       // Process instance metadata based on cloud vendor
       if (instance) {
-        input['vcpus-allocated'] = parseInt(instance['cpu-cores-utilized']);
-        input['vcpus-total'] = parseInt(instance['cpu-cores-available']);
-        input['memory-available'] = parseInt(instance['memory-available']);
-        input['physical-processor'] = instance['cpu-model-name'];
-        input['thermal-design-power'] = parseFloat(instance['cpu-tdp']);
+        safeInput['vcpus-allocated'] = parseInt(instance['cpu-cores-utilized']);
+        safeInput['vcpus-total'] = parseInt(instance['cpu-cores-available']);
+        safeInput['memory-available'] = parseInt(instance['memory-available']);
+        safeInput['physical-processor'] = instance['cpu-model-name'];
+        safeInput['thermal-design-power'] = parseFloat(instance['cpu-tdp']);
       } else {
         throw new UnsupportedValueError(
           this.errorBuilder({
@@ -55,7 +55,7 @@ export class CloudInstanceMetadataModel implements ModelPluginInterface {
           })
         );
       }
-      return input;
+      return safeInput;
     });
   }
 
@@ -71,16 +71,13 @@ export class CloudInstanceMetadataModel implements ModelPluginInterface {
       },
       azure: () => {
         if (instanceType.includes('-')) {
-          const instanceFamily = instanceType.split('-')[0];
-          const instanceSize = instanceType.split('-')[1];
-          let i = 0;
-          // for each letter in instance size check if it is a number
-          for (i = 0; i < instanceSize.length; i++) {
-            if (isNaN(Number(instanceSize[i]))) {
-              break;
-            }
-          }
-          const instanceSizeNumber = instanceSize.slice(i);
+          const [instanceFamily, instanceSize] = instanceType.split('-');
+          const sizeNumberIndex = instanceSize.search(/\D/);
+          const instanceSizeNumber =
+            sizeNumberIndex !== -1
+              ? instanceSize.slice(sizeNumberIndex)
+              : instanceSize;
+
           instanceType = `${instanceFamily}${instanceSizeNumber}`;
         }
 
@@ -96,7 +93,7 @@ export class CloudInstanceMetadataModel implements ModelPluginInterface {
   /**
    * Checks for required fields in input.
    */
-  private validateInput(input: ModelParams): ModelParams {
+  private validateInput(input: ModelParams) {
     const schema = z
       .object({
         'cloud-vendor': z.enum(this.SUPPORTED_CLOUDS, {
@@ -108,6 +105,6 @@ export class CloudInstanceMetadataModel implements ModelPluginInterface {
         message: 'All cloud-vendor and cloud-instance-type should be present.',
       });
 
-    return validate(schema, input);
+    return validate<z.infer<typeof schema>>(schema, input);
   }
 }
