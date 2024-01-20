@@ -4,7 +4,7 @@ import * as path from 'path';
 import {z} from 'zod';
 
 import {ModelPluginInterface} from '../../interfaces';
-import {KeyValuePair, ModelParams} from '../../types/common';
+import {ModelParams} from '../../types/common';
 
 import {validate, allDefined} from '../../util/validations';
 import {buildErrorMessage} from '../../util/helpers';
@@ -14,7 +14,7 @@ const {UnsupportedValueError, ReadFileError} = ERRORS;
 
 export class TdpFinderModel implements ModelPluginInterface {
   data: any;
-  errorBuilder = buildErrorMessage(this.constructor);
+  errorBuilder = buildErrorMessage(this.constructor.name);
 
   /**
    * Configures the TDP Finder Plugin.
@@ -29,67 +29,63 @@ export class TdpFinderModel implements ModelPluginInterface {
    * Calculate the total emissions for a list of inputs.
    */
   public async execute(inputs: ModelParams[]): Promise<ModelParams[]> {
-    return Promise.all(
-      inputs.map((input, index: number) => {
-        Object.assign(input, this.validateInput(input));
+    return inputs.map((input, index: number) => {
+      const safeInput = Object.assign(input, this.validateInput(input));
+      const processors = safeInput['physical-processor']
+        .split(',')
+        .map(processor => processor.trim());
 
-        input['thermal-design-power'] = 0;
-
-        const physicalProcessors = input['physical-processor'] as string;
-        const processors = physicalProcessors
-          .split(',')
-          .map(processor => processor.trim());
-
-        for (const processor of processors) {
-          if (processor in this.data) {
-            const currentTDP = input['thermal-design-power'];
-            input['thermal-design-power'] = Math.max(
-              currentTDP,
-              this.data[processor]
-            );
-          } else {
-            throw new UnsupportedValueError(
-              this.errorBuilder({
-                message: `'physical-processor': ${processor} from input[${index}] is not found in the database`,
-              })
-            );
-          }
+      for (const processor of processors) {
+        if (!(processor in this.data)) {
+          throw new UnsupportedValueError(
+            this.errorBuilder({
+              message: `'physical-processor': ${processor} from input[${index}] is not found in the database`,
+            })
+          );
         }
 
-        return input;
-      })
-    );
+        safeInput['thermal-design-power'] = Math.max(
+          safeInput['thermal-design-power'] ?? 0,
+          this.data[processor]
+        );
+      }
+
+      return safeInput;
+    });
   }
 
   /**
    * Load data from csv files.
    */
-  private async loadData(): Promise<KeyValuePair> {
-    const data: KeyValuePair = {};
+  private async loadData() {
+    const files = ['data.csv', 'data2.csv', 'boavizta-data.csv'];
 
-    const processFile = async (filePath: string) => {
-      const lines = await this.readFile(filePath);
-      for (const line of lines) {
-        const [name_w_at, tdp_r] = line.split(',');
+    const combinedData = await files.reduce(
+      async (accPromise, filePath) => {
+        const acc = await accPromise;
+        const lines = await this.readFile(filePath);
 
-        if (name_w_at === '') {
-          continue;
-        }
+        return lines.reduce((dataAcc, line) => {
+          const [name_w_at, tdp_r] = line.split(',');
 
-        const name = name_w_at.split('@')[0].trim();
-        const tdp = parseFloat(tdp_r.replace('\r', ''));
+          if (name_w_at === '') {
+            return dataAcc; // Skip processing empty lines
+          }
 
-        if (!(name in data) || data[name] < tdp) {
-          data[name] = tdp;
-        }
-      }
-    };
+          const name = name_w_at.split('@')[0].trim();
+          const tdp = parseFloat(tdp_r.replace('\r', ''));
 
-    await processFile('data.csv');
-    await processFile('data2.csv');
-    await processFile('boavizta_data.csv');
+          if (!(name in dataAcc) || dataAcc[name] < tdp) {
+            dataAcc[name] = tdp;
+          }
 
-    return data;
+          return dataAcc;
+        }, acc);
+      },
+      Promise.resolve({} as {[name: string]: number})
+    );
+
+    return combinedData;
   }
 
   /**
@@ -110,7 +106,7 @@ export class TdpFinderModel implements ModelPluginInterface {
   /**
    * Checks for required fields in input.
    */
-  private validateInput(input: ModelParams): ModelParams {
+  private validateInput(input: ModelParams) {
     const schema = z
       .object({
         'physical-processor': z.string(),
@@ -119,6 +115,6 @@ export class TdpFinderModel implements ModelPluginInterface {
         message: '`physical-processor` should be present.',
       });
 
-    return validate(schema, input);
+    return validate<z.infer<typeof schema>>(schema, input);
   }
 }
