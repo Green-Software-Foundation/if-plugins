@@ -55,7 +55,7 @@ const flattenPath = (path: (string | number)[]): string => {
 /**
  * Validates given `object` with given `schema`.
  */
-export const validate = (schema: ZodSchema, object: any) => {
+export const validate = <T>(schema: ZodSchema<T>, object: any) => {
   const validationResult = schema.safeParse(object);
 
   if (!validationResult.success) {
