@@ -6,10 +6,14 @@ const {InputValidationError} = ERRORS;
 
 describe('lib/sci-e: ', () => {
   describe('SciEModel: ', () => {
+    let outputModel: SciEModel;
+
+    beforeEach(() => {
+      outputModel = new SciEModel();
+    });
+
     describe('init: ', () => {
       it('successfully initalized.', () => {
-        const outputModel = new SciEModel();
-
         expect(outputModel).toHaveProperty('configure');
         expect(outputModel).toHaveProperty('execute');
       });
@@ -17,7 +21,6 @@ describe('lib/sci-e: ', () => {
 
     describe('configure(): ', () => {
       it('successfully returns model instance.', async () => {
-        const outputModel = new SciEModel();
         await outputModel.configure();
 
         expect.assertions(1);
@@ -28,8 +31,6 @@ describe('lib/sci-e: ', () => {
 
     describe('execute(): ', () => {
       it('successfully applies SCI-E strategy to given input.', async () => {
-        const outputModel = new SciEModel();
-
         expect.assertions(1);
 
         const expectedResult = [
@@ -56,8 +57,7 @@ describe('lib/sci-e: ', () => {
         expect(result).toStrictEqual(expectedResult);
       });
 
-      it('should throw error in case if some params are missing from input.', async () => {
-        const outputModel = new SciEModel();
+      it('throws an error on missing params in input.', async () => {
         const expectedMessage =
           'At least one of energy-cpu,energy-memory,energy-network should present.';
 
@@ -77,9 +77,7 @@ describe('lib/sci-e: ', () => {
         }
       });
 
-      it('should run with one of the params in inputs.', async () => {
-        const outputModel = new SciEModel();
-
+      it('returns a result with one of the params in input.', async () => {
         expect.assertions(1);
 
         const data = [
