@@ -20,7 +20,7 @@ describe('lib/sci-o', () => {
     });
 
     describe('configure(): ', () => {
-      it('configure ENetModel', async () => {
+      it('configure ENetModel.', async () => {
         const configuredModel = await eNetModel.configure();
         expect.assertions(1);
 
@@ -29,7 +29,7 @@ describe('lib/sci-o', () => {
     });
 
     describe('execute(): ', () => {
-      it('calculate energy for each input', async () => {
+      it('calculates energy for each input.', async () => {
         const inputs = [
           {
             'data-in': 10,
@@ -61,7 +61,7 @@ describe('lib/sci-o', () => {
       });
     });
 
-    it('network-energy-coefficient have a default value if the param is missing or is 0 from the input.', async () => {
+    it('returns a result when the `network-energy-coefficient` is missing or is 0, instead uses the default value.', async () => {
       const inputs = [
         {
           'data-in': 10,
@@ -88,7 +88,7 @@ describe('lib/sci-o', () => {
       expect(result[1]['network-energy-coefficient']).toEqual(0.001);
     });
 
-    it('should throw an error in case if data-in and data-out params are missing from the input.', async () => {
+    it('throws an error in case if data-in and data-out params are missing from the input.', async () => {
       expect.assertions(1);
 
       try {

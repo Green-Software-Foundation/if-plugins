@@ -1,113 +1,120 @@
 import * as fs from 'fs';
 import * as path from 'path';
 
-import {ERRORS} from '../../util/errors';
-import {buildErrorMessage} from '../../util/helpers';
+import {z} from 'zod';
 
 import {ModelPluginInterface} from '../../interfaces';
-import {KeyValuePair, ModelParams} from '../../types/common';
+import {ModelParams} from '../../types/common';
 
-const {InputValidationError, UnsupportedValueError} = ERRORS;
+import {validate, allDefined} from '../../util/validations';
+import {buildErrorMessage} from '../../util/helpers';
+import {ERRORS} from '../../util/errors';
+
+const {UnsupportedValueError, ReadFileError} = ERRORS;
 
 export class TdpFinderModel implements ModelPluginInterface {
-  staticParams: object | undefined;
-  name: string | undefined;
   data: any;
-  errorBuilder = buildErrorMessage(TdpFinderModel);
+  errorBuilder = buildErrorMessage(this.constructor.name);
 
   /**
-   * Calculate the total emissions for a list of inputs.
-   *
-   * Each Input require:
-   * @param {Object[]} inputs
-   * @param {string} inputs[].timestamp RFC3339 timestamp string
+   * Configures the TDP Finder Plugin.
    */
-  async execute(inputs: ModelParams[]): Promise<any[]> {
-    return inputs.map((input: KeyValuePair, index: number) => {
-      input['thermal-design-power'] = 0;
-      if ('physical-processor' in input) {
-        const physicalProcessors = input['physical-processor'] as string;
-        physicalProcessors.split(',').forEach(physicalProcessor => {
-          physicalProcessor = physicalProcessor.trim();
-          if (
-            physicalProcessor in this.data &&
-            input['thermal-design-power'] < this.data[physicalProcessor]
-          ) {
-            input['thermal-design-power'] = this.data[physicalProcessor];
-          } else if (!(physicalProcessor in this.data)) {
-            throw new UnsupportedValueError(
-              this.errorBuilder({
-                message: `'physical-processor': ${physicalProcessor} from input[${index}] is not found in database. Please check spelling / contribute to 'if-models' with the data.`,
-              })
-            );
-          }
-        });
-      } else {
-        throw new InputValidationError(
-          this.errorBuilder({
-            message: `'physical-processor' not provided in input[${index}].`,
-          })
-        );
-      }
-      return input;
-    });
-  }
-
-  async configure(
-    staticParams: object | undefined
-  ): Promise<ModelPluginInterface> {
-    this.staticParams = staticParams;
+  public async configure(): Promise<ModelPluginInterface> {
     this.data = await this.loadData();
 
     return this;
   }
 
-  async loadData(): Promise<any> {
-    const data: KeyValuePair = {};
-    // read data.csv and read lines into memory
-    const result = fs.readFileSync(path.join(__dirname, 'data.csv'), 'utf8');
-    for (const line of result.split('\n')) {
-      const [name_w_at, tdp_r] = line.split(',');
-      const name = name_w_at.split('@')[0].trim();
-      const tdp = parseFloat(tdp_r.replace('\r', ''));
-      data[name] = tdp;
-    }
+  /**
+   * Calculate the total emissions for a list of inputs.
+   */
+  public async execute(inputs: ModelParams[]): Promise<ModelParams[]> {
+    return inputs.map((input, index: number) => {
+      const safeInput = Object.assign(input, this.validateInput(input));
+      const processors = safeInput['physical-processor']
+        .split(',')
+        .map(processor => processor.trim());
 
-    const result2 = fs.readFileSync(path.join(__dirname, 'data2.csv'), 'utf8');
-    for (const line of result2.split('\n')) {
-      const [name_w_at, tdp_r] = line.split(',');
+      for (const processor of processors) {
+        if (!(processor in this.data)) {
+          throw new UnsupportedValueError(
+            this.errorBuilder({
+              message: `'physical-processor': ${processor} from input[${index}] is not found in the database`,
+            })
+          );
+        }
 
-      if (name_w_at === '') {
-        continue;
+        safeInput['thermal-design-power'] = Math.max(
+          safeInput['thermal-design-power'] ?? 0,
+          this.data[processor]
+        );
       }
 
-      const name = name_w_at.split('@')[0].trim();
-      const tdp = parseFloat(tdp_r.replace('\r', ''));
+      return safeInput;
+    });
+  }
 
-      if (!(name in data) || data[name] < tdp) {
-        data[name] = tdp;
-      }
-    }
+  /**
+   * Load data from csv files.
+   */
+  private async loadData() {
+    const files = ['data.csv', 'data2.csv', 'boavizta-data.csv'];
 
-    const result3 = fs.readFileSync(
-      path.join(__dirname, 'boavizta_data.csv'),
-      'utf8'
+    const combinedData = await files.reduce(
+      async (accPromise, filePath) => {
+        const acc = await accPromise;
+        const lines = await this.readFile(filePath);
+
+        return lines.reduce((dataAcc, line) => {
+          const [name_w_at, tdp_r] = line.split(',');
+
+          if (name_w_at === '') {
+            return dataAcc; // Skip processing empty lines
+          }
+
+          const name = name_w_at.split('@')[0].trim();
+          const tdp = parseFloat(tdp_r.replace('\r', ''));
+
+          if (!(name in dataAcc) || dataAcc[name] < tdp) {
+            dataAcc[name] = tdp;
+          }
+
+          return dataAcc;
+        }, acc);
+      },
+      Promise.resolve({} as {[name: string]: number})
     );
-    for (const line of result3.split('\n')) {
-      const [name_w_at, tdp_r] = line.split(',');
 
-      if (name_w_at === '') {
-        continue;
-      }
+    return combinedData;
+  }
 
-      const name = name_w_at.split('@')[0].trim();
-      const tdp = parseFloat(tdp_r.replace('\r', ''));
-
-      if (!(name in data) || data[name] < tdp) {
-        data[name] = tdp;
-      }
+  /**
+   * Read the file with provided filePath.
+   */
+  private async readFile(filePath: string): Promise<string[]> {
+    try {
+      const result = await fs.promises.readFile(
+        path.join(__dirname, filePath),
+        'utf8'
+      );
+      return result.split('\n');
+    } catch (error) {
+      throw new ReadFileError(`Error reading file ${filePath}: ${error}`);
     }
+  }
 
-    return data;
+  /**
+   * Checks for required fields in input.
+   */
+  private validateInput(input: ModelParams) {
+    const schema = z
+      .object({
+        'physical-processor': z.string(),
+      })
+      .refine(allDefined, {
+        message: '`physical-processor` should be present.',
+      });
+
+    return validate<z.infer<typeof schema>>(schema, input);
   }
 }

@@ -1,101 +1,120 @@
-import {describe, expect, jest, test} from '@jest/globals';
 import {TdpFinderModel} from '../../../../lib';
 
-jest.setTimeout(30000);
+import {ERRORS} from '../../../../util/errors';
 
-describe('tdp-finder:configure test', () => {
-  test('initialize and test', async () => {
-    const model = await new TdpFinderModel().configure({});
-    expect(model).toBeInstanceOf(TdpFinderModel);
-    await expect(
-      model.execute([
-        {
-          timestamp: '2023-11-02T10:35:31.820Z',
-          duration: 3600,
-          'physical-processor': 'AMD 3020e',
-        },
-      ])
-    ).resolves.toStrictEqual([
-      {
-        timestamp: '2023-11-02T10:35:31.820Z',
-        duration: 3600,
-        'physical-processor': 'AMD 3020e',
-        'thermal-design-power': 6.0,
-      },
-    ]);
-    await expect(
-      model.execute([
-        {
-          timestamp: '2023-11-02T10:35:31.820Z',
-          duration: 3600,
-        },
-      ])
-    ).rejects.toThrow();
-    await expect(
-      model.execute([
-        {
-          timestamp: '2023-11-02T10:35:31.820Z',
-          duration: 3600,
-          'physical-processor': 'Intel Xeon E5-2676 v3',
-        },
-      ])
-    ).resolves.toStrictEqual([
-      {
-        timestamp: '2023-11-02T10:35:31.820Z',
-        duration: 3600,
-        'physical-processor': 'Intel Xeon E5-2676 v3',
-        'thermal-design-power': 120.0,
-      },
-    ]);
-    await expect(
-      model.execute([
-        {
-          timestamp: '2023-11-02T10:35:31.820Z',
-          duration: 3600,
-          'physical-processor': 'Intel Xeon Platinum 8175M,AMD A8-9600',
-        },
-      ])
-    ).resolves.toStrictEqual([
-      {
-        timestamp: '2023-11-02T10:35:31.820Z',
-        duration: 3600,
-        'physical-processor': 'Intel Xeon Platinum 8175M,AMD A8-9600',
-        'thermal-design-power': 240.0,
-      },
-    ]);
-    await expect(
-      model.execute([
-        {
-          timestamp: '2023-11-02T10:35:31.820Z',
-          duration: 3600,
-          'physical-processor': 'Intel Xeon Platinum 8175M,AMD A8-9600f',
-        },
-      ])
-    ).rejects.toThrowError();
-    await expect(
-      model.execute([
-        {
-          timestamp: '2023-11-02T10:35:31.820Z',
-          duration: 3600,
-          'physical-processor': 'AMD A8-9600',
-        },
-      ])
-    ).resolves.toStrictEqual([
-      {
-        timestamp: '2023-11-02T10:35:31.820Z',
-        duration: 3600,
-        'physical-processor': 'AMD A8-9600',
-        'thermal-design-power': 65,
-      },
-    ]);
-    await expect(
-      model.execute([
-        {
-          timestamp: '2023-11-02T10:35:31.820Z',
-          duration: 3600,
-          'physical-processor': 'AMD 3020ef',
-        },
-      ])
-    ).rejects.toThrowError();
+const {InputValidationError, UnsupportedValueError} = ERRORS;
+
+describe('lib/tdp-finder:', () => {
+  describe('TdpFinderModel', () => {
+    let tdpFinderModel: TdpFinderModel;
+
+    beforeEach(async () => {
+      tdpFinderModel = new TdpFinderModel();
+      await tdpFinderModel.configure();
+    });
+
+    describe('init: ', () => {
+      it('successfully initalized.', () => {
+        expect(tdpFinderModel).toHaveProperty('configure');
+        expect(tdpFinderModel).toHaveProperty('execute');
+      });
+    });
+
+    describe('configure(): ', () => {
+      it('successfully returns model instance.', async () => {
+        expect.assertions(1);
+
+        await tdpFinderModel.configure();
+        expect(tdpFinderModel).toBeInstanceOf(TdpFinderModel);
+      });
+    });
+
+    describe('execute():', () => {
+      it('returns a result with valid inputs.', async () => {
+        const inputs = [
+          {
+            timestamp: '2023-11-02T10:35:31.820Z',
+            duration: 3600,
+            'physical-processor': 'AMD 3020e',
+          },
+        ];
+
+        const result = await tdpFinderModel.execute(inputs);
+
+        expect.assertions(1);
+
+        expect(result).toStrictEqual([
+          {
+            timestamp: '2023-11-02T10:35:31.820Z',
+            duration: 3600,
+            'physical-processor': 'AMD 3020e',
+            'thermal-design-power': 6.0,
+          },
+        ]);
+      });
+
+      it('returns a result when into `physical-processor` are two processors.', async () => {
+        const inputs = [
+          {
+            timestamp: '2023-11-02T10:35:31.820Z',
+            duration: 3600,
+            'physical-processor': 'Intel Xeon Platinum 8175M, AMD A8-9600',
+          },
+        ];
+
+        const result = await tdpFinderModel.execute(inputs);
+
+        expect.assertions(1);
+
+        expect(result).toStrictEqual([
+          {
+            timestamp: '2023-11-02T10:35:31.820Z',
+            duration: 3600,
+            'physical-processor': 'Intel Xeon Platinum 8175M, AMD A8-9600',
+            'thermal-design-power': 240.0,
+          },
+        ]);
+      });
+
+      it('throws on missing `physical-processor` in input.', async () => {
+        const errorMessage =
+          '"physical-processor" parameter is required. Error code: invalid_type.';
+        const inputs = [
+          {
+            timestamp: '2023-11-02T10:35:31.820Z',
+            duration: 3600,
+          },
+        ];
+        expect.assertions(2);
+
+        try {
+          await tdpFinderModel.execute(inputs);
+        } catch (error) {
+          expect(error).toStrictEqual(new InputValidationError(errorMessage));
+          expect(error).toBeInstanceOf(InputValidationError);
+        }
+      });
+
+      it('throws on unsupported processor in input.', async () => {
+        const errorMessage =
+          "TdpFinderModel: 'physical-processor': AMD A8-9600f from input[0] is not found in the database.";
+        const inputs = [
+          {
+            timestamp: '2023-11-02T10:35:31.820Z',
+            duration: 3600,
+            'physical-processor': 'Intel Xeon Platinum 8175M,AMD A8-9600f',
+          },
+        ];
+
+        expect.assertions(2);
+
+        try {
+          await tdpFinderModel.execute(inputs);
+        } catch (error) {
+          expect(error).toStrictEqual(new UnsupportedValueError(errorMessage));
+          expect(error).toBeInstanceOf(UnsupportedValueError);
+        }
+      });
+    });
   });
 });

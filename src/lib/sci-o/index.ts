@@ -20,7 +20,7 @@ export class SciOModel implements ModelPluginInterface {
    */
   public async execute(inputs: ModelParams[]): Promise<ModelParams[]> {
     return inputs.map(input => {
-      const safeInput = this.validateSingleInput(input);
+      const safeInput = Object.assign(input, this.validateSingleInput(input));
 
       safeInput['operational-carbon'] =
         parseFloat(safeInput[this.METRICS[0]]) *
@@ -43,6 +43,6 @@ export class SciOModel implements ModelPluginInterface {
         message: `Both ${this.METRICS} should present.`,
       });
 
-    return validate(schema, input);
+    return validate<z.infer<typeof schema>>(schema, input);
   }
 }

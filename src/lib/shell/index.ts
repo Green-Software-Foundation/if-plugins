@@ -38,7 +38,7 @@ export class ShellModel implements ModelPluginInterface {
       command: z.string(),
     });
 
-    return validate(schema, input);
+    return validate<z.infer<typeof schema>>(schema, input);
   }
 
   /**

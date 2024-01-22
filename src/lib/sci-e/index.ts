@@ -40,17 +40,17 @@ export class SciEModel implements ModelPluginInterface {
         message: `At least one of ${this.energyMetrics} should present.`,
       });
 
-    return validate(schema, input);
+    return validate<z.infer<typeof schema>>(schema, input);
   }
 
   /**
    * Calculates the sum of the energy components.
    */
   private calculateEnergy(input: ModelParams) {
-    const safeInput = this.validateSingleInput(input);
+    const safeInput: {[key: string]: number} = this.validateSingleInput(input);
 
     return this.energyMetrics.reduce((acc, metric) => {
-      if (safeInput[metric]) {
+      if (safeInput && safeInput[metric]) {
         acc += safeInput[metric];
       }
 
