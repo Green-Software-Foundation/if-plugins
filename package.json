@@ -15,6 +15,7 @@
     "@azure/identity": "^4.0.0",
     "axios": "^1.6.0",
     "copyfiles": "^2.4.1",
+    "dayjs": "^1.11.10",
     "dotenv": "^16.3.1",
     "js-yaml": "^4.1.0",
     "typescript": "^5.1.6",
