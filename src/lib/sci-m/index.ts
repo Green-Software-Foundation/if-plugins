@@ -32,43 +32,42 @@ export class SciMModel implements ModelPluginInterface {
    */
   public async execute(inputs: ModelParams[]): Promise<ModelParams[]> {
     return inputs.map(input => {
-      const safeInput = this.validateInput(input);
-      Object.assign(input, safeInput);
+      const safeInput = Object.assign(input, this.validateInput(input));
 
       //Total embodied emissions of some underlying hardware.
       const totalEmissions = this.parseNumberInput(
-        input['total-embodied-emissions'],
+        safeInput['total-embodied-emissions'],
         'gCO2e'
       );
 
       //The length of time the hardware is reserved for use by the software.
-      const duration = this.parseNumberInput(input['duration'], 'seconds');
+      const duration = this.parseNumberInput(safeInput['duration'], 'seconds');
 
       //The anticipated time that the equipment will be installed.
       const ExpectedLifespan = this.parseNumberInput(
-        input['expected-lifespan'],
+        safeInput['expected-lifespan'],
         'seconds'
       );
 
       //The number of resources reserved for use by the software. (e.g. number of vCPUs you are using)
       const resourcesReserved = this.parseNumberInput(
-        input['vcpus-allocated'] || input['resources-reserved'],
+        safeInput['vcpus-allocated'] || safeInput['resources-reserved'],
         'count'
       );
 
       //The total number of resources available (e.g. total number of vCPUs for underlying hardware)
       const totalResources = this.parseNumberInput(
-        input['vcpus-total'] || input['total-resources'],
+        safeInput['vcpus-total'] || safeInput['total-resources'],
         'count'
       );
 
       // M = totalEmissions * (duration/ExpectedLifespan) * (resourcesReserved/totalResources)
-      input['embodied-carbon'] =
+      safeInput['embodied-carbon'] =
         totalEmissions *
         (duration / ExpectedLifespan) *
         (resourcesReserved / totalResources);
 
-      return input;
+      return safeInput;
     });
   }
 
