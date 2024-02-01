@@ -47,7 +47,10 @@ export class SciEModel implements ModelPluginInterface {
    * Calculates the sum of the energy components.
    */
   private calculateEnergy(input: ModelParams) {
-    const safeInput: {[key: string]: number} = this.validateSingleInput(input);
+    const safeInput: {[key: string]: number} = Object.assign(
+      input,
+      this.validateSingleInput(input)
+    );
 
     return this.energyMetrics.reduce((acc, metric) => {
       if (safeInput && safeInput[metric]) {
