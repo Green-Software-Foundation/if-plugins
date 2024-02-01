@@ -1,7 +1,7 @@
 {
   "name": "@grnsft/if-models",
   "description": "Impact Framework Standard Models",
-  "version": "v0.1.4",
+  "version": "v0.1.5",
   "author": {
     "name": "Green Software Foundation",
     "email": "info@gsf.com"
@@ -57,14 +57,14 @@
     "url": "https://github.com/Green-Software-Foundation/if-models.git"
   },
   "scripts": {
-    "build": "yarn clean && tsc --project tsconfig.build.json && yarn copy-files",
+    "build": "npm run clean && tsc --project tsconfig.build.json && npm run copy-files",
     "clean": "rimraf build/",
     "copy-files": "copyfiles -u 1 src/**/*.csv build",
     "coverage": "jest --verbose --coverage",
     "fix": "gts fix",
     "fix:package": "fixpack",
     "lint": "gts lint",
-    "prepublish": "yarn build",
+    "prepublish": "npm run build",
     "test": "jest --verbose"
   }
 }
