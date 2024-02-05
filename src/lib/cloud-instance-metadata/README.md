@@ -72,7 +72,7 @@ graph:
       config:
       inputs:
         - timestamp: 2023-07-06T00:00 # [KEYWORD] [NO-SUBFIELDS] time when measurement occurred
-          vendor: aws
+          cloud-vendor: aws
           instance_type: m5n.large
           duration: 100
           cpu-util: 10

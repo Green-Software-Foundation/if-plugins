@@ -31,7 +31,7 @@ and:
 - `functional-unit`: a string describing the functional unit to normalize
   the SCI to. This must match a field provided in the `inputs` with
   an associated value.
-- `functional-unit-time`: a time unit for `functional-unit-duration` as a string.
+- `functional-unit-time`: a time value and a unit as a single string.
   E.g. `3 s`, `5 seconds`, `0.5 days`, ` 0.1 months`, `5 y`
 
 ## Returns
@@ -77,13 +77,13 @@ with two parameters related to the functional unit:
   an associated value.
   For example, if `functional-unit` is `"requests"` then there should be
   a `requests` field in `inputs` with an associated value for
-  the number of requests per `functional-unit-duration`.
-- `functional-unit-time`: a time unit for `functional-unit-duration` as a string.
+  the number of requests per `functional-unit`.
+- `functional-unit-time`: a time value and a unit as a single string.
   E.g. `2 s`, `10 seconds`, `3 days`, `2 months`, `0.5 y`.
 
 In a model pipeline, time is always denominated in `seconds`. It is only in
 `sci` that other units of time are considered. Therefore, if `functional-unit-time`
-is `month`, then the sum of `operational-carbon` and `embodied-carbon` is
+is `1 month`, then the sum of `operational-carbon` and `embodied-carbon` is
 multiplied by the number of seconds in one month.
 
 Example:
