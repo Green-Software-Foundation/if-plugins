@@ -63,7 +63,7 @@
   "scripts": {
     "build": "npm run clean && tsc --project tsconfig.build.json && npm run copy-files",
     "clean": "rimraf build/",
-    "copy-files": "copyfiles -u 1 src/**/*.csv build",
+    "copy-files": "copyfiles -u 1 src/**/*.csv build && copyfiles -u 1 src/lib/simple-html-exporter/html-export-template.html build/lib/simple-html-exporter/html-export-template.html",
     "coverage": "jest --verbose --coverage",
     "fix": "gts fix",
     "fix:package": "fixpack",

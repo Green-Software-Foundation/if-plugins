@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Time Series Chart</title>
+  <!-- Include Moment.js library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+  <!-- Include Chart.js library -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Include Chart.js Moment.js adapter -->
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-moment"></script>
+</head>
+<body>
+  <!-- Canvas for the energy chart -->
+  <canvas id="energyChart" width="400" height="100"></canvas>
+
+  <!-- Canvas for the carbon chart -->
+  <canvas id="carbonChart" width="400" height="100"></canvas>
+
+  <script>
+    // Sample data
+    var timestamps = ["2023-12-12T00:00:00.000Z","2023-12-12T00:00:05.000Z","2023-12-12T00:00:10.000Z","2023-12-12T00:00:15.000Z","2023-12-12T00:00:20.000Z","2023-12-12T00:00:25.000Z","2023-12-12T00:00:30.000Z","2023-12-12T00:00:35.000Z","2023-12-12T00:00:40.000Z","2023-12-12T00:00:45.000Z","2023-12-12T00:00:50.000Z","2023-12-12T00:00:55.000Z","2023-12-12T00:01:00.000Z"];
+    var energyValues = [0.00002888888888888889,0.00002888888888888889,0,0.000043127731199186996,0.000043127731199186996,0,0,0.00004312773119918698,0.00004312773119918698,0.00004312773119918698,0,0,0];
+    var carbonValues = [0.013202222222222223,0.013202222222222223,0,0.019709373158028454,0.019709373158028454,0,0,0.01970937315802845,0.01970937315802845,0.01970937315802845,0,0,0];
+
+    // Get the canvas elements
+    var energyCtx = document.getElementById('energyChart').getContext('2d');
+    var carbonCtx = document.getElementById('carbonChart').getContext('2d');
+
+    // Create the energy chart with Moment.js adapter
+    var energyChart = new Chart(energyCtx, {
+      type: 'line',
+      data: {
+        labels: timestamps,
+        datasets: [{
+          label: 'Energy',
+          data: energyValues,
+          fill: false,
+          borderColor: 'rgba(75, 192, 192, 1)',
+          tension: 0.1,
+        }]
+      },
+      options: {
+        scales: {
+          x: {
+            type: 'timeseries',
+            time: {
+              unit: 'hour',
+              displayFormats: {
+                hour: 'MMM D, HH:mm'
+              },
+            },
+            position: 'bottom',
+          },
+          y: {
+            beginAtZero: true,
+          }
+        },
+        plugins: {
+          legend: {
+            display: true,
+            position: 'top',
+          },
+        }
+      },
+    });
+
+    // Create the carbon chart with Moment.js adapter
+    var carbonChart = new Chart(carbonCtx, {
+      type: 'line',
+      data: {
+        labels: timestamps,
+        datasets: [{
+          label: 'Carbon',
+          data: carbonValues,
+          fill: false,
+          borderColor: 'rgba(255, 99, 132, 1)',
+          tension: 0.1,
+        }]
+      },
+      options: {
+        scales: {
+          x: {
+            type: 'timeseries',
+            time: {
+              unit: 'hour',
+              displayFormats: {
+                hour: 'MMM D, HH:mm'
+              },
+            },
+            position: 'bottom',
+          },
+          y: {
+            beginAtZero: true,
+          }
+        },
+        plugins: {
+          legend: {
+            display: true,
+            position: 'top',
+          },
+        }
+      },
+    });
+  </script>
+</body>
+</html>
