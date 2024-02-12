@@ -1,9 +1,11 @@
 import {z} from 'zod';
 
+import {PluginInterface} from '../../interfaces';
 import {PluginParams} from '../../types/common';
+
 import {validate, atLeastOneDefined} from '../../util/validations';
 
-export const SciE = () => {
+export const SciE = (): PluginInterface => {
   const energyMetrics = ['energy-cpu', 'energy-memory', 'energy-network'];
 
   const metadata = {

@@ -1,10 +1,11 @@
 import {z} from 'zod';
 
-import {validate, allDefined} from '../../util/validations';
-
+import {PluginInterface} from '../../interfaces';
 import {PluginParams} from '../../types/common';
 
-export const SciO = () => {
+import {validate, allDefined} from '../../util/validations';
+
+export const SciO = (): PluginInterface => {
   const METRICS = ['grid-carbon-intensity', 'energy'];
   const metadata = {
     kind: 'execute',

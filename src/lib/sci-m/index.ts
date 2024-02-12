@@ -1,5 +1,6 @@
 import {z} from 'zod';
 
+import {PluginInterface} from '../../interfaces';
 import {PluginParams} from '../../types/common';
 
 import {validate, allDefined} from '../../util/validations';
@@ -8,7 +9,7 @@ import {ERRORS} from '../../util/errors';
 
 const {InputValidationError} = ERRORS;
 
-export const SciM = () => {
+export const SciM = (): PluginInterface => {
   const errorBuilder = buildErrorMessage(SciM.name);
   const metadata = {
     kind: 'execute',

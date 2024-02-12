@@ -1,16 +1,17 @@
 import {z} from 'zod';
 
+import {PluginInterface} from '../../interfaces';
 import {PluginParams} from '../../types/common';
-import {validate, allDefined} from '../../util/validations';
 
+import {validate, allDefined} from '../../util/validations';
+import {buildErrorMessage} from '../../util/helpers';
 import {ERRORS} from '../../util/errors';
 
 import {TIME_UNITS_IN_SECONDS} from './config';
-import {buildErrorMessage} from '../../util/helpers';
 
 const {InputValidationError} = ERRORS;
 
-export const Sci = () => {
+export const Sci = (): PluginInterface => {
   const errorBuilder = buildErrorMessage(Sci.name);
   const metadata = {
     kind: 'execute',
@@ -19,7 +20,7 @@ export const Sci = () => {
   /**
    * Calculate the total emissions for a list of inputs.
    */
-  const execute = async (inputs: PluginParams[]): Promise<any[]> => {
+  const execute = async (inputs: PluginParams[]): Promise<PluginParams[]> => {
     return inputs.map(input => {
       const safeInput = Object.assign({}, input, validateInput(input));
       return tuneInput(safeInput);
