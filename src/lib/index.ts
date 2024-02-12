@@ -7,3 +7,4 @@ export {SciM} from './sci-m';
 export {SciO} from './sci-o';
 export * from './shell';
 export * from './tdp-finder';
+export * from './mock-observations';
