@@ -1,35 +1,28 @@
 import {z} from 'zod';
 
-import {ModelPluginInterface} from '../../interfaces';
-
-import {ModelParams} from '../../types/common';
+import {PluginParams} from '../../types/common';
 import {validate, atLeastOneDefined} from '../../util/validations';
 
-export class SciEModel implements ModelPluginInterface {
-  private energyMetrics = ['energy-cpu', 'energy-memory', 'energy-network'];
+export const SciE = () => {
+  const energyMetrics = ['energy-cpu', 'energy-memory', 'energy-network'];
 
-  /**
-   * Configures the SCI-E Plugin.
-   */
-  public async configure(): Promise<ModelPluginInterface> {
-    return this;
-  }
+  const metadata = {
+    kind: 'execute',
+  };
 
   /**
    * Calculate the total emissions for a list of inputs.
    */
-  public async execute(inputs: ModelParams[]): Promise<ModelParams[]> {
-    return inputs.map(input => {
-      input['energy'] = this.calculateEnergy(input);
-
-      return input;
-    });
-  }
+  const execute = async (inputs: PluginParams[]): Promise<PluginParams[]> =>
+    inputs.map(input => ({
+      ...input,
+      energy: calculateEnergy(input),
+    }));
 
   /**
    * Checks for required fields in input.
    */
-  private validateSingleInput(input: ModelParams) {
+  const validateSingleInput = (input: PluginParams) => {
     const schema = z
       .object({
         'energy-cpu': z.number().gte(0).min(0).optional(),
@@ -37,27 +30,32 @@ export class SciEModel implements ModelPluginInterface {
         'energy-network': z.number().gte(0).min(0).optional(),
       })
       .refine(atLeastOneDefined, {
-        message: `At least one of ${this.energyMetrics} should present.`,
+        message: `At least one of ${energyMetrics} should present.`,
       });
 
     return validate<z.infer<typeof schema>>(schema, input);
-  }
+  };
 
   /**
    * Calculates the sum of the energy components.
    */
-  private calculateEnergy(input: ModelParams) {
+  const calculateEnergy = (input: PluginParams) => {
     const safeInput: {[key: string]: number} = Object.assign(
       input,
-      this.validateSingleInput(input)
+      validateSingleInput(input)
     );
 
-    return this.energyMetrics.reduce((acc, metric) => {
+    return energyMetrics.reduce((acc, metric) => {
       if (safeInput && safeInput[metric]) {
         acc += safeInput[metric];
       }
 
       return acc;
     }, 0);
-  }
-}
+  };
+
+  return {
+    metadata,
+    execute,
+  };
+};

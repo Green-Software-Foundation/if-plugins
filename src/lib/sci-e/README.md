@@ -1,16 +1,16 @@
 # SCI-E (total energy)
 
-`sci-e` is a model that simply sums up the contributions to a component's
-energy use. The model returns `energy` which is used as the input to
-the `sci-o` model that calculates operational emissions for the component.
+`sci-e` is a plugin that simply sums up the contributions to a component's
+energy use. The plugin returns `energy` which is used as the input to
+the `sci-o` plugin that calculates operational emissions for the component.
 
-## Model name
+## Plugin name
 
-IF recognizes the SCI-E model as `sci-e`
+IF recognizes the SCI-E plugin as `sci-e`
 
 ## Parameters
 
-### Model config
+### Plugin config
 
 Not Needed
 
@@ -41,20 +41,20 @@ to network traffic, energy due to memory and energy due to GPU usage.
 energy = energy-cpu + energy-network + energy-memory + e-gpu
 ```
 
-In any model pipeline that includes `sci-o`, `sci-o` must be preceded by `sci-e`.
+In any plugin pipeline that includes `sci-o`, `sci-o` must be preceded by `sci-e`.
 This is because `sci-o` does not recognize the individual contributions,
 `energy-cpu`, `energy-network`, etc, but expects to find `energy`.
 Only `sci-e` takes individual contributions and returns `energy`.
 
 ## Implementation
 
-To run the model, you must first create an instance of `SciEModel`. Then, you can call `execute()` to return `energy`.
+To run the plugin, you must first create an instance of `SciE`. Then, you can call `execute()` to return `energy`.
 
 ```typescript
-import { SciEModel } from '@gsf/if-models';
+import { SciE } from '@gsf/if-plugins';
 
-const sciEModel = new SciEModel();
-sciEModel.execute([
+const sciE = SciE();
+sciE.execute([
   {
     energy-cpu: 0.001,
     energy-memory: 0.0005,
@@ -67,17 +67,17 @@ sciEModel.execute([
 
 ## Example impl
 
-IF users will typically call the model as part of a pipeline defined in an `impl` file. In this case, instantiating and configuring the model is handled by `impact-engine` and does not have to be done explicitly by the user. The following is an example `impl` that calls `sci-e`:
+IF users will typically call the plugin as part of a pipeline defined in an `impl` file. In this case, instantiating the plugin is handled by `impact-engine` and does not have to be done explicitly by the user. The following is an example `impl` that calls `sci-e`:
 
 ```yaml
 name: sci-e-demo
 description:
 tags:
 initialize:
-  models:
-    - name: sci-e
-      model: SciEModel
-      path: '@grnsft/if-models'
+  plugins:
+    - sci-e
+      function: SciE
+      path: '@grnsft/if-plugins'
 graph:
   children:
     child:
@@ -95,7 +95,7 @@ You can run this example `impl` by saving it as `./examples/impls/test/sci-e.yml
 
 ```sh
 npm i -g @grnsft/if
-npm i -g @grnsft/if-models
+npm i -g @grnsft/if-plugins
 impact-engine --impl ./examples/impls/test/sci-e.yml --ompl ./examples/ompls/sci-e.yml
 ```
 

@@ -7,7 +7,7 @@ It represents the amount of carbon emitted per
 
 ## Parameters
 
-### Model config
+### Plugin config
 
 - `functional-unit`: the functional unit in which to express the carbon impact
 - `functional-unit-time`: the time to be used for functional unit conversions, as a string composed of a value and a unit separated with a space, hyphen or underscore, e.g. `2 mins`, `5-days`, `3_years`
@@ -61,8 +61,8 @@ where
 `M` is embodied carbon, and
 `R` is the functional unit.
 
-SCI is the sum of the `operational-carbon` (calculated using the `sci-o` model)
-and the `embodied-carbon` (calculated using the `sci-m` model).
+SCI is the sum of the `operational-carbon` (calculated using the `sci-o` plugin)
+and the `embodied-carbon` (calculated using the `sci-m` plugin).
 It is then converted to some functional unit, for example for an API the
 functional unit might be per request, or for a website
 it might be per 1000 visits.
@@ -81,7 +81,7 @@ with two parameters related to the functional unit:
 - `functional-unit-time`: a time value and a unit as a single string.
   E.g. `2 s`, `10 seconds`, `3 days`, `2 months`, `0.5 y`.
 
-In a model pipeline, time is always denominated in `seconds`. It is only in
+In a plugin pipeline, time is always denominated in `seconds`. It is only in
 `sci` that other units of time are considered. Therefore, if `functional-unit-time`
 is `1 month`, then the sum of `operational-carbon` and `embodied-carbon` is
 multiplied by the number of seconds in one month.
@@ -103,18 +103,16 @@ sci-per-functional-unit-time = sci-per-minute * number of minutes
 sci-per-f-unit = sci-per-functional-unit-time / 100  // (= 3.012 gC/request)
 ```
 
-To run the model, you must first create an instance of `SciModel` and call
-its `configure()` method. Then, you can call `execute()` to return `sci`.
+To run the plugin, you must first create an instance of `Sci`. Then, you can call `execute()` to return `sci`.
 
 ```typescript
-import {SciModel} from '@grnsft/if-models';
+import {Sci} from '@grnsft/if-plugins';
 
-const sciModel = new SciModel();
-sciModel.configure('name', {
+const sci = new Sci({
   'functional-unit-time': '1 day',
   'functional-unit': 'requests',
 });
-const results = sciModel.execute([
+const results = sci.execute([
   {
     'operational-carbon': 0.02,
     'embodied-carbon': 5,
@@ -126,20 +124,20 @@ const results = sciModel.execute([
 
 ## Example impl
 
-IEF users will typically call the model as part of a pipeline defined in an `impl`
-file. In this case, instantiating and configuring the model is handled by
+IEF users will typically call the plugin as part of a pipeline defined in an `impl`
+file. In this case, instantiating the plugin is handled by
 `impact-engine` and does not have to be done explicitly by the user.
 The following is an example `impl` that calls `sci`:
 
 ```yaml
 name: sci-demo
-description: example invoking sci model
+description: example invoking sci plugin
 tags:
 initialize:
-  models:
-    - name: sci
-      model: SciModel
-      path: '@grnsft/if-models'
+  plugins:
+    - sci
+      function: SciM
+      path: '@grnsft/if-plugins'
 graph:
   children:
     child:
@@ -161,7 +159,7 @@ You can run this example `impl` by saving it as `./examples/impls/test/sci.yml` 
 
 ```sh
 npm i -g @grnsft/if
-npm i -g @grnsft/if-models
+npm i -g @grnsft/if-plugins
 impact-engine --impl ./examples/impls/test/sci.yml --ompl ./examples/ompls/sci.yml
 ```
 

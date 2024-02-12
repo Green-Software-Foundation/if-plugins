@@ -1,31 +1,17 @@
-import {SciEModel} from '../../../../lib';
+import {SciE} from '../../../../lib';
 
 import {ERRORS} from '../../../../util/errors';
 
 const {InputValidationError} = ERRORS;
 
 describe('lib/sci-e: ', () => {
-  describe('SciEModel: ', () => {
-    let outputModel: SciEModel;
-
-    beforeEach(() => {
-      outputModel = new SciEModel();
-    });
+  describe('SciE: ', () => {
+    const sciE = SciE();
 
     describe('init: ', () => {
       it('successfully initalized.', () => {
-        expect(outputModel).toHaveProperty('configure');
-        expect(outputModel).toHaveProperty('execute');
-      });
-    });
-
-    describe('configure(): ', () => {
-      it('successfully returns model instance.', async () => {
-        await outputModel.configure();
-
-        expect.assertions(1);
-
-        expect(outputModel).toBeInstanceOf(SciEModel);
+        expect(sciE).toHaveProperty('metadata');
+        expect(sciE).toHaveProperty('execute');
       });
     });
 
@@ -44,7 +30,7 @@ describe('lib/sci-e: ', () => {
           },
         ];
 
-        const result = await outputModel.execute([
+        const result = await sciE.execute([
           {
             duration: 3600,
             'energy-cpu': 1,
@@ -64,7 +50,7 @@ describe('lib/sci-e: ', () => {
         expect.assertions(1);
 
         try {
-          await outputModel.execute([
+          await sciE.execute([
             {
               duration: 3600,
               timestamp: '2021-01-01T00:00:00Z',
@@ -87,7 +73,7 @@ describe('lib/sci-e: ', () => {
             'energy-cpu': 1,
           },
         ];
-        const response = await outputModel.execute(data);
+        const response = await sciE.execute(data);
 
         const expectedResult = [{...data[0], energy: data[0]['energy-cpu']}];
 

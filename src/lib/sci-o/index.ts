@@ -2,47 +2,52 @@ import {z} from 'zod';
 
 import {validate, allDefined} from '../../util/validations';
 
-import {ModelPluginInterface} from '../../interfaces';
-import {ModelParams} from '../../types/common';
+import {PluginParams} from '../../types/common';
 
-export class SciOModel implements ModelPluginInterface {
-  private METRICS = ['grid-carbon-intensity', 'energy'];
-
-  /**
-   * Configures the SCI-O Plugin.
-   */
-  public async configure(): Promise<ModelPluginInterface> {
-    return this;
-  }
+export const SciO = () => {
+  const METRICS = ['grid-carbon-intensity', 'energy'];
+  const metadata = {
+    kind: 'execute',
+  };
 
   /**
    * Calculate the total emissions for a list of inputs.
    */
-  public async execute(inputs: ModelParams[]): Promise<ModelParams[]> {
+  const execute = async (inputs: PluginParams[]): Promise<PluginParams[]> => {
     return inputs.map(input => {
-      const safeInput = Object.assign(input, this.validateSingleInput(input));
+      const safeInput = Object.assign({}, input, validateSingleInput(input));
 
-      safeInput['operational-carbon'] =
-        parseFloat(safeInput[this.METRICS[0]]) *
-        parseFloat(safeInput[this.METRICS[1]]);
-
-      return safeInput;
+      return Object.assign({}, safeInput, {
+        'operational-carbon': calculateOperationalCarbon(safeInput),
+      });
     });
-  }
+  };
+
+  /**
+   * Calculate the Operational carbon for the input.
+   */
+  const calculateOperationalCarbon = (input: PluginParams) => {
+    return parseFloat(input[METRICS[0]]) * parseFloat(input[METRICS[1]]);
+  };
 
   /**
    * Checks for required fields in input.
    */
-  private validateSingleInput(input: ModelParams) {
+  const validateSingleInput = (input: PluginParams) => {
     const schema = z
       .object({
         'grid-carbon-intensity': z.number().min(0),
         energy: z.number().min(0),
       })
       .refine(allDefined, {
-        message: `Both ${this.METRICS} should present.`,
+        message: `Both ${METRICS} should present.`,
       });
 
     return validate<z.infer<typeof schema>>(schema, input);
-  }
-}
+  };
+
+  return {
+    metadata,
+    execute,
+  };
+};

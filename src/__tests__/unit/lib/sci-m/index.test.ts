@@ -1,30 +1,17 @@
-import {SciMModel} from '../../../../lib';
+import {SciM} from '../../../../lib';
 
 import {ERRORS} from '../../../../util/errors';
 
 const {InputValidationError} = ERRORS;
 
 describe('lib/sci-m:', () => {
-  describe('SciMModel: ', () => {
-    let sciMModel: SciMModel;
-
-    beforeEach(() => {
-      sciMModel = new SciMModel();
-    });
+  describe('SciM: ', () => {
+    const sciM = SciM();
 
     describe('init: ', () => {
       it('successfully initalized.', () => {
-        expect(sciMModel).toHaveProperty('configure');
-        expect(sciMModel).toHaveProperty('execute');
-      });
-    });
-
-    describe('configure(): ', () => {
-      it('successfully returns model instance.', async () => {
-        expect.assertions(1);
-
-        await sciMModel.configure();
-        expect(sciMModel).toBeInstanceOf(SciMModel);
+        expect(sciM).toHaveProperty('metadata');
+        expect(sciM).toHaveProperty('execute');
       });
     });
 
@@ -49,7 +36,7 @@ describe('lib/sci-m:', () => {
           },
         ];
 
-        const result = await sciMModel.execute(inputs);
+        const result = await sciM.execute(inputs);
 
         expect.assertions(1);
 
@@ -87,7 +74,7 @@ describe('lib/sci-m:', () => {
           },
         ];
 
-        const result = await sciMModel.execute(inputs);
+        const result = await sciM.execute(inputs);
 
         expect.assertions(1);
 
@@ -128,7 +115,7 @@ describe('lib/sci-m:', () => {
           },
         ];
 
-        const result = await sciMModel.execute(inputs);
+        const result = await sciM.execute(inputs);
 
         expect.assertions(1);
 
@@ -178,7 +165,7 @@ describe('lib/sci-m:', () => {
           },
         ];
 
-        const result = await sciMModel.execute(inputs);
+        const result = await sciM.execute(inputs);
 
         expect.assertions(1);
 
@@ -220,7 +207,7 @@ describe('lib/sci-m:', () => {
         expect.assertions(2);
 
         try {
-          await sciMModel.execute(inputs);
+          await sciM.execute(inputs);
         } catch (error) {
           expect(error).toStrictEqual(new InputValidationError(errorMessage));
           expect(error).toBeInstanceOf(InputValidationError);
@@ -243,7 +230,7 @@ describe('lib/sci-m:', () => {
         expect.assertions(2);
 
         try {
-          await sciMModel.execute(inputs);
+          await sciM.execute(inputs);
         } catch (error) {
           expect(error).toStrictEqual(new InputValidationError(errorMessage));
           expect(error).toBeInstanceOf(InputValidationError);
@@ -266,7 +253,7 @@ describe('lib/sci-m:', () => {
         expect.assertions(2);
 
         try {
-          await sciMModel.execute(inputs);
+          await sciM.execute(inputs);
         } catch (error) {
           expect(error).toStrictEqual(new InputValidationError(errorMessage));
           expect(error).toBeInstanceOf(InputValidationError);

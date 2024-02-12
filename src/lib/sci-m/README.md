@@ -6,14 +6,14 @@ Read more on [embodied carbon](https://github.com/Green-Software-Foundation/sci/
 
 ## Parameters
 
-### Model config
+### Plugin config
 
 - `total-embodied-emissions`: the sum of Life Cycle Assessment (LCA) emissions for the component
 - `expected-lifespan`: the length of time, in seconds, between a component's manufacture and its disposal
 - `reserved-resources`: the number of resources reserved for use by the software
 - `total-resources`: the total number of resources available
 
-> Note that if you have a model pipeline that adds `vcpus-allocated` and `vcpus-total` to each observation, such as the `cloud-instance-metadata` model, those values will be used **in preference** to the given `reserved-resources` and `total-resources` fields.
+> Note that if you have a plugin pipeline that adds `vcpus-allocated` and `vcpus-total` to each observation, such as the `cloud-instance-metadata` plugin, those values will be used **in preference** to the given `reserved-resources` and `total-resources` fields.
 
 ### Inputs
 
@@ -49,18 +49,17 @@ Where:
 
 ## Implementation
 
-IEF implements the plugin based on the logic described above. To run the model, you must first create an instance of `SciMModel` and call its `configure()` method. Then, you can call `execute()` to return `m`.
+IEF implements the plugin based on the logic described above. To run the plugin, you must first create an instance of `SciMM` method. Then, you can call `execute()` to return `m`.
 
 ## Usage
 
-The following snippet demonstrates how to call the `sci-m` model from Typescript.
+The following snippet demonstrates how to call the `sci-m` plugin from Typescript.
 
 ```typescript
-import {SciMModel} from '@grnsft/if-models';
+import {SciM} from '@grnsft/if-plugins';
 
-const sciMModel = new SciMModel();
-sciMModel.configure();
-const results = sciMModel.execute([
+const sciM = SciM();
+const results = sciM.execute([
   {
     'total-embodied-emissions': 200, // in gCO2e for total resource units
     duration: 60 * 60 * 24 * 30, // time reserved in seconds, can point to another field "duration"
@@ -73,17 +72,17 @@ const results = sciMModel.execute([
 
 ## Example impl
 
-IEF users will typically call the model as part of a pipeline defined in an `impl` file. In this case, instantiating and configuring the model is handled by `impact-engine` and does not have to be done explicitly by the user. The following is an example `impl` that calls `sci-m`:
+IEF users will typically call the plugin as part of a pipeline defined in an `impl` file. In this case, instantiating the plugin is handled by `impact-engine` and does not have to be done explicitly by the user. The following is an example `impl` that calls `sci-m`:
 
 ```yaml
 name: sci-m
 description: simple demo invoking sci-m
 tags:
 initialize:
-  models:
-    - name: sci-m
-      model: SciMModel
-      path: '@grnsft/if-models'
+  plugins:
+    - sci-m
+      function: SciM
+      path: '@grnsft/if-plugins'
 graph:
   children:
     child:
@@ -104,7 +103,7 @@ You can run this example `impl` by executing the following command from the proj
 
 ```sh
 npm i -g @grnsft/if
-npm i -g @grnsft/if-models
+npm i -g @grnsft/if-plugins
 impact-engine --impl ./examples/impls/test/sci-m.yml --ompl ./examples/ompls/sci-m.yml
 ```
 

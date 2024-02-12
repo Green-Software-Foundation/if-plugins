@@ -1,30 +1,17 @@
-import {SciModel} from '../../../../lib';
+import {Sci} from '../../../../lib';
 
 import {ERRORS} from '../../../../util/errors';
 
 const {InputValidationError} = ERRORS;
 
 describe('lib/sci:', () => {
-  describe('SciModel: ', () => {
-    let sciModel: SciModel;
-
-    beforeEach(() => {
-      sciModel = new SciModel();
-    });
+  describe('Sci: ', () => {
+    const sci = Sci();
 
     describe('init: ', () => {
       it('successfully initalized.', () => {
-        expect(sciModel).toHaveProperty('configure');
-        expect(sciModel).toHaveProperty('execute');
-      });
-    });
-
-    describe('configure(): ', () => {
-      it('successfully returns model instance.', async () => {
-        expect.assertions(1);
-
-        await sciModel.configure();
-        expect(sciModel).toBeInstanceOf(SciModel);
+        expect(sci).toHaveProperty('metadata');
+        expect(sci).toHaveProperty('execute');
       });
     });
 
@@ -41,7 +28,7 @@ describe('lib/sci:', () => {
             duration: 1,
           },
         ];
-        const result = await sciModel.execute(inputs);
+        const result = await sci.execute(inputs);
 
         expect.assertions(1);
 
@@ -79,7 +66,7 @@ describe('lib/sci:', () => {
             duration: 2,
           },
         ];
-        const result = await sciModel.execute(inputs);
+        const result = await sci.execute(inputs);
 
         expect.assertions(1);
 
@@ -120,7 +107,7 @@ describe('lib/sci:', () => {
         expect.assertions(1);
 
         try {
-          await sciModel.execute(inputs);
+          await sci.execute(inputs);
         } catch (error) {
           expect(error).toBeInstanceOf(InputValidationError);
         }
@@ -141,7 +128,7 @@ describe('lib/sci:', () => {
         expect.assertions(1);
 
         try {
-          await sciModel.execute(inputs);
+          await sci.execute(inputs);
         } catch (error) {
           expect(error).toBeInstanceOf(InputValidationError);
         }
@@ -162,7 +149,7 @@ describe('lib/sci:', () => {
         expect.assertions(1);
 
         try {
-          await sciModel.execute(inputs);
+          await sci.execute(inputs);
         } catch (error) {
           expect(error).toBeInstanceOf(InputValidationError);
         }
@@ -182,7 +169,7 @@ describe('lib/sci:', () => {
         expect.assertions(1);
 
         try {
-          await sciModel.execute(inputs);
+          await sci.execute(inputs);
         } catch (error) {
           expect(error).toBeInstanceOf(InputValidationError);
         }
@@ -199,7 +186,7 @@ describe('lib/sci:', () => {
             duration: 1,
           },
         ];
-        const result = await sciModel.execute(inputs);
+        const result = await sci.execute(inputs);
 
         expect.assertions(1);
         expect(result).toStrictEqual([
@@ -227,7 +214,7 @@ describe('lib/sci:', () => {
             duration: 1,
           },
         ];
-        const result = await sciModel.execute(inputs);
+        const result = await sci.execute(inputs);
 
         expect.assertions(1);
         expect(result).toStrictEqual([
@@ -259,7 +246,7 @@ describe('lib/sci:', () => {
         expect.assertions(1);
 
         try {
-          await sciModel.execute(inputs);
+          await sci.execute(inputs);
         } catch (error) {
           expect(error).toBeInstanceOf(InputValidationError);
         }
@@ -279,7 +266,7 @@ describe('lib/sci:', () => {
         expect.assertions(1);
 
         try {
-          await sciModel.execute(inputs);
+          await sci.execute(inputs);
         } catch (error) {
           expect(error).toBeInstanceOf(InputValidationError);
         }
@@ -297,7 +284,7 @@ describe('lib/sci:', () => {
             duration: 1,
           },
         ];
-        const resultWithCarbon = await sciModel.execute(inputsWithCarbon);
+        const resultWithCarbon = await sci.execute(inputsWithCarbon);
 
         expect(resultWithCarbon).toStrictEqual([
           {
@@ -320,7 +307,7 @@ describe('lib/sci:', () => {
             duration: 1,
           },
         ];
-        const resultWithoutCarbon = await sciModel.execute(inputsWithoutCarbon);
+        const resultWithoutCarbon = await sci.execute(inputsWithoutCarbon);
 
         expect(resultWithoutCarbon).toStrictEqual([
           {
