@@ -4,12 +4,13 @@ import {PluginInterface} from '../../interfaces';
 import {PluginParams} from '../../types/common';
 
 import {validate, allDefined} from '../../util/validations';
-import {buildErrorMessage} from '../../util/helpers';
+import {buildErrorMessage, mapPluginName} from '../../util/helpers';
 import {ERRORS} from '../../util/errors';
 
 const {InputValidationError} = ERRORS;
 
 export const SciM = (): PluginInterface => {
+  const MAPPED_NAME = mapPluginName(SciM.name);
   const errorBuilder = buildErrorMessage(SciM.name);
   const metadata = {
     kind: 'execute',
@@ -26,13 +27,25 @@ export const SciM = (): PluginInterface => {
   /**
    * Calculate the Embodied carbon for a list of inputs.
    */
-  const execute = async (inputs: PluginParams[]): Promise<PluginParams[]> => {
-    return inputs.map(input => {
-      const safeInput = Object.assign({}, input, validateInput(input));
+  const execute = async (
+    inputs: PluginParams[],
+    config?: Record<string, any>
+  ): Promise<PluginParams[]> => {
+    const mappedConfig = config && config[MAPPED_NAME];
 
-      return Object.assign({}, safeInput, {
-        'embodied-carbon': calculateEmbodiedCarbon(safeInput),
-      });
+    return inputs.map(input => {
+      const inputWithConfig: PluginParams = Object.assign(
+        {},
+        input,
+        mappedConfig
+      );
+
+      validateInput(inputWithConfig);
+
+      return {
+        ...input,
+        'embodied-carbon': calculateEmbodiedCarbon(inputWithConfig),
+      };
     });
   };
 

@@ -4,7 +4,7 @@ import {PluginInterface} from '../../interfaces';
 import {PluginParams} from '../../types/common';
 
 import {validate, allDefined} from '../../util/validations';
-import {buildErrorMessage} from '../../util/helpers';
+import {buildErrorMessage, mapPluginName} from '../../util/helpers';
 import {ERRORS} from '../../util/errors';
 
 import {TIME_UNITS_IN_SECONDS} from './config';
@@ -12,6 +12,7 @@ import {TIME_UNITS_IN_SECONDS} from './config';
 const {InputValidationError} = ERRORS;
 
 export const Sci = (): PluginInterface => {
+  const MAPPED_NAME = mapPluginName(Sci.name);
   const errorBuilder = buildErrorMessage(Sci.name);
   const metadata = {
     kind: 'execute',
@@ -20,10 +21,25 @@ export const Sci = (): PluginInterface => {
   /**
    * Calculate the total emissions for a list of inputs.
    */
-  const execute = async (inputs: PluginParams[]): Promise<PluginParams[]> => {
+  const execute = async (
+    inputs: PluginParams[],
+    config?: Record<string, any>
+  ): Promise<PluginParams[]> => {
+    const mappedConfig = config && config[MAPPED_NAME];
+
     return inputs.map(input => {
-      const safeInput = Object.assign({}, input, validateInput(input));
-      return tuneInput(safeInput);
+      const inputWithConfig: PluginParams = Object.assign(
+        {},
+        input,
+        mappedConfig
+      );
+
+      validateInput(inputWithConfig);
+
+      return {
+        ...input,
+        ...tuneInput(inputWithConfig),
+      };
     });
   };
 
@@ -38,7 +54,6 @@ export const Sci = (): PluginInterface => {
     const sciTimedDuration = sciTimed * functionalUnitTime.value;
 
     return {
-      ...input,
       carbon: input['carbon'] ?? sciPerSecond,
       sci: sciTimedDuration / factor,
     };

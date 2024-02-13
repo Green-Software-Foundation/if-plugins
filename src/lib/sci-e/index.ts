@@ -4,10 +4,11 @@ import {PluginInterface} from '../../interfaces';
 import {PluginParams} from '../../types/common';
 
 import {validate, atLeastOneDefined} from '../../util/validations';
+import {mapPluginName} from '../../util/helpers';
 
 export const SciE = (): PluginInterface => {
+  const MAPPED_NAME = mapPluginName(SciE.name);
   const energyMetrics = ['energy-cpu', 'energy-memory', 'energy-network'];
-
   const metadata = {
     kind: 'execute',
   };
@@ -15,12 +16,24 @@ export const SciE = (): PluginInterface => {
   /**
    * Calculate the total emissions for a list of inputs.
    */
-  const execute = async (inputs: PluginParams[]): Promise<PluginParams[]> =>
-    inputs.map(input => ({
-      ...input,
-      energy: calculateEnergy(input),
-    }));
+  const execute = async (
+    inputs: PluginParams[],
+    config?: Record<string, any>
+  ): Promise<PluginParams[]> => {
+    const mappedConfig = config && config[MAPPED_NAME];
+    return inputs.map(input => {
+      const inputWithConfig: PluginParams = Object.assign(
+        {},
+        input,
+        mappedConfig
+      );
 
+      return {
+        ...input,
+        energy: calculateEnergy(inputWithConfig),
+      };
+    });
+  };
   /**
    * Checks for required fields in input.
    */
