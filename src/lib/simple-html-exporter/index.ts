@@ -8,8 +8,8 @@ import * as fs from 'fs';
 import path = require('path');
 
 export class SimpleHtmlExporter implements ModelPluginInterface {
-  private static INPUT_HTML_NAME: string = 'html-export-template.html';
-  private outputHtmlPath: string = '';
+  private static INPUT_HTML_NAME = 'html-export-template.html';
+  private outputHtmlPath = '';
   errorBuilder = buildErrorMessage('SimpleHtmlExporter');
 
   async configure(
