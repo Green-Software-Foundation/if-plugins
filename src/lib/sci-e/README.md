@@ -54,20 +54,18 @@ To run the plugin, you must first create an instance of `SciE`. Then, you can ca
 import { SciE } from '@gsf/if-plugins';
 
 const sciE = SciE();
-sciE.execute([
+const result = sciE.execute([
   {
     energy-cpu: 0.001,
     energy-memory: 0.0005,
     energy-network: 0.0005,
   }
-]).then((result) => {
-  console.log(results)
-})
+])
 ```
 
 ## Example impl
 
-IF users will typically call the plugin as part of a pipeline defined in an `impl` file. In this case, instantiating the plugin is handled by `impact-engine` and does not have to be done explicitly by the user. The following is an example `impl` that calls `sci-e`:
+IF users will typically call the plugin as part of a pipeline defined in an `impl` file. In this case, instantiating the plugin is handled by `if` and does not have to be done explicitly by the user. The following is an example `impl` that calls `sci-e`:
 
 ```yaml
 name: sci-e-demo
@@ -96,7 +94,7 @@ You can run this example `impl` by saving it as `./examples/impls/test/sci-e.yml
 ```sh
 npm i -g @grnsft/if
 npm i -g @grnsft/if-plugins
-impact-engine --impl ./examples/impls/test/sci-e.yml --ompl ./examples/ompls/sci-e.yml
+if --impl ./examples/impls/test/sci-e.yml --ompl ./examples/ompls/sci-e.yml
 ```
 
 The results will be saved to a new `yaml` file in `./examples/ompls`.

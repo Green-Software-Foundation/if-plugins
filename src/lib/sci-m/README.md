@@ -72,7 +72,7 @@ const results = sciM.execute([
 
 ## Example impl
 
-IEF users will typically call the plugin as part of a pipeline defined in an `impl` file. In this case, instantiating the plugin is handled by `impact-engine` and does not have to be done explicitly by the user. The following is an example `impl` that calls `sci-m`:
+IEF users will typically call the plugin as part of a pipeline defined in an `impl` file. In this case, instantiating the plugin is handled by `if` and does not have to be done explicitly by the user. The following is an example `impl` that calls `sci-m`:
 
 ```yaml
 name: sci-m
@@ -104,7 +104,7 @@ You can run this example `impl` by executing the following command from the proj
 ```sh
 npm i -g @grnsft/if
 npm i -g @grnsft/if-plugins
-impact-engine --impl ./examples/impls/test/sci-m.yml --ompl ./examples/ompls/sci-m.yml
+if --impl ./examples/impls/test/sci-m.yml --ompl ./examples/ompls/sci-m.yml
 ```
 
 The results will be saved to a new `yaml` file in `./examples/ompls`.

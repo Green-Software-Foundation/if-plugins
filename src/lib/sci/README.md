@@ -108,25 +108,28 @@ To run the plugin, you must first create an instance of `Sci`. Then, you can cal
 ```typescript
 import {Sci} from '@grnsft/if-plugins';
 
-const sci = new Sci({
-  'functional-unit-time': '1 day',
-  'functional-unit': 'requests',
-});
-const results = sci.execute([
+const sci = new Sci();
+const results = sci.execute(
+  [
+    {
+      'operational-carbon': 0.02,
+      'embodied-carbon': 5,
+      duration: 1,
+      requests: 100,
+    },
+  ],
   {
-    'operational-carbon': 0.02,
-    'embodied-carbon': 5,
-    duration: 1,
-    requests: 100,
-  },
-]);
+    'functional-unit-time': '1 day',
+    'functional-unit': 'requests',
+  }
+);
 ```
 
 ## Example impl
 
 IEF users will typically call the plugin as part of a pipeline defined in an `impl`
 file. In this case, instantiating the plugin is handled by
-`impact-engine` and does not have to be done explicitly by the user.
+`if` and does not have to be done explicitly by the user.
 The following is an example `impl` that calls `sci`:
 
 ```yaml
@@ -160,7 +163,7 @@ You can run this example `impl` by saving it as `./examples/impls/test/sci.yml` 
 ```sh
 npm i -g @grnsft/if
 npm i -g @grnsft/if-plugins
-impact-engine --impl ./examples/impls/test/sci.yml --ompl ./examples/ompls/sci.yml
+if --impl ./examples/impls/test/sci.yml --ompl ./examples/ompls/sci.yml
 ```
 
 The results will be saved to a new `yaml` file in `./examples/ompls`.
