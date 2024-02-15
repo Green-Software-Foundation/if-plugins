@@ -4,11 +4,9 @@ import {PluginInterface} from '../../interfaces';
 import {PluginParams} from '../../types/common';
 
 import {validate, atLeastOneDefined} from '../../util/validations';
-import {mapPluginName} from '../../util/helpers';
 
 export const SciE = (): PluginInterface => {
-  const MAPPED_NAME = mapPluginName(SciE.name);
-  const energyMetrics = ['energy-cpu', 'energy-memory', 'energy-network'];
+  const energyMetrics = ['cpu/energy', 'memory/energy', 'network/energy'];
   const metadata = {
     kind: 'execute',
   };
@@ -16,21 +14,13 @@ export const SciE = (): PluginInterface => {
   /**
    * Calculate the total emissions for a list of inputs.
    */
-  const execute = async (
-    inputs: PluginParams[],
-    config?: Record<string, any>
-  ): Promise<PluginParams[]> => {
-    const mappedConfig = config && config[MAPPED_NAME];
+  const execute = async (inputs: PluginParams[]): Promise<PluginParams[]> => {
     return inputs.map(input => {
-      const inputWithConfig: PluginParams = Object.assign(
-        {},
-        input,
-        mappedConfig
-      );
+      const safeInput: PluginParams = Object.assign({}, input);
 
       return {
         ...input,
-        energy: calculateEnergy(inputWithConfig),
+        energy: calculateEnergy(safeInput),
       };
     });
   };
@@ -40,9 +30,9 @@ export const SciE = (): PluginInterface => {
   const validateSingleInput = (input: PluginParams) => {
     const schema = z
       .object({
-        'energy-cpu': z.number().gte(0).min(0).optional(),
-        'energy-memory': z.number().gte(0).min(0).optional(),
-        'energy-network': z.number().gte(0).min(0).optional(),
+        'cpu/energy': z.number().gte(0).min(0).optional(),
+        'memory/energy': z.number().gte(0).min(0).optional(),
+        'network/energy': z.number().gte(0).min(0).optional(),
       })
       .refine(atLeastOneDefined, {
         message: `At least one of ${energyMetrics} should present.`,
