@@ -18,10 +18,9 @@ Not Needed
 
 At least one of:
 
-- `energy-cpu`: energy used by the CPU, in kWh
-- `energy-memory`: energy used by memory, in kWh
-- `energy-gpu`: energy used by GPU, in kWh
-- `energy-network`: energy used to handle network traffic, in kWh
+- `cpu/energy`: energy used by the CPU, in kWh
+- `memory/energy`: energy used by memory, in kWh
+- `network/energy`: energy used to handle network traffic, in kWh
 
 plus the following required:
 
@@ -38,12 +37,12 @@ plus the following required:
 to network traffic, energy due to memory and energy due to GPU usage.
 
 ```pseudocode
-energy = energy-cpu + energy-network + energy-memory + e-gpu
+energy = 'cpu/energy' + 'network/energy' + 'memory/energy'
 ```
 
 In any plugin pipeline that includes `sci-o`, `sci-o` must be preceded by `sci-e`.
 This is because `sci-o` does not recognize the individual contributions,
-`energy-cpu`, `energy-network`, etc, but expects to find `energy`.
+`cpu/energy`, `network/energy`, etc, but expects to find `energy`.
 Only `sci-e` takes individual contributions and returns `energy`.
 
 ## Implementation
@@ -51,16 +50,16 @@ Only `sci-e` takes individual contributions and returns `energy`.
 To run the plugin, you must first create an instance of `SciE`. Then, you can call `execute()` to return `energy`.
 
 ```typescript
-import { SciE } from '@gsf/if-plugins';
+import {SciE} from '@gsf/if-plugins';
 
 const sciE = SciE();
 const result = sciE.execute([
   {
-    energy-cpu: 0.001,
-    energy-memory: 0.0005,
-    energy-network: 0.0005,
-  }
-])
+    'cpu/energy': 0.001,
+    'memory/energy': 0.0005,
+    'network/energy': 0.0005,
+  },
+]);
 ```
 
 ## Example impl
@@ -86,7 +85,7 @@ graph:
       inputs:
         - timestamp: 2023-08-06T00:00
           duration: 3600
-          energy-cpu: 0.001
+          cpu/energy: 0.001
 ```
 
 You can run this example `impl` by saving it as `./examples/impls/test/sci-e.yml` and executing the following command from the project root:
