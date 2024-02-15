@@ -22,9 +22,9 @@ describe('lib/sci-e: ', () => {
         const expectedResult = [
           {
             duration: 3600,
-            'energy-cpu': 1,
-            'energy-network': 1,
-            'energy-memory': 1,
+            'cpu/energy': 1,
+            'network/energy': 1,
+            'memory/energy': 1,
             energy: 3,
             timestamp: '2021-01-01T00:00:00Z',
           },
@@ -33,9 +33,9 @@ describe('lib/sci-e: ', () => {
         const result = await sciE.execute([
           {
             duration: 3600,
-            'energy-cpu': 1,
-            'energy-network': 1,
-            'energy-memory': 1,
+            'cpu/energy': 1,
+            'network/energy': 1,
+            'memory/energy': 1,
             timestamp: '2021-01-01T00:00:00Z',
           },
         ]);
@@ -45,7 +45,7 @@ describe('lib/sci-e: ', () => {
 
       it('throws an error on missing params in input.', async () => {
         const expectedMessage =
-          'At least one of energy-cpu,energy-memory,energy-network should present.';
+          'At least one of cpu/energy,memory/energy,network/energy should present.';
 
         expect.assertions(1);
 
@@ -70,12 +70,12 @@ describe('lib/sci-e: ', () => {
           {
             duration: 3600,
             timestamp: '2021-01-01T00:00:00Z',
-            'energy-cpu': 1,
+            'cpu/energy': 1,
           },
         ];
         const response = await sciE.execute(data);
 
-        const expectedResult = [{...data[0], energy: data[0]['energy-cpu']}];
+        const expectedResult = [{...data[0], energy: data[0]['cpu/energy']}];
 
         expect(response).toEqual(expectedResult);
       });
