@@ -16,11 +16,11 @@ export const SciM = (): PluginInterface => {
     kind: 'execute',
   };
   const METRICS = [
-    'total-embodied-emissions',
-    'expected-lifespan',
+    'device/emissions-embodied',
+    'device/expected-lifespan',
     'resources-reserved',
     'vcpus-allocated',
-    'total-resources',
+    'resources-total',
     'vcpus-total',
   ];
 
@@ -44,7 +44,7 @@ export const SciM = (): PluginInterface => {
 
       return {
         ...input,
-        'embodied-carbon': calculateEmbodiedCarbon(inputWithConfig),
+        'carbon-embodied': calculateEmbodiedCarbon(inputWithConfig),
       };
     });
   };
@@ -56,12 +56,12 @@ export const SciM = (): PluginInterface => {
   const calculateEmbodiedCarbon = (input: PluginParams) => {
     const safeInput = Object.assign(input, validateInput(input));
     const totalEmissions = parseNumberInput(
-      safeInput['total-embodied-emissions'],
+      safeInput['device/emissions-embodied'],
       'gCO2e'
     );
     const duration = parseNumberInput(safeInput['duration'], 'seconds');
     const expectedLifespan = parseNumberInput(
-      safeInput['expected-lifespan'],
+      safeInput['device/expected-lifespan'],
       'seconds'
     );
     const resourcesReserved = parseNumberInput(
@@ -69,7 +69,7 @@ export const SciM = (): PluginInterface => {
       'count'
     );
     const totalResources = parseNumberInput(
-      safeInput['vcpus-total'] || safeInput['total-resources'],
+      safeInput['vcpus-total'] || safeInput['resources-total'],
       'count'
     );
 
@@ -103,17 +103,17 @@ export const SciM = (): PluginInterface => {
    */
   const validateInput = (input: PluginParams) => {
     const schemaWithVcpus = z.object({
-      'total-embodied-emissions': z.number().gte(0).min(0),
-      'expected-lifespan': z.number().gte(0).min(0),
+      'device/emissions-embodied': z.number().gte(0).min(0),
+      'device/expected-lifespan': z.number().gte(0).min(0),
       'vcpus-allocated': z.number().gte(0).min(0),
       'vcpus-total': z.number().gte(0).min(0),
     });
 
     const schemaWithResources = z.object({
-      'total-embodied-emissions': z.number().gte(0).min(0),
-      'expected-lifespan': z.number().gte(0).min(0),
+      'device/emissions-embodied': z.number().gte(0).min(0),
+      'device/expected-lifespan': z.number().gte(0).min(0),
       'resources-reserved': z.number().gte(0).min(0),
-      'total-resources': z.number().gte(0).min(0),
+      'resources-total': z.number().gte(0).min(0),
     });
 
     const schema = schemaWithVcpus.or(schemaWithResources).refine(allDefined, {
