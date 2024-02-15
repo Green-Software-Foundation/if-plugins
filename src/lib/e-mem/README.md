@@ -5,19 +5,15 @@
 
 ## Parameters
 
-### Plugin config
+### Plugin global config
 
-Not Needed
+- `energy-per-gb`: a coefficient for energy in kWh per GB. If not provided,
+  defaults to 0.38. (optional)
 
 ### Inputs
 
 - `memory/utilization`: percentage of the total available memory being used in the input period
 - `memory/capacity`: the total amount of memory available, in GB
-
-optional:
-
-- `energy-per-gb`: a coefficient for energy in kWh per GB. If not provided,
-  defaults to 0.38.
 
 ## Returns
 
