@@ -1,70 +1,51 @@
-import {EMemModel} from '../../../../lib';
+import {EMem} from '../../../../lib';
 
 import {ERRORS} from '../../../../util/errors';
 
 const {InputValidationError} = ERRORS;
 
 describe('lib/e-mem: ', () => {
-  describe('EMemModel: ', () => {
-    let eMemModel: EMemModel;
-
-    beforeEach(() => {
-      eMemModel = new EMemModel();
-    });
+  describe('EMem: ', () => {
+    const eMem = EMem();
 
     describe('init:', () => {
       it('successfully initalized.', () => {
-        expect(eMemModel).toHaveProperty('configure');
-        expect(eMemModel).toHaveProperty('execute');
-      });
-    });
+        expect.assertions(2);
 
-    describe('configure(): ', () => {
-      it('configure EMemModel', async () => {
-        const configuredModel = await eMemModel.configure();
-
-        expect.assertions(1);
-
-        expect(configuredModel).toBe(eMemModel);
-      });
-
-      it('configures model instance with given params.', async () => {
-        const configuredModel = await eMemModel.configure();
-
-        expect.assertions(1);
-
-        expect(configuredModel).toBeInstanceOf(EMemModel);
+        expect(eMem).toHaveProperty('metadata');
+        expect(eMem).toHaveProperty('execute');
       });
     });
 
     describe('execute(): ', () => {
       it('calculate energy for each input', async () => {
+        const globalConfig = {'energy-per-gb': 0.002};
+        const eMem = EMem(globalConfig);
+
         const inputs = [
           {
-            'mem-util': 80,
-            'total-memoryGB': 16,
-            coefficient: 0.002,
+            'memory/utilization': 80,
+            'memory/capacity': 16,
             duration: 3600,
             timestamp: '2022-01-01T01:00:00Z',
           },
           {
-            'mem-util': 60,
-            'total-memoryGB': 8,
-            coefficient: 0.001,
+            'memory/utilization': 60,
+            'memory/capacity': 8,
             duration: 3600,
             timestamp: '2022-01-01T01:00:00Z',
           },
         ];
         expect.assertions(3);
 
-        const result = await eMemModel.execute(inputs);
+        const result = await eMem.execute(inputs);
 
         expect(result).toHaveLength(inputs.length);
         result.forEach((output, index) => {
           expect(output['energy-memory']).toBeCloseTo(
-            inputs[index]['total-memoryGB'] *
-              (inputs[index]['mem-util'] / 100) *
-              inputs[index]['coefficient']
+            inputs[index]['memory/capacity'] *
+              (inputs[index]['memory/utilization'] / 100) *
+              globalConfig['energy-per-gb']
           );
         });
       });
@@ -72,7 +53,7 @@ describe('lib/e-mem: ', () => {
       it('throws error for missing input data.', async () => {
         expect.assertions(1);
         try {
-          await eMemModel.execute([
+          await eMem.execute([
             {duration: 3600, timestamp: '2022-01-01T01:00:00Z'},
           ]);
         } catch (error) {
@@ -83,12 +64,11 @@ describe('lib/e-mem: ', () => {
       it('throws error when one of the metric is missing from the input field.', async () => {
         expect.assertions(1);
         try {
-          await eMemModel.execute([
+          await eMem.execute([
             {
               timestamp: '2023-11-02T10:35:31.820Z',
               duration: 3600,
-              'total-memoryGB': 3,
-              coefficient: 0.38,
+              'memory/capacity': 3,
             },
           ]);
         } catch (error) {
@@ -96,21 +76,23 @@ describe('lib/e-mem: ', () => {
         }
       });
 
-      it('does not throw an error for a missing coefficient but instead uses the default value of 0.38.', async () => {
+      it('does not throw an error for a missing `energy-per-gb` but instead uses the default value of 0.38.', async () => {
         const data = [
           {
             timestamp: '2023-11-02T10:35:31.820Z',
             duration: 3600,
-            'mem-util': 30,
-            'total-memoryGB': 3,
+            'memory/utilization': 30,
+            'memory/capacity': 3,
           },
         ];
 
         expect.assertions(1);
 
-        const response = await eMemModel.execute(data);
+        const response = await eMem.execute(data);
         const expectedMemory =
-          data[0]['total-memoryGB'] * (data[0]['mem-util'] / 100) * 0.38;
+          data[0]['memory/capacity'] *
+          (data[0]['memory/utilization'] / 100) *
+          0.38;
 
         expect(response[0]['energy-memory']).toEqual(expectedMemory);
       });

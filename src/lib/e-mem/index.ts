@@ -1,62 +1,83 @@
 import {z} from 'zod';
 
+import {PluginInterface} from '../../interfaces';
+import {PluginParams} from '../../types/common';
+
 import {validate, allDefined} from '../../util/validations';
+import {mapPluginName} from '../../util/helpers';
 
-import {ModelPluginInterface} from '../../interfaces';
-import {ModelParams} from '../../types/common';
-
-export class EMemModel implements ModelPluginInterface {
-  /**
-   * Configures the E-Mem Plugin.
-   */
-  public async configure(): Promise<ModelPluginInterface> {
-    return this;
-  }
+export const EMem = (globalConfig?: Record<string, any>): PluginInterface => {
+  const MAPPED_NAME = mapPluginName(EMem.name);
+  const metadata = {
+    kind: 'execute',
+  };
 
   /**
    * Calculate the total emissions for a list of inputs.
    */
-  public async execute(inputs: ModelParams[]) {
-    return inputs.map((input: ModelParams) => {
-      const safeInput = Object.assign(input, this.validateSingleInput(input));
-      safeInput['energy-memory'] = this.calculateEnergy(safeInput);
+  const execute = async (
+    inputs: PluginParams[],
+    config?: Record<string, any>
+  ) => {
+    const mappedConfig = config && config[MAPPED_NAME];
 
-      return safeInput;
+    return inputs.map((input: PluginParams) => {
+      const inputWithConfigs: PluginParams = Object.assign(
+        {},
+        input,
+        mappedConfig,
+        globalConfig
+      );
+      const safeInput = Object.assign(
+        {},
+        input,
+        validateSingleInput(inputWithConfigs)
+      );
+
+      return {
+        ...input,
+        'energy-memory': calculateEnergy(safeInput),
+      };
     });
-  }
+  };
 
   /**
    * Calculates the energy consumption for a single input.
    */
-  private calculateEnergy(input: ModelParams) {
+  const calculateEnergy = (input: PluginParams) => {
     const {
-      'total-memoryGB': totalMemory,
-      'mem-util': memoryUtil,
-      coefficient,
+      'memory/capacity': totalMemory,
+      'memory/utilization': memoryUtil,
+      'energy-per-gb': energyPerGB,
     } = input;
 
     // GB * kWh/GB == kWh
-    return totalMemory * (memoryUtil / 100) * coefficient;
-  }
+    return totalMemory * (memoryUtil / 100) * energyPerGB;
+  };
 
   /**
    * Checks for required fields in input.
    */
-  private validateSingleInput(input: ModelParams) {
+  const validateSingleInput = (input: PluginParams) => {
     const schema = z
       .object({
-        'total-memoryGB': z.number().gt(0),
-        coefficient: z.number().gt(0),
-        'mem-util': z.number().min(0).max(100),
+        'memory/capacity': z.number().gt(0),
+        'energy-per-gb': z.number().gt(0),
+        'memory/utilization': z.number().min(0).max(100),
       })
       .refine(allDefined, {
         message:
-          'All metrics, including mem-util, total-memoryGB, coefficient, and mem_util-out should be present.',
+          'All metrics, including memory/utilization, memory/capacity, energy-per-gb, and mem_util-out should be present.',
       });
 
     //Manually add default value
-    input.coefficient = input.coefficient ?? 0.38;
+    input['energy-per-gb'] = input['energy-per-gb'] ?? 0.38;
 
     return validate<z.infer<typeof schema>>(schema, input);
-  }
-}
+  };
+
+  return {
+    metadata,
+    execute,
+  };
+};
