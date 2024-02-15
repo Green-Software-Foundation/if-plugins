@@ -4,11 +4,9 @@ import {PluginInterface} from '../../interfaces';
 import {PluginParams} from '../../types/common';
 
 import {validate, allDefined} from '../../util/validations';
-import {mapPluginName} from '../../util/helpers';
 
 export const SciO = (): PluginInterface => {
-  const MAPPED_NAME = mapPluginName(SciO.name);
-  const METRICS = ['grid-carbon-intensity', 'energy'];
+  const METRICS = ['grid/carbon-intensity', 'energy'];
   const metadata = {
     kind: 'execute',
   };
@@ -16,23 +14,16 @@ export const SciO = (): PluginInterface => {
   /**
    * Calculate the total emissions for a list of inputs.
    */
-  const execute = async (
-    inputs: PluginParams[],
-    config?: Record<string, any>
-  ): Promise<PluginParams[]> => {
-    const mappedConfig = config && config[MAPPED_NAME];
-
+  const execute = async (inputs: PluginParams[]): Promise<PluginParams[]> => {
     return inputs.map(input => {
-      const inputWithConfig: PluginParams = Object.assign(
+      const safeInput: PluginParams = Object.assign(
         {},
         input,
-        mappedConfig
+        validateSingleInput(input)
       );
 
-      validateSingleInput(inputWithConfig);
-
       return Object.assign({}, input, {
-        'operational-carbon': calculateOperationalCarbon(inputWithConfig),
+        'carbon-operational': calculateOperationalCarbon(safeInput),
       });
     });
   };
@@ -50,7 +41,7 @@ export const SciO = (): PluginInterface => {
   const validateSingleInput = (input: PluginParams) => {
     const schema = z
       .object({
-        'grid-carbon-intensity': z.number().min(0),
+        'grid/carbon-intensity': z.number().min(0),
         energy: z.number().min(0),
       })
       .refine(allDefined, {

@@ -11,13 +11,13 @@ Not Needed
 ### Inputs
 
 - `energy`: energy value in kWh
-- `grid-carbon-intensity`: intensity value gCO2e/kWh
+- `grid/carbon-intensity`: intensity value gCO2e/kWh
 - `timestamp`: a timestamp for the input
 - `duration`: the amount of time, in seconds, that the input covers.
 
 ## Returns
 
-- `operational-carbon`: the carbon emitted during a applications operation, in gCO2eq
+- `carbon-operational`: the carbon emitted during a applications operation, in gCO2eq
 
 ## Calculation
 
@@ -32,18 +32,18 @@ where `O` = operational emissions, `E` = energy in kWh, and `I` = grid carbon in
 In the IEF implementation the calculation is expressed using the following terms:
 
 ```
-o = (energy * grid-carbon-intensity)
+o = (energy * grid/carbon-intensity)
 ```
 
-Read more on [operational emissions](https://github.com/Green-Software-Foundation/sci/blob/main/Software_Carbon_Intensity/Software_Carbon_Intensity_Specification.md#operational-carbon).
+Read more on [operational emissions](https://github.com/Green-Software-Foundation/sci/blob/main/Software_Carbon_Intensity/Software_Carbon_Intensity_Specification.md#carbon-operational).
 
 ## Implementation
 
-IEF implements the plugin based on the simple multiplication of the energy and intensity values as inputs. The `sci-o` plugin expects `energy` and `grid-carbon-intensity` to be provided as `inputs`.
+IEF implements the plugin based on the simple multiplication of the energy and intensity values as inputs. The `sci-o` plugin expects `energy` and `grid/carbon-intensity` to be provided as `inputs`.
 
-> Note that the `energy` field is added to the `impl` by the `sci-e` plugin only. This means `sci-o` must always be preceded by `sci-e` in a plugin pipeline. This is always true, even if there is only a single component of `energy` such as `energy-cpu` from `teads-curve`. `sci-e` sums all the available components and adds the sum to the `impl` as `energy`.
+> Note that the `energy` field is added to the `impl` by the `sci-e` plugin only. This means `sci-o` must always be preceded by `sci-e` in a plugin pipeline. This is always true, even if there is only a single component of `energy` such as `cpu/energy` from `teads-curve`. `sci-e` sums all the available components and adds the sum to the `impl` as `energy`.
 
-To run the plugin, you must first create an instance of `SciO` using `SciO()`. Then, you can call `execute()` to return `operational-carbon`.
+To run the plugin, you must first create an instance of `SciO` using `SciO()`. Then, you can call `execute()` to return `carbon-operational`.
 
 ## Usage
 
@@ -56,7 +56,7 @@ const sciO = SciO();
 const results = sciO.execute([
   {
     energy: 0.5, // energy value in kWh
-    'grid-carbon-intensity': 0.5, // intensity value gCO2e/kWh
+    'grid/carbon-intensity': 0.5, // intensity value gCO2e/kWh
   },
 ]);
 ```
@@ -71,10 +71,10 @@ description:
 tags:
 initialize:
   plugins:
-    - sci-o
+    sci-o:
       function: SciO
       path: '@grnsft/if-plugins'
-graph:
+tree:
   children:
     child:
       pipeline:
@@ -85,7 +85,7 @@ graph:
         - timestamp: 2023-08-06T00:00
           duration: 3600
           energy: 0.001
-          grid-carbon-intensity: 800
+          grid/carbon-intensity: 800
 ```
 
 You can run this example `impl` by saving it as `./examples/impls/test/sci-o.yml` and executing the following command from the project root:
