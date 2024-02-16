@@ -1,8 +1,8 @@
-# TDP Finder Model
+# TDP Finder Plugin
 
 ## Scope
 
-The TDP Finder model finds the thermal design power (TDP) of a given processor by looking it up in the model datasets. There are scenarios where the lookup can return multiple possible TDP values. In these cases, we return the maximum of the possible values. There are also cases where no TDP can be found for a specific processor. In these cases, we throw an error. The TDP is then used by other models to calculate the `energy-cpu` value.
+The TDP Finder model finds the thermal design power (TDP) of a given processor by looking it up in the model datasets. There are scenarios where the lookup can return multiple possible TDP values. In these cases, we return the maximum of the possible values. There are also cases where no TDP can be found for a specific processor. In these cases, we throw an error. The TDP is then used by other plugins to calculate the `cpu/energy` value.
 
 ## Used DataSets
 
@@ -18,18 +18,18 @@ IEF implements the plugin based on the logic described above.
 
 ## Usage with IMPL
 
-- Model Name: `tdp-finder`
+- Plugin Name: `tdp-finder`
 
 ```yaml
 name: tdp-demo
 description:
 tags:
 initialize:
-  models:
-    - name: finder
-      model: TdpFinderModel
-      path: '@grnsft/if-models'
-graph:
+  plugins:
+    finder:
+      model: TdpFinder
+      path: '@grnsft/if-plugins'
+tree:
   children:
     child:
       pipeline:
@@ -45,11 +45,11 @@ name: tdp-demo
 description:
 tags:
 initialize:
-  models:
-    - name: finder
-      model: TdpFinderModel
-      path: '@grnsft/if-models'
-graph:
+  plugins:
+    finder:
+      model: TdpFinder
+      path: '@grnsft/if-plugins'
+tree:
   children:
     child:
       pipeline:
@@ -65,8 +65,8 @@ You can run this example `impl` by saving it as `./examples/impls/test/tdp-finde
 
 ```sh
 npm i -g @grnsft/if
-npm i -g @grnsft/if-models
-impact-engine --impl ./examples/impls/test/tdp-finder.yml --ompl ./examples/ompls/tdp-finder.yml
+npm i -g @grnsft/if-plugins
+if --impl ./examples/impls/test/tdp-finder.yml --ompl ./examples/ompls/tdp-finder.yml
 ```
 
 The results will be saved to a new `yaml` file in `./examples/ompls`.
