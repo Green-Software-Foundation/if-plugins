@@ -4,7 +4,7 @@ The `shell` is a wrapper enabling models implemented in any other programming la
 
 ## Parameters
 
-### Model config
+### Model global config
 
 The model should be initialized as follows:
 
@@ -45,13 +45,13 @@ const result = await outputModel.execute([
 
 The `shell` is designed to run arbitrary external models. This means IF does not necessarily know what calculations are being executed in the external model. There is no struct requirement on the return type, as this depends upon the calculations and the position of the external model in a model pipeline. For example, one external model might carry out the entire end-to-end SCI calculation, taking in usage inputs and returning `sci`. In this case, the model is expected to return `sci` and it would be the only model invoked in the `impl`.
 
-However, it is also entirely possible to have external models that only deliver some small part of the overall SCI calculation, and rely on IF builtin models to do the rest. For example, perhaps there is a proprietary model that a user wishes to use as a drop-in replacement for the Teads TDP model. In this case, the model would take usage inputs as inputs and would need to return some or all of `energy-cpu`, `energy-net`, `energy-mem` and `energy-gpu`. These would then be passed to the `sci-e` model to return `energy`, then `sci-o` to return `embodied-carbon`.
+However, it is also entirely possible to have external models that only deliver some small part of the overall SCI calculation, and rely on IF builtin models to do the rest. For example, perhaps there is a proprietary model that a user wishes to use as a drop-in replacement for the Teads TDP model. In this case, the model would take usage inputs as inputs and would need to return some or all of `cpu/energy`, `energy-net`, and `energy-mem`. These would then be passed to the `sci-e` model to return `energy`, then `sci-o` to return `carbon-embodied`.
 
 Since the design space for external models is so large, it is up to external model developers to ensure compatibility with IEF built-ins.
 
 ## Example impl
 
-IEF users will typically call the shell model as part of a pipeline defined in an `impl` file. In this case, instantiating and configuring the model is handled by `impact-engine` and does not have to be done explicitly by the user. The following is an example `impl` that calls an external model via `shell`. It assumes the model takes `energy-cpu` and `energy-mem` as inputs and returns `energy`:
+IEF users will typically call the shell model as part of a pipeline defined in an `impl` file. In this case, instantiating and configuring the model is handled by `if` and does not have to be done explicitly by the user. The following is an example `impl` that calls an external model via `shell`. It assumes the model takes `cpu/energy` and `energy-mem` as inputs and returns `energy`:
 
 ```yaml
 name: shell-demo
@@ -73,7 +73,7 @@ graph:
       inputs:
         - timestamp: 2023-07-06T00:00
           duration: 1 # Secs
-          energy-cpu: 0.002
+          cpu/energy: 0.002
           energy-mem: 0.000005
 ```
 
@@ -85,27 +85,26 @@ name: shell-demo
 description:
 tags:
 initialize:
-  models:
-    - name: sampler
+  plugins:
+    sampler:
       model: ShellModel
       path: '@grnsft/if-models'
-graph:
+      global-config:
+        command: python3 /usr/local/bin/sampler
+tree:
   children:
     child:
       pipeline:
         - sampler
-      config:
-        sampler:
-          command: python3 /usr/local/bin/sampler
       inputs:
         - timestamp: 2023-07-06T00:00
           duration: 1 # Secs
-          energy-cpu: 0.002
+          cpu/energy: 0.002
           energy-mem: 0.000005
       outputs:
         - timestamp: 2023-07-06T00:00
           duration: 1 # Secs
-          energy-cpu: 0.002
+          cpu/energy: 0.002
           energy-mem: 0.000005
           energy: 0.02 # added by model
 ```
@@ -115,7 +114,7 @@ You can run this example `impl` by saving it as `./examples/impls/test/sci.yml` 
 ```sh
 npm i -g @grnsft/if
 npm i -g @grnsft/if-models
-impact-engine --impl ./examples/impls/test/shell.yml --ompl ./examples/ompls/shell.yml
+if --impl ./examples/impls/test/shell.yml --ompl ./examples/ompls/shell.yml
 ```
 
 The results will be saved to a new `yaml` file in `./examples/ompls`.

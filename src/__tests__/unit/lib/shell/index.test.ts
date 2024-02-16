@@ -1,37 +1,25 @@
 import {spawnSync} from 'child_process';
 import {loadAll} from 'js-yaml';
 
-import {ShellModel} from '../../../../lib';
+import {Shell} from '../../../../lib';
 
 jest.mock('child_process');
 jest.mock('js-yaml');
 
 describe('lib/shell', () => {
-  describe('ShellModel', () => {
-    let shellModel: ShellModel;
-
-    beforeEach(() => {
-      shellModel = new ShellModel();
-    });
+  describe('Shell', () => {
+    const shell = Shell({});
 
     describe('init: ', () => {
       it('successfully initalized.', () => {
-        expect(shellModel).toHaveProperty('configure');
-        expect(shellModel).toHaveProperty('execute');
-      });
-    });
-
-    describe('configure(): ', () => {
-      it('configure ShellModel', async () => {
-        expect.assertions(1);
-
-        const configuredModel = await shellModel.configure();
-        expect(configuredModel).toBe(shellModel);
+        expect(shell).toHaveProperty('metadata');
+        expect(shell).toHaveProperty('execute');
       });
     });
 
     describe('execute(): ', () => {
       it('execute with valid inputs and command', async () => {
+        const shell = Shell({command: 'python3 /path/to/script.py'});
         const mockSpawnSync = spawnSync as jest.MockedFunction<
           typeof spawnSync
         >;
@@ -44,13 +32,12 @@ describe('lib/shell', () => {
           {
             duration: 3600,
             timestamp: '2022-01-01T00:00:00Z',
-            command: 'python3 /path/to/script.py',
           },
         ];
 
         expect.assertions(2);
 
-        await shellModel.execute(inputs);
+        await shell.execute(inputs);
 
         expect(mockSpawnSync).toHaveBeenCalledWith(
           'python3',
@@ -68,7 +55,7 @@ describe('lib/shell', () => {
         ];
         expect.assertions(1);
 
-        await expect(shellModel.execute(invalidInputs)).rejects.toThrow();
+        await expect(shell.execute(invalidInputs)).rejects.toThrow();
       });
     });
   });

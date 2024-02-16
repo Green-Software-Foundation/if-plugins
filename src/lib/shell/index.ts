@@ -2,51 +2,56 @@ import {spawnSync, SpawnSyncReturns} from 'child_process';
 import {loadAll, dump} from 'js-yaml';
 import {z} from 'zod';
 
+import {PluginInterface} from '../../interfaces';
+import {PluginParams} from '../../types/common';
+
 import {validate} from '../../util/validations';
 import {ERRORS} from '../../util/errors';
 
-import {ModelPluginInterface} from '../../interfaces';
-import {ModelParams} from '../../types/common';
-
 const {InputValidationError} = ERRORS;
 
-export class ShellModel implements ModelPluginInterface {
-  /**
-   * Configures the ShellModel Plugin.
-   */
-  public async configure(): Promise<ModelPluginInterface> {
-    return this;
-  }
+export const Shell = (globalConfig: Record<string, any>): PluginInterface => {
+  const metadata = {
+    kind: 'execute',
+  };
 
   /**
    * Calculate the total emissions for a list of inputs.
    */
-  public async execute(inputs: ModelParams[]): Promise<any[]> {
+  const execute = async (
+    inputs: PluginParams[],
+    config?: Record<string, any>
+  ): Promise<any[]> => {
+    const inputWithConfig: PluginParams = Object.assign(
+      {},
+      inputs[0],
+      globalConfig,
+      config
+    );
+    const command = validateSingleInput(inputWithConfig).command;
     const inputAsString: string = dump(inputs, {indent: 2});
-
-    const command = this.validateSingleInput(inputs[0]).command;
-    const results = this.runModelInShell(inputAsString, command);
+    const results = runModelInShell(inputAsString, command);
 
     return results.outputs;
-  }
+  };
 
   /**
    * Checks for required fields in input.
    */
-  private validateSingleInput(input: ModelParams) {
+  const validateSingleInput = (input: PluginParams) => {
     const schema = z.object({
       command: z.string(),
     });
 
     return validate<z.infer<typeof schema>>(schema, input);
-  }
+  };
 
   /**
    * Runs the model in a shell. Spawns a child process to run an external IMP,
    * an executable with a CLI exposing two methods: `--execute` and `--impl`.
    * The shell command then calls the `--command` method passing var impl as the path to the desired impl file.
    */
-  private runModelInShell(input: string, command: string) {
+  const runModelInShell = (input: string, command: string) => {
     try {
       const [executable, ...args] = command.split(' ');
 
@@ -54,12 +59,16 @@ export class ShellModel implements ModelPluginInterface {
         input,
         encoding: 'utf8',
       });
-
       const outputs = loadAll(result.stdout);
 
-      return {outputs};
+      return {outputs: outputs};
     } catch (error: any) {
       throw new InputValidationError(error.message);
     }
-  }
-}
+  };
+
+  return {
+    metadata,
+    execute,
+  };
+};
