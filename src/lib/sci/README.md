@@ -20,8 +20,8 @@ either:
 
 or both of
 
-- `operational-carbon`: carbon emitted during an application's operation in gCO2eq
-- `embodied-carbon`: carbon emitted in a component's manufacture
+- `carbon-operational`: carbon emitted during an application's operation in gCO2eq
+- `carbon-embodied`: carbon emitted in a component's manufacture
   and disposal in gCO2eq
 
 and:
@@ -36,8 +36,8 @@ and:
 
 ## Returns
 
-- `carbon`: the total carbon, calculated as the sum of `operational-carbon`
-  and `embodied-carbon`, in gCO2eq
+- `carbon`: the total carbon, calculated as the sum of `carbon-operational`
+  and `carbon-embodied`, in gCO2eq
 - `sci`: carbon expressed in terms of the given functional unit
 
 ## Calculation
@@ -45,10 +45,10 @@ and:
 SCI is calculated as:
 
 ```pseudocode
-sci = operational-carbon + embodied-carbon / functional unit
+sci = carbon-operational + carbon-embodied / functional unit
 ```
 
-where `operational-carbon` is the product of `energy` and `grid-intensity`.
+where `carbon-operational` is the product of `energy` and `grid-intensity`.
 The SCI-guide represents this as
 
 ```pseudocode
@@ -61,15 +61,15 @@ where
 `M` is embodied carbon, and
 `R` is the functional unit.
 
-SCI is the sum of the `operational-carbon` (calculated using the `sci-o` plugin)
-and the `embodied-carbon` (calculated using the `sci-m` plugin).
+SCI is the sum of the `carbon-operational` (calculated using the `sci-o` plugin)
+and the `carbon-embodied` (calculated using the `sci-m` plugin).
 It is then converted to some functional unit, for example for an API the
 functional unit might be per request, or for a website
 it might be per 1000 visits.
 
 ## IEF Implementation
 
-`sci` takes `operational-carbon` and `embodied-carbon` as inputs along
+`sci` takes `carbon-operational` and `carbon-embodied` as inputs along
 with two parameters related to the functional unit:
 
 - `functional-unit`: a string describing the functional unit to normalize
@@ -83,21 +83,21 @@ with two parameters related to the functional unit:
 
 In a plugin pipeline, time is always denominated in `seconds`. It is only in
 `sci` that other units of time are considered. Therefore, if `functional-unit-time`
-is `1 month`, then the sum of `operational-carbon` and `embodied-carbon` is
+is `1 month`, then the sum of `carbon-operational` and `carbon-embodied` is
 multiplied by the number of seconds in one month.
 
 Example:
 
 ```yaml
-operational-carbon: 0.02  // operational-carbon per s
-embodied-carbon: 5   // embodied-carbon per s
+carbon-operational: 0.02  // carbon-operational per s
+carbon-embodied: 5   // carbon-embodied per s
 functional-unit: requests  // indicate the functional unit is requests
 functional-unit-time: 1 minute  // time unit is minutes
 requests: 100   // requests per minute
 ```
 
 ```pseduocode
-sci-per-s = operational-carbon + embodied-carbon / duration  // (= 5.02)
+sci-per-s = carbon-operational + carbon-embodied / duration  // (= 5.02)
 sci-per-minute = sci-per-s * 60  // (= 301.2)
 sci-per-functional-unit-time = sci-per-minute * number of minutes
 sci-per-f-unit = sci-per-functional-unit-time / 100  // (= 3.012 gC/request)
@@ -108,19 +108,18 @@ To run the plugin, you must first create an instance of `Sci`. Then, you can cal
 ```typescript
 import {Sci} from '@grnsft/if-plugins';
 
-const sci = new Sci();
+const sci = new Sci({'functional-unit': 'requests'});
 const results = sci.execute(
   [
     {
-      'operational-carbon': 0.02,
-      'embodied-carbon': 5,
+      'carbon-operational': 0.02,
+      'carbon-embodied': 5,
       duration: 1,
       requests: 100,
     },
   ],
   {
     'functional-unit-time': '1 day',
-    'functional-unit': 'requests',
   }
 );
 ```
@@ -152,8 +151,8 @@ graph:
           functional-unit-time: '5 minutes'
       inputs:
         - timestamp: 2023-07-06T00:00
-          operational-carbon: 0.02
-          embodied-carbon: 5
+          carbon-operational: 0.02
+          carbon-embodied: 5
           duration: 1
           requests: 100
 ```

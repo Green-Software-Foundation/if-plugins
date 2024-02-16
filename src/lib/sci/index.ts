@@ -4,15 +4,14 @@ import {PluginInterface} from '../../interfaces';
 import {PluginParams} from '../../types/common';
 
 import {validate, allDefined} from '../../util/validations';
-import {buildErrorMessage, mapPluginName} from '../../util/helpers';
+import {buildErrorMessage} from '../../util/helpers';
 import {ERRORS} from '../../util/errors';
 
 import {TIME_UNITS_IN_SECONDS} from './config';
 
 const {InputValidationError} = ERRORS;
 
-export const Sci = (): PluginInterface => {
-  const MAPPED_NAME = mapPluginName(Sci.name);
+export const Sci = (globalConfig?: Record<string, any>): PluginInterface => {
   const errorBuilder = buildErrorMessage(Sci.name);
   const metadata = {
     kind: 'execute',
@@ -25,20 +24,21 @@ export const Sci = (): PluginInterface => {
     inputs: PluginParams[],
     config?: Record<string, any>
   ): Promise<PluginParams[]> => {
-    const mappedConfig = config && config[MAPPED_NAME];
+    const mergedConfig = Object.assign({}, globalConfig, config);
+    validateConfig(mergedConfig);
 
     return inputs.map(input => {
-      const inputWithConfig: PluginParams = Object.assign(
+      const inputWithConfigs: PluginParams = Object.assign(
         {},
         input,
-        mappedConfig
+        mergedConfig
       );
 
-      validateInput(inputWithConfig);
+      validateInput(inputWithConfigs);
 
       return {
         ...input,
-        ...tuneInput(inputWithConfig),
+        ...tuneInput(inputWithConfigs),
       };
     });
   };
@@ -98,8 +98,8 @@ export const Sci = (): PluginInterface => {
    * Calculates sci in seconds for a given input.
    */
   const calculateSciSeconds = (input: PluginParams): number => {
-    const operational = parseFloat(input['operational-carbon']);
-    const embodied = parseFloat(input['embodied-carbon']);
+    const operational = parseFloat(input['carbon-operational']);
+    const embodied = parseFloat(input['carbon-embodied']);
     const sciPerSecond = (operational + embodied) / input['duration'];
 
     return 'carbon' in input
@@ -108,29 +108,37 @@ export const Sci = (): PluginInterface => {
   };
 
   /**
-   * Checks for fields in input.
+   * Validates node and gloabl configs.
    */
-  const validateInput = (input: PluginParams) => {
+  const validateConfig = (config: Record<string, any>) => {
     const unitWarnMessage =
       'Please ensure you have provided one value and one unit and they are either space, underscore, or hyphen separated.';
-    const message =
-      'functional-unit-time, either carbon or both of operational-carbon and embodied-carbon should be present.';
 
-    const schemaWithCarbon = z.object({
+    const schema = z.object({
       'functional-unit-time': z
         .string()
         .regex(new RegExp('^[0-9][ _-][a-zA-Z]+$'))
         .min(3, unitWarnMessage),
+      'functional-unit': z.string().optional(),
+    });
+
+    return validate<z.infer<typeof schema>>(schema, config);
+  };
+
+  /**
+   * Checks for fields in input.
+   */
+  const validateInput = (input: PluginParams) => {
+    const message =
+      'Either carbon or both of carbon-operational and carbon-embodied should be present.';
+
+    const schemaWithCarbon = z.object({
       carbon: z.number().gte(0),
     });
 
     const schemaWithoutCarbon = z.object({
-      'functional-unit-time': z
-        .string()
-        .regex(new RegExp('^[0-9][ _-][a-zA-Z]+$'))
-        .min(3, unitWarnMessage),
-      'operational-carbon': z.number().gte(0),
-      'embodied-carbon': z.number().gte(0),
+      'carbon-operational': z.number().gte(0),
+      'carbon-embodied': z.number().gte(0),
     });
 
     const schema = schemaWithCarbon
