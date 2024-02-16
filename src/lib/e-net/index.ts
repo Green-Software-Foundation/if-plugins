@@ -1,14 +1,11 @@
 import {z} from 'zod';
 
 import {validate} from '../../util/validations';
-import {mapPluginName} from '../../util/helpers';
 
 import {PluginInterface} from '../../interfaces';
 import {PluginParams} from '../../types/common';
 
 export const ENet = (globalConfig?: Record<string, any>): PluginInterface => {
-  const MAPPED_NAME = mapPluginName(ENet.name);
-
   const metadata = {
     kind: 'execute',
   };
@@ -19,14 +16,14 @@ export const ENet = (globalConfig?: Record<string, any>): PluginInterface => {
     inputs: PluginParams[],
     config?: Record<string, any>
   ) => {
-    const mappedConfig = config && config[MAPPED_NAME];
+    const mergedConfig = Object.assign({}, globalConfig, config);
+    const validatedConfig = validateConfig(mergedConfig);
 
     return inputs.map((input: PluginParams) => {
       const inputWithConfigs: PluginParams = Object.assign(
         {},
         input,
-        mappedConfig,
-        globalConfig
+        validatedConfig
       );
 
       validateSingleInput(inputWithConfigs);
@@ -36,6 +33,22 @@ export const ENet = (globalConfig?: Record<string, any>): PluginInterface => {
         'energy-network': calculateEnergy(inputWithConfigs),
       };
     });
+  };
+
+  /**
+   * Validates global and node config parameters.
+   */
+  const validateConfig = (config: Record<string, any>) => {
+    const schema = z.object({
+      'energy-per-gb': z.number(),
+    });
+
+    //Manually add default value
+    if (!config['energy-per-gb'] || config['energy-per-gb'] === 0) {
+      config['energy-per-gb'] = 0.001;
+    }
+
+    return validate<z.infer<typeof schema>>(schema, config);
   };
 
   /**

@@ -4,10 +4,8 @@ import {PluginInterface} from '../../interfaces';
 import {PluginParams} from '../../types/common';
 
 import {validate, allDefined} from '../../util/validations';
-import {mapPluginName} from '../../util/helpers';
 
-export const EMem = (globalConfig?: Record<string, any>): PluginInterface => {
-  const MAPPED_NAME = mapPluginName(EMem.name);
+export const EMem = (globalConfig: Record<string, any>): PluginInterface => {
   const metadata = {
     kind: 'execute',
   };
@@ -19,24 +17,21 @@ export const EMem = (globalConfig?: Record<string, any>): PluginInterface => {
     inputs: PluginParams[],
     config?: Record<string, any>
   ) => {
-    const mappedConfig = config && config[MAPPED_NAME];
+    const mergedConfig = Object.assign({}, globalConfig, config);
+    const validatedGlobalConfig = validateConfig(mergedConfig);
 
     return inputs.map((input: PluginParams) => {
       const inputWithConfigs: PluginParams = Object.assign(
         {},
         input,
-        mappedConfig,
-        globalConfig
+        validatedGlobalConfig
       );
-      const safeInput = Object.assign(
-        {},
-        input,
-        validateSingleInput(inputWithConfigs)
-      );
+
+      validateSingleInput(input);
 
       return {
         ...input,
-        'energy-memory': calculateEnergy(safeInput),
+        'energy-memory': calculateEnergy(inputWithConfigs),
       };
     });
   };
@@ -55,6 +50,17 @@ export const EMem = (globalConfig?: Record<string, any>): PluginInterface => {
     return totalMemory * (memoryUtil / 100) * energyPerGB;
   };
 
+  const validateConfig = (config: Record<string, any>) => {
+    const schema = z.object({
+      'energy-per-gb': z.number().gt(0),
+    });
+
+    //Manually add default value
+    config['energy-per-gb'] = config['energy-per-gb'] ?? 0.38;
+
+    return validate<z.infer<typeof schema>>(schema, config);
+  };
+
   /**
    * Checks for required fields in input.
    */
@@ -62,16 +68,12 @@ export const EMem = (globalConfig?: Record<string, any>): PluginInterface => {
     const schema = z
       .object({
         'memory/capacity': z.number().gt(0),
-        'energy-per-gb': z.number().gt(0),
         'memory/utilization': z.number().min(0).max(100),
       })
       .refine(allDefined, {
         message:
           'All metrics, including memory/utilization, memory/capacity, energy-per-gb, and mem_util-out should be present.',
       });
-
-    //Manually add default value
-    input['energy-per-gb'] = input['energy-per-gb'] ?? 0.38;
 
     return validate<z.infer<typeof schema>>(schema, input);
   };

@@ -6,7 +6,7 @@ const {InputValidationError} = ERRORS;
 
 describe('lib/e-mem: ', () => {
   describe('EMem: ', () => {
-    const eMem = EMem();
+    const eMem = EMem({});
 
     describe('init:', () => {
       it('successfully initalized.', () => {
@@ -18,7 +18,7 @@ describe('lib/e-mem: ', () => {
     });
 
     describe('execute(): ', () => {
-      it('calculate energy for each input', async () => {
+      it('calculates energy for each input.', async () => {
         const globalConfig = {'energy-per-gb': 0.002};
         const eMem = EMem(globalConfig);
 

@@ -15,6 +15,9 @@ export interface ModelPluginInterface {
   execute(inputs: ModelParams[]): Promise<ModelParams[]>;
 }
 
+/**
+ * Base interface for plugins.
+ */
 export type PluginInterface = {
   execute: (
     inputs: PluginParams[],
