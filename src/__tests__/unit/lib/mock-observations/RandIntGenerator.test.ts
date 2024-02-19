@@ -1,30 +1,28 @@
-import {ERRORS} from '../../../../util/errors';
-import {describe, expect, jest, test} from '@jest/globals';
-import RandIntGenerator from '../../../../lib/mock-observations/helpers/RandIntGenerator';
 import {KeyValuePair} from '../../../../types/common';
+
+import {ERRORS} from '../../../../util/errors';
+
+import {RandIntGenerator} from '../../../../lib/mock-observations/helpers/RandIntGenerator';
 
 const {InputValidationError} = ERRORS;
 
-jest.setTimeout(30000);
-
-describe('lib/mock-observations/RandIntGenerator', () => {
+describe('lib/mock-observations/RandIntGenerator: ', () => {
   describe('initialize', () => {
-    test('initialise with an empty name', async () => {
-      const randIntGenerator = new RandIntGenerator();
+    it('initialize with an empty name', async () => {
       try {
-        randIntGenerator.initialise('', {});
+        RandIntGenerator('', {});
       } catch (error) {
         expect(error).toEqual(
           new InputValidationError(
-            'RandIntGenerator: name is empty or all spaces.'
+            'RandIntGenerator: `name` is empty or all spaces.'
           )
         );
       }
     });
-    test('initialise with an empty config', async () => {
-      const randIntGenerator = new RandIntGenerator();
+
+    it('initialize with an empty config', async () => {
       try {
-        randIntGenerator.initialise('generator-name', {});
+        RandIntGenerator('generator-name', {});
       } catch (error) {
         expect(error).toEqual(
           new InputValidationError(
@@ -34,15 +32,16 @@ describe('lib/mock-observations/RandIntGenerator', () => {
       }
     });
   });
-  describe('next', () => {
-    test('next', async () => {
-      const randIntGenerator = new RandIntGenerator();
+
+  describe('next(): ', () => {
+    it('returns a result with valid data.', async () => {
       const config: KeyValuePair = {
         min: 10,
         max: 90,
       };
-      randIntGenerator.initialise('random', config);
+      const randIntGenerator = RandIntGenerator('random', config);
       const result = randIntGenerator.next([]) as {random: number};
+
       expect(result).toBeInstanceOf(Object);
       expect(result).toHaveProperty('random');
       expect(result.random).toBeGreaterThanOrEqual(10);

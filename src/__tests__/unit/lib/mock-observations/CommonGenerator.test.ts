@@ -1,17 +1,16 @@
-import {ERRORS} from '../../../../util/errors';
-import {describe, expect, jest, test} from '@jest/globals';
-import CommonGenerator from '../../../../lib/mock-observations/helpers/CommonGenerator';
 import {KeyValuePair} from '../../../../types/common';
+
+import {ERRORS} from '../../../../util/errors';
+
+import {CommonGenerator} from '../../../../lib/mock-observations/helpers/CommonGenerator';
 
 const {InputValidationError} = ERRORS;
 
-jest.setTimeout(30000);
-describe('lib/mock-observations/CommonGenerator', () => {
-  describe('initialize', () => {
-    test('initialise with an empty config', async () => {
-      const commonGenerator = new CommonGenerator();
+describe('lib/mock-observations/CommonGenerator: ', () => {
+  describe('initialize: ', () => {
+    it('initialize with an empty config.', async () => {
       try {
-        commonGenerator.initialise({});
+        CommonGenerator({});
       } catch (error) {
         expect(error).toEqual(
           new InputValidationError(
@@ -21,14 +20,15 @@ describe('lib/mock-observations/CommonGenerator', () => {
       }
     });
   });
-  describe('next', () => {
-    test('next', async () => {
-      const commonGenerator = new CommonGenerator();
+
+  describe('next(): ', () => {
+    it('returns a result with valid data.', async () => {
       const config: KeyValuePair = {
         key1: 'value1',
         key2: 'value2',
       };
-      commonGenerator.initialise(config);
+      const commonGenerator = CommonGenerator(config);
+
       expect(commonGenerator.next([])).toStrictEqual({
         key1: 'value1',
         key2: 'value2',
