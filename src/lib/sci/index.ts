@@ -1,7 +1,7 @@
 import {z} from 'zod';
 
 import {PluginInterface} from '../../interfaces';
-import {PluginParams} from '../../types/common';
+import {ConfigParams, PluginParams} from '../../types/common';
 
 import {validate, allDefined} from '../../util/validations';
 import {buildErrorMessage} from '../../util/helpers';
@@ -11,7 +11,7 @@ import {TIME_UNITS_IN_SECONDS} from './config';
 
 const {InputValidationError} = ERRORS;
 
-export const Sci = (globalConfig?: Record<string, any>): PluginInterface => {
+export const Sci = (globalConfig?: ConfigParams): PluginInterface => {
   const errorBuilder = buildErrorMessage(Sci.name);
   const metadata = {
     kind: 'execute',
@@ -22,7 +22,7 @@ export const Sci = (globalConfig?: Record<string, any>): PluginInterface => {
    */
   const execute = async (
     inputs: PluginParams[],
-    config?: Record<string, any>
+    config?: ConfigParams
   ): Promise<PluginParams[]> => {
     const mergedConfig = Object.assign({}, globalConfig, config);
     validateConfig(mergedConfig);
@@ -110,7 +110,7 @@ export const Sci = (globalConfig?: Record<string, any>): PluginInterface => {
   /**
    * Validates node and gloabl configs.
    */
-  const validateConfig = (config: Record<string, any>) => {
+  const validateConfig = (config: ConfigParams) => {
     const unitWarnMessage =
       'Please ensure you have provided one value and one unit and they are either space, underscore, or hyphen separated.';
 

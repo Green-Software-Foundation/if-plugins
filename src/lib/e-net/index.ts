@@ -3,19 +3,16 @@ import {z} from 'zod';
 import {validate} from '../../util/validations';
 
 import {PluginInterface} from '../../interfaces';
-import {PluginParams} from '../../types/common';
+import {ConfigParams, PluginParams} from '../../types/common';
 
-export const ENet = (globalConfig?: Record<string, any>): PluginInterface => {
+export const ENet = (globalConfig?: ConfigParams): PluginInterface => {
   const metadata = {
     kind: 'execute',
   };
   /**
    * Calculate the total emissions for a list of inputs.
    */
-  const execute = async (
-    inputs: PluginParams[],
-    config?: Record<string, any>
-  ) => {
+  const execute = async (inputs: PluginParams[], config?: ConfigParams) => {
     const mergedConfig = Object.assign({}, globalConfig, config);
     const validatedConfig = validateConfig(mergedConfig);
 
@@ -38,7 +35,7 @@ export const ENet = (globalConfig?: Record<string, any>): PluginInterface => {
   /**
    * Validates global and node config parameters.
    */
-  const validateConfig = (config: Record<string, any>) => {
+  const validateConfig = (config: ConfigParams) => {
     const schema = z.object({
       'energy-per-gb': z.number(),
     });

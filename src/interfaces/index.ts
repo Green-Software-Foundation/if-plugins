@@ -1,4 +1,4 @@
-import {PluginParams} from '../types/common';
+import {ConfigParams, PluginParams} from '../types/common';
 
 /**
  * Base interface for plugins.
@@ -6,7 +6,7 @@ import {PluginParams} from '../types/common';
 export type PluginInterface = {
   execute: (
     inputs: PluginParams[],
-    config?: Record<string, any>
+    config?: ConfigParams
   ) => Promise<PluginParams[]>;
   metadata: {
     kind: string;

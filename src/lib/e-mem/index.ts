@@ -1,11 +1,11 @@
 import {z} from 'zod';
 
 import {PluginInterface} from '../../interfaces';
-import {PluginParams} from '../../types/common';
+import {ConfigParams, PluginParams} from '../../types/common';
 
 import {validate, allDefined} from '../../util/validations';
 
-export const EMem = (globalConfig: Record<string, any>): PluginInterface => {
+export const EMem = (globalConfig: ConfigParams): PluginInterface => {
   const metadata = {
     kind: 'execute',
   };
@@ -13,10 +13,7 @@ export const EMem = (globalConfig: Record<string, any>): PluginInterface => {
   /**
    * Calculate the total emissions for a list of inputs.
    */
-  const execute = async (
-    inputs: PluginParams[],
-    config?: Record<string, any>
-  ) => {
+  const execute = async (inputs: PluginParams[], config?: ConfigParams) => {
     const mergedConfig = Object.assign({}, globalConfig, config);
     const validatedGlobalConfig = validateConfig(mergedConfig);
 
@@ -50,7 +47,7 @@ export const EMem = (globalConfig: Record<string, any>): PluginInterface => {
     return totalMemory * (memoryUtil / 100) * energyPerGB;
   };
 
-  const validateConfig = (config: Record<string, any>) => {
+  const validateConfig = (config: ConfigParams) => {
     const schema = z.object({
       'energy-per-gb': z.number().gt(0),
     });

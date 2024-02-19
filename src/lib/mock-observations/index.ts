@@ -4,7 +4,7 @@ import {buildErrorMessage} from '../../util/helpers';
 import {ERRORS} from '../../util/errors';
 
 import {PluginInterface} from '../../interfaces';
-import {KeyValuePair, PluginParams} from '../../types/common';
+import {ConfigParams, KeyValuePair, PluginParams} from '../../types/common';
 
 import {CommonGenerator} from './helpers/CommonGenerator';
 import {RandIntGenerator} from './helpers/RandIntGenerator';
@@ -14,7 +14,7 @@ import {ObservationParams} from './types';
 const {InputValidationError} = ERRORS;
 
 export const MockObservations = (
-  globalConfig: Record<string, any>
+  globalConfig: ConfigParams
 ): PluginInterface => {
   const errorBuilder = buildErrorMessage('MockObservations');
   const metadata = {

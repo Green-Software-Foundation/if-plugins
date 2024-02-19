@@ -3,14 +3,14 @@ import {loadAll, dump} from 'js-yaml';
 import {z} from 'zod';
 
 import {PluginInterface} from '../../interfaces';
-import {PluginParams} from '../../types/common';
+import {ConfigParams, PluginParams} from '../../types/common';
 
 import {validate} from '../../util/validations';
 import {ERRORS} from '../../util/errors';
 
 const {InputValidationError} = ERRORS;
 
-export const Shell = (globalConfig: Record<string, any>): PluginInterface => {
+export const Shell = (globalConfig: ConfigParams): PluginInterface => {
   const metadata = {
     kind: 'execute',
   };
@@ -20,7 +20,7 @@ export const Shell = (globalConfig: Record<string, any>): PluginInterface => {
    */
   const execute = async (
     inputs: PluginParams[],
-    config?: Record<string, any>
+    config?: ConfigParams
   ): Promise<any[]> => {
     const inputWithConfig: PluginParams = Object.assign(
       {},

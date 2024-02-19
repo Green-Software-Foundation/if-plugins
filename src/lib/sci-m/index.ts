@@ -1,7 +1,7 @@
 import {z} from 'zod';
 
 import {PluginInterface} from '../../interfaces';
-import {PluginParams} from '../../types/common';
+import {ConfigParams, PluginParams} from '../../types/common';
 
 import {validate, allDefined} from '../../util/validations';
 import {buildErrorMessage} from '../../util/helpers';
@@ -28,7 +28,7 @@ export const SciM = (): PluginInterface => {
    */
   const execute = async (
     inputs: PluginParams[],
-    config?: Record<string, any>
+    config?: ConfigParams
   ): Promise<PluginParams[]> => {
     return inputs.map(input => {
       const inputWithConfig: PluginParams = Object.assign({}, input, config);
