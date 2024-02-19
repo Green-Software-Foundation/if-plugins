@@ -6,40 +6,35 @@ import {Generator} from '../interfaces';
 
 const {InputValidationError} = ERRORS;
 
-class CommonGenerator implements Generator {
-  private commonKeyValuePairs!: KeyValuePair;
-  private errorBuilder = buildErrorMessage('CommonGenerator');
-
-  initialise(config: KeyValuePair): void {
-    this.commonKeyValuePairs = this.validateConfig(config);
-  }
-
-  /**
-   * Generates next value by copying the validated config.
-   */
-  next(_historical: Object[]): Object {
-    return Object.assign({}, this.commonKeyValuePairs);
-  }
+export const CommonGenerator = (config: KeyValuePair): Generator => {
+  const errorBuilder = buildErrorMessage(CommonGenerator.name);
 
   /**
    * Creates new copy of the given `object`.
    */
-  private copyObject<T>(object: T): T {
-    return Object.assign({}, object);
-  }
+  const copyObject = <T>(object: T): T => ({...object});
 
   /**
-   * validate the provided config is not null or empty.
+   * Validates the provided config is not null or empty.
    * returns a copy of the validated config, otherwise throws an InputValidationError.
    */
-  private validateConfig<T>(config: T): T {
+  const validateConfig = (config: object) => {
     if (!config || Object.keys(config).length === 0) {
       throw new InputValidationError(
-        this.errorBuilder({message: 'Config must not be null or empty'})
+        errorBuilder({message: 'Config must not be null or empty'})
       );
     }
-    return this.copyObject<T>(config);
-  }
-}
 
-export default CommonGenerator;
+    return copyObject(config);
+  };
+
+  /**
+   * Generates next value by copying the validated config.
+   */
+  const next = (_historical: Object[] | undefined): Object =>
+    copyObject(validateConfig(config));
+
+  return {
+    next,
+  };
+};

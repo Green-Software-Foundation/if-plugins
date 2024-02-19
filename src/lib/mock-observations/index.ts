@@ -1,172 +1,178 @@
-import {ERRORS} from '../../util/errors';
-import {buildErrorMessage} from '../../util/helpers';
-import {KeyValuePair, ModelParams} from '../../types/common';
-import {ModelPluginInterface} from '../../interfaces';
 import * as dayjs from 'dayjs';
-import CommonGenerator from './helpers/CommonGenerator';
-import RandIntGenerator from './helpers/RandIntGenerator';
+
+import {buildErrorMessage} from '../../util/helpers';
+import {ERRORS} from '../../util/errors';
+
+import {PluginInterface} from '../../interfaces';
+import {KeyValuePair, PluginParams} from '../../types/common';
+
+import {CommonGenerator} from './helpers/CommonGenerator';
+import {RandIntGenerator} from './helpers/RandIntGenerator';
 import {Generator} from './interfaces/index';
+import {ObservationParams} from './types';
+
 const {InputValidationError} = ERRORS;
 
-export class MockObservations implements ModelPluginInterface {
-  private errorBuilder = buildErrorMessage('MockObservations');
-  private duration = 0;
-  private timeBuckets: dayjs.Dayjs[] = [];
-  private components: KeyValuePair = {};
-  private generators: Generator[] = [];
+export const MockObservations = (
+  globalConfig: Record<string, any>
+): PluginInterface => {
+  const errorBuilder = buildErrorMessage('MockObservations');
+  const metadata = {
+    kind: 'execute',
+  };
 
   /**
    * Generate sets of mocked observations based on config
    * @param {Object[]} _inputs required per convention, ignored (does not effect the generated mocked observations)
    */
-  async execute(_inputs: ModelParams[]): Promise<any[]> {
-    const observations: ModelParams[] = [];
+  const execute = async (_inputs: PluginParams[]): Promise<any[]> => {
+    const {duration, timeBuckets, components, generators} =
+      await generateParamsFromConfig();
     const generatorToHistory = new Map<Generator, number[]>();
-    this.generators.forEach(generator => {
+
+    generators.forEach(generator => {
       generatorToHistory.set(generator, []);
     });
-    for (const componentKey in this.components) {
-      if (Object.prototype.hasOwnProperty.call(this.components, componentKey)) {
-        const component = this.components[componentKey];
-        for (const timeBucket of this.timeBuckets) {
-          const observation = this.createObservation(
-            component,
-            timeBucket,
+
+    return Object.entries(components).reduce(
+      (acc: PluginParams[], [_key, component]) => {
+        timeBuckets.forEach(timeBucket => {
+          const observation = createObservation(
+            {duration, component, timeBucket, generators},
             generatorToHistory
           );
-          observations.push(observation);
-        }
-      }
-    }
-    return observations;
-  }
+
+          acc.push(observation);
+        });
+
+        return acc;
+      },
+      []
+    );
+  };
 
   /**
    * Configures the MockObservations Plugin for IF
-   * @param {Object} staticParams static parameters
-   * @param {string} staticParams.timestamp-from ISO 8601 timestamp string
-   * @param {string} staticParams.timestamp-to ISO 8601 timestamp string
-   * @param {number} staticParams.duration duration in sec of a single mocked observation
-   * @param {KeyValuePair} staticParams.components components for which the generate sets of mocked observations
-   * @param {Generator[]} staticParams.genreators list of generator configs by which to generate sets of mocked observations
    */
-  async configure(
-    staticParams: object | undefined
-  ): Promise<ModelPluginInterface> {
-    if (staticParams === undefined) {
-      throw new InputValidationError(
-        this.errorBuilder({message: 'Input data is missing'})
-      );
-    }
+  const generateParamsFromConfig = async () => {
     const timestampFrom: dayjs.Dayjs = dayjs(
-      this.getValidatedParam(
-        'timestamp-from',
-        staticParams
-      ) as unknown as string
+      <string>getValidatedParam('timestamp-from', globalConfig)
     );
     const timestampTo: dayjs.Dayjs = dayjs(
-      this.getValidatedParam('timestamp-to', staticParams) as unknown as string
+      <string>getValidatedParam('timestamp-to', globalConfig)
     );
-    this.duration = this.getValidatedParam(
-      'duration',
-      staticParams
-    ) as unknown as number;
-    this.timeBuckets = this.createTimeBuckets(
-      timestampFrom,
-      timestampTo,
-      this.duration
-    );
-    this.components = this.getValidatedParam(
-      'components',
-      staticParams
-    ) as KeyValuePair;
-    this.generators = this.createGenerators(
-      this.getValidatedParam('generators', staticParams)
-    );
-    return this;
-  }
+    const duration = <number>getValidatedParam('duration', globalConfig);
+
+    return {
+      duration,
+      timeBuckets: createTimeBuckets(timestampFrom, timestampTo, duration),
+      components: getValidatedParam('components', globalConfig) as KeyValuePair,
+      generators: createGenerators(
+        getValidatedParam('generators', globalConfig)
+      ),
+    };
+  };
 
   /*
    * validate a parameter is included in a given parameters map.
    * return the validated param value, otherwise throw an InputValidationError.
    */
-  private getValidatedParam(
+  const getValidatedParam = <T>(
     paramName: string,
     params: {[key: string]: any}
-  ): object {
-    if (paramName in params) {
-      return params[paramName];
-    } else {
+  ): T => {
+    if (!(paramName in params)) {
       throw new InputValidationError(
-        this.errorBuilder({message: paramName + ' missing from params'})
+        errorBuilder({message: `${paramName} missing from global config`})
       );
     }
-  }
+
+    return params[paramName];
+  };
 
   /*
    * create time buckets based on start time, end time and duration of each bucket.
    */
-  private createTimeBuckets(
+  const createTimeBuckets = (
     timestampFrom: dayjs.Dayjs,
     timestampTo: dayjs.Dayjs,
-    duration: number
-  ): dayjs.Dayjs[] {
-    const timeBuckets: dayjs.Dayjs[] = [];
-    let currTimestamp: dayjs.Dayjs = timestampFrom;
-    while (
-      currTimestamp.isBefore(timestampTo) ||
-      currTimestamp.isSame(timestampTo, 'second')
+    duration: number,
+    timeBuckets: dayjs.Dayjs[] = []
+  ): dayjs.Dayjs[] => {
+    if (
+      timestampFrom.isBefore(timestampTo) ||
+      timestampFrom.isSame(timestampTo, 'second')
     ) {
-      timeBuckets.push(currTimestamp);
-      currTimestamp = currTimestamp.add(duration, 'second');
+      return createTimeBuckets(
+        timestampFrom.add(duration, 'second'),
+        timestampTo,
+        duration,
+        [...timeBuckets, timestampFrom]
+      );
     }
     return timeBuckets;
-  }
+  };
 
   /*
    * create generators based on a given config
    */
-  private createGenerators(generatorsConfig: object): Generator[] {
-    const generators: Generator[] = [];
-    Object.entries(generatorsConfig).forEach(([key, value]) => {
-      if ('common' === key) {
-        const commonGenerator = new CommonGenerator();
-        commonGenerator.initialise(value);
-        generators.push(commonGenerator);
+  const createGenerators = (generatorsConfig: object): Generator[] => {
+    const createCommonGenerator = (config: any): Generator[] => [
+      CommonGenerator(config),
+    ];
+
+    const createRandIntGenerators = (config: any): Generator[] => {
+      return Object.entries(config).map(([fieldToPopulate, value]) =>
+        RandIntGenerator(fieldToPopulate, value as KeyValuePair)
+      );
+    };
+
+    return Object.entries(generatorsConfig).flatMap(([key, value]) => {
+      if (key === 'common') {
+        return createCommonGenerator(value);
+      } else if (key === 'randint') {
+        return createRandIntGenerators(value).flat();
       }
-      if ('randint' === key) {
-        for (const fieldToPopulate in value) {
-          const randIntGenerator = new RandIntGenerator();
-          randIntGenerator.initialise(fieldToPopulate, value[fieldToPopulate]);
-          generators.push(randIntGenerator);
-        }
-      }
+      return [];
     });
-    return generators;
-  }
+  };
 
   /*
-   * create time buckets based on start time, end time and duration of each bucket.
+   * Creates time buckets based on start time, end time and duration of each bucket.
    */
-  private createObservation(
-    component: Record<string, string>,
-    timeBucket: dayjs.Dayjs,
+  const createObservation = (
+    observationParams: ObservationParams,
     generatorToHistory: Map<Generator, number[]>
-  ): ModelParams {
-    const observation: ModelParams = {
-      timestamp: timeBucket.format('YYYY-MM-DD HH:mm:ss'),
-      duration: this.duration,
-    };
-    Object.assign(observation, component);
-    for (const generator of this.generators) {
-      const generated: Record<string, any> = generator.next(
-        generatorToHistory.get(generator)
-      );
-      generatorToHistory.get(generator)?.push(generated.value);
-      Object.assign(observation, generated);
-    }
-    return observation;
-  }
-}
+  ): PluginParams => {
+    const {duration, component, timeBucket, generators} = observationParams;
+    const timestamp = timeBucket.format('YYYY-MM-DD HH:mm:ss');
 
-export default MockObservations;
+    const generateObservation = (generator: Generator) => {
+      const history = generatorToHistory.get(generator) || [];
+      const generated: Record<string, any> = generator.next(history);
+
+      generatorToHistory.set(generator, [...history, generated.value]);
+
+      return generated;
+    };
+
+    const generateObservations = (gen: Generator) => generateObservation(gen);
+    const generatedValues = generators.map(generateObservations);
+    const initialObservation: PluginParams = {
+      timestamp,
+      duration,
+      ...component,
+    };
+    const generatedObservation = generatedValues.reduce(
+      (observation, generated) => Object.assign(observation, generated),
+      initialObservation
+    );
+
+    return generatedObservation as PluginParams;
+  };
+
+  return {
+    metadata,
+    execute,
+  };
+};
