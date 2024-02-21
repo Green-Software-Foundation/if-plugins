@@ -7,8 +7,8 @@ const {InputValidationError} = ERRORS;
 describe('lib/multiply: ', () => {
   describe('Multiply: ', () => {
     const globalConfig = {
-      inputParameters: ['cpu/energy', 'network/energy', 'memory/energy'],
-      outputParameter: 'energy',
+      'input-parameters': ['cpu/energy', 'network/energy', 'memory/energy'],
+      'output-parameter': 'energy',
     };
     const multiply = Multiply(globalConfig);
 
@@ -70,8 +70,8 @@ describe('lib/multiply: ', () => {
       it('returns a result with input params not related to energy.', async () => {
         expect.assertions(1);
         const newConfig = {
-          inputParameters: ['carbon', 'other-carbon'],
-          outputParameter: 'carbon-product',
+          'input-parameters': ['carbon', 'other-carbon'],
+          'output-parameter': 'carbon-product',
         };
         const multiply = Multiply(newConfig);
 

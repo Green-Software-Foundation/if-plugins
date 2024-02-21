@@ -1,4 +1,4 @@
 export type MultiplyConfig = {
-  inputParameters: string[];
-  outputParameter: string;
+  'input-parameters': string[];
+  'output-parameter': string;
 };

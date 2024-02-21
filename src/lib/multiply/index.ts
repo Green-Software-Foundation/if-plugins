@@ -7,8 +7,8 @@ const {InputValidationError} = ERRORS;
 
 export const Multiply = (globalConfig: MultiplyConfig): PluginInterface => {
   const errorBuilder = buildErrorMessage(Multiply.name);
-  const inputParameters = globalConfig.inputParameters || [];
-  const outputParameter = globalConfig.outputParameter;
+  const inputParameters = globalConfig['input-parameters'] || [];
+  const outputParameter = globalConfig['output-parameter'];
   const metadata = {
     kind: 'execute',
   };
@@ -45,7 +45,7 @@ export const Multiply = (globalConfig: MultiplyConfig): PluginInterface => {
    */
   const validateSingleInput = (input: PluginParams) => {
     inputParameters.forEach(metricToMultiply => {
-      if (!Object.getOwnPropertyDescriptor(input, metricToMultiply)) {
+      if (!input[metricToMultiply]) {
         throw new InputValidationError(
           errorBuilder({
             message: `${metricToMultiply} is missing from the input array`,
@@ -63,22 +63,18 @@ export const Multiply = (globalConfig: MultiplyConfig): PluginInterface => {
     validateGlobalConfig();
     inputs.map(input => {
       const safeInput = validateSingleInput(input);
-      return calculateProduct(safeInput, inputParameters, outputParameter);
+      return calculateProduct(safeInput);
     });
     return inputs;
   };
 
   /**
-   * Calculates the sum of the energy components.
+   * Calculates the product of the energy components.
    */
-  const calculateProduct = (
-    input: PluginParams,
-    inputParameters: string[],
-    outputParameter: string
-  ) => {
+  const calculateProduct = (input: PluginParams) => {
     input[outputParameter] = inputParameters.reduce(
-      (accumulator, metricToSum) => {
-        return accumulator * input[metricToSum];
+      (accumulator, metricToMultiply) => {
+        return accumulator * input[metricToMultiply];
       },
       1
     );
