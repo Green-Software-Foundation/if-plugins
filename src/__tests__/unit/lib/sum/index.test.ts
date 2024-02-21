@@ -1,8 +1,8 @@
-import { Sum } from '../../../../lib';
+import {Sum} from '../../../../lib';
 
-import { ERRORS } from '../../../../util/errors';
+import {ERRORS} from '../../../../util/errors';
 
-const { InputValidationError } = ERRORS;
+const {InputValidationError} = ERRORS;
 
 describe('lib/sum: ', () => {
   describe('Sum: ', () => {
@@ -69,15 +69,18 @@ describe('lib/sum: ', () => {
 
       it('returns a result with input params not related to energy.', async () => {
         expect.assertions(1);
-        const newConfig = { inputParameters: ['carbon', 'other-carbon'], outputParameter: 'carbon-sum' }
+        const newConfig = {
+          inputParameters: ['carbon', 'other-carbon'],
+          outputParameter: 'carbon-sum',
+        };
         const sum = Sum(newConfig);
 
         const data = [
           {
             duration: 3600,
             timestamp: '2021-01-01T00:00:00Z',
-            'carbon': 1,
-            'other-carbon': 2
+            carbon: 1,
+            'other-carbon': 2,
           },
         ];
         const response = await sum.execute(data);
@@ -85,7 +88,7 @@ describe('lib/sum: ', () => {
         const expectedResult = [
           {
             duration: 3600,
-            'carbon': 1,
+            carbon: 1,
             'other-carbon': 2,
             'carbon-sum': 3,
             timestamp: '2021-01-01T00:00:00Z',

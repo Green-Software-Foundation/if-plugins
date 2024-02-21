@@ -1,19 +1,36 @@
-import { PluginInterface } from '../../interfaces';
-import { PluginParams } from '../../types/common';
-
+import {PluginInterface} from '../../interfaces';
+import {PluginParams} from '../../types/common';
+import {buildErrorMessage} from '../../util/helpers';
+import {ERRORS} from '../../util/errors';
+const {InputValidationError} = ERRORS;
 
 type sumConfig = {
-  inputParameters: string[],
-  outputParameter: string
-}
-
+  inputParameters: string[];
+  outputParameter: string;
+};
 
 export const Sum = (globalConfig: sumConfig): PluginInterface => {
-
+  const errorBuilder = buildErrorMessage(Sum.name);
   const inputParameters = globalConfig.inputParameters;
-  const outputParameter = globalConfig.outputParameter
+  const outputParameter = globalConfig.outputParameter;
   const metadata = {
     kind: 'execute',
+  };
+
+  /**
+   * Checks for required fields in input.
+   */
+  const validateSingleInput = (input: PluginParams) => {
+    inputParameters.forEach(metricToSum => {
+      if (!Object.getOwnPropertyDescriptor(input, metricToSum)) {
+        throw new InputValidationError(
+          errorBuilder({
+            message: `${metricToSum} is missing from the input array`,
+          })
+        );
+      }
+    });
+    return input;
   };
 
   /**
@@ -21,24 +38,25 @@ export const Sum = (globalConfig: sumConfig): PluginInterface => {
    */
   const execute = async (inputs: PluginParams[]): Promise<PluginParams[]> => {
     inputs.map(input => {
-      return calculateSum(input, inputParameters, outputParameter)
-    }
-    );
-    return inputs
+      const safeInput = validateSingleInput(input);
+      return calculateSum(safeInput, inputParameters, outputParameter);
+    });
+    return inputs;
   };
-
 
   /**
    * Calculates the sum of the energy components.
    */
-  const calculateSum = (input: PluginParams, inputParameters: string[], outputParameter: string) => {
-
-    var sum = 0;
+  const calculateSum = (
+    input: PluginParams,
+    inputParameters: string[],
+    outputParameter: string
+  ) => {
+    let sum = 0;
     inputParameters.forEach(metricToSum => {
-      sum += input[metricToSum]
-    })
-    return input[outputParameter] = sum
-
+      sum += input[metricToSum];
+    });
+    return (input[outputParameter] = sum);
   };
 
   return {
