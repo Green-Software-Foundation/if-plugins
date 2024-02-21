@@ -8,8 +8,8 @@ const {InputValidationError} = ERRORS;
 
 export const Sum = (globalConfig: SumConfig): PluginInterface => {
   const errorBuilder = buildErrorMessage(Sum.name);
-  const inputParameters = globalConfig.inputParameters || [];
-  const outputParameter = globalConfig.outputParameter;
+  const inputParameters = globalConfig['input-parameters'] || [];
+  const outputParameter = globalConfig['output-parameter'];
   const metadata = {
     kind: 'execute',
   };

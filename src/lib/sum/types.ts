@@ -1,4 +1,4 @@
 export type SumConfig = {
-  inputParameters: string[];
-  outputParameter: string;
+  'input-parameters': string[];
+  'output-parameter': string;
 };
