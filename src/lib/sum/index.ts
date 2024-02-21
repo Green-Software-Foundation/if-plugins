@@ -1,8 +1,8 @@
-import {PluginInterface} from '../../interfaces';
-import {PluginParams} from '../../types/common';
-import {buildErrorMessage} from '../../util/helpers';
-import {ERRORS} from '../../util/errors';
-const {InputValidationError} = ERRORS;
+import { PluginInterface } from '../../interfaces';
+import { PluginParams } from '../../types/common';
+import { buildErrorMessage } from '../../util/helpers';
+import { ERRORS } from '../../util/errors';
+const { InputValidationError } = ERRORS;
 
 type sumConfig = {
   inputParameters: string[];
@@ -22,7 +22,7 @@ export const Sum = (globalConfig: sumConfig): PluginInterface => {
    */
   const validateSingleInput = (input: PluginParams) => {
     inputParameters.forEach(metricToSum => {
-      if (!Object.getOwnPropertyDescriptor(input, metricToSum)) {
+      if (!input[metricToSum]) {
         throw new InputValidationError(
           errorBuilder({
             message: `${metricToSum} is missing from the input array`,
@@ -52,12 +52,11 @@ export const Sum = (globalConfig: sumConfig): PluginInterface => {
     inputParameters: string[],
     outputParameter: string
   ) => {
-    let sum = 0;
-    inputParameters.forEach(metricToSum => {
-      sum += input[metricToSum];
-    });
-    return (input[outputParameter] = sum);
-  };
+
+    input[outputParameter] = inputParameters.reduce((accumulator, metricToSum) => {
+      return accumulator + input[metricToSum];
+    }, 0);
+  }
 
   return {
     metadata,
