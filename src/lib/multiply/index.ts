@@ -2,19 +2,45 @@ import {PluginInterface} from '../../interfaces';
 import {PluginParams} from '../../types/common';
 import {buildErrorMessage} from '../../util/helpers';
 import {ERRORS} from '../../util/errors';
+import {MultiplyConfig} from '../../types/multiply';
 const {InputValidationError} = ERRORS;
-
-type MultiplyConfig = {
-  inputParameters: string[];
-  outputParameter: string;
-};
 
 export const Multiply = (globalConfig: MultiplyConfig): PluginInterface => {
   const errorBuilder = buildErrorMessage(Multiply.name);
-  const inputParameters = globalConfig.inputParameters;
+  const inputParameters = globalConfig.inputParameters || [];
   const outputParameter = globalConfig.outputParameter;
   const metadata = {
     kind: 'execute',
+  };
+
+  /**Checks global confiog value are valid */
+  const validateInputs = (
+    inputParameters: string[],
+    outputParameter: string
+  ) => {
+    if (inputParameters.length === 0) {
+      throw new InputValidationError(
+        errorBuilder({
+          message: 'No input parameters were provided in global config.',
+        })
+      );
+    }
+    if (inputParameters.length === 1) {
+      throw new InputValidationError(
+        errorBuilder({
+          message:
+            'Only one input parameter was provided in global config. Cannot calculate sum of one number.',
+        })
+      );
+    }
+    if (!outputParameter || outputParameter === '') {
+      throw new InputValidationError(
+        errorBuilder({
+          message:
+            'The output parameter name was missing. Please provide one in global config',
+        })
+      );
+    }
   };
 
   /**
@@ -34,9 +60,10 @@ export const Multiply = (globalConfig: MultiplyConfig): PluginInterface => {
   };
 
   /**
-   * Calculate the sum of each .
+   * Calculate the product of each input parameter.
    */
   const execute = async (inputs: PluginParams[]): Promise<PluginParams[]> => {
+    validateInputs(inputParameters, outputParameter);
     inputs.map(input => {
       const safeInput = validateSingleInput(input);
       return calculateProduct(safeInput, inputParameters, outputParameter);
@@ -52,12 +79,12 @@ export const Multiply = (globalConfig: MultiplyConfig): PluginInterface => {
     inputParameters: string[],
     outputParameter: string
   ) => {
-    // in first iteration, 1 * metric == metric.
-    let product = 1;
-    inputParameters.forEach(metricToSum => {
-      product = product * input[metricToSum];
-    });
-    return (input[outputParameter] = product);
+    input[outputParameter] = inputParameters.reduce(
+      (accumulator, metricToSum) => {
+        return accumulator * input[metricToSum];
+      },
+      1
+    );
   };
 
   return {
