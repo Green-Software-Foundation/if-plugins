@@ -14,10 +14,7 @@ export const Sum = (globalConfig: SumConfig): PluginInterface => {
     kind: 'execute',
   };
 
-  const validateInputs = (
-    inputParameters: string[],
-    outputParameter: string
-  ) => {
+  const validateGlobalConfig = () => {
     if (inputParameters.length === 0) {
       throw new InputValidationError(
         errorBuilder({
@@ -62,7 +59,7 @@ export const Sum = (globalConfig: SumConfig): PluginInterface => {
    * Calculate the sum of each .
    */
   const execute = async (inputs: PluginParams[]): Promise<PluginParams[]> => {
-    validateInputs(inputParameters, outputParameter);
+    validateGlobalConfig();
     inputs.map(input => {
       const safeInput = validateSingleInput(input);
       return calculateSum(safeInput, inputParameters, outputParameter);

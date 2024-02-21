@@ -39,11 +39,11 @@ output = input0 + input1 + input2 ... inputN
 To run the plugin, you must first create an instance of `Sum`. Then, you can call `execute()`.
 
 ```typescript
-import {Sum} from '@gsf/if-plugins';
+import {Sum} from '@grnsft/if-plugins';
 
 const config = {inputParameters: ['cpu/energy', 'network/energy'], outputParameter: 'energy'}
 
-const sum = Sum();
+const sum = Sum(config);
 const result = sciE.execute([
   {
     duration: 3600,
