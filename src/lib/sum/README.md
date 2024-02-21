@@ -70,7 +70,7 @@ initialize:
       global-config:
         input-parameters: ['cpu/energy', 'network/energy']
         output-parameter: 'energy'
-graph:
+tree:
   children:
     child:
       pipeline:
