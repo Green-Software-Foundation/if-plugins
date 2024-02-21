@@ -14,10 +14,7 @@ export const Multiply = (globalConfig: MultiplyConfig): PluginInterface => {
   };
 
   /**Checks global confiog value are valid */
-  const validateInputs = (
-    inputParameters: string[],
-    outputParameter: string
-  ) => {
+  const validateGlobalConfig = () => {
     if (inputParameters.length === 0) {
       throw new InputValidationError(
         errorBuilder({
@@ -63,7 +60,7 @@ export const Multiply = (globalConfig: MultiplyConfig): PluginInterface => {
    * Calculate the product of each input parameter.
    */
   const execute = async (inputs: PluginParams[]): Promise<PluginParams[]> => {
-    validateInputs(inputParameters, outputParameter);
+    validateGlobalConfig();
     inputs.map(input => {
       const safeInput = validateSingleInput(input);
       return calculateProduct(safeInput, inputParameters, outputParameter);
