@@ -59,18 +59,18 @@ const result = mult.execute([
 IF users will typically call the plugin as part of a pipeline defined in a manifest file. In this case, instantiating the plugin is handled by `if` and does not have to be done explicitly by the user. The following is an example manifest that calls `multiply`:
 
 ```yaml
-name: sci-e-demo
+name: multiply-demo
 description:
 tags:
 initialize:
   plugins:
-    - multiply
+    multiply:
       function: Multiply
       path: '@grnsft/if-plugins'
       global-config:
         input-parameters: ['cpu/energy', 'network/energy']
         output-parameter: 'energy-product'
-graph:
+tree:
   children:
     child:
       pipeline:
