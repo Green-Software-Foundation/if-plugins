@@ -9,3 +9,4 @@ export {Shell} from './shell';
 export {TdpFinder} from './tdp-finder';
 export {MockObservations} from './mock-observations';
 export {CsvExport} from './csv-export';
+export {Multiply} from './multiply';
