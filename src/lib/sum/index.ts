@@ -2,7 +2,7 @@ import {PluginInterface} from '../../interfaces';
 import {PluginParams} from '../../types/common';
 import {buildErrorMessage} from '../../util/helpers';
 import {ERRORS} from '../../util/errors';
-import {SumConfig} from '../../types/sum';
+import {SumConfig} from './types';
 
 const {InputValidationError} = ERRORS;
 

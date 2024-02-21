@@ -44,7 +44,7 @@ import {Sum} from '@grnsft/if-plugins';
 const config = {inputParameters: ['cpu/energy', 'network/energy'], outputParameter: 'energy'}
 
 const sum = Sum(config);
-const result = sciE.execute([
+const result = sum.execute([
   {
     duration: 3600,
     timestamp: '2021-01-01T00:00:00Z',
