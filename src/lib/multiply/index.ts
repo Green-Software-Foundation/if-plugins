@@ -2,7 +2,7 @@ import {PluginInterface} from '../../interfaces';
 import {PluginParams} from '../../types/common';
 import {buildErrorMessage} from '../../util/helpers';
 import {ERRORS} from '../../util/errors';
-import {MultiplyConfig} from '../../types/multiply';
+import {MultiplyConfig} from './types';
 const {InputValidationError} = ERRORS;
 
 export const Multiply = (globalConfig: MultiplyConfig): PluginInterface => {
