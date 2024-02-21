@@ -39,11 +39,11 @@ output = input0 * input1 * input2 ... inputN
 To run the plugin, you must first create an instance of `Multiply`. Then, you can call `execute()`.
 
 ```typescript
-import {Multiply} from '@gsf/if-plugins';
+import {Multiply} from '@grnsft/if-plugins';
 
 const config = {inputParameters: ['cpu/energy', 'network/energy'], outputParameter: 'energy-product'}
 
-const mult = Multiply();
+const mult = Multiply(config);
 const result = mult.execute([
   {
     duration: 3600,
