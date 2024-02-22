@@ -1,7 +1,7 @@
 {
   "name": "@grnsft/if-models",
   "description": "Impact Framework Standard Models",
-  "version": "v0.1.5",
+  "version": "v0.1.6-beta",
   "author": {
     "name": "Green Software Foundation",
     "email": "info@gsf.com"
