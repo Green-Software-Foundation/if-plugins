@@ -18,15 +18,11 @@ export const Shell = (globalConfig: ConfigParams): PluginInterface => {
   /**
    * Calculate the total emissions for a list of inputs.
    */
-  const execute = async (
-    inputs: PluginParams[],
-    config?: ConfigParams
-  ): Promise<any[]> => {
+  const execute = async (inputs: PluginParams[]): Promise<any[]> => {
     const inputWithConfig: PluginParams = Object.assign(
       {},
       inputs[0],
-      globalConfig,
-      config
+      globalConfig
     );
     const command = validateSingleInput(inputWithConfig).command;
     const inputAsString: string = dump(inputs, {indent: 2});
@@ -48,8 +44,8 @@ export const Shell = (globalConfig: ConfigParams): PluginInterface => {
 
   /**
    * Runs the model in a shell. Spawns a child process to run an external IMP,
-   * an executable with a CLI exposing two methods: `--execute` and `--impl`.
-   * The shell command then calls the `--command` method passing var impl as the path to the desired impl file.
+   * an executable with a CLI exposing two methods: `--execute` and `--manifest`.
+   * The shell command then calls the `--command` method passing var manifest as the path to the desired manifest file.
    */
   const runModelInShell = (input: string, command: string) => {
     try {
