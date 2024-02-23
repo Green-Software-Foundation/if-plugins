@@ -39,8 +39,8 @@ export const TdpFinder = (): PluginInterface => {
           );
         }
 
-        safeInput['thermal-design-power'] = Math.max(
-          safeInput['thermal-design-power'] ?? 0,
+        safeInput['cpu/thermal-design-power'] = Math.max(
+          safeInput['cpu/thermal-design-power'] ?? 0,
           data[processor]
         );
       }

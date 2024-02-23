@@ -34,7 +34,7 @@ describe('lib/tdp-finder:', () => {
             timestamp: '2023-11-02T10:35:31.820Z',
             duration: 3600,
             'physical-processor': 'AMD 3020e',
-            'thermal-design-power': 6.0,
+            'cpu/thermal-design-power': 6.0,
           },
         ]);
       });
@@ -57,7 +57,7 @@ describe('lib/tdp-finder:', () => {
             timestamp: '2023-11-02T10:35:31.820Z',
             duration: 3600,
             'physical-processor': 'Intel Xeon Platinum 8175M, AMD A8-9600',
-            'thermal-design-power': 240.0,
+            'cpu/thermal-design-power': 240.0,
           },
         ]);
       });
