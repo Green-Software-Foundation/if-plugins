@@ -39,7 +39,7 @@ describe('lib/cloud-instance-metadata:', () => {
             'vcpus-allocated': 2,
             'vcpus-total': 96,
             'memory-available': 8,
-            'thermal-design-power': 210,
+            'cpu/thermal-design-power': 210,
           },
         ]);
       });
@@ -68,7 +68,7 @@ describe('lib/cloud-instance-metadata:', () => {
             'vcpus-allocated': 24,
             'vcpus-total': 28,
             'memory-available': 448,
-            'thermal-design-power': 135,
+            'cpu/thermal-design-power': 135,
           },
         ]);
       });

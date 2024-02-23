@@ -41,7 +41,7 @@ export const CloudInstanceMetadata = (): PluginInterface => {
         safeInput['vcpus-total'] = parseInt(instance['cpu-cores-available']);
         safeInput['memory-available'] = parseInt(instance['memory-available']);
         safeInput['physical-processor'] = instance['cpu-model-name'];
-        safeInput['thermal-design-power'] = parseFloat(instance['cpu-tdp']);
+        safeInput['cpu/thermal-design-power'] = parseFloat(instance['cpu-tdp']);
       } else {
         throw new UnsupportedValueError(
           errorBuilder({
