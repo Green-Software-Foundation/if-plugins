@@ -25,13 +25,13 @@ An array containing:
 
 ## IEF Implementation
 
-IEF implements this plugin using data from Cloud Carbon Footprint. This allows determination of cpu for type of instance in a cloud and can be invoked as part of a plugin pipeline defined in an `impl`.
+IEF implements this plugin using data from Cloud Carbon Footprint. This allows determination of cpu for type of instance in a cloud and can be invoked as part of a plugin pipeline defined in a `manifest`.
 
 Cloud Instance Metadata currently implements only for 'AWS'.
 
 ## Usage
 
-In IEF, the plugin is called from an `impl`. An `impl` is a `.yaml` file that contains configuration metadata and usage inputs. This is interpreted by the command line tool, `if`. The plugin config shall be empty. Each input is expected to contain `cloud/vendor` and `cloud/instance-type` fields.
+In IEF, the plugin is called from a `manifest`. a `manifest` is a `.yaml` file that contains configuration metadata and usage inputs. This is interpreted by the command line tool, `if`. The plugin config shall be empty. Each input is expected to contain `cloud/vendor` and `cloud/instance-type` fields.
 
 You can see example Typescript invocations for each vendor below:
 
@@ -40,8 +40,8 @@ You can see example Typescript invocations for each vendor below:
 ```typescript
 import {CloudInstanceMetadata} from '@grnsft/if-plugins';
 
-const cimm = CloudInstanceMetadata();
-const results = cimm.execute([
+const cim = CloudInstanceMetadata();
+const results = cim.execute([
   {
     'cloud/vendor': 'aws',
     'cloud/instance-type': 'm5n.large',
@@ -49,20 +49,20 @@ const results = cimm.execute([
 ]);
 ```
 
-## Example Impl
+## Example Manifest
 
-The following is an example of how cloud instance metadata can be invoked using an `impl`.
+The following is an example of how cloud instance metadata can be invoked using a `manifest`.
 
-./examples/impls/test/cim.yml
+./examples/manifests/test/cim.yml
 
 ```yaml
 name: cloud-instance-metadata
-description: example impl invoking Cloud Instance Metadata plugin
+description: example manifest invoking Cloud Instance Metadata plugin
 tags:
 initialize:
   plugins:
     cloud-instance-metadata:
-      function: CloudInstanceMetadata
+      method: CloudInstanceMetadata
       path: '@grnsft/if-plugins'
 tree:
   children:
@@ -75,29 +75,29 @@ tree:
           cloud/vendor: aws
           cloud/instance-type: m5n.large
           duration: 100
-          cpu-util: 10
+          cpu/utilization: 10
 ```
 
 Ensure that you have global node_modules bin directory in your $PATH
-This impl is run using `if` using the following command, run from
+This manifest is run using `if` using the following command, run from
 the project root:
 
 ```sh
 npm i -g @grnsft/if
 npm i -g @grnsft/if-plugins
-if --impl ./examples/impls/test/cim.yml --ompl ./ompls/cim.yml
+if --manifest ./examples/manifests/test/cim.yml --output ./outputs/cim.yml
 ```
 
-This yields a result that looks like the following (saved to `./ompls/cim.yml`):
+This yields a result that looks like the following (saved to `./outputs/cim.yml`):
 
 ```yaml
 name: cloud-instance-metadata
-description: example impl invoking Cloud Instance Metadata plugin
+description: example manifest invoking Cloud Instance Metadata plugin
 tags:
 initialize:
   plugins:
     cloud-instance-metadata:
-      function: CloudInstanceMetadata
+      method: CloudInstanceMetadata
       path: '@grnsft/if-plugins'
 tree:
   children:
@@ -109,26 +109,26 @@ tree:
           cloud/vendor: aws
           cloud/instance-type: m5n.large
           duration: 100
-          cpu: 10
+          cpu/utilization: 10
       outputs:
         - timestamp: 2023-07-06T00:00
           cloud/vendor: aws
           cloud/instance-type: m5n.large
           duration: 100
-          cpu-util: 10
+          cpu/utilization: 10
           vcpus-allocated: 2
           vcpus-total: 96
           memory-available: 8
           physical-processor: "Intel® Xeon® Platinum 8259CL",
-          thermal-design-power: 210
+          cpu/thermal-design-power: 210
 ```
 
-You can run this example `impl` by saving it as `./examples/impls/test/cim.yml` and executing the following command from the project root:
+You can run this example `manifest` by saving it as `./examples/manifests/test/cim.yml` and executing the following command from the project root:
 
 ```sh
 npm i -g @grnsft/if
 npm i -g @grnsft/if-plugins
-if --impl ./examples/impls/test/cim.yml --ompl ./examples/ompls/cim.yml
+if --manifest ./examples/manifests/test/cim.yml --output ./examples/outputs/cim.yml
 ```
 
-The results will be saved to a new `yaml` file in `./examples/ompls`.
+The results will be saved to a new `yaml` file in `./examples/outputs`.

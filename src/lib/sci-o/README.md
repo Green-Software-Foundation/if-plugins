@@ -41,7 +41,7 @@ Read more on [operational emissions](https://github.com/Green-Software-Foundatio
 
 IEF implements the plugin based on the simple multiplication of the energy and intensity values as inputs. The `sci-o` plugin expects `energy` and `grid/carbon-intensity` to be provided as `inputs`.
 
-> Note that the `energy` field is added to the `impl` by the `sci-e` plugin only. This means `sci-o` must always be preceded by `sci-e` in a plugin pipeline. This is always true, even if there is only a single component of `energy` such as `cpu/energy` from `teads-curve`. `sci-e` sums all the available components and adds the sum to the `impl` as `energy`.
+> Note that the `energy` field is added to the `manifest` by the `sci-e` plugin only. This means `sci-o` must always be preceded by `sci-e` in a plugin pipeline. This is always true, even if there is only a single component of `energy` such as `cpu/energy` from `teads-curve`. `sci-e` sums all the available components and adds the sum to the `manifest` as `energy`.
 
 To run the plugin, you must first create an instance of `SciO` using `SciO()`. Then, you can call `execute()` to return `carbon-operational`.
 
@@ -61,9 +61,9 @@ const results = sciO.execute([
 ]);
 ```
 
-## Example impl
+## Example manifest
 
-IEF users will typically call the plugin as part of a pipeline defined in an `impl` file. In this case, instantiating the plugin is handled by `if` and does not have to be done explicitly by the user. The following is an example `impl` that calls `sci-o`:
+IEF users will typically call the plugin as part of a pipeline defined in a `manifest` file. In this case, instantiating the plugin is handled by `if` and does not have to be done explicitly by the user. The following is an example `manifest` that calls `sci-o`:
 
 ```yaml
 name: sci-o
@@ -72,7 +72,7 @@ tags:
 initialize:
   plugins:
     sci-o:
-      function: SciO
+      method: SciO
       path: '@grnsft/if-plugins'
 tree:
   children:
@@ -88,12 +88,12 @@ tree:
           grid/carbon-intensity: 800
 ```
 
-You can run this example `impl` by saving it as `./examples/impls/test/sci-o.yml` and executing the following command from the project root:
+You can run this example `manifest` by saving it as `./examples/manifests/test/sci-o.yml` and executing the following command from the project root:
 
 ```sh
 npm i -g @grnsft/if
 npm i -g @grnsft/if-plugins
-if --impl ./examples/impls/test/sci-o.yml --ompl ./examples/ompls/sci-o.yml
+if --manifest ./examples/manifests/test/sci-o.yml --output ./examples/outputs/sci-o.yml
 ```
 
-The results will be saved to a new `yaml` file in `./examples/ompls`.
+The results will be saved to a new `yaml` file in `./examples/outputs`.

@@ -6,7 +6,6 @@ You provide the names of the values you want to sum, and a name to use to add th
 
 For example, you could add `cpu/energy` and `network/energy` and name the result `energy`. `energy` would then be added to every observation in your input array as the sum of `cpu./energy` and `network/energy`.
 
-
 ## Plugin name
 
 IF recognizes the plugin as `sum`
@@ -41,7 +40,10 @@ To run the plugin, you must first create an instance of `Sum`. Then, you can cal
 ```typescript
 import {Sum} from '@grnsft/if-plugins';
 
-const config = {inputParameters: ['cpu/energy', 'network/energy'], outputParameter: 'energy'}
+const config = {
+  inputParameters: ['cpu/energy', 'network/energy'],
+  outputParameter: 'energy',
+};
 
 const sum = Sum(config);
 const result = sum.execute([
@@ -65,7 +67,7 @@ tags:
 initialize:
   plugins:
     sum:
-      function: Sum
+      method: Sum
       path: '@grnsft/if-plugins'
       global-config:
         input-parameters: ['cpu/energy', 'network/energy']
@@ -84,12 +86,12 @@ tree:
           network/energy: 0.001
 ```
 
-You can run this example by saving it as `./examples/impls/test/sum.yml` and executing the following command from the project root:
+You can run this example by saving it as `./examples/manifests/test/sum.yml` and executing the following command from the project root:
 
 ```sh
 npm i -g @grnsft/if
 npm i -g @grnsft/if-plugins
-if --impl ./examples/impls/test/sum.yml --ompl ./examples/ompls/sum.yml
+if --manifest ./examples/manifests/test/sum.yml --output ./examples/outputs/sum.yml
 ```
 
-The results will be saved to a new `yaml` file in `./examples/ompls`.
+The results will be saved to a new `yaml` file in `./examples/outputs`.

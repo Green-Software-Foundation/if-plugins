@@ -6,7 +6,6 @@ You provide the name of the value you want to multiply, a coefficient value, and
 
 For example, you could multiply `cpu/energy` by 10 and name the result `energy-product`. `energy-product` would then be added to every observation in your input array as the product of `cpu/energy` and 10.
 
-
 ## Plugin name
 
 IF recognizes the plugin as `coefficient`
@@ -42,14 +41,18 @@ To run the plugin, you must first create an instance of `Multiply`. Then, you ca
 ```typescript
 import {Coefficient} from '@grnsft/if-plugins';
 
-const config = {'input-parameter': 'carbon', 'coefficient': 10,  'output-parameter': 'carbon-product'}
+const config = {
+  'input-parameter': 'carbon',
+  coefficient: 10,
+  'output-parameter': 'carbon-product',
+};
 
 const coeff = Coefficient(config);
 const result = coeff.execute([
   {
     duration: 3600,
     timestamp: '2021-01-01T00:00:00Z',
-    'carbon': 3
+    carbon: 3,
   },
 ]);
 ```
@@ -65,7 +68,7 @@ tags:
 initialize:
   plugins:
     coefficient:
-      function: Coefficient
+      method: Coefficient
       path: '@grnsft/if-plugins'
       global-config:
         input-parameter: 'carbon'
@@ -82,14 +85,14 @@ tree:
         - timestamp: 2023-08-06T00:00
           duration: 3600
           carbon: 30
-
 ```
 
-You can run this example by saving it as `./examples/impls/test/coefficient.yml` and executing the following command from the project root:
+You can run this example by saving it as `./examples/manifests/test/coefficient.yml` and executing the following command from the project root:
 
 ```sh
 npm i -g @grnsft/if
 npm i -g @grnsft/if-plugins
-if --impl ./examples/impls/test/coefficient.yml --ompl ./examples/ompls/coefficient.yml
+if --manifest ./examples/manifests/test/coefficient.yml --output ./examples/outputs/coefficient.yml
 ```
-The results will be saved to a new `yaml` file in `./examples/ompls`
+
+The results will be saved to a new `yaml` file in `./examples/outputs`

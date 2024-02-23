@@ -16,7 +16,7 @@ The TDP Finder model finds the thermal design power (TDP) of a given processor b
 
 IEF implements the plugin based on the logic described above.
 
-## Usage with IMPL
+## Usage with manifest
 
 - Plugin Name: `tdp-finder`
 
@@ -27,7 +27,7 @@ tags:
 initialize:
   plugins:
     finder:
-      model: TdpFinder
+      method: TdpFinder
       path: '@grnsft/if-plugins'
 tree:
   children:
@@ -38,7 +38,7 @@ tree:
         - physical-processor: Intel Xeon Platinum 8175M, AMD A8-9600
 ```
 
-## Output in OMPL
+## Output in output
 
 ```yaml
 name: tdp-demo
@@ -47,7 +47,7 @@ tags:
 initialize:
   plugins:
     finder:
-      model: TdpFinder
+      method: TdpFinder
       path: '@grnsft/if-plugins'
 tree:
   children:
@@ -58,15 +58,15 @@ tree:
         - physical-processor: Intel Xeon Platinum 8175M, AMD A8-9600
       outputs:
         - physical-processor: Intel Xeon Platinum 8175M, AMD A8-9600
-          thermal-design-power: 150
+          cpu/thermal-design-power: 150
 ```
 
-You can run this example `impl` by saving it as `./examples/impls/test/tdp-finder.yml` and executing the following command from the project root:
+You can run this example `manifest` by saving it as `./examples/manifests/test/tdp-finder.yml` and executing the following command from the project root:
 
 ```sh
 npm i -g @grnsft/if
 npm i -g @grnsft/if-plugins
-if --impl ./examples/impls/test/tdp-finder.yml --ompl ./examples/ompls/tdp-finder.yml
+if --manifest ./examples/manifests/test/tdp-finder.yml --output ./examples/outputs/tdp-finder.yml
 ```
 
-The results will be saved to a new `yaml` file in `./examples/ompls`.
+The results will be saved to a new `yaml` file in `./examples/outputs`.

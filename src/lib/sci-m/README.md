@@ -49,7 +49,7 @@ Where:
 
 ## Implementation
 
-IEF implements the plugin based on the logic described above. To run the plugin, you must first create an instance of `SciMM` method. Then, you can call `execute()` to return `m`.
+IEF implements the plugin based on the logic described above. To run the plugin, you must first create an instance of `SciM` method. Then, you can call `execute()` to return `m`.
 
 ## Usage
 
@@ -70,9 +70,9 @@ const results = sciM.execute([
 ]);
 ```
 
-## Example impl
+## Example manifest
 
-IEF users will typically call the plugin as part of a pipeline defined in an `impl` file. In this case, instantiating the plugin is handled by `if` and does not have to be done explicitly by the user. The following is an example `impl` that calls `sci-m`:
+IEF users will typically call the plugin as part of a pipeline defined in a `manifest` file. In this case, instantiating the plugin is handled by `if` and does not have to be done explicitly by the user. The following is an example `manifest` that calls `sci-m`:
 
 ```yaml
 name: sci-m
@@ -81,30 +81,29 @@ tags:
 initialize:
   plugins:
     sci-m:
-      function: SciM
+      method: SciM
       path: '@grnsft/if-plugins'
 tree:
   children:
     child:
       pipeline:
         - sci-m # duration & config -> embodied
-      config:
-        sci-m:
-          device/emissions-embodied: 1533.120 # gCO2eq
-          device/expected-lifespan: 3 # 3 years in seconds
-          resources-reserved: 1
-          resources-total: 8
+      defaults:
+        device/emissions-embodied: 1533.120 # gCO2eq
+        device/expected-lifespan: 3 # 3 years in seconds
+        resources-reserved: 1
+        resources-total: 8
       inputs:
         - timestamp: 2023-07-06T00:00
           duration: 3600
 ```
 
-You can run this example `impl` by executing the following command from the project root:
+You can run this example `manifest` by executing the following command from the project root:
 
 ```sh
 npm i -g @grnsft/if
 npm i -g @grnsft/if-plugins
-if --impl ./examples/impls/test/sci-m.yml --ompl ./examples/ompls/sci-m.yml
+if --manifest ./examples/manifests/test/sci-m.yml --output ./examples/outputs/sci-m.yml
 ```
 
-The results will be saved to a new `yaml` file in `./examples/ompls`.
+The results will be saved to a new `yaml` file in `./examples/outputs`.

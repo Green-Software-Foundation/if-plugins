@@ -23,28 +23,31 @@ N/A
 
 ### inputs
 
-The plugin's `global-config` section in the impl file determines its behaviour.
+The plugin's `global-config` section in the manifest file determines its behaviour.
 'inputs' section is ignored.
 
 ### Typescript Usage
 
 ```typescript
-const mockObservations =  MockObservations({
-  'timestamp-from': 2023-07-06T00:00
-  'timestamp-to': 2023-07-06T00:10
-  duration: 60
-  components:
-    - instance-type: A1
-  generators:
-    common:
-      region: uk-west
+const mockObservations = MockObservations({
+  'timestamp-from': '2023-07-06T00:00',
+  'timestamp-to': '2023-07-06T00:10',
+  duration: 60,
+  components: {
+    'instance-type': 'A1',
+  },
+  generators: {
+    common: {
+      region: 'uk-west',
+    },
+  },
 });
 const results = mockObservations.execute([]);
 ```
 
-### IMPL Example
+### manifest Example
 
-IEF users will typically call the plugin as part of a pipeline defined in an `impl` file. In this case, instantiating the plugin is handled by `if` and does not have to be done explicitly by the user. The following is an example `impl` that calls `mock-observation`:
+IEF users will typically call the plugin as part of a pipeline defined in a `manifest` file. In this case, instantiating the plugin is handled by `if` and does not have to be done explicitly by the user. The following is an example `manifest` that calls `mock-observation`:
 
 ```yaml
 name: mock-observation-demo
@@ -54,7 +57,7 @@ initialize:
   plugins:
     mock-observations:
       kind: plugin
-      model: MockObservations
+      method: MockObservations
       path: '@grnsft/if-plugins'
       global-config:
         timestamp-from: 2023-07-06T00:00
@@ -68,10 +71,10 @@ initialize:
             region: uk-west
             common-key: common-val
           randint:
-            cpu-util:
+            cpu/utilization:
               min: 1
               max: 99
-            mem-util:
+            memory/utilization:
               min: 1
               max: 99
 tree:
@@ -82,12 +85,12 @@ tree:
       inputs:
 ```
 
-You can run this example `impl` by saving it as `./examples/impls/test/mock-observation.yml` and executing the following command from the project root:
+You can run this example `manifest` by saving it as `./examples/manifests/test/mock-observation.yml` and executing the following command from the project root:
 
 ```sh
 npm i -g @grnsft/if
 npm i -g @grnsft/if-plugins
-if --impl ./examples/impls/test/mock-observation.yml --ompl ./examples/ompls/mock-observation.yml
+if --manifest ./examples/manifests/test/mock-observation.yml --output ./examples/outputs/mock-observation.yml
 ```
 
-The results will be saved to a new `yaml` file in `./examples/ompls`.
+The results will be saved to a new `yaml` file in `./examples/outputs`.

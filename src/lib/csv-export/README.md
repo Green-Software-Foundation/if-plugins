@@ -30,22 +30,22 @@ import {CsvExport} from '@grnsft/if-plugins';
 const output = CsvExport();
 const result = await output.execute([
   {
-    timestamp: 2023-07-06T00:00
-    duration: 1
-    operational-carbon: 0.02
-    carbon-embodied: 5
-    energy: 3.5
-    carbon: 5.02
+    timestamp: '2023-07-06T00:00',
+    duration: 1,
+    'operational-carbon': 0.02,
+    'carbon-embodied': 5,
+    energy: 3.5,
+    carbon: 5.02,
   },
 ]);
 ```
 
-## Example impl
+## Example manifest
 
-IEF users will typically call the plugin as part of a pipeline defined in an `impl`
+IEF users will typically call the plugin as part of a pipeline defined in a `manifest`
 file. In this case, instantiating the plugin is handled by
 `if` and does not have to be done explicitly by the user.
-The following is an example `impl` that calls `csv-export.yml`:
+The following is an example `manifest` that calls `csv-export.yml`:
 
 ```yaml
 name: csv-export-demo
@@ -84,12 +84,12 @@ tree:
           carbon: 4.03
 ```
 
-You can run this example `impl` by saving it as `./examples/impls/test/csv-export.yml` and executing the following command from the project root:
+You can run this example `manifest` by saving it as `./examples/manifests/test/csv-export.yml` and executing the following command from the project root:
 
 ```sh
 npm i -g @grnsft/if
 npm i -g @grnsft/if-plugins
-if --impl ./examples/impls/test/csv-export.yml.yml --ompl ./examples/ompls/csv-export.yml.yml
+if --manifest ./examples/manifests/test/csv-export.yml.yml --output ./examples/outputs/csv-export.yml.yml
 ```
 
 The results will be saved into the `output-path`.

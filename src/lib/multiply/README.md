@@ -6,7 +6,6 @@ You provide the names of the values you want to multiply, and a name to use to a
 
 For example, you could multiply `cpu/energy` and `network/energy` and name the result `energy-product`. `energy-product` would then be added to every observation in your input array as the product of `cpu/energy` and `network/energy`.
 
-
 ## Plugin name
 
 IF recognizes the plugin as `multiply`
@@ -41,7 +40,10 @@ To run the plugin, you must first create an instance of `Multiply`. Then, you ca
 ```typescript
 import {Multiply} from '@grnsft/if-plugins';
 
-const config = {inputParameters: ['cpu/energy', 'network/energy'], outputParameter: 'energy-product'}
+const config = {
+  inputParameters: ['cpu/energy', 'network/energy'],
+  outputParameter: 'energy-product',
+};
 
 const mult = Multiply(config);
 const result = mult.execute([
@@ -65,7 +67,7 @@ tags:
 initialize:
   plugins:
     multiply:
-      function: Multiply
+      method: Multiply
       path: '@grnsft/if-plugins'
       global-config:
         input-parameters: ['cpu/energy', 'network/energy']
@@ -76,7 +78,7 @@ tree:
       pipeline:
         - multiply
       config:
-        sum:
+        multiply:
       inputs:
         - timestamp: 2023-08-06T00:00
           duration: 3600
@@ -84,11 +86,12 @@ tree:
           network/energy: 0.001
 ```
 
-You can run this example by saving it as `./examples/impls/test/multiply.yml` and executing the following command from the project root:
+You can run this example by saving it as `./examples/manifests/test/multiply.yml` and executing the following command from the project root:
 
 ```sh
 npm i -g @grnsft/if
 npm i -g @grnsft/if-plugins
-if --impl ./examples/impls/test/multiply.yml --ompl ./examples/ompls/multiply.yml
+if --manifest ./examples/manifests/test/multiply.yml --output ./examples/outputs/multiply.yml
 ```
-The results will be saved to a new `yaml` file in `./examples/ompls`
+
+The results will be saved to a new `yaml` file in `./examples/outputs`

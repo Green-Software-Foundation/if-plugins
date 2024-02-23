@@ -62,9 +62,9 @@ const result = sciE.execute([
 ]);
 ```
 
-## Example impl
+## Example manifest
 
-IF users will typically call the plugin as part of a pipeline defined in an `impl` file. In this case, instantiating the plugin is handled by `if` and does not have to be done explicitly by the user. The following is an example `impl` that calls `sci-e`:
+IF users will typically call the plugin as part of a pipeline defined in a `manifest` file. In this case, instantiating the plugin is handled by `if` and does not have to be done explicitly by the user. The following is an example `manifest` that calls `sci-e`:
 
 ```yaml
 name: sci-e-demo
@@ -72,10 +72,10 @@ description:
 tags:
 initialize:
   plugins:
-    - sci-e
-      function: SciE
+    sci-e:
+      method: SciE
       path: '@grnsft/if-plugins'
-graph:
+tree:
   children:
     child:
       pipeline:
@@ -88,12 +88,12 @@ graph:
           cpu/energy: 0.001
 ```
 
-You can run this example `impl` by saving it as `./examples/impls/test/sci-e.yml` and executing the following command from the project root:
+You can run this example `manifest` by saving it as `./examples/manifests/test/sci-e.yml` and executing the following command from the project root:
 
 ```sh
 npm i -g @grnsft/if
 npm i -g @grnsft/if-plugins
-if --impl ./examples/impls/test/sci-e.yml --ompl ./examples/ompls/sci-e.yml
+if --manifest ./examples/manifests/test/sci-e.yml --output ./examples/outputs/sci-e.yml
 ```
 
-The results will be saved to a new `yaml` file in `./examples/ompls`.
+The results will be saved to a new `yaml` file in `./examples/outputs`.

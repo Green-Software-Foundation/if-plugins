@@ -23,16 +23,16 @@
 energy-network = (data_in + data_out) * energy-per-gb
 ```
 
-## Example impl
+## Example manifest
 
 IEF users will typically call the plugin as part of a pipeline defined in
-an `impl` file.
+a `manifest` file.
 
 In this case, instantiating and configuring the plugin is
 handled by `if` and does not have to be done explicitly by
 the user.
 
-The following is an example `impl` that calls `e-net`:
+The following is an example `manifest` that calls `e-net`:
 
 ```yaml
 name: e-net-demo
@@ -41,7 +41,7 @@ tags:
 initialize:
   plugins:
     e-net:
-      function: ENet
+      method: ENet
       path: '@grnsft/if-plugins'
       global-config:
         energy-per-gb: 0.02
@@ -58,12 +58,12 @@ tree:
           network/data-out: 2
 ```
 
-You can run this example `impl` by saving it as `examples/impls/test/e-net.yml` and executing the following command from the project root:
+You can run this example `manifest` by saving it as `examples/manifests/test/e-net.yml` and executing the following command from the project root:
 
 ```sh
 npm i -g @grnsft/if
 npm i -g @grnsft/if-plugins
-if --impl ./examples/impls/test/e-net.yml --ompl ./examples/ompls/e-net.yml
+if --manifest ./examples/manifests/test/e-net.yml --output ./examples/outputs/e-net.yml
 ```
 
-The results will be saved to a new `yaml` file in `./examples/ompls`.
+The results will be saved to a new `yaml` file in `./examples/outputs`.
