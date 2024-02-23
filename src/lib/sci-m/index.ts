@@ -1,7 +1,7 @@
 import {z} from 'zod';
 
 import {PluginInterface} from '../../interfaces';
-import {ConfigParams, PluginParams} from '../../types/common';
+import {PluginParams} from '../../types/common';
 
 import {validate, allDefined} from '../../util/validations';
 import {buildErrorMessage} from '../../util/helpers';
@@ -26,18 +26,13 @@ export const SciM = (): PluginInterface => {
   /**
    * Calculate the Embodied carbon for a list of inputs.
    */
-  const execute = async (
-    inputs: PluginParams[],
-    config?: ConfigParams
-  ): Promise<PluginParams[]> => {
+  const execute = async (inputs: PluginParams[]): Promise<PluginParams[]> => {
     return inputs.map(input => {
-      const inputWithConfig: PluginParams = Object.assign({}, input, config);
-
-      validateInput(inputWithConfig);
+      validateInput(input);
 
       return {
         ...input,
-        'carbon-embodied': calculateEmbodiedCarbon(inputWithConfig),
+        'carbon-embodied': calculateEmbodiedCarbon(input),
       };
     });
   };
