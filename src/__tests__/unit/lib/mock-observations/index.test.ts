@@ -18,8 +18,8 @@ describe('lib/mock-observations: ', () => {
             'common-key': 'common-val',
           },
           randint: {
-            'cpu-util': {min: 10, max: 95},
-            'cpu-mem': {min: 10, max: 85},
+            'cpu/utilization': {min: 10, max: 95},
+            'memory/utilization': {min: 10, max: 85},
           },
         },
       });
@@ -128,8 +128,8 @@ describe('lib/mock-observations: ', () => {
             'common-key': 'common-val',
           },
           randint: {
-            'cpu-util': {min: 10, max: 95},
-            'cpu-mem': {min: 10, max: 85},
+            'cpu/utilization': {min: 10, max: 95},
+            'memory/utilization': {min: 10, max: 85},
           },
         },
       };
@@ -163,8 +163,8 @@ describe('lib/mock-observations: ', () => {
               'common-key': 'common-val',
             },
             randint: {
-              'cpu-util': {min: 10, max: 95},
-              'cpu-mem': {min: 10, max: 85},
+              'cpu/utilization': {min: 10, max: 95},
+              'memory/utilization': {min: 10, max: 85},
             },
           },
         });
@@ -193,8 +193,8 @@ describe('lib/mock-observations: ', () => {
               'common-key': 'common-val',
             },
             randint: {
-              'cpu-util': {min: 10, max: 95},
-              'cpu-mem': {min: 10, max: 85},
+              'cpu/utilization': {min: 10, max: 95},
+              'memory/utilization': {min: 10, max: 85},
             },
           },
         });
@@ -223,8 +223,8 @@ describe('lib/mock-observations: ', () => {
               'common-key': 'common-val',
             },
             randint: {
-              'cpu-util': {min: 10, max: 95},
-              'cpu-mem': {min: 10, max: 85},
+              'cpu/utilization': {min: 10, max: 95},
+              'memory/utilization': {min: 10, max: 85},
             },
           },
         });
