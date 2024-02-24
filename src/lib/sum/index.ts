@@ -14,6 +14,9 @@ export const Sum = (globalConfig: SumConfig): PluginInterface => {
     kind: 'execute',
   };
 
+  /**
+   * Checks global confiog value are valid.
+   */
   const validateGlobalConfig = () => {
     if (inputParameters.length === 0) {
       throw new InputValidationError(
@@ -22,6 +25,7 @@ export const Sum = (globalConfig: SumConfig): PluginInterface => {
         })
       );
     }
+
     if (inputParameters.length === 1) {
       throw new InputValidationError(
         errorBuilder({
@@ -30,6 +34,7 @@ export const Sum = (globalConfig: SumConfig): PluginInterface => {
         })
       );
     }
+
     if (!outputParameter || outputParameter === '') {
       throw new InputValidationError(
         errorBuilder({
@@ -39,6 +44,7 @@ export const Sum = (globalConfig: SumConfig): PluginInterface => {
       );
     }
   };
+
   /**
    * Checks for required fields in input.
    */
@@ -52,6 +58,7 @@ export const Sum = (globalConfig: SumConfig): PluginInterface => {
         );
       }
     });
+
     return input;
   };
 
@@ -60,28 +67,25 @@ export const Sum = (globalConfig: SumConfig): PluginInterface => {
    */
   const execute = async (inputs: PluginParams[]): Promise<PluginParams[]> => {
     validateGlobalConfig();
-    inputs.map(input => {
+
+    return inputs.map(input => {
       const safeInput = validateSingleInput(input);
-      return calculateSum(safeInput, inputParameters, outputParameter);
+
+      return {
+        ...safeInput,
+        [outputParameter]: calculateSum(safeInput, inputParameters),
+      };
     });
-    return inputs;
   };
 
   /**
    * Calculates the sum of the energy components.
    */
-  const calculateSum = (
-    input: PluginParams,
-    inputParameters: string[],
-    outputParameter: string
-  ) => {
-    input[outputParameter] = inputParameters.reduce(
-      (accumulator, metricToSum) => {
-        return accumulator + input[metricToSum];
-      },
+  const calculateSum = (input: PluginParams, inputParameters: string[]) =>
+    inputParameters.reduce(
+      (accumulator, metricToSum) => accumulator + input[metricToSum],
       0
     );
-  };
 
   return {
     metadata,
