@@ -13,7 +13,9 @@ export const Multiply = (globalConfig: MultiplyConfig): PluginInterface => {
     kind: 'execute',
   };
 
-  /**Checks global confiog value are valid */
+  /**
+   * Checks global confiog value are valid.
+   */
   const validateGlobalConfig = () => {
     if (inputParameters.length === 0) {
       throw new InputValidationError(
@@ -22,6 +24,7 @@ export const Multiply = (globalConfig: MultiplyConfig): PluginInterface => {
         })
       );
     }
+
     if (inputParameters.length === 1) {
       throw new InputValidationError(
         errorBuilder({
@@ -30,6 +33,7 @@ export const Multiply = (globalConfig: MultiplyConfig): PluginInterface => {
         })
       );
     }
+
     if (!outputParameter || outputParameter === '') {
       throw new InputValidationError(
         errorBuilder({
@@ -53,6 +57,7 @@ export const Multiply = (globalConfig: MultiplyConfig): PluginInterface => {
         );
       }
     });
+
     return input;
   };
 
@@ -61,24 +66,25 @@ export const Multiply = (globalConfig: MultiplyConfig): PluginInterface => {
    */
   const execute = async (inputs: PluginParams[]): Promise<PluginParams[]> => {
     validateGlobalConfig();
-    inputs.map(input => {
+
+    return inputs.map(input => {
       const safeInput = validateSingleInput(input);
-      return calculateProduct(safeInput);
+
+      return {
+        ...input,
+        [outputParameter]: calculateProduct(safeInput),
+      };
     });
-    return inputs;
   };
 
   /**
    * Calculates the product of the energy components.
    */
-  const calculateProduct = (input: PluginParams) => {
-    input[outputParameter] = inputParameters.reduce(
-      (accumulator, metricToMultiply) => {
-        return accumulator * input[metricToMultiply];
-      },
+  const calculateProduct = (input: PluginParams) =>
+    inputParameters.reduce(
+      (accumulator, metricToMultiply) => accumulator * input[metricToMultiply],
       1
     );
-  };
 
   return {
     metadata,
