@@ -3,13 +3,13 @@ import {PluginParams} from '../../types/common';
 import {buildErrorMessage} from '../../util/helpers';
 import {ERRORS} from '../../util/errors';
 import {SumConfig} from './types';
+import {z} from 'zod';
+import {validate} from '../../util/validations';
 
 const {InputValidationError} = ERRORS;
 
 export const Sum = (globalConfig: SumConfig): PluginInterface => {
   const errorBuilder = buildErrorMessage(Sum.name);
-  const inputParameters = globalConfig['input-parameters'] || [];
-  const outputParameter = globalConfig['output-parameter'];
   const metadata = {
     kind: 'execute',
   };
@@ -18,37 +18,24 @@ export const Sum = (globalConfig: SumConfig): PluginInterface => {
    * Checks global config value are valid.
    */
   const validateGlobalConfig = () => {
-    if (inputParameters.length === 0) {
-      throw new InputValidationError(
-        errorBuilder({
-          message: 'No input parameters were provided in global config.',
-        })
-      );
-    }
+    const globalConfigSchema = z.object({
+      'input-parameters': z.array(z.string()),
+      'output-parameter': z.string().min(1),
+    });
 
-    if (inputParameters.length === 1) {
-      throw new InputValidationError(
-        errorBuilder({
-          message:
-            'Only one input parameter was provided in global config. Cannot calculate sum of one number.',
-        })
-      );
-    }
-
-    if (!outputParameter || outputParameter === '') {
-      throw new InputValidationError(
-        errorBuilder({
-          message:
-            'The output parameter name was missing. Please provide one in global config',
-        })
-      );
-    }
+    return validate<z.infer<typeof globalConfigSchema>>(
+      globalConfigSchema,
+      globalConfig
+    );
   };
 
   /**
    * Checks for required fields in input.
    */
-  const validateSingleInput = (input: PluginParams) => {
+  const validateSingleInput = (
+    input: PluginParams,
+    inputParameters: string[]
+  ) => {
     inputParameters.forEach(metricToSum => {
       if (!input[metricToSum]) {
         throw new InputValidationError(
@@ -66,10 +53,12 @@ export const Sum = (globalConfig: SumConfig): PluginInterface => {
    * Calculate the sum of each .
    */
   const execute = async (inputs: PluginParams[]): Promise<PluginParams[]> => {
-    validateGlobalConfig();
+    const safeGlobalConfig = validateGlobalConfig();
+    const inputParameters = safeGlobalConfig['input-parameters'];
+    const outputParameter = safeGlobalConfig['output-parameter'];
 
     return inputs.map(input => {
-      const safeInput = validateSingleInput(input);
+      const safeInput = validateSingleInput(input, inputParameters);
 
       return {
         ...safeInput,
