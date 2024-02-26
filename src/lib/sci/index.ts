@@ -47,10 +47,18 @@ export const Sci = (globalConfig?: ConfigParams): PluginInterface => {
    * Given an input, tunes it and returns the tuned input.
    */
   const tuneInput = (input: PluginParams) => {
-    const functionalUnitTime = parseTime(input);
     const sciPerSecond = calculateSciSeconds(input);
-    const sciTimed = convertSciToTimeUnit(sciPerSecond, functionalUnitTime);
     const factor = getFunctionalUnitConversionFactor(input);
+
+    if (!input['functional-unit-time']) {
+      return {
+        carbon: input['carbon'] ?? sciPerSecond,
+        sci: sciPerSecond / factor,
+      };
+    }
+
+    const functionalUnitTime = parseTime(input);
+    const sciTimed = convertSciToTimeUnit(sciPerSecond, functionalUnitTime);
     const sciTimedDuration = sciTimed * functionalUnitTime.value;
 
     return {
@@ -113,14 +121,21 @@ export const Sci = (globalConfig?: ConfigParams): PluginInterface => {
   const validateConfig = (config: ConfigParams) => {
     const unitWarnMessage =
       'Please ensure you have provided one value and one unit and they are either space, underscore, or hyphen separated.';
+    const errorMessage =
+      'either or both `functional-unit-time` and `functional-unit` should be provided';
 
-    const schema = z.object({
-      'functional-unit-time': z
-        .string()
-        .regex(new RegExp('^[0-9][ _-][a-zA-Z]+$'))
-        .min(3, unitWarnMessage),
-      'functional-unit': z.string().optional(),
-    });
+    const schema = z
+      .object({
+        'functional-unit-time': z
+          .string()
+          .regex(new RegExp('^[0-9][ _-][a-zA-Z]+$'))
+          .min(3, unitWarnMessage)
+          .optional(),
+        'functional-unit': z.string().optional(),
+      })
+      .refine(data => data['functional-unit'] || data['functional-unit-time'], {
+        message: errorMessage,
+      });
 
     return validate<z.infer<typeof schema>>(schema, config);
   };
