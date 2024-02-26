@@ -47,10 +47,18 @@ export const Sci = (globalConfig?: ConfigParams): PluginInterface => {
    * Given an input, tunes it and returns the tuned input.
    */
   const tuneInput = (input: PluginParams) => {
-    const functionalUnitTime = parseTime(input);
     const sciPerSecond = calculateSciSeconds(input);
-    const sciTimed = convertSciToTimeUnit(sciPerSecond, functionalUnitTime);
     const factor = getFunctionalUnitConversionFactor(input);
+
+    if (!input['functional-unit-time']) {
+      return {
+        carbon: input['carbon'] ?? sciPerSecond,
+        sci: sciPerSecond / factor,
+      };
+    }
+
+    const functionalUnitTime = parseTime(input);
+    const sciTimed = convertSciToTimeUnit(sciPerSecond, functionalUnitTime);
     const sciTimedDuration = sciTimed * functionalUnitTime.value;
 
     return {
@@ -118,7 +126,8 @@ export const Sci = (globalConfig?: ConfigParams): PluginInterface => {
       'functional-unit-time': z
         .string()
         .regex(new RegExp('^[0-9][ _-][a-zA-Z]+$'))
-        .min(3, unitWarnMessage),
+        .min(3, unitWarnMessage)
+        .optional(),
       'functional-unit': z.string().optional(),
     });
 
