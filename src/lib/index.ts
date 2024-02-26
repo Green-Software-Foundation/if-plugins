@@ -8,4 +8,5 @@ export * from './sci-o';
 export * from './shell';
 export * from './tdp-finder';
 export * from './mock-observations';
+export * from './simple-html-exporter';
 export * from './csv-export';
