@@ -42,7 +42,7 @@ const mockObservations = MockObservations({
     },
   },
 });
-const results = mockObservations.execute([]);
+const result = await mockObservations.execute([]);
 ```
 
 ### manifest Example

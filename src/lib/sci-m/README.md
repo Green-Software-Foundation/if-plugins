@@ -8,7 +8,7 @@ Read more on [embodied carbon](https://github.com/Green-Software-Foundation/sci/
 
 ### Plugin config
 
-N/A
+Not Needed
 
 ### Inputs
 
@@ -59,7 +59,7 @@ The following snippet demonstrates how to call the `sci-m` plugin from Typescrip
 import {SciM} from '@grnsft/if-plugins';
 
 const sciM = SciM();
-const results = sciM.execute([
+const results = await sciM.execute([
   {
     'device/emissions-embodied': 200, // in gCO2e for total resource units
     duration: 60 * 60 * 24 * 30, // time reserved in seconds, can point to another field "duration"

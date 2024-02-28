@@ -33,7 +33,7 @@ To run the plugin, you must first create an instance of `EMem`. Then, you can ca
 import {EMem} from '@grnsft/if-plugins';
 
 const eMem = EMem({'energy-per-gb': 0.002});
-const result = eMem.execute([
+const result = await eMem.execute([
   {
     'memory/utilization': 80,
     'memory/capacity': 16,

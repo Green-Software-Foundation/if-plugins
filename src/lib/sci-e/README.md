@@ -53,7 +53,7 @@ To run the plugin, you must first create an instance of `SciE`. Then, you can ca
 import {SciE} from '@grnsft/if-plugins';
 
 const sciE = SciE();
-const result = sciE.execute([
+const result = await sciE.execute([
   {
     'cpu/energy': 0.001,
     'memory/energy': 0.0005,

@@ -31,7 +31,7 @@ To run the plugin, you must first create an instance of `ENet`. Then, you can ca
 import {ENet} from '@grnsft/if-plugins';
 
 const eNet = ENet({'energy-per-gb': 0.002});
-const result = eNet.execute([
+const result = await eNet.execute([
   {
     'network/data-in': 10,
     'network/data-out': 5,

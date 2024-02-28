@@ -4,7 +4,7 @@
 
 You provide the names of the values you want to sum, and a name to use to add the sum to the output array.
 
-For example, you could add `cpu/energy` and `network/energy` and name the result `energy`. `energy` would then be added to every observation in your input array as the sum of `cpu./energy` and `network/energy`.
+For example, you could add `cpu/energy` and `network/energy` and name the result `energy`. `energy` would then be added to every observation in your input array as the sum of `cpu/energy` and `network/energy`.
 
 ## Plugin name
 
@@ -46,7 +46,7 @@ const config = {
 };
 
 const sum = Sum(config);
-const result = sum.execute([
+const result = await sum.execute([
   {
     duration: 3600,
     timestamp: '2021-01-01T00:00:00Z',

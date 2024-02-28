@@ -36,7 +36,7 @@ output = input * coefficient
 
 ## Implementation
 
-To run the plugin, you must first create an instance of `Multiply`. Then, you can call `execute()`.
+To run the plugin, you must first create an instance of `Coefficient`. Then, you can call `execute()`.
 
 ```typescript
 import {Coefficient} from '@grnsft/if-plugins';
@@ -48,7 +48,7 @@ const config = {
 };
 
 const coeff = Coefficient(config);
-const result = coeff.execute([
+const result = await coeff.execute([
   {
     duration: 3600,
     timestamp: '2021-01-01T00:00:00Z',

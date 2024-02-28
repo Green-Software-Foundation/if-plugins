@@ -51,7 +51,7 @@ The following snippet demonstrates how to call the `sci-o` plugin from Typescrip
 import {SciO} from '@grnsft/if-plugins';
 
 const sciO = SciO();
-const results = sciO.execute([
+const results = await sciO.execute([
   {
     energy: 0.5, // energy value in kWh
     'grid/carbon-intensity': 0.5, // intensity value gCO2e/kWh

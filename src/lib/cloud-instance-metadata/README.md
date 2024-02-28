@@ -31,7 +31,7 @@ Cloud Instance Metadata currently implements only for 'AWS'.
 
 ## Usage
 
-In IEF, the plugin is called from a `manifest`. a `manifest` is a `.yaml` file that contains configuration metadata and usage inputs. This is interpreted by the command line tool, `if`. The plugin config shall be empty. Each input is expected to contain `cloud/vendor` and `cloud/instance-type` fields.
+In IEF, the plugin is called from a `manifest`. A `manifest` is a `.yaml` file that contains configuration metadata and usage inputs. This is interpreted by the command line tool, `if`. The plugin config shall be empty. Each input is expected to contain `cloud/vendor` and `cloud/instance-type` fields.
 
 You can see example Typescript invocations for each vendor below:
 
@@ -41,7 +41,7 @@ You can see example Typescript invocations for each vendor below:
 import {CloudInstanceMetadata} from '@grnsft/if-plugins';
 
 const cim = CloudInstanceMetadata();
-const result = cim.execute([
+const result = await cim.execute([
   {
     'cloud/vendor': 'aws',
     'cloud/instance-type': 'm5n.large',

@@ -107,8 +107,8 @@ To run the plugin, you must first create an instance of `Sci`. Then, you can cal
 ```typescript
 import {Sci} from '@grnsft/if-plugins';
 
-const sci = new Sci({'functional-unit': 'requests'});
-const results = sci.execute(
+const sci = Sci({'functional-unit': 'requests'});
+const results = await sci.execute(
   [
     {
       'carbon-operational': 0.02,
