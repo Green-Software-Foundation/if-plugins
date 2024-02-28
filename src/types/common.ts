@@ -3,8 +3,6 @@ export type KeyValuePair = {
 };
 
 export type PluginParams = {
-  timestamp: string;
-  duration: number;
   [key: string]: any;
 };
 
