@@ -50,9 +50,7 @@ export const CloudInstanceMetadata = (): PluginInterface => {
           })
         );
       }
-      return {
-        ...safeInput,
-      };
+      return safeInput;
     });
   };
 
