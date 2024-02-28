@@ -14,7 +14,9 @@ export const Coefficient = (
     kind: 'execute',
   };
 
-  /**Checks global confiog value are valid */
+  /**
+   * Checks global config value are valid.
+   */
   const validateGlobalConfig = () => {
     const globalConfigSchema = z.object({
       coefficient: z.number(),
