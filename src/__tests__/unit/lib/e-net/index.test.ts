@@ -6,7 +6,7 @@ const {InputValidationError} = ERRORS;
 
 describe('lib/e-net', () => {
   describe('ENet: ', () => {
-    const eNet = ENet();
+    const eNet = ENet({});
 
     describe('init: ', () => {
       it('successfully initalized.', () => {
@@ -42,7 +42,7 @@ describe('lib/e-net', () => {
 
         expect(result).toHaveLength(inputs.length);
         result.forEach((output, index) => {
-          expect(output['energy-network']).toBeCloseTo(
+          expect(output['network/energy']).toBeCloseTo(
             (inputs[index]['network/data-in'] +
               inputs[index]['network/data-out']) *
               globalConfig['energy-per-gb']

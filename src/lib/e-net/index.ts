@@ -5,29 +5,27 @@ import {validate} from '../../util/validations';
 import {PluginInterface} from '../../interfaces';
 import {ConfigParams, PluginParams} from '../../types/common';
 
-export const ENet = (globalConfig?: ConfigParams): PluginInterface => {
+export const ENet = (globalConfig: ConfigParams): PluginInterface => {
   const metadata = {
     kind: 'execute',
   };
+
   /**
    * Calculate the total emissions for a list of inputs.
    */
-  const execute = async (inputs: PluginParams[], config?: ConfigParams) => {
-    const mergedConfig = Object.assign({}, globalConfig, config);
-    const validatedConfig = validateConfig(mergedConfig);
+  const execute = async (inputs: PluginParams[]) => {
+    const validatedConfig = validateConfig();
 
     return inputs.map((input: PluginParams) => {
-      const inputWithConfigs: PluginParams = Object.assign(
+      const inputWithConfig: PluginParams = Object.assign(
         {},
-        input,
+        validateSingleInput(input),
         validatedConfig
       );
 
-      validateSingleInput(inputWithConfigs);
-
       return {
         ...input,
-        'energy-network': calculateEnergy(inputWithConfigs),
+        'network/energy': calculateEnergy(inputWithConfig),
       };
     });
   };
@@ -35,17 +33,17 @@ export const ENet = (globalConfig?: ConfigParams): PluginInterface => {
   /**
    * Validates global and node config parameters.
    */
-  const validateConfig = (config: ConfigParams) => {
+  const validateConfig = () => {
     const schema = z.object({
       'energy-per-gb': z.number(),
     });
 
-    //Manually add default value
-    if (!config['energy-per-gb'] || config['energy-per-gb'] === 0) {
-      config['energy-per-gb'] = 0.001;
+    // Manually add default value
+    if (!globalConfig['energy-per-gb'] || globalConfig['energy-per-gb'] === 0) {
+      globalConfig['energy-per-gb'] = 0.001;
     }
 
-    return validate<z.infer<typeof schema>>(schema, config);
+    return validate<z.infer<typeof schema>>(schema, globalConfig);
   };
 
   /**
@@ -66,15 +64,9 @@ export const ENet = (globalConfig?: ConfigParams): PluginInterface => {
    */
   const validateSingleInput = (input: PluginParams) => {
     const schema = z.object({
-      'energy-per-gb': z.number(),
       'network/data-in': z.number().gte(0).min(0),
       'network/data-out': z.number().gte(0).min(0),
     });
-
-    //Manually add default value
-    if (!input['energy-per-gb'] || input['energy-per-gb'] === 0) {
-      input['energy-per-gb'] = 0.001;
-    }
 
     return validate<z.infer<typeof schema>>(schema, input);
   };

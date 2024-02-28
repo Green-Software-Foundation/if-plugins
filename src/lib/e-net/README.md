@@ -1,6 +1,6 @@
 # e-net (energy due to networking)
 
-`e-net` simply multiplies the amount of data transferred (GB) by a coefficient (kWh/GB) to yield `energy-network`.
+`e-net` simply multiplies the amount of data transferred (GB) by a coefficient (kWh/GB) to yield `network/energy`.
 
 ## Parameters
 
@@ -15,12 +15,30 @@
 
 ## Returns
 
-- `energy-network`: energy used by networking, in kWh
+- `network/energy`: energy used by networking, in kWh
 
 ## Calculation
 
 ```psuedocode
-energy-network = (data_in + data_out) * energy-per-gb
+network/energy = (data_in + data_out) * energy-per-gb
+```
+
+## Implementation
+
+To run the plugin, you must first create an instance of `ENet`. Then, you can call `execute()` to return `network/energy`.
+
+```typescript
+import {ENet} from '@grnsft/if-plugins';
+
+const eNet = ENet({'energy-per-gb': 0.002});
+const result = eNet.execute([
+  {
+    'network/data-in': 10,
+    'network/data-out': 5,
+    duration: 3600,
+    timestamp: '2022-01-01T01:00:00Z',
+  },
+]);
 ```
 
 ## Example manifest
