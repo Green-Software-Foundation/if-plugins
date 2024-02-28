@@ -14,7 +14,7 @@ export const SciO = (): PluginInterface => {
   /**
    * Calculate the total emissions for a list of inputs.
    */
-  const execute = async (inputs: PluginParams[]): Promise<PluginParams[]> => {
+  const execute = async (inputs: PluginParams[]) => {
     return inputs.map(input => {
       const safeInput: PluginParams = Object.assign(
         {},
@@ -22,9 +22,10 @@ export const SciO = (): PluginInterface => {
         validateSingleInput(input)
       );
 
-      return Object.assign({}, input, {
+      return {
+        ...input,
         'carbon-operational': calculateOperationalCarbon(safeInput),
-      });
+      };
     });
   };
 

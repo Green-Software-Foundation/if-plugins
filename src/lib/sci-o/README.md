@@ -12,8 +12,6 @@ Not Needed
 
 - `energy`: energy value in kWh
 - `grid/carbon-intensity`: intensity value gCO2e/kWh
-- `timestamp`: a timestamp for the input
-- `duration`: the amount of time, in seconds, that the input covers.
 
 ## Returns
 
