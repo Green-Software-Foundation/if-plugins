@@ -26,13 +26,10 @@ export const CsvExport = (): PluginInterface => {
     ].join('\r\n');
   };
 
-  const execute = async (
-    inputs: PluginParams[],
-    config?: ConfigParams
-  ): Promise<PluginParams[]> => {
-    validateConfig(config);
+  const execute = async (inputs: PluginParams[], config?: ConfigParams) => {
+    const validatedConfig = validateConfig(config);
 
-    const {'output-path': outputPath, headers = []} = config || {};
+    const {'output-path': outputPath, headers = []} = validatedConfig;
     const dirPath = path.dirname(outputPath);
 
     try {
