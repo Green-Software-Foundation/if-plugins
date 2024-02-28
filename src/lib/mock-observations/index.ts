@@ -25,7 +25,7 @@ export const MockObservations = (
    * Generate sets of mocked observations based on config
    * @param {Object[]} _inputs required per convention, ignored (does not effect the generated mocked observations)
    */
-  const execute = async (_inputs: PluginParams[]): Promise<any[]> => {
+  const execute = async (_inputs: PluginParams[]) => {
     const {duration, timeBuckets, components, generators} =
       await generateParamsFromConfig();
     const generatorToHistory = new Map<Generator, number[]>();

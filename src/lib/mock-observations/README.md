@@ -21,7 +21,7 @@ The mode currently mocks 2 types of observation data:
 
 N/A
 
-### inputs
+### Inputs
 
 The plugin's `global-config` section in the manifest file determines its behaviour.
 'inputs' section is ignored.
