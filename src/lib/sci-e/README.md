@@ -50,7 +50,7 @@ Only `sci-e` takes individual contributions and returns `energy`.
 To run the plugin, you must first create an instance of `SciE`. Then, you can call `execute()` to return `energy`.
 
 ```typescript
-import {SciE} from '@gsf/if-plugins';
+import {SciE} from '@grnsft/if-plugins';
 
 const sciE = SciE();
 const result = sciE.execute([

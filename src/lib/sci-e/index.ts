@@ -14,9 +14,9 @@ export const SciE = (): PluginInterface => {
   /**
    * Calculate the total emissions for a list of inputs.
    */
-  const execute = async (inputs: PluginParams[]): Promise<PluginParams[]> => {
+  const execute = async (inputs: PluginParams[]) => {
     return inputs.map(input => {
-      const safeInput: PluginParams = Object.assign({}, input);
+      const safeInput = Object.assign({}, input, validateSingleInput(input));
 
       return {
         ...input,
@@ -45,14 +45,9 @@ export const SciE = (): PluginInterface => {
    * Calculates the sum of the energy components.
    */
   const calculateEnergy = (input: PluginParams) => {
-    const safeInput: {[key: string]: number} = Object.assign(
-      input,
-      validateSingleInput(input)
-    );
-
     return energyMetrics.reduce((acc, metric) => {
-      if (safeInput && safeInput[metric]) {
-        acc += safeInput[metric];
+      if (input && input[metric]) {
+        acc += input[metric];
       }
 
       return acc;
