@@ -13,18 +13,17 @@ export const EMem = (globalConfig: ConfigParams): PluginInterface => {
   /**
    * Calculate the total emissions for a list of inputs.
    */
-  const execute = async (inputs: PluginParams[], config?: ConfigParams) => {
-    const mergedConfig = Object.assign({}, globalConfig, config);
+  const execute = async (inputs: PluginParams[]) => {
+    const mergedConfig = Object.assign({}, globalConfig);
     const validatedGlobalConfig = validateConfig(mergedConfig);
 
     return inputs.map((input: PluginParams) => {
+      const safeInput = validateSingleInput(input);
       const inputWithConfigs: PluginParams = Object.assign(
         {},
-        input,
+        safeInput,
         validatedGlobalConfig
       );
-
-      validateSingleInput(input);
 
       return {
         ...input,

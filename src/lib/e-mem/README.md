@@ -25,6 +25,24 @@
 energy-memory = (('memory/utilization'/100) * 'memory/capacity') * mem-energy
 ```
 
+## Implementation
+
+To run the plugin, you must first create an instance of `EMem`. Then, you can call `execute()` to return `energy-memory`.
+
+```typescript
+import {EMem} from '@grnsft/if-plugins';
+
+const eMem = EMem({'energy-per-gb': 0.002});
+const result = eMem.execute([
+  {
+    'memory/utilization': 80,
+    'memory/capacity': 16,
+    duration: 3600,
+    timestamp: '2022-01-01T01:00:00Z',
+  },
+]);
+```
+
 ## Example manifest
 
 IEF users will typically call the plugin as part of a pipeline defined in
@@ -34,7 +52,7 @@ In this case, instantiating and configuring the plugin is
 handled by `if` and does not have to be done explicitly by
 the user.
 
-The following is an example `manifest` that calls `sci-e`:
+The following is an example `manifest` that calls `e-mem`:
 
 ```yaml
 name: e-mem-demo
