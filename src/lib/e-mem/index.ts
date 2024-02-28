@@ -14,8 +14,7 @@ export const EMem = (globalConfig: ConfigParams): PluginInterface => {
    * Calculate the total emissions for a list of inputs.
    */
   const execute = async (inputs: PluginParams[]) => {
-    const mergedConfig = Object.assign({}, globalConfig);
-    const validatedGlobalConfig = validateConfig(mergedConfig);
+    const validatedGlobalConfig = validateConfig();
 
     return inputs.map((input: PluginParams) => {
       const safeInput = validateSingleInput(input);
@@ -46,15 +45,18 @@ export const EMem = (globalConfig: ConfigParams): PluginInterface => {
     return totalMemory * (memoryUtil / 100) * energyPerGB;
   };
 
-  const validateConfig = (config: ConfigParams) => {
+  const validateConfig = () => {
     const schema = z.object({
       'energy-per-gb': z.number().gt(0),
     });
 
     //Manually add default value
-    config['energy-per-gb'] = config['energy-per-gb'] ?? 0.38;
+    const energyPerGB = globalConfig['energy-per-gb'] ?? 0.38;
 
-    return validate<z.infer<typeof schema>>(schema, config);
+    return validate<z.infer<typeof schema>>(schema, {
+      ...globalConfig,
+      'energy-per-gb': energyPerGB,
+    });
   };
 
   /**
