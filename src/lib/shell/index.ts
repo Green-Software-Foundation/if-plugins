@@ -19,12 +19,8 @@ export const Shell = (globalConfig: ConfigParams): PluginInterface => {
    * Calculate the total emissions for a list of inputs.
    */
   const execute = async (inputs: PluginParams[]): Promise<any[]> => {
-    const inputWithConfig: PluginParams = Object.assign(
-      {},
-      inputs[0],
-      globalConfig
-    );
-    const command = validateSingleInput(inputWithConfig).command;
+    const inputWithConfig = Object.assign({}, inputs[0], validateConfig());
+    const command = inputWithConfig.command;
     const inputAsString: string = dump(inputs, {indent: 2});
     const results = runModelInShell(inputAsString, command);
 
@@ -34,12 +30,12 @@ export const Shell = (globalConfig: ConfigParams): PluginInterface => {
   /**
    * Checks for required fields in input.
    */
-  const validateSingleInput = (input: PluginParams) => {
+  const validateConfig = () => {
     const schema = z.object({
       command: z.string(),
     });
 
-    return validate<z.infer<typeof schema>>(schema, input);
+    return validate<z.infer<typeof schema>>(schema, globalConfig);
   };
 
   /**

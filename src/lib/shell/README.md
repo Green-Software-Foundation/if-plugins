@@ -14,7 +14,7 @@ The shell plugin interface requires a path to the plugin command. This path is p
 
 ### Inputs
 
-The parameters included in the `inputs` field in the `manifest` depend entirely on the plugin itself. A typical plugin plugin might expect the following common data to be provided as `inputs`:
+The parameters included in the `inputs` field in the `manifest` depend entirely on the plugin itself. A typical plugin might expect the following common data to be provided as `inputs`:
 
 - `timestamp`: A timestamp for the specific input
 - `duration`: The length of time these specific inputs cover
