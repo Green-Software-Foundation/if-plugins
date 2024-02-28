@@ -24,7 +24,7 @@ export const CloudInstanceMetadata = (): PluginInterface => {
   /**
    * Get provided cloud data into input.
    */
-  const execute = async (inputs: PluginParams[]): Promise<PluginParams[]> => {
+  const execute = async (inputs: PluginParams[]) => {
     return inputs.map(input => {
       const safeInput = Object.assign({}, input, validateInput(input));
       const instanceType = safeInput['cloud/instance-type'];

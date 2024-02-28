@@ -41,7 +41,7 @@ You can see example Typescript invocations for each vendor below:
 import {CloudInstanceMetadata} from '@grnsft/if-plugins';
 
 const cim = CloudInstanceMetadata();
-const results = cim.execute([
+const result = cim.execute([
   {
     'cloud/vendor': 'aws',
     'cloud/instance-type': 'm5n.large',
