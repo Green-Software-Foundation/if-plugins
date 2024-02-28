@@ -27,6 +27,10 @@ module.exports = {
         'package',
         'config'
       ]
+    ],
+    'scope-empty': [
+      2, 
+      'never'
     ]
   },
 };
