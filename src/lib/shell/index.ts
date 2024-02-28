@@ -53,7 +53,7 @@ export const Shell = (globalConfig: ConfigParams): PluginInterface => {
       });
       const outputs = loadAll(result.stdout);
 
-      return {outputs: outputs};
+      return {outputs};
     } catch (error: any) {
       throw new InputValidationError(error.message);
     }
