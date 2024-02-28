@@ -25,7 +25,12 @@ module.exports = {
         'types',
         'src',
         'package',
-        'config'
+        'config',
+        'mocks',
+        'examples',
+        '.github',
+        '.husky',
+        'scripts'
       ]
     ],
     'scope-empty': [
