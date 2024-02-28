@@ -14,8 +14,19 @@ module.exports = {
         'ci',
         'test',
         'revert',
-        'package',
       ],
     ],
+    'scope-enum': [
+      2,
+      'always',
+      [
+        'util',
+        'lib',
+        'types',
+        'src',
+        'package',
+        'config'
+      ]
+    ]
   },
 };
