@@ -6,8 +6,8 @@ import {ERRORS} from '../../util/errors';
 import {PluginInterface} from '../../interfaces';
 import {ConfigParams, KeyValuePair, PluginParams} from '../../types/common';
 
-import {CommonGenerator} from './helpers/CommonGenerator';
-import {RandIntGenerator} from './helpers/RandIntGenerator';
+import {CommonGenerator} from './helpers/common-generator';
+import {RandIntGenerator} from './helpers/rand-int-generator';
 import {Generator} from './interfaces/index';
 import {ObservationParams} from './types';
 

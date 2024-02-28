@@ -2,7 +2,7 @@ import {KeyValuePair} from '../../../../types/common';
 
 import {ERRORS} from '../../../../util/errors';
 
-import {RandIntGenerator} from '../../../../lib/mock-observations/helpers/RandIntGenerator';
+import {RandIntGenerator} from '../../../../lib/mock-observations/helpers/rand-int-generator';
 
 const {InputValidationError} = ERRORS;
 

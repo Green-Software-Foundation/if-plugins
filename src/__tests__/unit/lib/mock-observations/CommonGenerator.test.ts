@@ -2,7 +2,7 @@ import {KeyValuePair} from '../../../../types/common';
 
 import {ERRORS} from '../../../../util/errors';
 
-import {CommonGenerator} from '../../../../lib/mock-observations/helpers/CommonGenerator';
+import {CommonGenerator} from '../../../../lib/mock-observations/helpers/common-generator';
 
 const {InputValidationError} = ERRORS;
 
