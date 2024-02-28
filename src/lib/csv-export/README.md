@@ -54,7 +54,7 @@ tags:
 initialize:
   plugins:
     csv-exporter:
-      plugin: CsvExport
+      method: CsvExport
       path: '@grnsft/if-plugins'
 tree:
   children:
