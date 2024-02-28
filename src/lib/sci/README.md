@@ -14,7 +14,7 @@ It represents the amount of carbon emitted per
 
 ### Plugin node config
 
-- `functional-unit`: the functional unit in which to express the carbon impact
+- `functional-unit`: the functional unit in which to express the carbon impact. If the property is also declared in the global config, it will be overridden.
 
 ### Inputs
 
