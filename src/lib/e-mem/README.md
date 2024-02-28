@@ -1,7 +1,7 @@
 # E-MEM (energy due to memory)
 
 `e-mem` simply multiples the amount of memory being used by a energy-per-gb
-(0.38 kWh/GB) to yield `energy-memory`.
+(0.38 kWh/GB) to yield `memory/energy`.
 
 ## Parameters
 
@@ -17,17 +17,17 @@
 
 ## Returns
 
-- `energy-memory`: energy used by memory, in kWh
+- `memory/energy`: energy used by memory, in kWh
 
 ## Calculation
 
 ```psuedocode
-energy-memory = (('memory/utilization'/100) * 'memory/capacity') * mem-energy
+memory/energy = (('memory/utilization'/100) * 'memory/capacity') * mem-energy
 ```
 
 ## Implementation
 
-To run the plugin, you must first create an instance of `EMem`. Then, you can call `execute()` to return `energy-memory`.
+To run the plugin, you must first create an instance of `EMem`. Then, you can call `execute()` to return `memory/energy`.
 
 ```typescript
 import {EMem} from '@grnsft/if-plugins';

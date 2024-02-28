@@ -26,7 +26,7 @@ export const EMem = (globalConfig: ConfigParams): PluginInterface => {
 
       return {
         ...input,
-        'energy-memory': calculateEnergy(inputWithConfigs),
+        'memory/energy': calculateEnergy(inputWithConfigs),
       };
     });
   };

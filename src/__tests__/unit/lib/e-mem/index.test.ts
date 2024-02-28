@@ -42,7 +42,7 @@ describe('lib/e-mem: ', () => {
 
         expect(result).toHaveLength(inputs.length);
         result.forEach((output, index) => {
-          expect(output['energy-memory']).toBeCloseTo(
+          expect(output['memory/energy']).toBeCloseTo(
             inputs[index]['memory/capacity'] *
               (inputs[index]['memory/utilization'] / 100) *
               globalConfig['energy-per-gb']
@@ -94,7 +94,7 @@ describe('lib/e-mem: ', () => {
           (data[0]['memory/utilization'] / 100) *
           0.38;
 
-        expect(response[0]['energy-memory']).toEqual(expectedMemory);
+        expect(response[0]['memory/energy']).toEqual(expectedMemory);
       });
     });
   });
