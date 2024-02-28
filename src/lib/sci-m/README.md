@@ -8,17 +8,17 @@ Read more on [embodied carbon](https://github.com/Green-Software-Foundation/sci/
 
 ### Plugin config
 
+N/A
+
+### Inputs
+
 - `device/emissions-embodied`: the sum of Life Cycle Assessment (LCA) emissions for the component
 - `device/expected-lifespan`: the length of time, in seconds, between a component's manufacture and its disposal
 - `resources-reserved`: the number of resources reserved for use by the software
 - `resources-total`: the total number of resources available
+- `duration`: the amount of time covered by an observation, in this context it is used as the share of the total life span of the hardware reserved for use by an application, in seconds.
 
 > Note that if you have a plugin pipeline that adds `vcpus-allocated` and `vcpus-total` to each observation, such as the `cloud-instance-metadata` plugin, those values will be used **in preference** to the given `resources-reserved` and `resources-total` fields.
-
-### Inputs
-
-- `timestamp`: a timestamp for the input
-- `duration`: the amount of time covered by an observation, in this context it is used as the share of the total life span of the hardware reserved for use by an application, in seconds.
 
 ## Returns
 

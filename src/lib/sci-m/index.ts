@@ -26,13 +26,13 @@ export const SciM = (): PluginInterface => {
   /**
    * Calculate the Embodied carbon for a list of inputs.
    */
-  const execute = async (inputs: PluginParams[]): Promise<PluginParams[]> => {
+  const execute = async (inputs: PluginParams[]) => {
     return inputs.map(input => {
-      validateInput(input);
+      const safeInput = validateInput(input);
 
       return {
         ...input,
-        'carbon-embodied': calculateEmbodiedCarbon(input),
+        'carbon-embodied': calculateEmbodiedCarbon(safeInput),
       };
     });
   };
@@ -42,22 +42,21 @@ export const SciM = (): PluginInterface => {
    * M = totalEmissions * (duration/ExpectedLifespan) * (resourcesReserved/totalResources)
    */
   const calculateEmbodiedCarbon = (input: PluginParams) => {
-    const safeInput = Object.assign(input, validateInput(input));
     const totalEmissions = parseNumberInput(
-      safeInput['device/emissions-embodied'],
+      input['device/emissions-embodied'],
       'gCO2e'
     );
-    const duration = parseNumberInput(safeInput['duration'], 'seconds');
+    const duration = parseNumberInput(input['duration'], 'seconds');
     const expectedLifespan = parseNumberInput(
-      safeInput['device/expected-lifespan'],
+      input['device/expected-lifespan'],
       'seconds'
     );
     const resourcesReserved = parseNumberInput(
-      safeInput['vcpus-allocated'] || safeInput['resources-reserved'],
+      input['vcpus-allocated'] || input['resources-reserved'],
       'count'
     );
     const totalResources = parseNumberInput(
-      safeInput['vcpus-total'] || safeInput['resources-total'],
+      input['vcpus-total'] || input['resources-total'],
       'count'
     );
 
@@ -95,6 +94,7 @@ export const SciM = (): PluginInterface => {
       'device/expected-lifespan': z.number().gte(0).min(0),
       'vcpus-allocated': z.number().gte(0).min(0),
       'vcpus-total': z.number().gte(0).min(0),
+      duration: z.number().gte(1),
     });
 
     const schemaWithResources = z.object({
@@ -102,6 +102,7 @@ export const SciM = (): PluginInterface => {
       'device/expected-lifespan': z.number().gte(0).min(0),
       'resources-reserved': z.number().gte(0).min(0),
       'resources-total': z.number().gte(0).min(0),
+      duration: z.number().gte(1),
     });
 
     const schema = schemaWithVcpus.or(schemaWithResources).refine(allDefined, {
