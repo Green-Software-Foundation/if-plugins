@@ -41,6 +41,8 @@ describe('lib/coefficient: ', () => {
           },
         ]);
 
+        expect.assertions(1);
+
         expect(result).toStrictEqual(expectedResult);
       });
 
@@ -52,7 +54,9 @@ describe('lib/coefficient: ', () => {
         };
         const coeff = Coefficient(invalidConfig);
         const expectedMessage =
-          'Coefficient: No input parameter was provided in global config.';
+          '"input-parameter" parameter is string must contain at least 1 character(s). Error code: too_small.';
+
+        expect.assertions(1);
 
         try {
           await coeff.execute([
@@ -68,6 +72,7 @@ describe('lib/coefficient: ', () => {
           );
         }
       });
+
       it('throws an error on missing output-parameter param in input.', async () => {
         const invalidConfig = {
           'input-parameter': 'carbon',
@@ -76,8 +81,9 @@ describe('lib/coefficient: ', () => {
         };
         const coeff = Coefficient(invalidConfig);
         const expectedMessage =
-          'Coefficient: The output parameter name was missing from global config.';
+          '"output-parameter" parameter is string must contain at least 1 character(s). Error code: too_small.';
 
+        expect.assertions(1);
         try {
           await coeff.execute([
             {

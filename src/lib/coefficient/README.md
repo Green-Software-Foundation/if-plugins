@@ -12,7 +12,7 @@ IF recognizes the plugin as `coefficient`
 
 ## Parameters
 
-### Plugin config
+### Plugin global config
 
 Three parameters are required in global config: `input-parameter`, `coefficient` and `output-parameter`.
 
@@ -80,7 +80,7 @@ tree:
       pipeline:
         - coefficient
       config:
-        sum:
+        coefficient:
       inputs:
         - timestamp: 2023-08-06T00:00
           duration: 3600
