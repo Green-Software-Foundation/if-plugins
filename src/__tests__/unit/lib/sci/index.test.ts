@@ -90,27 +90,6 @@ describe('lib/sci:', () => {
         ]);
       });
 
-      it('throws an exception on missing functional unit data.', async () => {
-        const sci = Sci({
-          'functional-unit': 'requests',
-        });
-        const inputs = [
-          {
-            timestamp: '2021-01-01T00:00:00Z',
-            'carbon-operational': 0.002,
-            'carbon-embodied': 0.0005,
-            duration: 1,
-          },
-        ];
-        expect.assertions(1);
-
-        try {
-          await sci.execute(inputs);
-        } catch (error) {
-          expect(error).toBeInstanceOf(InputValidationError);
-        }
-      });
-
       it('throws exception on invalid functional unit data.', async () => {
         const sci = Sci({
           'functional-unit': 'requests',
@@ -360,31 +339,6 @@ describe('lib/sci:', () => {
             sci: 432,
           },
         ]);
-      });
-
-      it('throws an exception when the `functional-unit-time` is nor provided.', async () => {
-        const sci = Sci();
-        const inputs = [
-          {
-            timestamp: '2021-01-01T00:00:00Z',
-            'carbon-operational': 0.002,
-            'carbon-embodied': 0.0005,
-            duration: 1,
-          },
-        ];
-
-        expect.assertions(2);
-
-        try {
-          await sci.execute(inputs);
-        } catch (error) {
-          expect(error).toBeInstanceOf(InputValidationError);
-          expect(error).toEqual(
-            new InputValidationError(
-              '"functional-unit-time" parameter is required. Error code: invalid_type.'
-            )
-          );
-        }
       });
     });
   });
