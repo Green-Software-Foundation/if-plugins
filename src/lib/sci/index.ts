@@ -25,16 +25,16 @@ export const Sci = (globalConfig?: ConfigParams): PluginInterface => {
     config?: ConfigParams
   ): Promise<PluginParams[]> => {
     const mergedConfig = Object.assign({}, globalConfig, config);
-    validateConfig(mergedConfig);
+    const validatedConfigs = validateConfig(mergedConfig);
 
     return inputs.map(input => {
-      const inputWithConfigs: PluginParams = Object.assign(
+      const safeInput = validateInput(input);
+      const inputWithConfigs = Object.assign(
         {},
         input,
-        mergedConfig
+        safeInput,
+        validatedConfigs
       );
-
-      validateInput(inputWithConfigs);
 
       return {
         ...input,
@@ -122,7 +122,7 @@ export const Sci = (globalConfig?: ConfigParams): PluginInterface => {
     const unitWarnMessage =
       'Please ensure you have provided one value and one unit and they are either space, underscore, or hyphen separated.';
     const errorMessage =
-      'either or both `functional-unit-time` and `functional-unit` should be provided';
+      'Either or both `functional-unit-time` and `functional-unit` should be provided';
 
     const schema = z
       .object({
@@ -149,11 +149,13 @@ export const Sci = (globalConfig?: ConfigParams): PluginInterface => {
 
     const schemaWithCarbon = z.object({
       carbon: z.number().gte(0),
+      duration: z.number().gte(1),
     });
 
     const schemaWithoutCarbon = z.object({
       'carbon-operational': z.number().gte(0),
       'carbon-embodied': z.number().gte(0),
+      duration: z.number().gte(1),
     });
 
     const schema = schemaWithCarbon
