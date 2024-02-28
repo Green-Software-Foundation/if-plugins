@@ -4,10 +4,6 @@
 energy use. The plugin returns `energy` which is used as the input to
 the `sci-o` plugin that calculates operational emissions for the component.
 
-## Plugin name
-
-IF recognizes the SCI-E plugin as `sci-e`
-
 ## Parameters
 
 ### Plugin config

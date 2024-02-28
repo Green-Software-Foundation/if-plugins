@@ -6,10 +6,6 @@ You provide the name of the value you want to multiply, a coefficient value, and
 
 For example, you could multiply `cpu/energy` by 10 and name the result `energy-product`. `energy-product` would then be added to every observation in your input array as the product of `cpu/energy` and 10.
 
-## Plugin name
-
-IF recognizes the plugin as `coefficient`
-
 ## Parameters
 
 ### Plugin global config

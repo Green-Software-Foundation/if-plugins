@@ -6,10 +6,6 @@ You provide the names of the values you want to multiply, and a name to use to a
 
 For example, you could multiply `cpu/energy` and `network/energy` and name the result `energy-product`. `energy-product` would then be added to every observation in your input array as the product of `cpu/energy` and `network/energy`.
 
-## Plugin name
-
-IF recognizes the plugin as `multiply`
-
 ## Parameters
 
 ### Plugin config

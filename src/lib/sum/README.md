@@ -6,10 +6,6 @@ You provide the names of the values you want to sum, and a name to use to add th
 
 For example, you could add `cpu/energy` and `network/energy` and name the result `energy`. `energy` would then be added to every observation in your input array as the sum of `cpu/energy` and `network/energy`.
 
-## Plugin name
-
-IF recognizes the plugin as `sum`
-
 ## Parameters
 
 ### Plugin config
