@@ -14,20 +14,15 @@ export const SciO = (): PluginInterface => {
   /**
    * Calculate the total emissions for a list of inputs.
    */
-  const execute = async (inputs: PluginParams[]) => {
-    return inputs.map(input => {
-      const safeInput: PluginParams = Object.assign(
-        {},
-        input,
-        validateSingleInput(input)
-      );
+  const execute = async (inputs: PluginParams[]) =>
+    inputs.map(input => {
+      const safeInput = Object.assign({}, input, validateSingleInput(input));
 
       return {
         ...input,
         'carbon-operational': calculateOperationalCarbon(safeInput),
       };
     });
-  };
 
   /**
    * Calculate the Operational carbon for the input.
