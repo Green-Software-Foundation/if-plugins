@@ -14,7 +14,20 @@ The TDP Finder model finds the thermal design power (TDP) of a given processor b
 
 ## Implementation
 
-IEF implements the plugin based on the logic described above.
+To run the plugin, you must first create an instance of `TdpFinder`. Then, you can call `execute()`.
+
+```typescript
+import {TdpFinder} from '@grnsft/if-plugins';
+
+const tdpFinder = TdpFinder();
+const result = await tdpFinder.execute([
+  {
+    timestamp: '2023-11-02T10:35:31.820Z',
+    duration: 3600,
+    'physical-processor': 'AMD 3020e',
+  },
+]);
+```
 
 ## Usage with manifest
 

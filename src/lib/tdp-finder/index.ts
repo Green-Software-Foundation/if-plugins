@@ -21,7 +21,7 @@ export const TdpFinder = (): PluginInterface => {
   /**
    * Calculate the total emissions for a list of inputs.
    */
-  const execute = async (inputs: PluginParams[]): Promise<PluginParams[]> => {
+  const execute = async (inputs: PluginParams[]) => {
     const data = await loadData();
 
     return inputs.map((input, index: number) => {
