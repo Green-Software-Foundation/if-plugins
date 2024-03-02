@@ -1,55 +1,71 @@
 # E-MEM (energy due to memory)
 
-`e-mem` simply multiples the amount of memory being used by a coefficient
-(0.38 kWh/GB) to yield `energy-memory`.
+`e-mem` simply multiples the amount of memory being used by a energy-per-gb
+(0.38 kWh/GB) to yield `memory/energy`.
 
 ## Parameters
 
-### Model config
+### Plugin global config
 
-Not Needed
+- `energy-per-gb`: a coefficient for energy in kWh per GB. If not provided,
+  defaults to 0.38. (optional)
 
 ### Inputs
 
-- `mem-util`: percentage of the total available memory being used in the input period
-- `total-memoryGB`: the total amount of memory available, in GB
-
-optional:
-
-- `coefficient`: a coefficient for energy in kWh per GB. If not provided,
-  defaults to 0.38.
+- `memory/utilization`: percentage of the total available memory being used in the input period
+- `memory/capacity`: the total amount of memory available, in GB
 
 ## Returns
 
-- `energy-memory`: energy used by memory, in kWh
+- `memory/energy`: energy used by memory, in kWh
 
 ## Calculation
 
 ```psuedocode
-energy-memory = ((memory_util/100) * total-memoryGB) * mem-energy
+memory/energy = (('memory/utilization'/100) * 'memory/capacity') * mem-energy
 ```
 
-## Example impl
+## Implementation
 
-IEF users will typically call the model as part of a pipeline defined in
-an `impl` file.
+To run the plugin, you must first create an instance of `EMem`. Then, you can call `execute()` to return `memory/energy`.
 
-In this case, instantiating and configuring the model is
-handled by `impact-engine` and does not have to be done explicitly by
+```typescript
+import {EMem} from '@grnsft/if-plugins';
+
+const eMem = EMem({'energy-per-gb': 0.002});
+const result = await eMem.execute([
+  {
+    'memory/utilization': 80,
+    'memory/capacity': 16,
+    duration: 3600,
+    timestamp: '2022-01-01T01:00:00Z',
+  },
+]);
+```
+
+## Example manifest
+
+IEF users will typically call the plugin as part of a pipeline defined in
+a `manifest` file.
+
+In this case, instantiating and configuring the plugin is
+handled by `if` and does not have to be done explicitly by
 the user.
 
-The following is an example `impl` that calls `sci-e`:
+The following is an example `manifest` that calls `e-mem`:
 
 ```yaml
 name: e-mem-demo
 description:
 tags:
 initialize:
-  models:
-    - name: e-mem
-      model: EMemModel
-      path: '@grnsft/if-models'
-graph:
+  plugins:
+    e-mem:
+      method: EMem
+      path: '@grnsft/if-plugins'
+      global-config:
+        energy-per-gb: 0.002
+tree:
   children:
     child:
       pipeline:
@@ -58,16 +74,16 @@ graph:
       inputs:
         - timestamp: 2023-08-06T00:00
           duration: 3600
-          mem-util: 40
-          total-memoryGB: 1
+          memory/utilization: 40
+          memory/capacity: 1
 ```
 
-You can run this example `impl` by saving it as `examples/impls/test/e-mem.yml` and executing the following command from the project root:
+You can run this example `manifest` by saving it as `examples/manifests/test/e-mem.yml` and executing the following command from the project root:
 
 ```sh
 npm i -g @grnsft/if
-npm i -g @grnsft/if-models
-impact-engine --impl ./examples/impls/test/e-mem.yml --ompl ./examples/ompls/e-mem.yml
+npm i -g @grnsft/if-plugins
+if --manifest ./examples/manifests/test/e-mem.yml --output ./examples/outputs/e-mem.yml
 ```
 
-The results will be saved to a new `yaml` file in `./examples/ompls`.
+The results will be saved to a new `yaml` file in `./examples/outputs`.

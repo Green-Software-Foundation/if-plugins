@@ -1,22 +1,26 @@
-import {SciE} from '../../../../lib';
+import {Sum} from '../../../../lib';
 
 import {ERRORS} from '../../../../util/errors';
 
 const {InputValidationError} = ERRORS;
 
-describe('lib/sci-e: ', () => {
-  describe('SciE: ', () => {
-    const sciE = SciE();
+describe('lib/sum: ', () => {
+  describe('Sum: ', () => {
+    const globalConfig = {
+      'input-parameters': ['cpu/energy', 'network/energy', 'memory/energy'],
+      'output-parameter': 'energy',
+    };
+    const sum = Sum(globalConfig);
 
     describe('init: ', () => {
       it('successfully initalized.', () => {
-        expect(sciE).toHaveProperty('metadata');
-        expect(sciE).toHaveProperty('execute');
+        expect(sum).toHaveProperty('metadata');
+        expect(sum).toHaveProperty('execute');
       });
     });
 
     describe('execute(): ', () => {
-      it('successfully applies SCI-E strategy to given input.', async () => {
+      it('successfully applies Sum strategy to given input.', async () => {
         expect.assertions(1);
 
         const expectedResult = [
@@ -30,7 +34,7 @@ describe('lib/sci-e: ', () => {
           },
         ];
 
-        const result = await sciE.execute([
+        const result = await sum.execute([
           {
             duration: 3600,
             'cpu/energy': 1,
@@ -45,12 +49,12 @@ describe('lib/sci-e: ', () => {
 
       it('throws an error on missing params in input.', async () => {
         const expectedMessage =
-          'At least one of cpu/energy,memory/energy,network/energy should present.';
+          'Sum: cpu/energy is missing from the input array.';
 
         expect.assertions(1);
 
         try {
-          await sciE.execute([
+          await sum.execute([
             {
               duration: 3600,
               timestamp: '2021-01-01T00:00:00Z',
@@ -63,19 +67,33 @@ describe('lib/sci-e: ', () => {
         }
       });
 
-      it('returns a result with one of the params in input.', async () => {
+      it('returns a result with input params not related to energy.', async () => {
         expect.assertions(1);
+        const newConfig = {
+          'input-parameters': ['carbon', 'other-carbon'],
+          'output-parameter': 'carbon-sum',
+        };
+        const sum = Sum(newConfig);
 
         const data = [
           {
             duration: 3600,
             timestamp: '2021-01-01T00:00:00Z',
-            'cpu/energy': 1,
+            carbon: 1,
+            'other-carbon': 2,
           },
         ];
-        const response = await sciE.execute(data);
+        const response = await sum.execute(data);
 
-        const expectedResult = [{...data[0], energy: data[0]['cpu/energy']}];
+        const expectedResult = [
+          {
+            duration: 3600,
+            carbon: 1,
+            'other-carbon': 2,
+            'carbon-sum': 3,
+            timestamp: '2021-01-01T00:00:00Z',
+          },
+        ];
 
         expect(response).toEqual(expectedResult);
       });

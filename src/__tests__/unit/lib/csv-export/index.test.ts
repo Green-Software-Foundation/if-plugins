@@ -1,13 +1,18 @@
-import {describe, expect, jest, test} from '@jest/globals';
-import {CsvExportModel} from '../../../../lib/csv-export';
 import * as fs from 'fs/promises';
+import {jest} from '@jest/globals';
+
+import {CsvExport} from '../../../../lib/csv-export';
+
+import {ERRORS} from '../../../../util/errors';
+
+const {MakeDirectoryError, WriteFileError} = ERRORS;
 
 jest.mock('fs/promises', () => ({
   mkdir: jest.fn<() => Promise<void>>().mockResolvedValue(),
   writeFile: jest.fn<() => Promise<void>>().mockResolvedValue(),
 }));
 
-describe('lib/csv-export', () => {
+describe('lib/csv-export: ', () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
@@ -17,25 +22,13 @@ describe('lib/csv-export', () => {
     'output-path': path,
   };
 
-  describe('configure()', () => {
-    test('configure model to be csv export model', async () => {
-      const csvExportModel = new CsvExportModel().configure(standardConfig);
-      await expect(csvExportModel).resolves.toBeInstanceOf(CsvExportModel);
-    });
-
-    test('configure model with missing output path will error', async () => {
-      const badConfig = {};
-      await expect(new CsvExportModel().configure(badConfig)).rejects.toThrow();
-    });
-  });
-
-  describe('execute())', () => {
-    test('execute with custom headers timestamp and duration and write to csv', async () => {
+  describe('execute(): ', () => {
+    it('executes with custom headers timestamp and duration and write to csv.', async () => {
       const basicConfig = {
         'output-path': path,
         headers: ['timestamp', 'duration'],
       };
-      const csvExportModel = await new CsvExportModel().configure(basicConfig);
+      const csvExport = CsvExport();
 
       const input = [
         {
@@ -52,7 +45,9 @@ describe('lib/csv-export', () => {
         },
       ];
 
-      const result = await csvExportModel.execute(input);
+      const result = await csvExport.execute(input, basicConfig);
+
+      expect.assertions(3);
 
       expect(fs.writeFile).toHaveBeenCalledTimes(1);
       expect(fs.writeFile).toHaveBeenCalledWith(
@@ -63,12 +58,12 @@ describe('lib/csv-export', () => {
       expect(result).toStrictEqual(input);
     });
 
-    test('execute with custom headers and write csv to file', async () => {
+    it('executes with custom headers and write csv to file.', async () => {
       const basicConfig = {
         'output-path': path,
         headers: ['timestamp', 'duration', 'water'],
       };
-      const csvExportModel = await new CsvExportModel().configure(basicConfig);
+      const csvExport = CsvExport();
 
       const input = [
         {
@@ -87,7 +82,9 @@ describe('lib/csv-export', () => {
         },
       ];
 
-      const result = await csvExportModel.execute(input);
+      const result = await csvExport.execute(input, basicConfig);
+
+      expect.assertions(3);
 
       expect(fs.writeFile).toHaveBeenCalledTimes(1);
       expect(fs.writeFile).toHaveBeenCalledWith(
@@ -98,10 +95,8 @@ describe('lib/csv-export', () => {
       expect(result).toStrictEqual(input);
     });
 
-    test('execute with empty headers and will write all input data to csv', async () => {
-      const csvExportModel = await new CsvExportModel().configure(
-        standardConfig
-      );
+    it('executes with empty headers and will write all input data to csv.', async () => {
+      const csvExport = CsvExport();
 
       const input = [
         {
@@ -118,7 +113,9 @@ describe('lib/csv-export', () => {
         },
       ];
 
-      const result = await csvExportModel.execute(input);
+      const result = await csvExport.execute(input, standardConfig);
+
+      expect.assertions(3);
 
       expect(fs.writeFile).toHaveBeenCalledTimes(1);
       expect(fs.writeFile).toHaveBeenCalledWith(
@@ -129,13 +126,11 @@ describe('lib/csv-export', () => {
       expect(result).toStrictEqual(input);
     });
 
-    test('failed to write file will return error', async () => {
+    it('throws an error when a file writing fails.', async () => {
       (fs.writeFile as jest.Mock).mockImplementation(() => {
         throw new Error('Permission denied');
       });
-      const csvExportModel = await new CsvExportModel().configure(
-        standardConfig
-      );
+      const csvExport = CsvExport();
 
       const input = [
         {
@@ -144,21 +139,26 @@ describe('lib/csv-export', () => {
         },
       ];
 
-      await expect(csvExportModel.execute(input)).rejects.toThrow(
-        'CsvExportModel: Failed to write CSV to ' +
-          path +
-          ' Error: Permission denied'
-      );
+      expect.assertions(2);
+
+      try {
+        await csvExport.execute(input, standardConfig);
+      } catch (error) {
+        expect(error).toBeInstanceOf(WriteFileError);
+        expect(error).toEqual(
+          new WriteFileError(
+            `CsvExport: Failed to write CSV to ${path} Error: Permission denied.`
+          )
+        );
+      }
     });
 
-    test('failed to create file will return error', async () => {
+    it('throws en error when a file creating fails.', async () => {
       (fs.mkdir as jest.Mock).mockImplementation(() => {
         throw new Error('Permission denied');
       });
-      const csvExportModel = await new CsvExportModel().configure(
-        standardConfig
-      );
 
+      const csvExport = CsvExport();
       const input = [
         {
           timestamp: '2023-12-12T00:00:00.000Z',
@@ -166,9 +166,18 @@ describe('lib/csv-export', () => {
         },
       ];
 
-      await expect(csvExportModel.execute(input)).rejects.toThrow(
-        'CsvExportModel: Failed to create directory for CSV at path: . Error: Permission denied'
-      );
+      expect.assertions(2);
+
+      try {
+        await csvExport.execute(input, standardConfig);
+      } catch (error) {
+        expect(error).toBeInstanceOf(MakeDirectoryError);
+        expect(error).toEqual(
+          new MakeDirectoryError(
+            'CsvExport: Failed to create directory for CSV at path: . Error: Permission denied.'
+          )
+        );
+      }
     });
   });
 });

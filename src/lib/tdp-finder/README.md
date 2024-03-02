@@ -1,8 +1,8 @@
-# TDP Finder Model
+# TDP Finder Plugin
 
 ## Scope
 
-The TDP Finder model finds the thermal design power (TDP) of a given processor by looking it up in the model datasets. There are scenarios where the lookup can return multiple possible TDP values. In these cases, we return the maximum of the possible values. There are also cases where no TDP can be found for a specific processor. In these cases, we throw an error. The TDP is then used by other models to calculate the `energy-cpu` value.
+The TDP Finder model finds the thermal design power (TDP) of a given processor by looking it up in the model datasets. There are scenarios where the lookup can return multiple possible TDP values. In these cases, we return the maximum of the possible values. There are also cases where no TDP can be found for a specific processor. In these cases, we throw an error. The TDP is then used by other plugins to calculate the `cpu/energy` value.
 
 ## Used DataSets
 
@@ -14,22 +14,35 @@ The TDP Finder model finds the thermal design power (TDP) of a given processor b
 
 ## Implementation
 
-IEF implements the plugin based on the logic described above.
+To run the plugin, you must first create an instance of `TdpFinder`. Then, you can call `execute()`.
 
-## Usage with IMPL
+```typescript
+import {TdpFinder} from '@grnsft/if-plugins';
 
-- Model Name: `tdp-finder`
+const tdpFinder = TdpFinder();
+const result = await tdpFinder.execute([
+  {
+    timestamp: '2023-11-02T10:35:31.820Z',
+    duration: 3600,
+    'physical-processor': 'AMD 3020e',
+  },
+]);
+```
+
+## Example manifest
+
+IF users will typically call the plugin as part of a pipeline defined in a `manifest` file. In this case, instantiating the plugin is handled by `if` and does not have to be done explicitly by the user. The following is an example `manifest` that calls `tpd-finder`:
 
 ```yaml
 name: tdp-demo
 description:
 tags:
 initialize:
-  models:
-    - name: finder
-      model: TdpFinderModel
-      path: '@grnsft/if-models'
-graph:
+  plugins:
+    finder:
+      method: TdpFinder
+      path: '@grnsft/if-plugins'
+tree:
   children:
     child:
       pipeline:
@@ -38,18 +51,18 @@ graph:
         - physical-processor: Intel Xeon Platinum 8175M, AMD A8-9600
 ```
 
-## Output in OMPL
+## Output in output
 
 ```yaml
 name: tdp-demo
 description:
 tags:
 initialize:
-  models:
-    - name: finder
-      model: TdpFinderModel
-      path: '@grnsft/if-models'
-graph:
+  plugins:
+    finder:
+      method: TdpFinder
+      path: '@grnsft/if-plugins'
+tree:
   children:
     child:
       pipeline:
@@ -58,15 +71,15 @@ graph:
         - physical-processor: Intel Xeon Platinum 8175M, AMD A8-9600
       outputs:
         - physical-processor: Intel Xeon Platinum 8175M, AMD A8-9600
-          thermal-design-power: 150
+          cpu/thermal-design-power: 150
 ```
 
-You can run this example `impl` by saving it as `./examples/impls/test/tdp-finder.yml` and executing the following command from the project root:
+You can run this example `manifest` by saving it as `./examples/manifests/test/tdp-finder.yml` and executing the following command from the project root:
 
 ```sh
 npm i -g @grnsft/if
-npm i -g @grnsft/if-models
-impact-engine --impl ./examples/impls/test/tdp-finder.yml --ompl ./examples/ompls/tdp-finder.yml
+npm i -g @grnsft/if-plugins
+if --manifest ./examples/manifests/test/tdp-finder.yml --output ./examples/outputs/tdp-finder.yml
 ```
 
-The results will be saved to a new `yaml` file in `./examples/ompls`.
+The results will be saved to a new `yaml` file in `./examples/outputs`.

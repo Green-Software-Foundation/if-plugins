@@ -1,16 +1,12 @@
 # SCI-E (total energy)
 
-`sci-e` is a model that simply sums up the contributions to a component's
-energy use. The model returns `energy` which is used as the input to
-the `sci-o` model that calculates operational emissions for the component.
-
-## Model name
-
-IF recognizes the SCI-E model as `sci-e`
+`sci-e` is a plugin that simply sums up the contributions to a component's
+energy use. The plugin returns `energy` which is used as the input to
+the `sci-o` plugin that calculates operational emissions for the component.
 
 ## Parameters
 
-### Model config
+### Plugin config
 
 Not Needed
 
@@ -18,10 +14,9 @@ Not Needed
 
 At least one of:
 
-- `energy-cpu`: energy used by the CPU, in kWh
-- `energy-memory`: energy used by memory, in kWh
-- `energy-gpu`: energy used by GPU, in kWh
-- `energy-network`: energy used to handle network traffic, in kWh
+- `cpu/energy`: energy used by the CPU, in kWh
+- `memory/energy`: energy used by memory, in kWh
+- `network/energy`: energy used to handle network traffic, in kWh
 
 plus the following required:
 
@@ -38,47 +33,45 @@ plus the following required:
 to network traffic, energy due to memory and energy due to GPU usage.
 
 ```pseudocode
-energy = energy-cpu + energy-network + energy-memory + e-gpu
+energy = 'cpu/energy' + 'network/energy' + 'memory/energy'
 ```
 
-In any model pipeline that includes `sci-o`, `sci-o` must be preceded by `sci-e`.
+In any plugin pipeline that includes `sci-o`, `sci-o` must be preceded by `sci-e`.
 This is because `sci-o` does not recognize the individual contributions,
-`energy-cpu`, `energy-network`, etc, but expects to find `energy`.
+`cpu/energy`, `network/energy`, etc, but expects to find `energy`.
 Only `sci-e` takes individual contributions and returns `energy`.
 
 ## Implementation
 
-To run the model, you must first create an instance of `SciEModel`. Then, you can call `execute()` to return `energy`.
+To run the plugin, you must first create an instance of `SciE`. Then, you can call `execute()` to return `energy`.
 
 ```typescript
-import { SciEModel } from '@gsf/if-models';
+import {SciE} from '@grnsft/if-plugins';
 
-const sciEModel = new SciEModel();
-sciEModel.execute([
+const sciE = SciE();
+const result = await sciE.execute([
   {
-    energy-cpu: 0.001,
-    energy-memory: 0.0005,
-    energy-network: 0.0005,
-  }
-]).then((result) => {
-  console.log(results)
-})
+    'cpu/energy': 0.001,
+    'memory/energy': 0.0005,
+    'network/energy': 0.0005,
+  },
+]);
 ```
 
-## Example impl
+## Example manifest
 
-IF users will typically call the model as part of a pipeline defined in an `impl` file. In this case, instantiating and configuring the model is handled by `impact-engine` and does not have to be done explicitly by the user. The following is an example `impl` that calls `sci-e`:
+IF users will typically call the plugin as part of a pipeline defined in a `manifest` file. In this case, instantiating the plugin is handled by `if` and does not have to be done explicitly by the user. The following is an example `manifest` that calls `sci-e`:
 
 ```yaml
 name: sci-e-demo
 description:
 tags:
 initialize:
-  models:
-    - name: sci-e
-      model: SciEModel
-      path: '@grnsft/if-models'
-graph:
+  plugins:
+    sci-e:
+      method: SciE
+      path: '@grnsft/if-plugins'
+tree:
   children:
     child:
       pipeline:
@@ -88,15 +81,15 @@ graph:
       inputs:
         - timestamp: 2023-08-06T00:00
           duration: 3600
-          energy-cpu: 0.001
+          cpu/energy: 0.001
 ```
 
-You can run this example `impl` by saving it as `./examples/impls/test/sci-e.yml` and executing the following command from the project root:
+You can run this example `manifest` by saving it as `./examples/manifests/test/sci-e.yml` and executing the following command from the project root:
 
 ```sh
 npm i -g @grnsft/if
-npm i -g @grnsft/if-models
-impact-engine --impl ./examples/impls/test/sci-e.yml --ompl ./examples/ompls/sci-e.yml
+npm i -g @grnsft/if-plugins
+if --manifest ./examples/manifests/test/sci-e.yml --output ./examples/outputs/sci-e.yml
 ```
 
-The results will be saved to a new `yaml` file in `./examples/ompls`.
+The results will be saved to a new `yaml` file in `./examples/outputs`.

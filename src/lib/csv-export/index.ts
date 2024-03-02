@@ -1,89 +1,87 @@
-import {ModelPluginInterface} from '../../interfaces';
-import {ModelParams} from '../../types/common';
-
 import * as path from 'path';
 import * as fs from 'fs/promises';
+import {z} from 'zod';
 
-import {ERRORS} from '../../util/errors';
+import {PluginInterface} from '../../interfaces';
+import {ConfigParams, PluginParams} from '../../types/common';
+
 import {buildErrorMessage} from '../../util/helpers';
+import {validate} from '../../util/validations';
+import {ERRORS} from '../../util/errors';
+
 const {MakeDirectoryError, WriteFileError, InputValidationError} = ERRORS;
 
-export class CsvExportModel implements ModelPluginInterface {
-  private outputPath: string | undefined;
+export const CsvExport = (): PluginInterface => {
+  const metadata = {kind: 'execute'};
 
-  private errorBuilder = buildErrorMessage(this.constructor.name);
+  const errorBuilder = buildErrorMessage(CsvExport.name);
 
-  private headers: string[] = [];
-
-  private createCsvContent(inputs: ModelParams[]): string {
+  const createCsvContent = (
+    inputs: PluginParams[],
+    headers: string[]
+  ): string => {
     return [
-      this.headers.join(','),
-      ...inputs.map(row =>
-        this.headers.map(fieldName => row[fieldName]).join(',')
-      ),
+      headers.join(','),
+      ...inputs.map(row => headers.map(fieldName => row[fieldName]).join(',')),
     ].join('\r\n');
-  }
+  };
 
-  async configure(params: object | undefined): Promise<ModelPluginInterface> {
-    if (params === undefined) {
-      throw new InputValidationError(
-        this.errorBuilder({message: 'Configuration data is missing'})
+  const execute = async (inputs: PluginParams[], config?: ConfigParams) => {
+    const validatedConfig = validateConfig(config);
+
+    const {'output-path': outputPath, headers = []} = validatedConfig;
+    const dirPath = path.dirname(outputPath);
+
+    try {
+      await fs.mkdir(dirPath, {recursive: true});
+    } catch (error) {
+      throw new MakeDirectoryError(
+        errorBuilder({
+          message: `Failed to create directory for CSV at path: ${dirPath} ${error}`,
+        })
       );
     }
 
-    if ('output-path' in params) {
-      this.outputPath = params['output-path'] as string;
-    } else {
-      throw new InputValidationError(
-        this.errorBuilder({message: 'output-path required'})
+    const contentHeaders =
+      headers &&
+      headers.length === 0 &&
+      Array.isArray(inputs) &&
+      inputs.length > 0
+        ? Object.keys(inputs[0])
+        : headers;
+
+    const contents = createCsvContent(inputs, contentHeaders);
+
+    try {
+      await fs.writeFile(outputPath, contents);
+    } catch (error) {
+      throw new WriteFileError(
+        errorBuilder({
+          message: `Failed to write CSV to ${outputPath} ${error}`,
+        })
       );
     }
 
-    if ('headers' in params) {
-      this.headers = params['headers'] as string[];
-    }
-
-    return this;
-  }
-
-  async execute(inputs: ModelParams[]): Promise<ModelParams[]> {
-    if (this.outputPath) {
-      const dirPath = path.dirname(this.outputPath);
-
-      try {
-        await fs.mkdir(dirPath, {recursive: true});
-      } catch (error) {
-        throw new MakeDirectoryError(
-          this.errorBuilder({
-            message: `Failed to create directory for CSV at path: ${dirPath} ${error}`,
-          })
-        );
-      }
-
-      if (
-        this.headers.length === 0 &&
-        Array.isArray(inputs) &&
-        inputs.length > 0
-      ) {
-        this.headers = Object.keys(inputs[0]);
-      }
-
-      const contents = this.createCsvContent(inputs);
-
-      try {
-        await fs.writeFile(this.outputPath, contents);
-      } catch (error) {
-        throw new WriteFileError(
-          this.errorBuilder({
-            message: `Failed to write CSV to ${this.outputPath} ${error}`,
-          })
-        );
-      }
-    } else {
-      throw new InputValidationError(
-        this.errorBuilder({message: 'Model not configured correctly'})
-      );
-    }
     return inputs;
-  }
-}
+  };
+
+  const validateConfig = (config?: ConfigParams) => {
+    if (!config) {
+      throw new InputValidationError(
+        errorBuilder({message: 'Configuration data is missing'})
+      );
+    }
+
+    const schema = z.object({
+      'output-path': z.string(),
+      headers: z.string().array().optional(),
+    });
+
+    return validate<z.infer<typeof schema>>(schema, config);
+  };
+
+  return {
+    metadata,
+    execute,
+  };
+};

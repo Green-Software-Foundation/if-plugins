@@ -1,7 +1,7 @@
 import {z} from 'zod';
 
-import {ModelPluginInterface} from '../../interfaces';
-import {ModelParams} from '../../types/common';
+import {PluginInterface} from '../../interfaces';
+import {ConfigParams, PluginParams} from '../../types/common';
 
 import {validate, allDefined} from '../../util/validations';
 import {buildErrorMessage} from '../../util/helpers';
@@ -11,47 +11,68 @@ import {TIME_UNITS_IN_SECONDS} from './config';
 
 const {InputValidationError} = ERRORS;
 
-export class SciModel implements ModelPluginInterface {
-  functionalUnitTime = {unit: '', value: 1};
-  errorBuilder = buildErrorMessage(this.constructor.name);
-
-  /**
-   * Configures the SCI Plugin.
-   */
-  public async configure(): Promise<ModelPluginInterface> {
-    return this;
-  }
+export const Sci = (globalConfig?: ConfigParams): PluginInterface => {
+  const errorBuilder = buildErrorMessage(Sci.name);
+  const metadata = {
+    kind: 'execute',
+  };
 
   /**
    * Calculate the total emissions for a list of inputs.
    */
-  public async execute(inputs: ModelParams[]): Promise<any[]> {
-    const tunedInputs = inputs.map(input => {
-      const safeInput = this.validateInput(input);
-      input = Object.assign(input, safeInput);
+  const execute = async (
+    inputs: PluginParams[],
+    config?: ConfigParams
+  ): Promise<PluginParams[]> => {
+    const mergedConfig = Object.assign({}, globalConfig, config);
+    const validatedConfigs = validateConfig(mergedConfig);
 
-      this.parseTime(input);
+    return inputs.map(input => {
+      const safeInput = validateInput(input);
+      const inputWithConfigs = Object.assign(
+        {},
+        input,
+        safeInput,
+        validatedConfigs
+      );
 
-      const sciPerSecond = this.calculateSciSeconds(input);
-      const sciTimed = this.convertSciToTimeUnit(sciPerSecond);
-      const factor = this.getFunctionalUnitConversionFactor(input);
-      const sciTimedDuration = sciTimed * this.functionalUnitTime.value;
-
-      input['carbon'] = input['carbon'] ?? sciPerSecond;
-      input['sci'] = sciTimedDuration / factor;
-
-      return input;
+      return {
+        ...input,
+        ...tuneInput(inputWithConfigs),
+      };
     });
+  };
 
-    return tunedInputs;
-  }
+  /**
+   * Given an input, tunes it and returns the tuned input.
+   */
+  const tuneInput = (input: PluginParams) => {
+    const sciPerSecond = calculateSciSeconds(input);
+    const factor = getFunctionalUnitConversionFactor(input);
+
+    if (!input['functional-unit-time']) {
+      return {
+        carbon: input['carbon'] ?? sciPerSecond,
+        sci: sciPerSecond / factor,
+      };
+    }
+
+    const functionalUnitTime = parseTime(input);
+    const sciTimed = convertSciToTimeUnit(sciPerSecond, functionalUnitTime);
+    const sciTimedDuration = sciTimed * functionalUnitTime.value;
+
+    return {
+      carbon: input['carbon'] ?? sciPerSecond,
+      sci: sciTimedDuration / factor,
+    };
+  };
 
   /**
    * Gets the conversion factor based on the functional unit specified in the input.
    * If the 'functional-unit' exists in the input and is not 'none' or an empty string,
    * returns the value; otherwise, defaults to 1.
    */
-  private getFunctionalUnitConversionFactor(input: ModelParams): number {
+  const getFunctionalUnitConversionFactor = (input: PluginParams): number => {
     const functionalUnit = input['functional-unit'];
 
     return functionalUnit in input &&
@@ -59,63 +80,82 @@ export class SciModel implements ModelPluginInterface {
       input[functionalUnit] !== ''
       ? input[functionalUnit]
       : 1;
-  }
+  };
 
   /**
    * Converts the given sci value from seconds to the specified time unit.
    */
-  private convertSciToTimeUnit(sciPerSecond: number): number {
-    const conversionFactor =
-      TIME_UNITS_IN_SECONDS[this.functionalUnitTime.unit];
+  const convertSciToTimeUnit = (
+    sciPerSecond: number,
+    functionalUnitTime: {unit: string; value: number}
+  ): number => {
+    const conversionFactor = TIME_UNITS_IN_SECONDS[functionalUnitTime.unit];
 
     if (!conversionFactor) {
       throw new InputValidationError(
-        this.errorBuilder({
+        errorBuilder({
           message: 'functional-unit-time is not in recognized unit of time',
         })
       );
     }
 
     return sciPerSecond * conversionFactor;
-  }
+  };
 
   /**
    * Calculates sci in seconds for a given input.
    */
-  private calculateSciSeconds(input: ModelParams): number {
-    const operational = parseFloat(input['operational-carbon']);
-    const embodied = parseFloat(input['embodied-carbon']);
+  const calculateSciSeconds = (input: PluginParams): number => {
+    const operational = parseFloat(input['carbon-operational']);
+    const embodied = parseFloat(input['carbon-embodied']);
     const sciPerSecond = (operational + embodied) / input['duration'];
 
     return 'carbon' in input
       ? input['carbon'] / input['duration']
       : sciPerSecond;
-  }
+  };
+
+  /**
+   * Validates node and gloabl configs.
+   */
+  const validateConfig = (config: ConfigParams) => {
+    const unitWarnMessage =
+      'Please ensure you have provided one value and one unit and they are either space, underscore, or hyphen separated.';
+    const errorMessage =
+      'Either or both `functional-unit-time` and `functional-unit` should be provided';
+
+    const schema = z
+      .object({
+        'functional-unit-time': z
+          .string()
+          .regex(new RegExp('^[0-9][ _-][a-zA-Z]+$'))
+          .min(3, unitWarnMessage)
+          .optional(),
+        'functional-unit': z.string().optional(),
+      })
+      .refine(data => data['functional-unit'] || data['functional-unit-time'], {
+        message: errorMessage,
+      });
+
+    return validate<z.infer<typeof schema>>(schema, config);
+  };
 
   /**
    * Checks for fields in input.
    */
-  private validateInput(input: ModelParams) {
-    const unitWarnMessage =
-      'Please ensure you have provided one value and one unit and they are either space, underscore or hyphen separated.';
+  const validateInput = (input: PluginParams) => {
     const message =
-      'functional-unit-time, either carbon or both of operational-carbon and embodied-carbon should be present.';
+      'Either carbon or both of carbon-operational and carbon-embodied should be present.';
 
     const schemaWithCarbon = z.object({
-      'functional-unit-time': z
-        .string()
-        .regex(new RegExp('^[0-9][ _-][a-zA-Z]+$'))
-        .min(3, unitWarnMessage),
       carbon: z.number().gte(0),
+      duration: z.number().gte(1),
     });
 
     const schemaWithoutCarbon = z.object({
-      'functional-unit-time': z
-        .string()
-        .regex(new RegExp('^[0-9][ _-][a-zA-Z]+$'))
-        .min(3, unitWarnMessage),
-      'operational-carbon': z.number().gte(0),
-      'embodied-carbon': z.number().gte(0),
+      'carbon-operational': z.number().gte(0),
+      'carbon-embodied': z.number().gte(0),
+      duration: z.number().gte(1),
     });
 
     const schema = schemaWithCarbon
@@ -123,16 +163,22 @@ export class SciModel implements ModelPluginInterface {
       .refine(allDefined, {message});
 
     return validate<z.infer<typeof schema>>(schema, input);
-  }
+  };
 
   /**
    * Parses the 'functional-unit-time' from the input and extracts the time value and unit.
    * Updates the functionalUnitTime's unit and value properties accordingly.
    */
-  private parseTime(input: ModelParams) {
+  const parseTime = (input: PluginParams) => {
     const splits = input['functional-unit-time'].split(/[-_ ]/);
+    return {
+      unit: splits[1],
+      value: parseFloat(splits[0]),
+    };
+  };
 
-    this.functionalUnitTime.unit = splits[1];
-    this.functionalUnitTime.value = parseFloat(splits[0]);
-  }
-}
+  return {
+    metadata,
+    execute,
+  };
+};

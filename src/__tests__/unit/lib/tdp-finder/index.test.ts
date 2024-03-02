@@ -1,31 +1,17 @@
-import {TdpFinderModel} from '../../../../lib';
+import {TdpFinder} from '../../../../lib';
 
 import {ERRORS} from '../../../../util/errors';
 
 const {InputValidationError, UnsupportedValueError} = ERRORS;
 
 describe('lib/tdp-finder:', () => {
-  describe('TdpFinderModel', () => {
-    let tdpFinderModel: TdpFinderModel;
-
-    beforeEach(async () => {
-      tdpFinderModel = new TdpFinderModel();
-      await tdpFinderModel.configure();
-    });
+  describe('TdpFinder', () => {
+    const tdpFinder = TdpFinder();
 
     describe('init: ', () => {
       it('successfully initalized.', () => {
-        expect(tdpFinderModel).toHaveProperty('configure');
-        expect(tdpFinderModel).toHaveProperty('execute');
-      });
-    });
-
-    describe('configure(): ', () => {
-      it('successfully returns model instance.', async () => {
-        expect.assertions(1);
-
-        await tdpFinderModel.configure();
-        expect(tdpFinderModel).toBeInstanceOf(TdpFinderModel);
+        expect(tdpFinder).toHaveProperty('metadata');
+        expect(tdpFinder).toHaveProperty('execute');
       });
     });
 
@@ -39,7 +25,7 @@ describe('lib/tdp-finder:', () => {
           },
         ];
 
-        const result = await tdpFinderModel.execute(inputs);
+        const result = await tdpFinder.execute(inputs);
 
         expect.assertions(1);
 
@@ -48,7 +34,7 @@ describe('lib/tdp-finder:', () => {
             timestamp: '2023-11-02T10:35:31.820Z',
             duration: 3600,
             'physical-processor': 'AMD 3020e',
-            'thermal-design-power': 6.0,
+            'cpu/thermal-design-power': 6.0,
           },
         ]);
       });
@@ -62,7 +48,7 @@ describe('lib/tdp-finder:', () => {
           },
         ];
 
-        const result = await tdpFinderModel.execute(inputs);
+        const result = await tdpFinder.execute(inputs);
 
         expect.assertions(1);
 
@@ -71,7 +57,7 @@ describe('lib/tdp-finder:', () => {
             timestamp: '2023-11-02T10:35:31.820Z',
             duration: 3600,
             'physical-processor': 'Intel Xeon Platinum 8175M, AMD A8-9600',
-            'thermal-design-power': 240.0,
+            'cpu/thermal-design-power': 240.0,
           },
         ]);
       });
@@ -88,7 +74,7 @@ describe('lib/tdp-finder:', () => {
         expect.assertions(2);
 
         try {
-          await tdpFinderModel.execute(inputs);
+          await tdpFinder.execute(inputs);
         } catch (error) {
           expect(error).toStrictEqual(new InputValidationError(errorMessage));
           expect(error).toBeInstanceOf(InputValidationError);
@@ -97,7 +83,7 @@ describe('lib/tdp-finder:', () => {
 
       it('throws on unsupported processor in input.', async () => {
         const errorMessage =
-          "TdpFinderModel: 'physical-processor': AMD A8-9600f from input[0] is not found in the database.";
+          "TdpFinder: 'physical-processor': AMD A8-9600f from input[0] is not found in the database.";
         const inputs = [
           {
             timestamp: '2023-11-02T10:35:31.820Z',
@@ -109,7 +95,7 @@ describe('lib/tdp-finder:', () => {
         expect.assertions(2);
 
         try {
-          await tdpFinderModel.execute(inputs);
+          await tdpFinder.execute(inputs);
         } catch (error) {
           expect(error).toStrictEqual(new UnsupportedValueError(errorMessage));
           expect(error).toBeInstanceOf(UnsupportedValueError);

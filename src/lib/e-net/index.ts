@@ -2,60 +2,77 @@ import {z} from 'zod';
 
 import {validate} from '../../util/validations';
 
-import {ModelPluginInterface} from '../../interfaces';
-import {ModelParams} from '../../types/common';
+import {PluginInterface} from '../../interfaces';
+import {ConfigParams, PluginParams} from '../../types/common';
 
-export class ENetModel implements ModelPluginInterface {
-  /**
-   * Configures the E-Net Plugin.
-   */
-  public async configure(): Promise<ENetModel> {
-    return this;
-  }
+export const ENet = (globalConfig: ConfigParams): PluginInterface => {
+  const metadata = {
+    kind: 'execute',
+  };
 
   /**
    * Calculate the total emissions for a list of inputs.
    */
-  public async execute(inputs: ModelParams[]) {
-    return inputs.map((input: ModelParams) => {
-      const safeInput = Object.assign(input, this.validateSingleInput(input));
-      safeInput['energy-network'] = this.calculateEnergy(safeInput);
+  const execute = async (inputs: PluginParams[]) => {
+    const validatedConfig = validateConfig();
 
-      return safeInput;
+    return inputs.map((input: PluginParams) => {
+      const inputWithConfig: PluginParams = Object.assign(
+        {},
+        validateSingleInput(input),
+        validatedConfig
+      );
+
+      return {
+        ...input,
+        'network/energy': calculateEnergy(inputWithConfig),
+      };
     });
-  }
+  };
+
+  /**
+   * Validates global and node config parameters.
+   */
+  const validateConfig = () => {
+    const schema = z.object({
+      'energy-per-gb': z.number(),
+    });
+
+    // Manually add default value
+    if (!globalConfig['energy-per-gb'] || globalConfig['energy-per-gb'] === 0) {
+      globalConfig['energy-per-gb'] = 0.001;
+    }
+
+    return validate<z.infer<typeof schema>>(schema, globalConfig);
+  };
 
   /**
    * Calculates the energy consumption for a single input.
    */
-  private calculateEnergy(input: ModelParams) {
+  const calculateEnergy = (input: PluginParams) => {
     const {
-      'data-in': dataIn,
-      'data-out': dataOut,
-      'network-energy-coefficient': netEnergy,
+      'network/data-in': dataIn,
+      'network/data-out': dataOut,
+      'energy-per-gb': netEnergy,
     } = input;
 
     return (dataIn + dataOut) * netEnergy;
-  }
+  };
 
   /**
    * Checks for required fields in input.
    */
-  private validateSingleInput(input: ModelParams) {
+  const validateSingleInput = (input: PluginParams) => {
     const schema = z.object({
-      'network-energy-coefficient': z.number(),
-      'data-in': z.number().gte(0).min(0),
-      'data-out': z.number().gte(0).min(0),
+      'network/data-in': z.number().gte(0).min(0),
+      'network/data-out': z.number().gte(0).min(0),
     });
 
-    //Manually add default value
-    if (
-      !input['network-energy-coefficient'] ||
-      input['network-energy-coefficient'] === 0
-    ) {
-      input['network-energy-coefficient'] = 0.001;
-    }
-
     return validate<z.infer<typeof schema>>(schema, input);
-  }
-}
+  };
+
+  return {
+    metadata,
+    execute,
+  };
+};

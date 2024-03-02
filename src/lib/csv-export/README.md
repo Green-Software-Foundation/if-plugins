@@ -2,7 +2,7 @@
 
 # Parameters
 
-## Configuration
+## Plugin config
 
 Required fields:
 
@@ -10,58 +10,57 @@ Required fields:
 
 Optional fields:
 
-- `headers`: A list of headers to extract from the inputs to write as columns in the csv file. An empty list of headers will write all fields provided as inputs to the ModelParams. 
- The default list of headers is empty therefore all input data will be written to the csv file. 
+- `headers`: A list of headers to extract from the inputs to write as columns in the csv file. An empty list of headers will write all fields provided as inputs to the pluginParams.
+  The default list of headers is empty therefore all input data will be written to the csv file.
 
 ## Inputs
 
-The inputs should be in the standard format provided by the IF project. 
+The inputs should be in the standard format provided by the IF project.
 
 ## Outputs
 
-This model will write externally to disk as csv file and pass the inputs directly as output. 
+This plugin will write externally to disk as csv file and pass the inputs directly as output.
 
 ## Implementation
 
-To run the model, you must first create an instance of `CsvExportModel` and call its `configure()` method. Then, you can call `execute()` with the desired input
+To run the plugin, you must first create an instance of `CsvExport` and call its `execute()` function with the desired inputs
 
 ```typescript
-import {CsvExportModel} from '@grnsft/if-models';
-const outputModel = new CsvExportModel();
-await outputModel.configure();
-const result = await outputModel.execute([
+import {CsvExport} from '@grnsft/if-plugins';
+const output = CsvExport();
+const result = await output.execute([
   {
-    timestamp: 2023-07-06T00:00
-    duration: 1
-    operational-carbon: 0.02
-    embodied-carbon: 5
-    energy: 3.5
-    carbon: 5.02
+    timestamp: '2023-07-06T00:00',
+    duration: 1,
+    'operational-carbon': 0.02,
+    'carbon-embodied': 5,
+    energy: 3.5,
+    carbon: 5.02,
   },
 ]);
 ```
 
-## Example impl
+## Example manifest
 
-IEF users will typically call the model as part of a pipeline defined in an `impl`
-file. In this case, instantiating and configuring the model is handled by
-`impact-engine` and does not have to be done explicitly by the user.
-The following is an example `impl` that calls `sci`:
+IEF users will typically call the plugin as part of a pipeline defined in a `manifest`
+file. In this case, instantiating the plugin is handled by
+`if` and does not have to be done explicitly by the user.
+The following is an example `manifest` that calls `csv-export.yml`:
 
 ```yaml
 name: csv-export-demo
 description: example exporting output to a csv file
 tags:
 initialize:
-  models:
-    - name: csv-exporter
-      model: CsvExportModel
-      path: "@grnsft/if-models"
-graph:
+  plugins:
+    csv-exporter:
+      method: CsvExport
+      path: '@grnsft/if-plugins'
+tree:
   children:
     child:
       pipeline:
-        - sci
+        - csv-exporter
       config:
         csv-exporter:
           output-path: C:/dev/csv-export.csv
@@ -73,14 +72,24 @@ graph:
       inputs:
         - timestamp: 2023-07-06T00:00
           duration: 1
-          operational-carbon: 0.02
-          embodied-carbon: 5
+          carbon-operational: 0.02
+          carbon-embodied: 5
           energy: 3.5
           carbon: 5.02
         - timestamp: 2023-07-06T00:10
           duration: 1
           operational-carbon: 0.03
-          embodied-carbon: 4
+          carbon-embodied: 4
           energy: 2.9
           carbon: 4.03
 ```
+
+You can run this example `manifest` by saving it as `./examples/manifests/test/csv-export.yml` and executing the following command from the project root:
+
+```sh
+npm i -g @grnsft/if
+npm i -g @grnsft/if-plugins
+if --manifest ./examples/manifests/test/csv-export.yml.yml --output ./examples/outputs/csv-export.yml.yml
+```
+
+The results will be saved into the `output-path`.

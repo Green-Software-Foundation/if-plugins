@@ -1,32 +1,17 @@
-import {CloudInstanceMetadataModel} from '../../../../lib';
+import {CloudInstanceMetadata} from '../../../../lib';
 
 import {ERRORS} from '../../../../util/errors';
 
 const {InputValidationError, UnsupportedValueError} = ERRORS;
 
 describe('lib/cloud-instance-metadata:', () => {
-  describe('CloudInstanceMetadataModel', () => {
-    let cloudInstanceMetadataModel: CloudInstanceMetadataModel;
-
-    beforeEach(() => {
-      cloudInstanceMetadataModel = new CloudInstanceMetadataModel();
-    });
+  describe('CloudInstanceMetadata', () => {
+    const cloudInstanceMetadata = CloudInstanceMetadata();
 
     describe('init: ', () => {
       it('successfully initalized.', () => {
-        expect(cloudInstanceMetadataModel).toHaveProperty('configure');
-        expect(cloudInstanceMetadataModel).toHaveProperty('execute');
-      });
-    });
-
-    describe('configure(): ', () => {
-      it('successfully returns model instance.', async () => {
-        expect.assertions(1);
-
-        await cloudInstanceMetadataModel.configure();
-        expect(cloudInstanceMetadataModel).toBeInstanceOf(
-          CloudInstanceMetadataModel
-        );
+        expect(cloudInstanceMetadata).toHaveProperty('metadata');
+        expect(cloudInstanceMetadata).toHaveProperty('execute');
       });
     });
 
@@ -36,11 +21,11 @@ describe('lib/cloud-instance-metadata:', () => {
           {
             timestamp: '2021-01-01T00:00:00Z',
             duration: 5,
-            'cloud-instance-type': 'm5n.large',
-            'cloud-vendor': 'aws',
+            'cloud/instance-type': 'm5n.large',
+            'cloud/vendor': 'aws',
           },
         ];
-        const result = await cloudInstanceMetadataModel.execute(inputs);
+        const result = await cloudInstanceMetadata.execute(inputs);
 
         expect.assertions(1);
 
@@ -48,13 +33,13 @@ describe('lib/cloud-instance-metadata:', () => {
           {
             timestamp: '2021-01-01T00:00:00Z',
             duration: 5,
-            'cloud-instance-type': 'm5n.large',
-            'cloud-vendor': 'aws',
+            'cloud/instance-type': 'm5n.large',
+            'cloud/vendor': 'aws',
             'physical-processor': 'Intel® Xeon® Platinum 8259CL',
             'vcpus-allocated': 2,
             'vcpus-total': 96,
             'memory-available': 8,
-            'thermal-design-power': 210,
+            'cpu/thermal-design-power': 210,
           },
         ]);
       });
@@ -64,12 +49,12 @@ describe('lib/cloud-instance-metadata:', () => {
           {
             timestamp: '',
             duration: 5,
-            'cloud-instance-type': 'Standard_NC24-23s_v3',
-            'cloud-vendor': 'azure',
+            'cloud/instance-type': 'Standard_NC24-23s_v3',
+            'cloud/vendor': 'azure',
           },
         ];
 
-        const result = await cloudInstanceMetadataModel.execute(inputs);
+        const result = await cloudInstanceMetadata.execute(inputs);
 
         expect.assertions(1);
 
@@ -77,77 +62,77 @@ describe('lib/cloud-instance-metadata:', () => {
           {
             timestamp: '',
             duration: 5,
-            'cloud-instance-type': 'Standard_NC24-23s_v3',
-            'cloud-vendor': 'azure',
+            'cloud/instance-type': 'Standard_NC24-23s_v3',
+            'cloud/vendor': 'azure',
             'physical-processor': 'Intel® Xeon® E5-2690 v4',
             'vcpus-allocated': 24,
             'vcpus-total': 28,
             'memory-available': 448,
-            'thermal-design-power': 135,
+            'cpu/thermal-design-power': 135,
           },
         ]);
       });
 
-      it('throws on `cloud-instance-type` when `cloud-vendor` is aws.', async () => {
+      it('throws on `cloud/instance-type` when `cloud/vendor` is aws.', async () => {
         const errorMessage =
-          "CloudInstanceMetadataModel(cloud-instance-type): 't2.micro2' is not supported in 'aws'.";
+          "CloudInstanceMetadata(cloud/instance-type): 't2.micro2' is not supported in 'aws'.";
         const inputs = [
           {
             timestamp: '',
             duration: 5,
-            'cloud-instance-type': 't2.micro2',
-            'cloud-vendor': 'aws',
+            'cloud/instance-type': 't2.micro2',
+            'cloud/vendor': 'aws',
           },
         ];
 
         expect.assertions(2);
 
         try {
-          await cloudInstanceMetadataModel.execute(inputs);
+          await cloudInstanceMetadata.execute(inputs);
         } catch (error) {
           expect(error).toStrictEqual(new UnsupportedValueError(errorMessage));
           expect(error).toBeInstanceOf(UnsupportedValueError);
         }
       });
 
-      it('throws on `cloud-instance-type` when `cloud-vendor` is azure.', async () => {
+      it('throws on `cloud/instance-type` when `cloud/vendor` is azure.', async () => {
         const errorMessage =
-          "CloudInstanceMetadataModel(cloud-instance-type): 't2.micro2' is not supported in 'azure'.";
+          "CloudInstanceMetadata(cloud/instance-type): 't2.micro2' is not supported in 'azure'.";
         const inputs = [
           {
             timestamp: '',
             duration: 5,
-            'cloud-instance-type': 't2.micro2',
-            'cloud-vendor': 'azure',
+            'cloud/instance-type': 't2.micro2',
+            'cloud/vendor': 'azure',
           },
         ];
 
         expect.assertions(2);
 
         try {
-          await cloudInstanceMetadataModel.execute(inputs);
+          await cloudInstanceMetadata.execute(inputs);
         } catch (error) {
           expect(error).toStrictEqual(new UnsupportedValueError(errorMessage));
           expect(error).toBeInstanceOf(UnsupportedValueError);
         }
       });
 
-      it('throws on unsupported `cloud-vendor`.', async () => {
+      it('throws on unsupported `cloud/vendor`.', async () => {
         const errorMessage =
-          "\"cloud-vendor\" parameter is invalid enum value. expected 'aws' | 'azure', received 'aws2'. Error code: invalid_enum_value.";
+          "\"cloud/vendor\" parameter is invalid enum value. expected 'aws' | 'azure', received 'aws2'. Error code: invalid_enum_value.";
         const inputs = [
           {
             timestamp: '',
             duration: 5,
-            'cloud-instance-type': 't2.micro',
-            'cloud-vendor': 'aws2',
+            'cloud/instance-type': 't2.micro',
+            'cloud/vendor': 'aws2',
           },
         ];
 
         expect.assertions(2);
 
         try {
-          await cloudInstanceMetadataModel.execute(inputs);
+          await cloudInstanceMetadata.execute(inputs);
         } catch (error) {
           expect(error).toStrictEqual(new InputValidationError(errorMessage));
           expect(error).toBeInstanceOf(InputValidationError);
@@ -156,7 +141,7 @@ describe('lib/cloud-instance-metadata:', () => {
 
       it('throws on missed required parameters.', async () => {
         const errorMessage =
-          '"cloud-vendor" parameter is only aws,azure is currently supported. Error code: invalid_type.,"cloud-instance-type" parameter is required. Error code: invalid_type.';
+          '"cloud/vendor" parameter is only aws,azure is currently supported. Error code: invalid_type.,"cloud/instance-type" parameter is required. Error code: invalid_type.';
         const inputs = [
           {
             timestamp: '',
@@ -167,7 +152,7 @@ describe('lib/cloud-instance-metadata:', () => {
         expect.assertions(2);
 
         try {
-          await cloudInstanceMetadataModel.execute(inputs);
+          await cloudInstanceMetadata.execute(inputs);
         } catch (error) {
           expect(error).toStrictEqual(new InputValidationError(errorMessage));
           expect(error).toBeInstanceOf(InputValidationError);

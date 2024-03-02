@@ -1,31 +1,17 @@
-import {SciOModel} from '../../../../lib';
+import {SciO} from '../../../../lib';
 
 import {ERRORS} from '../../../../util/errors';
 
 const {InputValidationError} = ERRORS;
 
 describe('lib/sci-o', () => {
-  describe('SciOModel: ', () => {
-    let sciOModel: SciOModel;
-
-    beforeEach(() => {
-      sciOModel = new SciOModel();
-    });
+  describe('SciO: ', () => {
+    const sciO = SciO();
 
     describe('init: ', () => {
       it('successfully initalized.', () => {
-        expect(sciOModel).toHaveProperty('configure');
-        expect(sciOModel).toHaveProperty('execute');
-      });
-    });
-
-    describe('configure(): ', () => {
-      it('configure SciOModel', async () => {
-        const configuredModel = await sciOModel.configure();
-
-        expect.assertions(1);
-
-        expect(configuredModel).toBeInstanceOf(SciOModel);
+        expect(sciO).toHaveProperty('metadata');
+        expect(sciO).toHaveProperty('execute');
       });
     });
 
@@ -35,25 +21,25 @@ describe('lib/sci-o', () => {
           {
             duration: 3600,
             timestamp: '2022-01-01T00:00:00Z',
-            'grid-carbon-intensity': 50,
+            'grid/carbon-intensity': 50,
             energy: 10,
           },
           {
             duration: 3600,
             timestamp: '2022-01-01T01:00:00Z',
-            'grid-carbon-intensity': 60,
+            'grid/carbon-intensity': 60,
             energy: 15,
           },
         ];
 
         expect.assertions(3);
 
-        const result = await sciOModel.execute(inputs);
+        const result = await sciO.execute(inputs);
 
         expect(result).toHaveLength(inputs.length);
         result.forEach((output, index) => {
-          expect(output['operational-carbon']).toBeCloseTo(
-            inputs[index]['grid-carbon-intensity'] * inputs[index]['energy']
+          expect(output['carbon-operational']).toBeCloseTo(
+            inputs[index]['grid/carbon-intensity'] * inputs[index]['energy']
           );
         });
       });
@@ -62,7 +48,7 @@ describe('lib/sci-o', () => {
         expect.assertions(1);
 
         try {
-          await sciOModel.execute([
+          await sciO.execute([
             {
               duration: 3600,
               timestamp: '2021-01-01T00:00:00Z',

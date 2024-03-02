@@ -17,14 +17,15 @@ try:
   # Parse the entire YAML input
   data = yaml.safe_load(yaml_input)
 
-  if data is not None:
-    data['outputs'] = []
-    for output in data['inputs']:
-      imp = copy.deepcopy(output)
+  if isinstance(data, list):
+    # If input is a list, modify each item in the list
+    outputs = []
+    for item in data:
+      imp = copy.deepcopy(item)
       imp['energy'] = 1
-      data['outputs'].append(imp)
-    print(yaml.dump(data, default_flow_style=False))
+      outputs.append(imp)
+    print(yaml.dump(outputs, default_flow_style=False))
   else:
-    print("No valid YAML input provided.")
+    print("Input data is not a list. Please provide YAML data in list format.")
 except yaml.YAMLError as e:
   print("Error parsing YAML:", e)
