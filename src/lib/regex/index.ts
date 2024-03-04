@@ -80,7 +80,15 @@ export const Regex = (globalConfig: ConfigParams): PluginInterface => {
     const regex = new RegExp(match);
     const matchedItem = regex.exec(input[inputParameter]);
 
-    return (matchedItem && matchedItem[0]) || null;
+    if (!matchedItem) {
+      throw new InputValidationError(
+        errorBuilder({
+          message: `\`${input[inputParameter]}\` does not to match to ${match} regex expression`,
+        })
+      );
+    }
+
+    return matchedItem[0];
   };
 
   return {
