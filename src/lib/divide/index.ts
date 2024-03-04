@@ -61,7 +61,7 @@ export const Divide = (globalConfig: ConfigParams): PluginInterface => {
   };
 
   /**
-   * Calculate the product of each input parameter.
+   * Calculate the division of each input parameter.
    */
   const execute = async (inputs: PluginParams[]) => {
     const safeGlobalConfig = validateGlobalConfig();
