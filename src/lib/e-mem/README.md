@@ -83,7 +83,7 @@ You can run this example `manifest` by saving it as `examples/manifests/test/e-m
 ```sh
 npm i -g @grnsft/if
 npm i -g @grnsft/if-plugins
-if --manifest ./examples/manifests/test/e-mem.yml --output ./examples/outputs/e-mem.yml
+ie --manifest ./examples/manifests/test/e-mem.yml --output ./examples/outputs/e-mem.yml
 ```
 
 The results will be saved to a new `yaml` file in `./examples/outputs`.

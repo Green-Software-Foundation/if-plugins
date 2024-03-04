@@ -88,7 +88,7 @@ You can run this example by saving it as `./examples/manifests/test/coefficient.
 ```sh
 npm i -g @grnsft/if
 npm i -g @grnsft/if-plugins
-if --manifest ./examples/manifests/test/coefficient.yml --output ./examples/outputs/coefficient.yml
+ie --manifest ./examples/manifests/test/coefficient.yml --output ./examples/outputs/coefficient.yml
 ```
 
 The results will be saved to a new `yaml` file in `./examples/outputs`

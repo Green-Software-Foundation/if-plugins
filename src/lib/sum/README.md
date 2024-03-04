@@ -87,7 +87,7 @@ You can run this example by saving it as `./examples/manifests/test/sum.yml` and
 ```sh
 npm i -g @grnsft/if
 npm i -g @grnsft/if-plugins
-if --manifest ./examples/manifests/test/sum.yml --output ./examples/outputs/sum.yml
+ie --manifest ./examples/manifests/test/sum.yml --output ./examples/outputs/sum.yml
 ```
 
 The results will be saved to a new `yaml` file in `./examples/outputs`.

@@ -103,7 +103,7 @@ You can run this example `manifest` by executing the following command from the 
 ```sh
 npm i -g @grnsft/if
 npm i -g @grnsft/if-plugins
-if --manifest ./examples/manifests/test/sci-m.yml --output ./examples/outputs/sci-m.yml
+ie --manifest ./examples/manifests/test/sci-m.yml --output ./examples/outputs/sci-m.yml
 ```
 
 The results will be saved to a new `yaml` file in `./examples/outputs`.

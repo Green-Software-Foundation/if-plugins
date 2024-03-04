@@ -112,7 +112,7 @@ You can run this example `manifest` by saving it as `./examples/manifests/test/s
 ```sh
 npm i -g @grnsft/if
 npm i -g @grnsft/if-plugins
-if --manifest ./examples/manifests/test/shell.yml --output ./examples/outputs/shell.yml
+ie --manifest ./examples/manifests/test/shell.yml --output ./examples/outputs/shell.yml
 ```
 
 The results will be saved to a new `yaml` file in `./examples/outputs`.

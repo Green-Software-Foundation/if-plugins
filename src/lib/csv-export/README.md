@@ -89,7 +89,7 @@ You can run this example `manifest` by saving it as `./examples/manifests/test/c
 ```sh
 npm i -g @grnsft/if
 npm i -g @grnsft/if-plugins
-if --manifest ./examples/manifests/test/csv-export.yml.yml --output ./examples/outputs/csv-export.yml.yml
+ie --manifest ./examples/manifests/test/csv-export.yml.yml --output ./examples/outputs/csv-export.yml.yml
 ```
 
 The results will be saved into the `output-path`.

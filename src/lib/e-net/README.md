@@ -81,7 +81,7 @@ You can run this example `manifest` by saving it as `examples/manifests/test/e-n
 ```sh
 npm i -g @grnsft/if
 npm i -g @grnsft/if-plugins
-if --manifest ./examples/manifests/test/e-net.yml --output ./examples/outputs/e-net.yml
+ie --manifest ./examples/manifests/test/e-net.yml --output ./examples/outputs/e-net.yml
 ```
 
 The results will be saved to a new `yaml` file in `./examples/outputs`.
