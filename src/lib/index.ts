@@ -12,3 +12,4 @@ export {CsvExport} from './csv-export';
 export {Multiply} from './multiply';
 export {Sum} from './sum';
 export {Coefficient} from './coefficient';
+export {Divide} from './divide';
