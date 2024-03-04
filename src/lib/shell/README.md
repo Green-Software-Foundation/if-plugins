@@ -50,7 +50,7 @@ Since the design space for external plugins is so large, it is up to external pl
 
 ## Example manifest
 
-IF users will typically call the shell plugin as part of a pipeline defined in a `manifest` file. In this case, instantiating and configuring the plugin is handled by `if` and does not have to be done explicitly by the user. The following is an example `manifest` that calls an external plugin via `shell`. It assumes the plugin takes `cpu/energy` and `memory/energy` as inputs and returns `energy`:
+IF users will typically call the shell plugin as part of a pipeline defined in a `manifest` file. In this case, instantiating and configuring the plugin is handled by and does not have to be done explicitly by the user. The following is an example `manifest` that calls an external plugin via `shell`. It assumes the plugin takes `cpu/energy` and `memory/energy` as inputs and returns `energy`:
 
 ```yaml
 name: shell-demo

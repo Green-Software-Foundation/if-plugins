@@ -60,7 +60,7 @@ const result = await sciE.execute([
 
 ## Example manifest
 
-IF users will typically call the plugin as part of a pipeline defined in a `manifest` file. In this case, instantiating the plugin is handled by `if` and does not have to be done explicitly by the user. The following is an example `manifest` that calls `sci-e`:
+IF users will typically call the plugin as part of a pipeline defined in a `manifest` file. In this case, instantiating the plugin is handled by `ie` and does not have to be done explicitly by the user. The following is an example `manifest` that calls `sci-e`:
 
 ```yaml
 name: sci-e-demo
