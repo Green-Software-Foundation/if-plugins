@@ -4,6 +4,7 @@ const CUSTOM_ERRORS = [
   'ReadFileError',
   'WriteFileError',
   'MakeDirectoryError',
+  'ConfigValidationError',
 ] as const;
 
 type CustomErrors = {
