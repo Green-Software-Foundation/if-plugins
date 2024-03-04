@@ -66,7 +66,7 @@ It is then converted to some functional unit, for example for an API the
 functional unit might be per request, or for a website
 it might be per 1000 visits.
 
-## IEF Implementation
+## IF Implementation
 
 `sci` takes `carbon-operational` and `carbon-embodied` as inputs along
 with two parameters related to the functional unit:
@@ -125,9 +125,9 @@ const results = await sci.execute(
 
 ## Example manifest
 
-IEF users will typically call the plugin as part of a pipeline defined in a `manifest`
+IF users will typically call the plugin as part of a pipeline defined in a `manifest`
 file. In this case, instantiating the plugin is handled by
-`if` and does not have to be done explicitly by the user.
+`ie` and does not have to be done explicitly by the user.
 The following is an example `manifest` that calls `sci`:
 
 ```yaml
@@ -162,7 +162,7 @@ You can run this example `manifest` by saving it as `./examples/manifests/test/s
 ```sh
 npm i -g @grnsft/if
 npm i -g @grnsft/if-plugins
-if --manifest ./examples/manifests/test/sci.yml --output ./examples/outputs/sci.yml
+ie --manifest ./examples/manifests/test/sci.yml --output ./examples/outputs/sci.yml
 ```
 
 The results will be saved to a new `yaml` file in `./examples/outputs`.

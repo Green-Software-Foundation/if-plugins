@@ -23,15 +23,15 @@ An array containing:
 - `vcpus-allocated`: number of vCPUs allocated to this instance
 - `vcpus-total`: total number of vCPUs available to this instance
 
-## IEF Implementation
+## IF Implementation
 
-IEF implements this plugin using data from Cloud Carbon Footprint. This allows determination of cpu for type of instance in a cloud and can be invoked as part of a plugin pipeline defined in a `manifest`.
+IF implements this plugin using data from Cloud Carbon Footprint. This allows determination of cpu for type of instance in a cloud and can be invoked as part of a plugin pipeline defined in a `manifest`.
 
 Cloud Instance Metadata currently implements only for 'AWS'.
 
 ## Usage
 
-In IEF, the plugin is called from a `manifest`. A `manifest` is a `.yaml` file that contains configuration metadata and usage inputs. This is interpreted by the command line tool, `if`. The plugin config shall be empty. Each input is expected to contain `cloud/vendor` and `cloud/instance-type` fields.
+In IF, the plugin is called from a `manifest`. A `manifest` is a `.yaml` file that contains configuration metadata and usage inputs. This is interpreted by the command line tool, `ie`. The plugin config shall be empty. Each input is expected to contain `cloud/vendor` and `cloud/instance-type` fields.
 
 You can see example Typescript invocations for each vendor below:
 
@@ -79,13 +79,13 @@ tree:
 ```
 
 Ensure that you have global node_modules bin directory in your $PATH
-This manifest is run using `if` using the following command, run from
+This manifest is run using `ie` using the following command, run from
 the project root:
 
 ```sh
 npm i -g @grnsft/if
 npm i -g @grnsft/if-plugins
-if --manifest ./examples/manifests/test/cim.yml --output ./outputs/cim.yml
+ie --manifest ./examples/manifests/test/cim.yml --output ./outputs/cim.yml
 ```
 
 This yields a result that looks like the following (saved to `./outputs/cim.yml`):
@@ -128,7 +128,7 @@ You can run this example `manifest` by saving it as `./examples/manifests/test/c
 ```sh
 npm i -g @grnsft/if
 npm i -g @grnsft/if-plugins
-if --manifest ./examples/manifests/test/cim.yml --output ./examples/outputs/cim.yml
+ie --manifest ./examples/manifests/test/cim.yml --output ./examples/outputs/cim.yml
 ```
 
 The results will be saved to a new `yaml` file in `./examples/outputs`.

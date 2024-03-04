@@ -49,7 +49,7 @@ Where:
 
 ## Implementation
 
-IEF implements the plugin based on the logic described above. To run the plugin, you must first create an instance of `SciM` method. Then, you can call `execute()` to return `m`.
+IF implements the plugin based on the logic described above. To run the plugin, you must first create an instance of `SciM` method. Then, you can call `execute()` to return `m`.
 
 ## Usage
 
@@ -72,7 +72,7 @@ const results = await sciM.execute([
 
 ## Example manifest
 
-IEF users will typically call the plugin as part of a pipeline defined in a `manifest` file. In this case, instantiating the plugin is handled by `if` and does not have to be done explicitly by the user. The following is an example `manifest` that calls `sci-m`:
+IF users will typically call the plugin as part of a pipeline defined in a `manifest` file. In this case, instantiating the plugin is handled by `ie` and does not have to be done explicitly by the user. The following is an example `manifest` that calls `sci-m`:
 
 ```yaml
 name: sci-m
@@ -103,7 +103,7 @@ You can run this example `manifest` by executing the following command from the 
 ```sh
 npm i -g @grnsft/if
 npm i -g @grnsft/if-plugins
-if --manifest ./examples/manifests/test/sci-m.yml --output ./examples/outputs/sci-m.yml
+ie --manifest ./examples/manifests/test/sci-m.yml --output ./examples/outputs/sci-m.yml
 ```
 
 The results will be saved to a new `yaml` file in `./examples/outputs`.

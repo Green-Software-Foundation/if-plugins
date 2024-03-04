@@ -47,7 +47,7 @@ const result = await mockObservations.execute([]);
 
 ### manifest Example
 
-IEF users will typically call the plugin as part of a pipeline defined in a `manifest` file. In this case, instantiating the plugin is handled by `if` and does not have to be done explicitly by the user. The following is an example `manifest` that calls `mock-observation`:
+IF users will typically call the plugin as part of a pipeline defined in a `manifest` file. In this case, instantiating the plugin is handled by `ie` and does not have to be done explicitly by the user. The following is an example `manifest` that calls `mock-observation`:
 
 ```yaml
 name: mock-observation-demo
@@ -90,7 +90,7 @@ You can run this example `manifest` by saving it as `./examples/manifests/test/m
 ```sh
 npm i -g @grnsft/if
 npm i -g @grnsft/if-plugins
-if --manifest ./examples/manifests/test/mock-observation.yml --output ./examples/outputs/mock-observation.yml
+ie --manifest ./examples/manifests/test/mock-observation.yml --output ./examples/outputs/mock-observation.yml
 ```
 
 The results will be saved to a new `yaml` file in `./examples/outputs`.

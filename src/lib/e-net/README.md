@@ -43,11 +43,11 @@ const result = await eNet.execute([
 
 ## Example manifest
 
-IEF users will typically call the plugin as part of a pipeline defined in
+IF users will typically call the plugin as part of a pipeline defined in
 a `manifest` file.
 
 In this case, instantiating and configuring the plugin is
-handled by `if` and does not have to be done explicitly by
+handled by `ie` and does not have to be done explicitly by
 the user.
 
 The following is an example `manifest` that calls `e-net`:
@@ -81,7 +81,7 @@ You can run this example `manifest` by saving it as `examples/manifests/test/e-n
 ```sh
 npm i -g @grnsft/if
 npm i -g @grnsft/if-plugins
-if --manifest ./examples/manifests/test/e-net.yml --output ./examples/outputs/e-net.yml
+ie --manifest ./examples/manifests/test/e-net.yml --output ./examples/outputs/e-net.yml
 ```
 
 The results will be saved to a new `yaml` file in `./examples/outputs`.

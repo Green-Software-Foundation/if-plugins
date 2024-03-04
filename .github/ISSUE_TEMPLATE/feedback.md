@@ -1,7 +1,7 @@
 ---
 name: Feedback
-about: Submiting feedback on the IEF implementation
-title: "Feedback - "
+about: Submiting feedback on the IF implementation
+title: 'Feedback - '
 labels: feedback
 assignees: ''
 ---
@@ -11,9 +11,9 @@ assignees: ''
 What does your feedback relate to?
 
 - [] Project aims/objectives
-- [] Repository structure 
+- [] Repository structure
 - [] Model plugin
-- [] Rimpl code 
+- [] Rimpl code
 - [] Documentation
 - [] Tests
 - [] Other
@@ -21,7 +21,7 @@ What does your feedback relate to?
 ## Details
 
 Does your feedback relate to a specific problem that can be demonstrated and reproduced? If so, please provide details of how to repro below.
-Include your platform config and the version of IEF you are using (e.g. Ubuntu 20.04, running latest dev branch on XX date).
+Include your platform config and the version of IF you are using (e.g. Ubuntu 20.04, running latest dev branch on XX date).
 
 ## Expected Behaviour
 
@@ -37,6 +37,5 @@ e.g. "issues are sitting on the board for over X days"
 
 What fixes do you propose?
 e.g. "please define a response time of X days for issues and publish in the project README"
-
 
 **Note: We will take all feedback seriously. Please be polite and constructive - aggressive or abusive feedback will simply be deleted.**
