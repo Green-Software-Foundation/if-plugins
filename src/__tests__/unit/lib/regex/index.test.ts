@@ -46,9 +46,10 @@ describe('lib/regex: ', () => {
         expect(result).toStrictEqual(expectedResult);
       });
 
-      it('returns `null` when `input-parameter` have not match to `match`.', async () => {
+      it('throws an error when `input-parameter` does not match to `match`.', async () => {
         const physicalProcessor =
           'Intel® Xeon® Platinum 8272CL,Intel® Xeon® 8171M 2.1 GHz,Intel® Xeon® E5-2673 v4 2.3 GHz,Intel® Xeon® E5-2673 v3 2.4 GHz';
+        const expectedMessage = `Regex: \`${physicalProcessor}\` does not to match to ^(^:)+ regex expression.`;
 
         const globalConfig = {
           'input-parameter': 'physical-processor',
@@ -56,24 +57,22 @@ describe('lib/regex: ', () => {
           output: 'cpu/name',
         };
         const regex = Regex(globalConfig);
-        const result = await regex.execute([
-          {
-            timestamp: '2021-01-01T00:00:00Z',
-            duration: 3600,
-            'physical-processor': physicalProcessor,
-          },
-        ]);
 
         expect.assertions(1);
 
-        expect(result).toStrictEqual([
-          {
-            timestamp: '2021-01-01T00:00:00Z',
-            duration: 3600,
-            'physical-processor': physicalProcessor,
-            'cpu/name': null,
-          },
-        ]);
+        try {
+          await regex.execute([
+            {
+              timestamp: '2021-01-01T00:00:00Z',
+              duration: 3600,
+              'physical-processor': physicalProcessor,
+            },
+          ]);
+        } catch (error) {
+          expect(error).toStrictEqual(
+            new InputValidationError(expectedMessage)
+          );
+        }
       });
 
       it('throws an error on missing params in input.', async () => {
