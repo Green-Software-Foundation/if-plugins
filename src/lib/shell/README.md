@@ -46,11 +46,11 @@ The `shell` is designed to run arbitrary external plugins. This means IF does no
 
 However, it is also entirely possible to have external plugins that only deliver some small part of the overall SCI calculation, and rely on IF builtin plugins to do the rest. For example, perhaps there is a proprietary plugin that a user wishes to use as a drop-in replacement for the Teads TDP plugin. In this case, the plugin would take usage inputs as inputs and would need to return some or all of `cpu/energy`, `network/energy`, and `memory/energy`. These would then be passed to the `sci-e` plugin to return `energy`, then `sci-o` to return `carbon-embodied`.
 
-Since the design space for external plugins is so large, it is up to external plugin developers to ensure compatibility with IEF built-ins.
+Since the design space for external plugins is so large, it is up to external plugin developers to ensure compatibility with IF built-ins.
 
 ## Example manifest
 
-IEF users will typically call the shell plugin as part of a pipeline defined in a `manifest` file. In this case, instantiating and configuring the plugin is handled by `if` and does not have to be done explicitly by the user. The following is an example `manifest` that calls an external plugin via `shell`. It assumes the plugin takes `cpu/energy` and `memory/energy` as inputs and returns `energy`:
+IF users will typically call the shell plugin as part of a pipeline defined in a `manifest` file. In this case, instantiating and configuring the plugin is handled by `if` and does not have to be done explicitly by the user. The following is an example `manifest` that calls an external plugin via `shell`. It assumes the plugin takes `cpu/energy` and `memory/energy` as inputs and returns `energy`:
 
 ```yaml
 name: shell-demo
