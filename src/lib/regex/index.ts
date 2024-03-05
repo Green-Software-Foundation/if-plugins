@@ -25,7 +25,7 @@ export const Regex = (globalConfig: ConfigParams): PluginInterface => {
       );
     }
     const schema = z.object({
-      'input-parameter': z.string().min(1),
+      parameter: z.string().min(1),
       match: z.string().min(1),
       output: z.string(),
     });
@@ -36,11 +36,11 @@ export const Regex = (globalConfig: ConfigParams): PluginInterface => {
   /**
    * Checks for required fields in input.
    */
-  const validateSingleInput = (input: PluginParams, inputParameter: string) => {
-    if (!input[inputParameter]) {
+  const validateSingleInput = (input: PluginParams, parameter: string) => {
+    if (!input[parameter]) {
       throw new InputValidationError(
         errorBuilder({
-          message: `\`${inputParameter}\` is missing from the input`,
+          message: `\`${parameter}\` is missing from the input`,
         })
       );
     }
@@ -53,18 +53,18 @@ export const Regex = (globalConfig: ConfigParams): PluginInterface => {
    */
   const execute = async (inputs: PluginParams[]) => {
     const safeGlobalConfig = validateGlobalConfig();
-    const {'input-parameter': inputParameter, match, output} = safeGlobalConfig;
+    const {parameter: parameter, match, output} = safeGlobalConfig;
 
     return inputs.map(input => {
       const safeInput = Object.assign(
         {},
         input,
-        validateSingleInput(input, inputParameter)
+        validateSingleInput(input, parameter)
       );
 
       return {
         ...input,
-        [output]: calculateRegex(safeInput, inputParameter, match),
+        [output]: calculateRegex(safeInput, parameter, match),
       };
     });
   };
@@ -74,16 +74,16 @@ export const Regex = (globalConfig: ConfigParams): PluginInterface => {
    */
   const calculateRegex = (
     input: PluginParams,
-    inputParameter: string,
+    parameter: string,
     match: string | RegExp
   ) => {
     const regex = new RegExp(match);
-    const matchedItem = regex.exec(input[inputParameter]);
+    const matchedItem = regex.exec(input[parameter]);
 
     if (!matchedItem) {
       throw new InputValidationError(
         errorBuilder({
-          message: `\`${input[inputParameter]}\` does not to match to ${match} regex expression`,
+          message: `\`${input[parameter]}\` does not to match to ${match} regex expression`,
         })
       );
     }

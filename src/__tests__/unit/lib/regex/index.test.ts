@@ -7,7 +7,7 @@ const {InputValidationError} = ERRORS;
 describe('lib/regex: ', () => {
   describe('Regex: ', () => {
     const globalConfig = {
-      'input-parameter': 'physical-processor',
+      parameter: 'physical-processor',
       match: '^[^,]+',
       output: 'cpu/name',
     };
@@ -46,13 +46,13 @@ describe('lib/regex: ', () => {
         expect(result).toStrictEqual(expectedResult);
       });
 
-      it('throws an error when `input-parameter` does not match to `match`.', async () => {
+      it('throws an error when `parameter` does not match to `match`.', async () => {
         const physicalProcessor =
           'Intel® Xeon® Platinum 8272CL,Intel® Xeon® 8171M 2.1 GHz,Intel® Xeon® E5-2673 v4 2.3 GHz,Intel® Xeon® E5-2673 v3 2.4 GHz';
         const expectedMessage = `Regex: \`${physicalProcessor}\` does not to match to ^(^:)+ regex expression.`;
 
         const globalConfig = {
-          'input-parameter': 'physical-processor',
+          parameter: 'physical-processor',
           match: '^(^:)+',
           output: 'cpu/name',
         };
