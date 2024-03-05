@@ -11,7 +11,7 @@ For example, `boavizta-cpu` need `cpu/number-cores` to work, however `cloud-meta
 ### Plugin config
 
 - `numerator` - a parameter by a specific configured number
-- `denominator` - a parameter by a specific configured number or is the number by which `numerator` is divided
+- `denominator` - a parameter by a specific configured number or the number by which `numerator` is divided
 - `output` - the number to a configured output parameter
 
 ### Inputs
@@ -23,6 +23,8 @@ For example, `boavizta-cpu` need `cpu/number-cores` to work, however `cloud-meta
 ## Returns
 
 - `output`: the division of `numerator` with the parameter name into `denominator` with the parameter name defined by `output` in global config.
+
+The plugin throws an exception if the division result is not a number.
 
 ## Calculation
 
