@@ -41,23 +41,23 @@ export const Divide = (globalConfig: ConfigParams): PluginInterface => {
     numerator: string,
     denominator: number | string
   ) => {
-    if (!input[numerator]) {
-      throw new InputValidationError(
-        errorBuilder({
-          message: `\`${numerator}\` is missing from the input`,
-        })
-      );
-    }
+    const schema = z
+      .object({
+        [numerator]: z.number(),
+        [denominator]: z.number().optional(),
+      })
+      .refine(_data => {
+        if (typeof denominator === 'string' && !input[denominator]) {
+          throw new InputValidationError(
+            errorBuilder({
+              message: `\`${denominator}\` is missing from the input`,
+            })
+          );
+        }
+        return true;
+      });
 
-    if (typeof denominator === 'string' && !input[denominator]) {
-      throw new InputValidationError(
-        errorBuilder({
-          message: `\`${denominator}\` is missing from the input`,
-        })
-      );
-    }
-
-    return input;
+    return validate<z.infer<typeof schema>>(schema, input);
   };
 
   /**

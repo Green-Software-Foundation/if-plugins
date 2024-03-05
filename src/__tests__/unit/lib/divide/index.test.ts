@@ -76,7 +76,7 @@ describe('lib/divide: ', () => {
 
       it('throws an error on missing params in input.', async () => {
         const expectedMessage =
-          'Divide: `vcpus-allocated` is missing from the input.';
+          '"vcpus-allocated" parameter is required. Error code: invalid_type.';
 
         const globalConfig = {
           numerator: 'vcpus-allocated',
