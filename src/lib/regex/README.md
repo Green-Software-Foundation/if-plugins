@@ -1,8 +1,8 @@
 # Regex
 
-`regex` is a generic plugin for doing arithmetic sums of two or more values in an `input` array.
+`regex` is a generic plugin to match part of one string in an `input` and extract it into an output.
 
-You provide the names of the values you want to regex, and a name to use to add the regex to the output array.
+You provide the name of the value you want to match, and a name to use to add the regex to the output array.
 
 For example, `boavizta-cpu` need `cpu/name` to work, however `cloud-metadata` returns `physical-processor` which usually contains a long string of processors that the instance could be separated by `,`, like so:
 
@@ -14,17 +14,17 @@ Intel® Xeon® Platinum 8272CL,Intel® Xeon® 8171M 2.1 GHz,Intel® Xeon® E5-26
 
 ### Plugin config
 
-- `input-parameter` - a parameter by a specific configured string
-- `match` - a regex by which needs to match the `input-parameter`
+- `parameter` - a parameter by a specific configured string
+- `match` - a regex by which needs to match the `parameter`
 - `output` - output parameter name in the input
 
 ### Inputs
 
-- `input-parameter` - as input parameter, must be available in the input array
+- `parameter` - as input parameter, must be available in the input array
 
 ## Returns
 
-- `output`: the fisrt match of `input-parameter` with the parameter name with `match` defined in global config.
+- `output`: the fisrt match of `parameter` with the parameter name with `match` defined in global config.
 
 ## Implementation
 
@@ -34,7 +34,7 @@ To run the plugin, you must first create an instance of `Regex`. Then, you can c
 import {Regex} from '@grnsft/if-plugins';
 
 const globalConfig = {
-  'input-parameter': 'physical-processor',
+  parameter: 'physical-processor',
   match: '^[^,]+',
   output: 'cpu/name',
 };
@@ -64,7 +64,7 @@ initialize:
       method: Regex
       path: '@grnsft/if-plugins'
       global-config:
-        input-parameter: physical-processor
+        parameter: physical-processor
         match: ^[^,]+
         output: cpu/name
 tree:
