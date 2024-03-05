@@ -1,6 +1,6 @@
 # Divide
 
-`divide` is a generic plugin for doing arithmetic sums of two or more values in an `input` array.
+`divide` is a generic plugin for doing arithmetic division of two values in an `input` array.
 
 You provide the names of the values you want to divide, and a name to use to add the divide to the output array.
 
