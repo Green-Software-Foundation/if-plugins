@@ -64,15 +64,15 @@ export const Regex = (globalConfig: ConfigParams): PluginInterface => {
 
       return {
         ...input,
-        [output]: calculateRegex(safeInput, parameter, match),
+        [output]: extractMatching(safeInput, parameter, match),
       };
     });
   };
 
   /**
-   * Calculates the regex of the given parameter.
+   * Extracts a substring from the given input parameter that matches the provided regular expression pattern.
    */
-  const calculateRegex = (
+  const extractMatching = (
     input: PluginParams,
     parameter: string,
     match: string | RegExp
