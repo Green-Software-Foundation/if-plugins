@@ -49,7 +49,7 @@ describe('lib/regex: ', () => {
       it('throws an error when `parameter` does not match to `match`.', async () => {
         const physicalProcessor =
           'Intel® Xeon® Platinum 8272CL,Intel® Xeon® 8171M 2.1 GHz,Intel® Xeon® E5-2673 v4 2.3 GHz,Intel® Xeon® E5-2673 v3 2.4 GHz';
-        const expectedMessage = `Regex: \`${physicalProcessor}\` does not to match to ^(^:)+ regex expression.`;
+        const expectedMessage = `Regex: \`${physicalProcessor}\` does not match the /^(^:)+/ regex expression.`;
 
         const globalConfig = {
           parameter: 'physical-processor',

@@ -75,15 +75,26 @@ export const Regex = (globalConfig: ConfigParams): PluginInterface => {
   const extractMatching = (
     input: PluginParams,
     parameter: string,
-    match: string | RegExp
+    match: string
   ) => {
-    const regex = new RegExp(match);
-    const matchedItem = regex.exec(input[parameter]);
+    if (
+      !match.startsWith('/') ||
+      (match.endsWith('/g') && match.lastIndexOf('/') === 0)
+    ) {
+      match = '/' + match;
 
-    if (!matchedItem) {
+      if (!match.endsWith('/g') || !match.endsWith('/')) {
+        match += '/';
+      }
+    }
+
+    const regex = eval(match);
+    const matchedItem = input[parameter].match(regex);
+
+    if (!matchedItem || !matchedItem[0]) {
       throw new InputValidationError(
         errorBuilder({
-          message: `\`${input[parameter]}\` does not to match to ${match} regex expression`,
+          message: `\`${input[parameter]}\` does not match the ${match} regex expression`,
         })
       );
     }
