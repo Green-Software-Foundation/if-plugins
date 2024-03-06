@@ -13,3 +13,13 @@ export type PluginInterface = {
   };
   [key: string]: any;
 };
+
+/**
+ * Base interface for exhaust plugins.
+ */
+export interface ExhaustPluginInterface {
+  /**
+   * Execute exhaust based `tree`, produce output to a file in `outputPath`.
+   */
+  execute(tree: any, outputPath?: string): void;
+}

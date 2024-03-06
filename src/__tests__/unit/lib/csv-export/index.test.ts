@@ -1,9 +1,8 @@
 import * as fs from 'fs/promises';
 import {jest} from '@jest/globals';
 
-import {CsvExport} from '../../../../lib/csv-export';
-
 import {ERRORS} from '../../../../util/errors';
+import {CsvExport} from '../../../../lib';
 
 const {MakeDirectoryError, WriteFileError} = ERRORS;
 
