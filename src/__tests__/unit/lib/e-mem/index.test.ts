@@ -92,7 +92,7 @@ describe('lib/e-mem: ', () => {
         const expectedMemory =
           data[0]['memory/capacity'] *
           (data[0]['memory/utilization'] / 100) *
-          0.38;
+          0.000392;
 
         expect(response[0]['memory/energy']).toEqual(expectedMemory);
       });
