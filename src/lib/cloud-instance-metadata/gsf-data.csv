@@ -1,40 +1,40 @@
 year,cloud-provider,cloud-region,cfe-region,em-zone-id,wt-region-id,location,geolocation,cfe-hourly,cfe-annual,power-usage-efficiency,net-carbon,grid-carbon-intensity-24x7,grid-carbon-intensity-consumption,grid-carbon-intensity-marginal,grid-carbon-intensity-production,grid-carbon-intensity
-2022,Google Cloud,asia-east1,Taiwan,TW,TW,Taiwan,,0.18,,,0,453,,,,453
-2022,Google Cloud,asia-east2,Hong Kong,HK,HK,Hong Kong,,0.28,,,0,360,,,,360
-2022,Google Cloud,asia-northeast1,Tokyo,JP-TK,JP_TK,Tokyo,,0.16,,,0,463,,,,463
-2022,Google Cloud,asia-northeast2,Kansai,JP-KN,JP_KN,Osaka,,0.32,,,0,383,,,,383
-2022,Google Cloud,asia-northeast3,South Korea,KR,KOR,Seoul,,0.31,,,0,425,,,,425
-2022,Google Cloud,asia-south1,Maharashtra,IN-MH,IND,Mumbai,,0.24,,,0,555,,,,555
-2022,Google Cloud,asia-south2,Uttar Pradesh,IN-UP,IND,Delhi,,0.23,,,0,632,,,,632
-2022,Google Cloud,asia-southeast1,Singapore,SG,SGP,Singapore,,0.04,,,0,372,,,,372
-2022,Google Cloud,asia-southeast2,Indonesia,ID,ID,Jakarta,,0.13,,,0,580,,,,580
-2022,Google Cloud,australia-southeast1,New South Wales,AUS-NSW,NEM_NSW,Sydney,,0.27,,,0,538,,,,538
-2022,Google Cloud,australia-southeast2,Victoria,AUS-VIC,NEM_VIC,Melbourne,,0.34,,,0,490,,,,490
-2022,Google Cloud,europe-central2,Poland,PL,PL,Warsaw,,0.24,,,0,738,,,,738
-2022,Google Cloud,europe-north1,Finland,FI,FI,Finland,,0.97,,,0,112,,,,112
-2022,Google Cloud,europe-southwest1,Spain,ES,ES,Madrid,,0.67,,,0,160,,,,160
-2022,Google Cloud,europe-west1,Belgium,BE,BE,Belgium,,0.8,,,0,123,,,,123
-2022,Google Cloud,europe-west2,Great Britain,GB,UK,London,,0.85,,,0,166,,,,166
-2022,Google Cloud,europe-west3,Germany,DE,DE,Frankfurt,,0.96,,,0,413,,,,413
-2022,Google Cloud,europe-west4,Netherlands,NL,NL,Netherlands,,0.57,,,0,317,,,,317
-2022,Google Cloud,europe-west6,Switzerland,CH,CH,Zurich,,0.85,,,0,118,,,,118
-2022,Google Cloud,europe-west8,North Italy,IT,IT,Milan,,0.42,,,0,323,,,,323
-2022,Google Cloud,europe-west9,France,FR,FR,Paris,,0.87,,,0,71,,,,71
-2022,Google Cloud,europe-west12,North Italy,IT,IT,Turin,,0.42,,,0,323,,,,323
-2022,Google Cloud,me-west1,Israel,IL,IL,Tel Aviv,,0.02,,,0,476,,,,476
-2022,Google Cloud,northamerica-northeast1,Quebec,CA-QC,HQ,MontrÃ©al,,1,,,0,0,,,,0
-2022,Google Cloud,northamerica-northeast2,Ontario,CA-ON,IESO_NORTH,Toronto,,0.9,,,0,36,,,,36
-2022,Google Cloud,southamerica-east1,Central Brazil,BR-CS,BRA,SÃ£o Paulo,,0.89,,,0,65,,,,65
-2022,Google Cloud,southamerica-west1,Chile,CL-SEN,CHL,Santiago,,0.9,,,0,165,,,,165
-2022,Google Cloud,us-central1,MISO,US-MIDW-MISO,MISO_MASON_CITY,Iowa,,0.92,,,0,445,,,,445
-2022,Google Cloud,us-east1,SC,US-CAR-SC,SC,South Carolina,,0.26,,,0,532,,,,532
-2022,Google Cloud,us-east4,PJM,US-MIDA-PJM,PJM_DC,Northern Virginia,,0.6,,,0,354,429,,,354
-2022,Google Cloud,us-east5,PJM,US-MIDA-PJM,PJM_SOUTHWEST_OH,Columbus,,0.6,,,0,354,429,,,354
-2022,Google Cloud,us-south1,ERCOT,US-TEX-ERCO,ERCOT_NORTHCENTRAL,Dallas,,0.41,,,0,342,,,,342
-2022,Google Cloud,us-west1,BPA,US-NW-BPAT,BPA,Oregon,,0.89,,,0,67,,,,67
-2022,Google Cloud,us-west2,CAISO,US-CAL-CISO,LDWP,Los Angeles,,0.56,,,0,202,,,,202
-2022,Google Cloud,us-west3,PACE,US-NW-PACE,PACE,Salt Lake City,,0.31,,,0,606,,,,606
-2022,Google Cloud,us-west4,NVE,US-NW-NEVP,NEVP,Las Vegas,,0.27,,,0,396,,,,396
+2022,Google Cloud,asia-east1,Taiwan,TW,TW,Taiwan,"25.0375, 121.5625",0.18,,,0,453,,,,453
+2022,Google Cloud,asia-east2,Hong Kong,HK,HK,Hong Kong,"22.3, 114.2",0.28,,,0,360,,,,360
+2022,Google Cloud,asia-northeast1,Tokyo,JP-TK,JP_TK,Tokyo,"35.6897 , 139.692",0.16,,,0,463,,,,463
+2022,Google Cloud,asia-northeast2,Kansai,JP-KN,JP_KN,Osaka,"34.6939, 135.502",0.32,,,0,383,,,,383
+2022,Google Cloud,asia-northeast3,South Korea,KR,KOR,Seoul,"37.56, 126.99",0.31,,,0,425,,,,425
+2022,Google Cloud,asia-south1,Maharashtra,IN-MH,IND,Mumbai,"19.0761, 72.8775",0.24,,,0,555,,,,555
+2022,Google Cloud,asia-south2,Uttar Pradesh,IN-UP,IND,Delhi,"28.6092, 76.9798",0.23,,,0,632,,,,632
+2022,Google Cloud,asia-southeast1,Singapore,SG,SGP,Singapore,"1.3, 103.8",0.04,,,0,372,,,,372
+2022,Google Cloud,asia-southeast2,Indonesia,ID,ID,Jakarta,"-6.2507, 106.869",0.13,,,0,580,,,,580
+2022,Google Cloud,australia-southeast1,New South Wales,AUS-NSW,NEM_NSW,Sydney,"-33.8678, 151.21",0.27,,,0,538,,,,538
+2022,Google Cloud,australia-southeast2,Victoria,AUS-VIC,NEM_VIC,Melbourne,"-37.8142, 144.963",0.34,,,0,490,,,,490
+2022,Google Cloud,europe-central2,Poland,PL,PL,Warsaw,"52.23, 21.0111",0.24,,,0,738,,,,738
+2022,Google Cloud,europe-north1,Finland,FI,FI,Finland,"60.1708, 24.9375",0.97,,,0,112,,,,112
+2022,Google Cloud,europe-southwest1,Spain,ES,ES,Madrid,"40.3333, -3.8667",0.67,,,0,160,,,,160
+2022,Google Cloud,europe-west1,Belgium,BE,BE,Belgium,"51.1333, 4.5667",0.8,,,0,123,,,,123
+2022,Google Cloud,europe-west2,Great Britain,GB,UK,London,"51.726, -0.3",0.85,,,0,166,,,,166
+2022,Google Cloud,europe-west3,Germany,DE,DE,Frankfurt,"50.1106, 8.6822",0.96,,,0,413,,,,413
+2022,Google Cloud,europe-west4,Netherlands,NL,NL,Netherlands,"51.9167, 4.5",0.57,,,0,317,,,,317
+2022,Google Cloud,europe-west6,Switzerland,CH,CH,Zurich,"47.3744, 8.5411",0.85,,,0,118,,,,118
+2022,Google Cloud,europe-west8,North Italy,IT,IT,Milan,"45.4669, 9.19",0.42,,,0,323,,,,323
+2022,Google Cloud,europe-west9,France,FR,FR,Paris,"48.8567, 2.3522",0.87,,,0,71,,,,71
+2022,Google Cloud,europe-west12,North Italy,IT,IT,Turin,"45.0792, 7.6761",0.42,,,0,323,,,,323
+2022,Google Cloud,me-west1,Israel,IL,IL,Tel Aviv,"32.0167, 34.7667",0.02,,,0,476,,,,476
+2022,Google Cloud,northamerica-northeast1,Quebec,CA-QC,HQ,Montréal,"45.5089, -73.5617",1,,,0,0,,,,0
+2022,Google Cloud,northamerica-northeast2,Ontario,CA-ON,IESO_NORTH,Toronto,"43.7417, -79.3733",0.9,,,0,36,,,,36
+2022,Google Cloud,southamerica-east1,Central Brazil,BR-CS,BRA,São Paulo,"-3.45, -68.95",0.89,,,0,65,,,,65
+2022,Google Cloud,southamerica-west1,Chile,CL-SEN,CHL,Santiago,"-33.4372, -70.6506 ",0.9,,,0,165,,,,165
+2022,Google Cloud,us-central1,MISO,US-MIDW-MISO,MISO_MASON_CITY,Iowa,41.5725 -93.6105 ,0.92,,,0,445,,,,445
+2022,Google Cloud,us-east1,SC,US-CAR-SC,SC,South Carolina,34.8354 -82.3646 ,0.26,,,0,532,,,,532
+2022,Google Cloud,us-east4,PJM,US-MIDA-PJM,PJM_DC,Northern Virginia,39.1057 -77.5544 ,0.6,,,0,354,429,,,354
+2022,Google Cloud,us-east5,PJM,US-MIDA-PJM,PJM_SOUTHWEST_OH,Columbus,41.4366 -97.3565 ,0.6,,,0,354,429,,,354
+2022,Google Cloud,us-south1,ERCOT,US-TEX-ERCO,ERCOT_NORTHCENTRAL,Dallas,44.9221 -123.313 ,0.41,,,0,342,,,,342
+2022,Google Cloud,us-west1,BPA,US-NW-BPAT,BPA,Oregon,45.5372 -122.3955 ,0.89,,,0,67,,,,67
+2022,Google Cloud,us-west2,CAISO,US-CAL-CISO,LDWP,Los Angeles,34.1141 -118.4068 ,0.56,,,0,202,,,,202
+2022,Google Cloud,us-west3,PACE,US-NW-PACE,PACE,Salt Lake City,40.7776 -111.9311 ,0.31,,,0,606,,,,606
+2022,Google Cloud,us-west4,NVE,US-NW-NEVP,NEVP,Las Vegas,35.6011 -105.2206 ,0.27,,,0,396,,,,396
 2022,Amazon Web Services,us-east-2,PJM,US-MIDA-PJM,PJM_SOUTHWEST_OH,US East (Ohio),,,1,,0,,,,,
 2022,Amazon Web Services,us-east-1,PJM,US-MIDA-PJM,PJM_DC,US East (N. Virginia),,,1,,0,,,,,
 2022,Amazon Web Services,us-west-1,CAISO,US-CAL-CISO,CAISO_NORTH,US West (N. California),,,1,,0,,,,,
@@ -62,7 +62,7 @@ year,cloud-provider,cloud-region,cfe-region,em-zone-id,wt-region-id,location,geo
 2022,Amazon Web Services,il-central-1,,IL,IL,Israel (Tel Aviv),,,,,,,,,,
 2022,Amazon Web Services,me-south-1,,BH,BH,Middle East (Bahrain),,,,,,,,,,
 2022,Amazon Web Services,me-central-1,,AE,AE,Middle East (UAE),,,,,,,,,,
-2022,Amazon Web Services,sa-east-1,Central Brazil,BR-CS,BRA,South America (SÃ£o Paulo),,,,,,,,,,
+2022,Amazon Web Services,sa-east-1,Central Brazil,BR-CS,BRA,South America (São Paulo),,,,,,,,,,
 2022,Amazon Web Services,us-gov-east-1,PJM,US-MIDA-PJM,PJM_DC,GovCloud (US East),,,1,,0,,,,,
 2022,Amazon Web Services,us-gov-west-1,BPA,US-NW-BPAT,BPA,GovCloud (US West),,,1,,0,,,,,
 2022,Amazon Web Services,cn-north-1,,,,China (Beijing),,,1,,0,,,,,
@@ -116,9 +116,9 @@ year,cloud-provider,cloud-region,cfe-region,em-zone-id,wt-region-id,location,geo
 2021,Google Cloud,europe-west6,Switzerland,CH,CH,Zurich,,0.85,,,0,86,,,,86
 2021,Google Cloud,europe-west8,North Italy,IT,IT,Milan,,0,,,0,298,,,,298
 2021,Google Cloud,europe-west9,France,FR,FR,Paris,,0,,,0,59,,,,59
-2021,Google Cloud,northamerica-northeast1,Quebec,CA-QC,HQ,MontrÃ©al,,1,,,0,0,,,,0
+2021,Google Cloud,northamerica-northeast1,Quebec,CA-QC,HQ,Montréal,,1,,,0,0,,,,0
 2021,Google Cloud,northamerica-northeast2,Ontario,CA-ON,IESO_NORTH,Toronto,,0.92,,,0,29,,,,29
-2021,Google Cloud,southamerica-east1,Central Brazil,BR-CS,BRA,SÃ£o Paulo,,0.78,,,0,129,,,,129
+2021,Google Cloud,southamerica-east1,Central Brazil,BR-CS,BRA,São Paulo,,0.78,,,0,129,,,,129
 2021,Google Cloud,southamerica-west1,Chile,CL-SEN,CHL,Santiago,,0.69,,,0,190,,,,190
 2021,Google Cloud,us-central1,MISO,US-MIDW-MISO,MISO_MASON_CITY,Iowa,,0.97,,,0,394,,,,394
 2021,Google Cloud,us-east1,SC,US-CAR-SC,SC,South Carolina,,0.25,,,0,434,,,,434
@@ -154,7 +154,7 @@ year,cloud-provider,cloud-region,cfe-region,em-zone-id,wt-region-id,location,geo
 2021,Amazon Web Services,il-central-1,,IL,IL,Israel (Tel Aviv),,,,,,,,,,
 2021,Amazon Web Services,me-south-1,,,,Middle East (Bahrain),,,,,,,,,,
 2021,Amazon Web Services,me-central-1,,AE,AE,Middle East (UAE),,,,,,,,,,
-2021,Amazon Web Services,sa-east-1,Central Brazil,BR-CS,BRA,South America (SÃ£o Paulo),,,,,,,,,,
+2021,Amazon Web Services,sa-east-1,Central Brazil,BR-CS,BRA,South America (São Paulo),,,,,,,,,,
 2021,Amazon Web Services,us-gov-east-1,PJM,US-MIDA-PJM,PJM_DC,GovCloud (US East),,,0.95,,,,,,,
 2021,Amazon Web Services,us-gov-west-1,BPA,US-NW-BPAT,BPA,GovCloud (US West),,,0.95,,,,,,,
 2021,Amazon Web Services,cn-north-1,,,,China (Beijing),,,,,,,,,,
@@ -177,8 +177,8 @@ year,cloud-provider,cloud-region,cfe-region,em-zone-id,wt-region-id,location,geo
 2020,Google Cloud,europe-west3,Netherlands,NL,NL,Frankfurt,,0.63,,,0,293,,,,293
 2020,Google Cloud,europe-west4,Switzerland,CH,CH,Netherlands,,0.6,,,0,410,,,,410
 2020,Google Cloud,europe-west6,North Italy,IT,IT,Zurich,,0,,,0,87,,,,87
-2020,Google Cloud,northamerica-northeast1,Quebec,CA-QC,HQ,MontrÃ©al,,0,,,0,27,,,,27
-2020,Google Cloud,southamerica-east1,Central Brazil,BR-CS,BRA,SÃ£o Paulo,,0.88,,,0,103,,,,103
+2020,Google Cloud,northamerica-northeast1,Quebec,CA-QC,HQ,Montréal,,0,,,0,27,,,,27
+2020,Google Cloud,southamerica-east1,Central Brazil,BR-CS,BRA,São Paulo,,0.88,,,0,103,,,,103
 2020,Google Cloud,us-central1,MISO,US-MIDW-MISO,MISO_MASON_CITY,Iowa,,0.93,,,0,454,,,,454
 2020,Google Cloud,us-east1,SC,US-CAR-SC,SC,South Carolina,,0.27,,,0,480,,,,480
 2020,Google Cloud,us-east4,PJM,US-MIDA-PJM,PJM_DC,Northern Virginia,,0.58,,,0,361,423,,,361
