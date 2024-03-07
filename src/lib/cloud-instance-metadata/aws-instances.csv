@@ -1,0 +1,622 @@
+cpu-cores-available,cpu-cores-utilized,cpu-manufacturer,cpu-model-name,cpu-tdp,gpu-count,gpu-model-name,Hardware Information on AWS Documentation & Comments,instance-class,instance-storage,memory-available,platform-memory,release-date,storage-drives
+16,8,AWS,AWS Graviton,150.00,N/A,N/A,AWS Graviton (ARM),a1.2xlarge,EBS-Only,16,32,November 2018,0
+16,16,AWS,AWS Graviton,150.00,N/A,N/A,AWS Graviton (ARM),a1.4xlarge,EBS-Only,32,32,November 2018,0
+16,2,AWS,AWS Graviton,150.00,N/A,N/A,AWS Graviton (ARM),a1.large,EBS-Only,4,32,November 2018,0
+16,1,AWS,AWS Graviton,150.00,N/A,N/A,AWS Graviton (ARM),a1.medium,EBS-Only,2,32,November 2018,0
+16,16,AWS,AWS Graviton,150.00,N/A,N/A,AWS Graviton (ARM),a1.metal,EBS-Only,32,32,October 2019,0
+16,4,AWS,AWS Graviton,150.00,N/A,N/A,AWS Graviton (ARM),a1.xlarge,EBS-Only,8,32,November 2018,0
+48,2,Intel,Intel® Xeon® E5-2651 v2,95.00,N/A,N/A,,c1.medium,1 x SSD 350,1.7,42,May 2008,1
+48,8,Intel,Intel® Xeon® E5-2651 v2,95.00,N/A,N/A,,c1.xlarge,4 x SSD 420,7,42,May 2008,4
+40,8,Intel,Intel® Xeon® E5-2680 v2,115.00,N/A,N/A,2.8 GHz Intel Xeon E5-2680v2 (Ivy Bridge) processor,c3.2xlarge,2 x 80 (SSD),15,60,November 2013,2
+40,16,Intel,Intel® Xeon® E5-2680 v2,115.00,N/A,N/A,2.8 GHz Intel Xeon E5-2680v2 (Ivy Bridge) processor,c3.4xlarge,2 x 160 (SSD),30,60,November 2013,2
+40,32,Intel,Intel® Xeon® E5-2680 v2,115.00,N/A,N/A,2.8 GHz Intel Xeon E5-2680v2 (Ivy Bridge) processor,c3.8xlarge,2 x 320 (SSD),60,60,November 2013,2
+40,2,Intel,Intel® Xeon® E5-2680 v2,115.00,N/A,N/A,2.8 GHz Intel Xeon E5-2680v2 (Ivy Bridge) processor,c3.large,2 x 16 (SSD),3.75,60,November 2013,2
+40,4,Intel,Intel® Xeon® E5-2680 v2,115.00,N/A,N/A,2.8 GHz Intel Xeon E5-2680v2 (Ivy Bridge) processor,c3.xlarge,2 x 40 (SSD),7.5,60,November 2013,2
+40,8,Intel,Intel® Xeon® E5-2666 v3,135.00,N/A,N/A,2.9 GHz Intel Xeon E5-2666 v3 Processor,c4.2xlarge,EBS-Only,15,60,January 2015,0
+40,8,Intel,Intel® Xeon® E5-2666 v3,135.00,N/A,N/A,2.9 GHz Intel Xeon E5-2666 v3 Processor,c4.2xlarge.elasticsearch,EBS-Only,15,60,January 2015,0
+40,16,Intel,Intel® Xeon® E5-2666 v3,135.00,N/A,N/A,2.9 GHz Intel Xeon E5-2666 v3 Processor,c4.4xlarge,EBS-Only,30,60,January 2015,0
+40,16,Intel,Intel® Xeon® E5-2666 v3,135.00,N/A,N/A,2.9 GHz Intel Xeon E5-2666 v3 Processor,c4.4xlarge.elasticsearch,EBS-Only,30,60,January 2015,0
+40,36,Intel,Intel® Xeon® E5-2666 v3,135.00,N/A,N/A,2.9 GHz Intel Xeon E5-2666 v3 Processor,c4.8xlarge,EBS-Only,60,60,January 2015,0
+40,36,Intel,Intel® Xeon® E5-2666 v3,135.00,N/A,N/A,2.9 GHz Intel Xeon E5-2666 v3 Processor,c4.8xlarge.elasticsearch,EBS-Only,60,60,January 2015,0
+40,2,Intel,Intel® Xeon® E5-2666 v3,135.00,N/A,N/A,2.9 GHz Intel Xeon E5-2666 v3 Processor,c4.large,EBS-Only,3.75,60,January 2015,0
+40,2,Intel,Intel® Xeon® E5-2666 v3,135.00,N/A,N/A,2.9 GHz Intel Xeon E5-2666 v3 Processor,c4.large.elasticsearch,EBS-Only,3.75,60,January 2015,0
+40,4,Intel,Intel® Xeon® E5-2666 v3,135.00,N/A,N/A,2.9 GHz Intel Xeon E5-2666 v3 Processor,c4.xlarge,EBS-Only,7.5,60,January 2015,0
+40,4,Intel,Intel® Xeon® E5-2666 v3,135.00,N/A,N/A,2.9 GHz Intel Xeon E5-2666 v3 Processor,c4.xlarge.elasticsearch,EBS-Only,7.5,60,January 2015,0
+96,48,Intel,Intel® Xeon® Platinum 8275CL,205.00,N/A,N/A,Up to 3.9 GHz 2nd generation Intel Xeon Scalable Processors (Cascade Lake),c5.12xlarge,EBS-Only,96,192,June 2019,0
+72,72,Intel,Intel® Xeon® Platinum 8124M,240.00,N/A,N/A,Up to 3.5GHz 2nd generation Intel Xeon Scalable Processors (Cascade Lake) or 1st generation Intel Xeon Platinum 8000 series (Skylake-SP),c5.18xlarge,EBS-Only,144,192,November 2019,0
+72,72,Intel,Intel® Xeon® Platinum 8124M,240.00,N/A,N/A,Up to 3.5GHz 2nd generation Intel Xeon Scalable Processors (Cascade Lake) or 1st generation Intel Xeon Platinum 8000 series (Skylake-SP),c5.18xlarge.elasticsearch,EBS-Only,144,192,November 2019,0
+96,96,Intel,Intel® Xeon® Platinum 8275CL,205.00,N/A,N/A,Up to 3.9 GHz 2nd generation Intel Xeon Scalable Processors (Cascade Lake),c5.24xlarge,EBS-Only,192,192,June 2019,0
+72,8,Intel,Intel® Xeon® Platinum 8124M,240.00,N/A,N/A,Up to 3.5GHz 2nd generation Intel Xeon Scalable Processors (Cascade Lake) or 1st generation Intel Xeon Platinum 8000 series (Skylake-SP),c5.2xlarge,EBS-Only,16,192,November 2016,0
+72,8,Intel,Intel® Xeon® Platinum 8124M,240.00,N/A,N/A,Up to 3.5GHz 2nd generation Intel Xeon Scalable Processors (Cascade Lake) or 1st generation Intel Xeon Platinum 8000 series (Skylake-SP),c5.2xlarge.elasticsearch,EBS-Only,16,192,November 2016,0
+72,16,Intel,Intel® Xeon® Platinum 8124M,240.00,N/A,N/A,Up to 3.5GHz 2nd generation Intel Xeon Scalable Processors (Cascade Lake) or 1st generation Intel Xeon Platinum 8000 series (Skylake-SP),c5.4xlarge,EBS-Only,32,192,November 2016,0
+72,16,Intel,Intel® Xeon® Platinum 8124M,240.00,N/A,N/A,Up to 3.5GHz 2nd generation Intel Xeon Scalable Processors (Cascade Lake) or 1st generation Intel Xeon Platinum 8000 series (Skylake-SP),c5.4xlarge.elasticsearch,EBS-Only,32,192,November 2016,0
+72,36,Intel,Intel® Xeon® Platinum 8124M,240.00,N/A,N/A,Up to 3.5GHz 2nd generation Intel Xeon Scalable Processors (Cascade Lake) or 1st generation Intel Xeon Platinum 8000 series (Skylake-SP),c5.9xlarge,EBS-Only,72,192,November 2019,0
+72,36,Intel,Intel® Xeon® Platinum 8124M,240.00,N/A,N/A,Up to 3.5GHz 2nd generation Intel Xeon Scalable Processors (Cascade Lake) or 1st generation Intel Xeon Platinum 8000 series (Skylake-SP),c5.9xlarge.elasticsearch,EBS-Only,72,192,November 2019,0
+72,2,Intel,Intel® Xeon® Platinum 8124M,240.00,N/A,N/A,Up to 3.5GHz 2nd generation Intel Xeon Scalable Processors (Cascade Lake) or 1st generation Intel Xeon Platinum 8000 series (Skylake-SP),c5.large,EBS-Only,4,192,November 2016,0
+72,2,Intel,Intel® Xeon® Platinum 8124M,240.00,N/A,N/A,Up to 3.5GHz 2nd generation Intel Xeon Scalable Processors (Cascade Lake) or 1st generation Intel Xeon Platinum 8000 series (Skylake-SP),c5.large.elasticsearch,EBS-Only,4,192,November 2016,0
+96,96,Intel,Intel® Xeon® Platinum 8275CL,205.00,N/A,N/A,Up to 3.9 GHz 2nd generation Intel Xeon Scalable Processors (Cascade Lake),c5.metal,EBS-Only,192,192,June 2019,0
+72,4,Intel,Intel® Xeon® Platinum 8124M,240.00,N/A,N/A,Up to 3.5GHz 2nd generation Intel Xeon Scalable Processors (Cascade Lake) or 1st generation Intel Xeon Platinum 8000 series (Skylake-SP),c5.xlarge,EBS-Only,8,192,November 2016,0
+72,4,Intel,Intel® Xeon® Platinum 8124M,240.00,N/A,N/A,Up to 3.5GHz 2nd generation Intel Xeon Scalable Processors (Cascade Lake) or 1st generation Intel Xeon Platinum 8000 series (Skylake-SP),c5.xlarge.elasticsearch,EBS-Only,8,192,November 2016,0
+96,48,AMD,AMD EPYC™ 7R32,200.00,N/A,N/A,Up to 3.3 GHz 2nd generation AMD EPYC 7002 Series Processor,c5a.12xlarge,EBS-Only,96,192,June 2020,0
+96,64,AMD,AMD EPYC™ 7R32,200.00,N/A,N/A,Up to 3.3 GHz 2nd generation AMD EPYC 7002 Series Processor,c5a.16xlarge,EBS-Only,128,192,June 2020,0
+96,96,AMD,AMD EPYC™ 7R32,200.00,N/A,N/A,Up to 3.3 GHz 2nd generation AMD EPYC 7002 Series Processor,c5a.24xlarge,EBS-Only,192,192,June 2020,0
+96,8,AMD,AMD EPYC™ 7R32,200.00,N/A,N/A,Up to 3.3 GHz 2nd generation AMD EPYC 7002 Series Processor,c5a.2xlarge,EBS-Only,16,192,June 2020,0
+96,16,AMD,AMD EPYC™ 7R32,200.00,N/A,N/A,Up to 3.3 GHz 2nd generation AMD EPYC 7002 Series Processor,c5a.4xlarge,EBS-Only,32,192,June 2020,0
+96,32,AMD,AMD EPYC™ 7R32,200.00,N/A,N/A,Up to 3.3 GHz 2nd generation AMD EPYC 7002 Series Processor,c5a.8xlarge,EBS-Only,64,192,June 2020,0
+96,2,AMD,AMD EPYC™ 7R32,200.00,N/A,N/A,Up to 3.3 GHz 2nd generation AMD EPYC 7002 Series Processor,c5a.large,EBS-Only,4,192,June 2020,0
+96,4,AMD,AMD EPYC™ 7R32,200.00,N/A,N/A,Up to 3.3 GHz 2nd generation AMD EPYC 7002 Series Processor,c5a.xlarge,EBS-Only,8,192,June 2020,0
+96,48,AMD,AMD EPYC™ 7R32,200.00,N/A,N/A,Up to 3.3 GHz 2nd generation AMD EPYC 7002 Series Processor,c5ad.12xlarge,2 x 900 NVMe SSD,96,192,August 2020,2
+96,64,AMD,AMD EPYC™ 7R32,200.00,N/A,N/A,Up to 3.3 GHz 2nd generation AMD EPYC 7002 Series Processor,c5ad.16xlarge,2 x 1200 NVMe SSD,128,192,August 2020,2
+96,96,AMD,AMD EPYC™ 7R32,200.00,N/A,N/A,Up to 3.3 GHz 2nd generation AMD EPYC 7002 Series Processor,c5ad.24xlarge,2 x 1900 NVMe SSD,192,192,August 2020,2
+96,8,AMD,AMD EPYC™ 7R32,200.00,N/A,N/A,Up to 3.3 GHz 2nd generation AMD EPYC 7002 Series Processor,c5ad.2xlarge,1 x 300 NVMe SSD,16,192,August 2020,2
+96,16,AMD,AMD EPYC™ 7R32,200.00,N/A,N/A,Up to 3.3 GHz 2nd generation AMD EPYC 7002 Series Processor,c5ad.4xlarge,2 x 300 NVMe SSD,32,192,August 2020,2
+96,32,AMD,AMD EPYC™ 7R32,200.00,N/A,N/A,Up to 3.3 GHz 2nd generation AMD EPYC 7002 Series Processor,c5ad.8xlarge,2 x 600 NVMe SSD,64,192,August 2020,2
+96,2,AMD,AMD EPYC™ 7R32,200.00,N/A,N/A,Up to 3.3 GHz 2nd generation AMD EPYC 7002 Series Processor,c5ad.large,1 x 75 NVMe SSD,4,192,August 2020,2
+96,4,AMD,AMD EPYC™ 7R32,200.00,N/A,N/A,Up to 3.3 GHz 2nd generation AMD EPYC 7002 Series Processor,c5ad.xlarge,1 x 150 NVMe SSD,8,192,August 2020,2
+96,48,Intel,Intel® Xeon® Platinum 8275CL,205.00,N/A,N/A,Up to 3.9 GHz 2nd generation Intel Xeon Scalable Processors (Cascade Lake),c5d.12xlarge,2 x 900 NVMe SSD,96,192,November 2019,4
+72,72,Intel,Intel® Xeon® Platinum 8124M,240.00,N/A,N/A,Up to 3.5 GHz 2nd generation Intel Xeon Scalable Processors (Cascade Lake) or 1st generation Intel Xeon Platinum 8000 series (Skylake-SP),c5d.18xlarge,2 x 900 NVMe SSD,144,192,May 2018,2
+96,96,Intel,Intel® Xeon® Platinum 8275CL,205.00,N/A,N/A,Up to 3.9 GHz 2nd generation Intel Xeon Scalable Processors (Cascade Lake),c5d.24xlarge,4 x 900 NVMe SSD,192,192,November 2019,4
+72,8,Intel,Intel® Xeon® Platinum 8124M,240.00,N/A,N/A,Up to 3.5 GHz 2nd generation Intel Xeon Scalable Processors (Cascade Lake) or 1st generation Intel Xeon Platinum 8000 series (Skylake-SP),c5d.2xlarge,1 x 200 NVMe SSD,16,192,May 2018,2
+72,16,Intel,Intel® Xeon® Platinum 8124M,240.00,N/A,N/A,Up to 3.5 GHz 2nd generation Intel Xeon Scalable Processors (Cascade Lake) or 1st generation Intel Xeon Platinum 8000 series (Skylake-SP),c5d.4xlarge,1 x 400 NVMe SSD,32,192,May 2018,2
+72,36,Intel,Intel® Xeon® Platinum 8124M,240.00,N/A,N/A,Up to 3.5 GHz 2nd generation Intel Xeon Scalable Processors (Cascade Lake) or 1st generation Intel Xeon Platinum 8000 series (Skylake-SP),c5d.9xlarge,1 x 900 NVMe SSD,72,192,May 2018,2
+72,2,Intel,Intel® Xeon® Platinum 8124M,240.00,N/A,N/A,Up to 3.5 GHz 2nd generation Intel Xeon Scalable Processors (Cascade Lake) or 1st generation Intel Xeon Platinum 8000 series (Skylake-SP),c5d.large,1 x 50 NVMe SSD,4,192,May 2018,2
+96,96,Intel,Intel® Xeon® Platinum 8275CL,205.00,N/A,N/A,Up to 3.9 GHz 2nd generation Intel Xeon Scalable Processors (Cascade Lake),c5d.metal,4 x 900 NVMe SSD,192,192,November 2019,4
+72,4,Intel,Intel® Xeon® Platinum 8124M,240.00,N/A,N/A,Up to 3.5 GHz 2nd generation Intel Xeon Scalable Processors (Cascade Lake) or 1st generation Intel Xeon Platinum 8000 series (Skylake-SP),c5d.xlarge,1 x 100 NVMe SSD,8,192,May 2018,2
+72,72,Intel,Intel® Xeon® Platinum 8124M,240.00,N/A,N/A,3.0 GHz Intel Xeon Platinum Processor,c5n.18xlarge,EBS-Only,192,192,November 2018,0
+72,8,Intel,Intel® Xeon® Platinum 8124M,240.00,N/A,N/A,3.0 GHz Intel Xeon Platinum Processor,c5n.2xlarge,EBS-Only,21,192,November 2018,0
+72,16,Intel,Intel® Xeon® Platinum 8124M,240.00,N/A,N/A,3.0 GHz Intel Xeon Platinum Processor,c5n.4xlarge,EBS-Only,42,192,November 2018,0
+72,36,Intel,Intel® Xeon® Platinum 8124M,240.00,N/A,N/A,3.0 GHz Intel Xeon Platinum Processor,c5n.9xlarge,EBS-Only,96,192,November 2018,0
+72,2,Intel,Intel® Xeon® Platinum 8124M,240.00,N/A,N/A,3.0 GHz Intel Xeon Platinum Processor,c5n.large,EBS-Only,5.25,192,November 2018,0
+72,72,Intel,Intel® Xeon® Platinum 8124M,240.00,N/A,N/A,3.0 GHz Intel Xeon Platinum Processor,c5n.metal,EBS-Only,192,192,August 2019,0
+72,4,Intel,Intel® Xeon® Platinum 8124M,240.00,N/A,N/A,3.0 GHz Intel Xeon Platinum Processor,c5n.xlarge,EBS-Only,10.5,192,November 2018,0
+64,48,AWS,AWS Graviton2,110.00,N/A,N/A,AWS Graviton2 (ARM),c6g.12xlarge,EBS-Only,96,128,December 2019,0
+64,48,AWS,AWS Graviton2,110.00,N/A,N/A,AWS Graviton2 (ARM),c6g.12xlarge.elasticsearch,EBS-Only,96,128,December 2019,0
+64,64,AWS,AWS Graviton2,110.00,N/A,N/A,AWS Graviton2 (ARM),c6g.16xlarge,EBS-Only,128,128,December 2019,0
+64,8,AWS,AWS Graviton2,110.00,N/A,N/A,AWS Graviton2 (ARM),c6g.2xlarge,EBS-Only,16,128,December 2019,0
+64,8,AWS,AWS Graviton2,110.00,N/A,N/A,AWS Graviton2 (ARM),c6g.2xlarge.elasticsearch,EBS-Only,16,128,December 2019,0
+64,16,AWS,AWS Graviton2,110.00,N/A,N/A,AWS Graviton2 (ARM),c6g.4xlarge,EBS-Only,32,128,December 2019,0
+64,16,AWS,AWS Graviton2,110.00,N/A,N/A,AWS Graviton2 (ARM),c6g.4xlarge.elasticsearch,EBS-Only,32,128,December 2019,0
+64,32,AWS,AWS Graviton2,110.00,N/A,N/A,AWS Graviton2 (ARM),c6g.8xlarge,EBS-Only,64,128,December 2019,0
+64,32,AWS,AWS Graviton2,110.00,N/A,N/A,AWS Graviton2 (ARM),c6g.8xlarge.elasticsearch,EBS-Only,64,128,December 2019,0
+64,2,AWS,AWS Graviton2,110.00,N/A,N/A,AWS Graviton2 (ARM),c6g.large,EBS-Only,4,128,December 2019,0
+64,2,AWS,AWS Graviton2,110.00,N/A,N/A,AWS Graviton2 (ARM),c6g.large.elasticsearch,EBS-Only,4,128,December 2019,0
+64,1,AWS,AWS Graviton2,110.00,N/A,N/A,AWS Graviton2 (ARM),c6g.medium,EBS-Only,2,128,December 2019,0
+64,64,AWS,AWS Graviton2,110.00,N/A,N/A,AWS Graviton2 (ARM),c6g.metal,EBS-Only,128,128,December 2019,0
+64,4,AWS,AWS Graviton2,110.00,N/A,N/A,AWS Graviton2 (ARM),c6g.xlarge,EBS-Only,8,128,December 2019,0
+64,4,AWS,AWS Graviton2,110.00,N/A,N/A,AWS Graviton2 (ARM),c6g.xlarge.elasticsearch,EBS-Only,8,128,December 2019,0
+64,48,AWS,AWS Graviton2,110.00,N/A,N/A,AWS Graviton2 (ARM),c6gd.12xlarge,2 x 1425 NVMe SSD,96,128,December 2019,2
+64,64,AWS,AWS Graviton2,110.00,N/A,N/A,AWS Graviton2 (ARM),c6gd.16xlarge,2 x 1900 NVMe SSD,128,128,December 2019,2
+64,8,AWS,AWS Graviton2,110.00,N/A,N/A,AWS Graviton2 (ARM),c6gd.2xlarge,1 x 474 NVMe SSD,16,128,December 2019,2
+64,16,AWS,AWS Graviton2,110.00,N/A,N/A,AWS Graviton2 (ARM),c6gd.4xlarge,1 x 950 NVMe SSD,32,128,December 2019,2
+64,32,AWS,AWS Graviton2,110.00,N/A,N/A,AWS Graviton2 (ARM),c6gd.8xlarge,1 x 1900 NVMe SSD,64,128,December 2019,2
+64,2,AWS,AWS Graviton2,110.00,N/A,N/A,AWS Graviton2 (ARM),c6gd.large,1 x 118 NVMe SSD,4,128,December 2019,2
+64,1,AWS,AWS Graviton2,110.00,N/A,N/A,AWS Graviton2 (ARM),c6gd.medium,1 x 59 NVMe SSD,2,128,December 2019,2
+64,64,AWS,AWS Graviton2,110.00,N/A,N/A,AWS Graviton2 (ARM),c6gd.metal,2 x 1900 NVMe SSD,128,128,December 2019,2
+64,4,AWS,AWS Graviton2,110.00,N/A,N/A,AWS Graviton2 (ARM),c6gd.xlarge,1 x 237 NVMe SSD,8,128,December 2019,2
+64,48,AWS,AWS Graviton2,110.00,N/A,N/A,AWS Graviton2 (ARM),c6gn.12xlarge,EBS-Only,96,128,December 2019,0
+64,64,AWS,AWS Graviton2,110.00,N/A,N/A,AWS Graviton2 (ARM),c6gn.16xlarge,EBS-Only,128,128,December 2019,0
+64,8,AWS,AWS Graviton2,110.00,N/A,N/A,AWS Graviton2 (ARM),c6gn.2xlarge,EBS-Only,16,128,December 2019,0
+64,16,AWS,AWS Graviton2,110.00,N/A,N/A,AWS Graviton2 (ARM),c6gn.4xlarge,EBS-Only,32,128,December 2019,0
+64,32,AWS,AWS Graviton2,110.00,N/A,N/A,AWS Graviton2 (ARM),c6gn.8xlarge,EBS-Only,64,128,December 2019,0
+64,2,AWS,AWS Graviton2,110.00,N/A,N/A,AWS Graviton2 (ARM),c6gn.large,EBS-Only,4,128,December 2019,0
+64,1,AWS,AWS Graviton2,110.00,N/A,N/A,AWS Graviton2 (ARM),c6gn.medium,EBS-Only,2,128,December 2019,0
+64,4,AWS,AWS Graviton2,110.00,N/A,N/A,AWS Graviton2 (ARM),c6gn.xlarge,EBS-Only,8,128,December 2019,0
+32,1,Intel,Intel® Xeon® E5-2670,115.00,N/A,N/A,Intel Xeon E5-2670 (Sandy Bridge or Ivy Bridge) processors,cache.m3.medium,1 x 4 (SSD),3.75,384,January 2014,1
+48,40,Intel,Intel® Xeon® E5-2676 v3,120.00,N/A,N/A,2.3 GHz Intel Xeon E5-2686 v4 (Broadwell) or 2.4 GHz Intel Xeon E5-2676 v3 (Haswell),cache.m4.10xlarge,EBS-Only,154.64,256,June 2015,0
+72,8,Intel,Intel® Xeon® E5-2686 v4,145.00,N/A,N/A,2.3 GHz Intel Xeon E5-2686 v4 (Broadwell) or 2.4 GHz Intel Xeon E5-2676 v3 (Haswell),cache.m4.2xlarge,EBS-Only,29.7,256,June 2015,0
+72,16,Intel,Intel® Xeon® E5-2686 v4,145.00,N/A,N/A,2.3 GHz Intel Xeon E5-2686 v4 (Broadwell) or 2.4 GHz Intel Xeon E5-2676 v3 (Haswell),cache.m4.4xlarge,EBS-Only,60.78,256,June 2015,0
+72,2,Intel,Intel® Xeon® E5-2686 v4,145.00,N/A,N/A,2.3 GHz Intel Xeon E5-2686 v4 (Broadwell) or 2.4 GHz Intel Xeon E5-2676 v3 (Haswell),cache.m4.large,EBS-Only,6.42,256,June 2015,0
+72,4,Intel,Intel® Xeon® E5-2686 v4,145.00,N/A,N/A,2.3 GHz Intel Xeon E5-2686 v4 (Broadwell) or 2.4 GHz Intel Xeon E5-2676 v3 (Haswell),cache.m4.xlarge,EBS-Only,14.28,256,June 2015,0
+96,48,Intel,Intel® Xeon® Platinum 8259CL,210.00,N/A,N/A,Up to 3.1 GHz Intel Xeon Platinum 8175M,cache.m5.12xlarge,EBS-Only,157.12,384,November 2017,0
+96,96,Intel,Intel® Xeon® Platinum 8259CL,210.00,N/A,N/A,Up to 3.1 GHz Intel Xeon Platinum 8175M,cache.m5.24xlarge,EBS-Only,314.32,384,November 2017,0
+96,8,Intel,Intel® Xeon® Platinum 8259CL,210.00,N/A,N/A,Up to 3.1 GHz Intel Xeon Platinum 8175M,cache.m5.2xlarge,EBS-Only,26.04,384,November 2017,0
+96,16,Intel,Intel® Xeon® Platinum 8259CL,210.00,N/A,N/A,Up to 3.1 GHz Intel Xeon Platinum 8175M,cache.m5.4xlarge,EBS-Only,52.26,384,November 2017,0
+96,2,Intel,Intel® Xeon® Platinum 8259CL,210.00,N/A,N/A,Up to 3.1 GHz Intel Xeon Platinum 8175M,cache.m5.large,EBS-Only,6.38,384,November 2017,0
+96,4,Intel,Intel® Xeon® Platinum 8259CL,210.00,N/A,N/A,Up to 3.1 GHz Intel Xeon Platinum 8175M,cache.m5.xlarge,EBS-Only,12.93,384,November 2017,0
+64,48,AWS,AWS Graviton2,110.00,N/A,N/A,AWS Graviton2 (ARM),cache.m6g.12xlarge,EBS-Only,192,256,December 2019,0
+64,64,AWS,AWS Graviton2,110.00,N/A,N/A,AWS Graviton2 (ARM),cache.m6g.16xlarge,EBS-Only,256,256,December 2019,0
+64,8,AWS,AWS Graviton2,110.00,N/A,N/A,AWS Graviton2 (ARM),cache.m6g.2xlarge,EBS-Only,32,256,December 2019,0
+64,16,AWS,AWS Graviton2,110.00,N/A,N/A,AWS Graviton2 (ARM),cache.m6g.4xlarge,EBS-Only,64,256,December 2019,0
+64,32,AWS,AWS Graviton2,110.00,N/A,N/A,AWS Graviton2 (ARM),cache.m6g.8xlarge,EBS-Only,128,256,December 2019,0
+64,2,AWS,AWS Graviton2,110.00,N/A,N/A,AWS Graviton2 (ARM),cache.m6g.large,EBS-Only,8,256,December 2019,0
+64,4,AWS,AWS Graviton2,110.00,N/A,N/A,AWS Graviton2 (ARM),cache.m6g.xlarge,EBS-Only,16,256,December 2019,0
+40,8,Intel,Intel® Xeon® E5-2670 v2,115.00,N/A,N/A,Intel Xeon Ivy Bridge Processors,cache.r3.2xlarge,1 x 160 (SSD),61,244,April 2014,1
+72,64,Intel,Intel® Xeon® E5-2686 v4,145.00,N/A,N/A,2.3 GHz Intel Xeon E5-2686 v4 Processor,cache.r4.16xlarge,EBS-Only,407,488,November 2016,0
+72,8,Intel,Intel® Xeon® E5-2686 v4,145.00,N/A,N/A,2.3 GHz Intel Xeon E5-2686 v4 Processor,cache.r4.2xlarge,EBS-Only,50.47,488,November 2016,0
+72,16,Intel,Intel® Xeon® E5-2686 v4,145.00,N/A,N/A,2.3 GHz Intel Xeon E5-2686 v4 Processor,cache.r4.4xlarge,EBS-Only,101.38,488,November 2016,0
+72,32,Intel,Intel® Xeon® E5-2686 v4,145.00,N/A,N/A,2.3 GHz Intel Xeon E5-2686 v4 Processor,cache.r4.8xlarge,EBS-Only,203.26,488,November 2016,0
+72,2,Intel,Intel® Xeon® E5-2686 v4,145.00,N/A,N/A,2.3 GHz Intel Xeon E5-2686 v4 Processor,cache.r4.large,EBS-Only,12.3,488,November 2016,0
+72,4,Intel,Intel® Xeon® E5-2686 v4,145.00,N/A,N/A,2.3 GHz Intel Xeon E5-2686 v4 Processor,cache.r4.xlarge,EBS-Only,25.05,488,November 2016,0
+96,48,Intel,Intel® Xeon® Platinum 8175M,240.00,N/A,N/A,Up to 3.1 GHz Intel Xeon Platinum 8000 series processors (Skylake-SP or Cascade Lake),cache.r5.12xlarge,EBS-Only,317.77,768,July 2018,0
+96,96,Intel,Intel® Xeon® Platinum 8175M,240.00,N/A,N/A,Up to 3.1 GHz Intel Xeon Platinum 8000 series processors (Skylake-SP or Cascade Lake),cache.r5.24xlarge,EBS-Only,635.61,768,July 2018,0
+96,8,Intel,Intel® Xeon® Platinum 8175M,240.00,N/A,N/A,Up to 3.1 GHz Intel Xeon Platinum 8000 series processors (Skylake-SP or Cascade Lake),cache.r5.2xlarge,EBS-Only,52.82,768,July 2018,0
+96,16,Intel,Intel® Xeon® Platinum 8175M,240.00,N/A,N/A,Up to 3.1 GHz Intel Xeon Platinum 8000 series processors (Skylake-SP or Cascade Lake),cache.r5.4xlarge,EBS-Only,105.81,768,July 2018,0
+96,2,Intel,Intel® Xeon® Platinum 8175M,240.00,N/A,N/A,Up to 3.1 GHz Intel Xeon Platinum 8000 series processors (Skylake-SP or Cascade Lake),cache.r5.large,EBS-Only,13.07,768,July 2018,0
+96,4,Intel,Intel® Xeon® Platinum 8175M,240.00,N/A,N/A,Up to 3.1 GHz Intel Xeon Platinum 8000 series processors (Skylake-SP or Cascade Lake),cache.r5.xlarge,EBS-Only,26.32,768,July 2018,0
+64,48,AWS,AWS Graviton2,110.00,N/A,N/A,AWS Graviton2 (ARM),cache.r6g.12xlarge,EBS-Only,384,512,December 2019,0
+64,64,AWS,AWS Graviton2,110.00,N/A,N/A,AWS Graviton2 (ARM),cache.r6g.16xlarge,EBS-Only,512,512,December 2019,0
+64,8,AWS,AWS Graviton2,110.00,N/A,N/A,AWS Graviton2 (ARM),cache.r6g.2xlarge,EBS-Only,64,512,December 2019,0
+64,16,AWS,AWS Graviton2,110.00,N/A,N/A,AWS Graviton2 (ARM),cache.r6g.4xlarge,EBS-Only,128,512,December 2019,0
+64,32,AWS,AWS Graviton2,110.00,N/A,N/A,AWS Graviton2 (ARM),cache.r6g.8xlarge,EBS-Only,256,512,December 2019,0
+64,2,AWS,AWS Graviton2,110.00,N/A,N/A,AWS Graviton2 (ARM),cache.r6g.large,EBS-Only,16,512,December 2019,0
+64,4,AWS,AWS Graviton2,110.00,N/A,N/A,AWS Graviton2 (ARM),cache.r6g.xlarge,EBS-Only,32,512,December 2019,0
+48,2,Intel,Intel® Xeon® E5-2676 v3,120.00,N/A,N/A,3.3 GHz Intel Scalable Processor,cache.t2.medium,EBS-Only,3.22,288,July 2014,0
+48,1,Intel,Intel® Xeon® E5-2676 v3,120.00,N/A,N/A,3.3 GHz Intel Scalable Processor,cache.t2.micro,EBS-Only,555,288,July 2014,0
+48,1,Intel,Intel® Xeon® E5-2676 v3,120.00,N/A,N/A,3.3 GHz Intel Scalable Processor,cache.t2.small,EBS-Only,1.55,288,July 2014,0
+96,2,Intel,Intel® Xeon® Platinum 8175M,240.00,N/A,N/A,2.5 GHz Intel Scalable Processor,cache.t3.medium,EBS-Only,3.09,384,August 2018,0
+96,2,Intel,Intel® Xeon® Platinum 8175M,240.00,N/A,N/A,2.5 GHz Intel Scalable Processor,cache.t3.micro,EBS-Only,0.5,384,August 2018,0
+96,2,Intel,Intel® Xeon® Platinum 8175M,240.00,N/A,N/A,2.5 GHz Intel Scalable Processor,cache.t3.small,EBS-Only,1.37,384,August 2018,0
+32,32,Intel,Intel® Xeon® E5-2670,115.00,N/A,N/A,dual Intel Xeon processors,cc2.8xlarge,4 x SSD 840,60.5,60.5,November 2011,4
+32,32,Intel,Intel® Xeon® E5-2670,115.00,N/A,N/A,dual 2.6 GHz Intel Xeon E5-2670 processors,cr1.8xlarge,2 x 120 (SSD),244,244,January 2013,2
+48,8,Intel,Intel® Xeon® E5-2676 v3,120.00,N/A,N/A,2.4 GHz Intel Xeon E5-2676 v3 Processor (Haswell),d2.2xlarge,6 x 2000 HDD,61,244,March 2015,24
+48,16,Intel,Intel® Xeon® E5-2676 v3,120.00,N/A,N/A,2.4 GHz Intel Xeon E5-2676 v3 Processor (Haswell),d2.4xlarge,12 x 2000 HDD,122,244,March 2015,24
+48,36,Intel,Intel® Xeon® E5-2676 v3,120.00,N/A,N/A,2.4 GHz Intel Xeon E5-2676 v3 Processor (Haswell),d2.8xlarge,24 x 2000 HDD,244,244,March 2015,24
+48,4,Intel,Intel® Xeon® E5-2676 v3,120.00,N/A,N/A,2.4 GHz Intel Xeon E5-2676 v3 Processor (Haswell),d2.xlarge,3 x 2000 HDD,30.5,244,March 2015,24
+96,8,Intel,Intel® Xeon® Platinum 8259CL,210.00,N/A,N/A,,d3.2xlarge,6 x 2 HDD,64,256,December 2020,24
+96,16,Intel,Intel® Xeon® Platinum 8259CL,210.00,N/A,N/A,,d3.4xlarge,12 x 2 HDD,128,256,December 2020,24
+96,32,Intel,Intel® Xeon® Platinum 8259CL,210.00,N/A,N/A,,d3.8xlarge,24 x 2 HDD,256,256,December 2020,24
+96,4,Intel,Intel® Xeon® Platinum 8259CL,210.00,N/A,N/A,,d3.xlarge,3 x 2 HDD,32,256,December 2020,24
+96,48,Intel,Intel® Xeon® Platinum 8259CL,210.00,N/A,N/A,,d3en.12xlarge,24 x 14 HDD,192,192,December 2020,24
+96,8,Intel,Intel® Xeon® Platinum 8259CL,210.00,N/A,N/A,,d3en.2xlarge,4 x 14 HDD,32,192,December 2020,24
+96,16,Intel,Intel® Xeon® Platinum 8259CL,210.00,N/A,N/A,,d3en.4xlarge,8 x 14 HDD,64,192,December 2020,24
+96,24,Intel,Intel® Xeon® Platinum 8259CL,210.00,N/A,N/A,,d3en.6xlarge,12 x 14 HDD,96,192,December 2020,24
+96,32,Intel,Intel® Xeon® Platinum 8259CL,210.00,N/A,N/A,,d3en.8xlarge,16 x 14 HDD,128,192,December 2020,24
+96,4,Intel,Intel® Xeon® Platinum 8259CL,210.00,N/A,N/A,,d3en.xlarge,2 x 14 HDD,16,192,December 2020,24
+32,2,Intel,Intel® Xeon® E5-2650,95.00,N/A,N/A,,db.m1.large,EBS-Only,7.5,120,October 2007,0
+32,1,Intel,Intel® Xeon® E5-2650,95.00,N/A,N/A,,db.m1.medium,EBS-Only,3.75,120,March 2012,0
+32,1,Intel,Intel® Xeon® E5-2650,95.00,N/A,N/A,,db.m1.small,EBS-Only,1.7,120,August 2006,0
+32,4,Intel,Intel® Xeon® E5-2650,95.00,N/A,N/A,,db.m1.xlarge,EBS-Only,15,120,October 2007,0
+32,4,Intel,Intel® Xeon® E5-2665,115.00,N/A,N/A,,db.m2.2xlarge,EBS-Only,34.2,280,October 2009,0
+32,8,Intel,Intel® Xeon® E5-2665,115.00,N/A,N/A,,db.m2.4xlarge,EBS-Only,68.4,280,October 2009,0
+32,2,Intel,Intel® Xeon® E5-2665,115.00,N/A,N/A,,db.m2.xlarge,EBS-Only,17.1,280,February 2010,0
+32,8,Intel,Intel® Xeon® E5-2670,115.00,N/A,N/A,Intel Xeon E5-2670 (Sandy Bridge or Ivy Bridge) processors,db.m3.2xlarge,EBS-Only,30,240,October 2012,0
+32,2,Intel,Intel® Xeon® E5-2670,115.00,N/A,N/A,Intel Xeon E5-2670 (Sandy Bridge or Ivy Bridge) processors,db.m3.large,EBS-Only,7.5,240,January 2014,0
+32,1,Intel,Intel® Xeon® E5-2670,115.00,N/A,N/A,Intel Xeon E5-2670 (Sandy Bridge or Ivy Bridge) processors,db.m3.medium,EBS-Only,3.75,240,January 2014,0
+32,4,Intel,Intel® Xeon® E5-2670,115.00,N/A,N/A,Intel Xeon E5-2670 (Sandy Bridge or Ivy Bridge) processors,db.m3.xlarge,EBS-Only,15,240,October 2012,0
+48,40,Intel,Intel® Xeon® E5-2676 v3,120.00,N/A,N/A,2.3 GHz Intel Xeon E5-2686 v4 (Broadwell) or 2.4 GHz Intel Xeon E5-2676 v3 (Haswell),db.m4.10xlarge,EBS-Only,160,256,June 2015,0
+72,64,Intel,Intel® Xeon® E5-2686 v4,145.00,N/A,N/A,2.3 GHz Intel Xeon E5-2686 v4 (Broadwell) or 2.4 GHz Intel Xeon E5-2676 v3 (Haswell),db.m4.16xlarge,EBS-Only,256,256,September 2016,0
+72,8,Intel,Intel® Xeon® E5-2686 v4,145.00,N/A,N/A,2.3 GHz Intel Xeon E5-2686 v4 (Broadwell) or 2.4 GHz Intel Xeon E5-2676 v3 (Haswell),db.m4.2xlarge,EBS-Only,32,256,June 2015,0
+72,16,Intel,Intel® Xeon® E5-2686 v4,145.00,N/A,N/A,2.3 GHz Intel Xeon E5-2686 v4 (Broadwell) or 2.4 GHz Intel Xeon E5-2676 v3 (Haswell),db.m4.4xlarge,EBS-Only,64,256,June 2015,0
+72,2,Intel,Intel® Xeon® E5-2686 v4,145.00,N/A,N/A,2.3 GHz Intel Xeon E5-2686 v4 (Broadwell) or 2.4 GHz Intel Xeon E5-2676 v3 (Haswell),db.m4.large,EBS-Only,8,256,June 2015,0
+72,4,Intel,Intel® Xeon® E5-2686 v4,145.00,N/A,N/A,2.3 GHz Intel Xeon E5-2686 v4 (Broadwell) or 2.4 GHz Intel Xeon E5-2676 v3 (Haswell),db.m4.xlarge,EBS-Only,16,256,June 2015,0
+96,48,Intel,Intel® Xeon® Platinum 8259CL,210.00,N/A,N/A,Up to 3.1 GHz Intel Xeon Platinum 8175M,db.m5.12xlarge,EBS-Only,192,384,November 2017,0
+96,64,Intel,Intel® Xeon® Platinum 8259CL,210.00,N/A,N/A,Up to 3.1 GHz Intel Xeon Platinum 8175M,db.m5.16xlarge,EBS-Only,256,384,June 2019,0
+96,96,Intel,Intel® Xeon® Platinum 8259CL,210.00,N/A,N/A,Up to 3.1 GHz Intel Xeon Platinum 8175M,db.m5.24xlarge,EBS-Only,384,384,November 2017,0
+96,8,Intel,Intel® Xeon® Platinum 8259CL,210.00,N/A,N/A,Up to 3.1 GHz Intel Xeon Platinum 8175M,db.m5.2xlarge,EBS-Only,32,384,November 2017,0
+96,16,Intel,Intel® Xeon® Platinum 8259CL,210.00,N/A,N/A,Up to 3.1 GHz Intel Xeon Platinum 8175M,db.m5.4xlarge,EBS-Only,64,384,November 2017,0
+96,32,Intel,Intel® Xeon® Platinum 8259CL,210.00,N/A,N/A,Up to 3.1 GHz Intel Xeon Platinum 8175M,db.m5.8xlarge,EBS-Only,128,384,June 2019,0
+96,2,Intel,Intel® Xeon® Platinum 8259CL,210.00,N/A,N/A,Up to 3.1 GHz Intel Xeon Platinum 8175M,db.m5.large,EBS-Only,8,384,November 2017,0
+96,4,Intel,Intel® Xeon® Platinum 8259CL,210.00,N/A,N/A,Up to 3.1 GHz Intel Xeon Platinum 8175M,db.m5.xlarge,EBS-Only,16,384,November 2017,0
+64,48,AWS,AWS Graviton2,110.00,N/A,N/A,AWS Graviton2 (ARM),db.m6g.12xlarge,EBS-Only,192,256,December 2019,0
+64,64,AWS,AWS Graviton2,110.00,N/A,N/A,AWS Graviton2 (ARM),db.m6g.16xlarge,EBS-Only,256,256,December 2019,0
+64,8,AWS,AWS Graviton2,110.00,N/A,N/A,AWS Graviton2 (ARM),db.m6g.2xlarge,EBS-Only,32,256,December 2019,0
+64,16,AWS,AWS Graviton2,110.00,N/A,N/A,AWS Graviton2 (ARM),db.m6g.4xlarge,EBS-Only,64,256,December 2019,0
+64,32,AWS,AWS Graviton2,110.00,N/A,N/A,AWS Graviton2 (ARM),db.m6g.8xlarge,EBS-Only,128,256,December 2019,0
+64,2,AWS,AWS Graviton2,110.00,N/A,N/A,AWS Graviton2 (ARM),db.m6g.large,EBS-Only,8,256,December 2019,0
+64,4,AWS,AWS Graviton2,110.00,N/A,N/A,AWS Graviton2 (ARM),db.m6g.xlarge,EBS-Only,16,256,December 2019,0
+40,8,Intel,Intel® Xeon® E5-2670 v2,115.00,N/A,N/A,Intel Xeon Ivy Bridge Processors,db.r3.2xlarge,EBS-Only,61,244,April 2014,0
+40,16,Intel,Intel® Xeon® E5-2670 v2,115.00,N/A,N/A,Intel Xeon Ivy Bridge Processors,db.r3.4xlarge,EBS-Only,122,244,April 2014,0
+40,32,Intel,Intel® Xeon® E5-2670 v2,115.00,N/A,N/A,Intel Xeon Ivy Bridge Processors,db.r3.8xlarge,EBS-Only,244,244,April 2014,0
+40,2,Intel,Intel® Xeon® E5-2670 v2,115.00,N/A,N/A,Intel Xeon Ivy Bridge Processors,db.r3.large,EBS-Only,15.25,244,April 2014,0
+40,4,Intel,Intel® Xeon® E5-2670 v2,115.00,N/A,N/A,Intel Xeon Ivy Bridge Processors,db.r3.xlarge,EBS-Only,30.5,244,April 2014,0
+72,64,Intel,Intel® Xeon® E5-2686 v4,145.00,N/A,N/A,2.3 GHz Intel Xeon E5-2686 v4 Processor,db.r4.16xlarge,EBS-Only,488,488,November 2016,0
+72,8,Intel,Intel® Xeon® E5-2686 v4,145.00,N/A,N/A,2.3 GHz Intel Xeon E5-2686 v4 Processor,db.r4.2xlarge,EBS-Only,61,488,November 2016,0
+72,16,Intel,Intel® Xeon® E5-2686 v4,145.00,N/A,N/A,2.3 GHz Intel Xeon E5-2686 v4 Processor,db.r4.4xlarge,EBS-Only,122,488,November 2016,0
+72,32,Intel,Intel® Xeon® E5-2686 v4,145.00,N/A,N/A,2.3 GHz Intel Xeon E5-2686 v4 Processor,db.r4.8xlarge,EBS-Only,244,488,November 2016,0
+72,2,Intel,Intel® Xeon® E5-2686 v4,145.00,N/A,N/A,2.3 GHz Intel Xeon E5-2686 v4 Processor,db.r4.large,EBS-Only,15.25,488,November 2016,0
+72,4,Intel,Intel® Xeon® E5-2686 v4,145.00,N/A,N/A,2.3 GHz Intel Xeon E5-2686 v4 Processor,db.r4.xlarge,EBS-Only,30.5,488,November 2016,0
+96,48,Intel,Intel® Xeon® Platinum 8175M,240.00,N/A,N/A,Up to 3.1 GHz Intel Xeon Platinum 8000 series processors (Skylake-SP or Cascade Lake),db.r5.12xlarge,EBS-Only,384,768,July 2018,0
+96,64,Intel,Intel® Xeon® Platinum 8175M,240.00,N/A,N/A,Up to 3.1 GHz Intel Xeon Platinum 8000 series processors (Skylake-SP or Cascade Lake),db.r5.16xlarge,EBS-Only,512,768,June 2019,0
+96,96,Intel,Intel® Xeon® Platinum 8175M,240.00,N/A,N/A,Up to 3.1 GHz Intel Xeon Platinum 8000 series processors (Skylake-SP or Cascade Lake),db.r5.24xlarge,EBS-Only,768,768,July 2018,0
+96,8,Intel,Intel® Xeon® Platinum 8175M,240.00,N/A,N/A,Up to 3.1 GHz Intel Xeon Platinum 8000 series processors (Skylake-SP or Cascade Lake),db.r5.2xlarge,EBS-Only,64,768,July 2018,0
+96,16,Intel,Intel® Xeon® Platinum 8175M,240.00,N/A,N/A,Up to 3.1 GHz Intel Xeon Platinum 8000 series processors (Skylake-SP or Cascade Lake),db.r5.4xlarge,EBS-Only,128,768,July 2018,0
+96,32,Intel,Intel® Xeon® Platinum 8175M,240.00,N/A,N/A,Up to 3.1 GHz Intel Xeon Platinum 8000 series processors (Skylake-SP or Cascade Lake),db.r5.8xlarge,EBS-Only,256,768,June 2019,0
+96,2,Intel,Intel® Xeon® Platinum 8175M,240.00,N/A,N/A,Up to 3.1 GHz Intel Xeon Platinum 8000 series processors (Skylake-SP or Cascade Lake),db.r5.large,EBS-Only,16,768,July 2018,0
+96,4,Intel,Intel® Xeon® Platinum 8175M,240.00,N/A,N/A,Up to 3.1 GHz Intel Xeon Platinum 8000 series processors (Skylake-SP or Cascade Lake),db.r5.xlarge,EBS-Only,32,768,July 2018,0
+64,48,AWS,AWS Graviton2,110.00,N/A,N/A,AWS Graviton2 (ARM),db.r6g.12xlarge,EBS-Only,384,512,December 2019,0
+64,64,AWS,AWS Graviton2,110.00,N/A,N/A,AWS Graviton2 (ARM),db.r6g.16xlarge,EBS-Only,512,512,December 2019,0
+64,8,AWS,AWS Graviton2,110.00,N/A,N/A,AWS Graviton2 (ARM),db.r6g.2xlarge,EBS-Only,64,512,December 2019,0
+64,16,AWS,AWS Graviton2,110.00,N/A,N/A,AWS Graviton2 (ARM),db.r6g.4xlarge,EBS-Only,128,512,December 2019,0
+64,2,AWS,AWS Graviton2,110.00,N/A,N/A,AWS Graviton2 (ARM),db.r6g.large,EBS-Only,16,512,December 2019,0
+64,4,AWS,AWS Graviton2,110.00,N/A,N/A,AWS Graviton2 (ARM),db.r6g.xlarge,EBS-Only,32,512,December 2019,0
+48,8,Intel,Intel® Xeon® E5-2676 v3,120.00,N/A,N/A,3.3 GHz Intel Scalable Processor,db.t2.2xlarge,EBS-Only,32,288,November 2016,0
+48,2,Intel,Intel® Xeon® E5-2676 v3,120.00,N/A,N/A,3.3 GHz Intel Scalable Processor,db.t2.large,EBS-Only,8,288,June 2015,0
+48,2,Intel,Intel® Xeon® E5-2676 v3,120.00,N/A,N/A,3.3 GHz Intel Scalable Processor,db.t2.medium,EBS-Only,4,288,July 2014,0
+48,1,Intel,Intel® Xeon® E5-2676 v3,120.00,N/A,N/A,3.3 GHz Intel Scalable Processor,db.t2.micro,EBS-Only,1,288,July 2014,0
+48,1,Intel,Intel® Xeon® E5-2676 v3,120.00,N/A,N/A,3.3 GHz Intel Scalable Processor,db.t2.small,EBS-Only,2,288,July 2014,0
+48,4,Intel,Intel® Xeon® E5-2676 v3,120.00,N/A,N/A,3.3 GHz Intel Scalable Processor,db.t2.xlarge,EBS-Only,16,288,November 2016,0
+96,8,Intel,Intel® Xeon® Platinum 8175M,240.00,N/A,N/A,2.5 GHz Intel Scalable Processor,db.t3.2xlarge,EBS-Only,32,384,August 2018,0
+96,2,Intel,Intel® Xeon® Platinum 8175M,240.00,N/A,N/A,2.5 GHz Intel Scalable Processor,db.t3.large,EBS-Only,8,384,August 2018,0
+96,2,Intel,Intel® Xeon® Platinum 8175M,240.00,N/A,N/A,2.5 GHz Intel Scalable Processor,db.t3.medium,EBS-Only,4,384,August 2018,0
+96,2,Intel,Intel® Xeon® Platinum 8175M,240.00,N/A,N/A,2.5 GHz Intel Scalable Processor,db.t3.micro,EBS-Only,1,384,August 2018,0
+96,2,Intel,Intel® Xeon® Platinum 8175M,240.00,N/A,N/A,2.5 GHz Intel Scalable Processor,db.t3.small,EBS-Only,2,384,August 2018,0
+96,4,Intel,Intel® Xeon® Platinum 8175M,240.00,N/A,N/A,2.5 GHz Intel Scalable Processor,db.t3.xlarge,EBS-Only,16,384,August 2018,0
+128,64,Intel,Intel® Xeon® E7-8880 v3,150.00,N/A,N/A,2.3 GHz Intel Xeon E7-8880 v3 Processor (Haswell),db.x1.16xlarge,EBS-Only,976,1952,October 2016,0
+128,128,Intel,Intel® Xeon® E7-8880 v3,150.00,N/A,N/A,2.3 GHz Intel Xeon E7-8880 v3 Processor (Haswell),db.x1.32xlarge,EBS-Only,1952,1952,May 2016,0
+128,64,Intel,Intel® Xeon® E7-8880 v3,150.00,N/A,N/A,2.3 GHz Intel Xeon E7-8880 v3 Processor (Haswell),db.x1e.16xlarge,EBS-Only,1952,3904,November 2017,0
+128,8,Intel,Intel® Xeon® E7-8880 v3,150.00,N/A,N/A,2.3 GHz Intel Xeon E7-8880 v3 Processor (Haswell),db.x1e.2xlarge,EBS-Only,244,3904,November 2017,0
+128,128,Intel,Intel® Xeon® E7-8880 v3,150.00,N/A,N/A,2.3 GHz Intel Xeon E7-8880 v3 Processor (Haswell),db.x1e.32xlarge,EBS-Only,3904,3904,September 2017,0
+128,16,Intel,Intel® Xeon® E7-8880 v3,150.00,N/A,N/A,2.3 GHz Intel Xeon E7-8880 v3 Processor (Haswell),db.x1e.4xlarge,EBS-Only,488,3904,November 2017,0
+128,32,Intel,Intel® Xeon® E7-8880 v3,150.00,N/A,N/A,2.3 GHz Intel Xeon E7-8880 v3 Processor (Haswell),db.x1e.8xlarge,EBS-Only,976,3904,November 2017,0
+128,4,Intel,Intel® Xeon® E7-8880 v3,150.00,N/A,N/A,2.3 GHz Intel Xeon E7-8880 v3 Processor (Haswell),db.x1e.xlarge,EBS-Only,122,3904,November 2017,0
+48,48,Intel,Intel® Xeon® Platinum 8151,150.00,N/A,N/A,Up to 4.0 GHz Intel Xeon Scalable Processors,db.z1d.12xlarge,EBS-Only,384,384,July 2018,0
+48,8,Intel,Intel® Xeon® Platinum 8151,150.00,N/A,N/A,Up to 4.0 GHz Intel Xeon Scalable Processors,db.z1d.2xlarge,EBS-Only,64,384,July 2018,0
+48,12,Intel,Intel® Xeon® Platinum 8151,150.00,N/A,N/A,Up to 4.0 GHz Intel Xeon Scalable Processors,db.z1d.3xlarge,EBS-Only,96,384,July 2018,0
+48,24,Intel,Intel® Xeon® Platinum 8151,150.00,N/A,N/A,Up to 4.0 GHz Intel Xeon Scalable Processors,db.z1d.6xlarge,EBS-Only,192,384,July 2018,0
+48,2,Intel,Intel® Xeon® Platinum 8151,150.00,N/A,N/A,Up to 4.0 GHz Intel Xeon Scalable Processors,db.z1d.large,EBS-Only,16,384,July 2018,0
+48,4,Intel,Intel® Xeon® Platinum 8151,150.00,N/A,N/A,Up to 4.0 GHz Intel Xeon Scalable Processors,db.z1d.xlarge,EBS-Only,32,384,July 2018,0
+40,32,Intel,Intel® Xeon® E5-2670 v2,115.00,N/A,N/A,N/A,dc2.8xlarge,2560 SSD,244,244,October 2017,4
+40,2,Intel,Intel® Xeon® E5-2670 v2,115.00,N/A,N/A,N/A,dc2.large,160 SSD,15,244,October 2017,4
+48,36,Intel,Intel® Xeon® E5-2676 v3,120.00,N/A,N/A,N/A,ds2.8xlarge,16000 HDD,244,244,June 2015,8
+48,4,Intel,Intel® Xeon® E5-2676 v3,120.00,N/A,N/A,N/A,ds2.xlarge,2000 HDD,31,244,June 2015,8
+72,64,Intel,Intel® Xeon® E5-2686 v4,145.00,N/A,N/A,8 FPGA - Comment: the estimated Scope 3 does not include the FPGA(s),f1.16xlarge,SSD 4 x 940,976,976,November 2016,4
+72,8,Intel,Intel® Xeon® E5-2686 v4,145.00,N/A,N/A,1 FPGA - Comment: the estimated Scope 3 does not include the FPGA(s),f1.2xlarge,SSD 470,122,976,November 2016,4
+72,16,Intel,Intel® Xeon® E5-2686 v4,145.00,N/A,N/A,2 FPGA - Comment: the estimated Scope 3 does not include the FPGA(s),f1.4xlarge,SSD 940,244,976,November 2016,4
+32,8,Intel,Intel® Xeon® E5-2670,115.00,4,K520,1 GPU NVIDIA GRID K520,g2.2xlarge,1 x 60 (SSD),15,60,November 2013,2
+32,32,Intel,Intel® Xeon® E5-2670,115.00,4,K520,4 GPU NVIDIA GRID K520,g2.8xlarge,2 x 120 (SSD),60,60,April 2015,2
+72,64,Intel,Intel® Xeon® E5-2686 v4,145.00,4,Tesla M60,4*GPU NVIDIA Tesla M60,g3.16xlarge,,488,488,July 2017,0
+72,16,Intel,Intel® Xeon® E5-2686 v4,145.00,4,Tesla M60,1*GPU NVIDIA Tesla M60,g3.4xlarge,,122,488,July 2017,0
+72,32,Intel,Intel® Xeon® E5-2686 v4,145.00,4,Tesla M60,2*GPU NVIDIA Tesla M60,g3.8xlarge,,244,488,July 2017,0
+72,4,Intel,Intel® Xeon® E5-2686 v4,145.00,4,Tesla M60,1*GPU NVIDIA Tesla M60,g3s.xlarge,,30.5,488,October 2018,0
+96,64,AMD,AMD EPYC™ 7R32,200.00,4,Radeon Pro V520,AMD Radeon Pro V520 GPUs and 2nd generation AMD EPYC processors,g4ad.16xlarge,2400,256,384,March 2019,2
+96,16,AMD,AMD EPYC™ 7R32,200.00,4,Radeon Pro V520,AMD Radeon Pro V520 GPUs and 2nd generation AMD EPYC processors,g4ad.4xlarge,600,64,384,March 2019,2
+96,32,AMD,AMD EPYC™ 7R32,200.00,4,Radeon Pro V520,AMD Radeon Pro V520 GPUs and 2nd generation AMD EPYC processors,g4ad.8xlarge,1200,128,384,March 2019,2
+96,48,Intel,Intel® Xeon® Platinum 8259CL,210.00,8,T4,NVIDIA T4 GPU and custom Intel Cascade Lake CPUs,g4dn.12xlarge,1x900,192,384,March 2019,2
+96,64,Intel,Intel® Xeon® Platinum 8259CL,210.00,8,T4,NVIDIA T4 GPU and custom Intel Cascade Lake CPUs,g4dn.16xlarge,1x900,256,384,March 2019,2
+96,8,Intel,Intel® Xeon® Platinum 8259CL,210.00,8,T4,NVIDIA T4 GPU and custom Intel Cascade Lake CPUs,g4dn.2xlarge,225,32,384,March 2019,2
+96,16,Intel,Intel® Xeon® Platinum 8259CL,210.00,8,T4,NVIDIA T4 GPU and custom Intel Cascade Lake CPUs,g4dn.4xlarge,225,64,384,March 2019,2
+96,32,Intel,Intel® Xeon® Platinum 8259CL,210.00,8,T4,NVIDIA T4 GPU and custom Intel Cascade Lake CPUs,g4dn.8xlarge,1x900,128,384,March 2019,2
+96,96,Intel,Intel® Xeon® Platinum 8259CL,210.00,8,T4,NVIDIA T4 GPU and custom Intel Cascade Lake CPUs,g4dn.metal,2x900,384,384,March 2019,2
+96,4,Intel,Intel® Xeon® Platinum 8259CL,210.00,8,T4,NVIDIA T4 GPU and custom Intel Cascade Lake CPUs,g4dn.xlarge,125,16,384,March 2019,2
+72,64,Intel,Intel® Xeon® E5-2686 v4,145.00,N/A,N/A,2.3 GHz Intel Xeon E5 2686 v4 Processor (Broadwell),h1.16xlarge,8 x 2.000 HDD,256,256,November 2017,24
+72,8,Intel,Intel® Xeon® E5-2686 v4,145.00,N/A,N/A,2.3 GHz Intel Xeon E5 2686 v4 Processor (Broadwell),h1.2xlarge,1 x 2.000 HDD,32,256,November 2017,24
+72,16,Intel,Intel® Xeon® E5-2686 v4,145.00,N/A,N/A,2.3 GHz Intel Xeon E5 2686 v4 Processor (Broadwell),h1.4xlarge,2 x 2.000 HDD,64,256,November 2017,24
+72,32,Intel,Intel® Xeon® E5-2686 v4,145.00,N/A,N/A,2.3 GHz Intel Xeon E5 2686 v4 Processor (Broadwell),h1.8xlarge,4 x 2.000 HDD,128,256,November 2017,24
+32,16,Intel,Intel® Xeon® E5-2670,115.00,N/A,N/A,Intel E5-2650 processor,hs1.8xlarge,24 x 2 000 (HDD),117,244,December 2012,24
+40,8,Intel,Intel® Xeon® E5-2670 v2,115.00,N/A,N/A,Intel E5-2670 v2 (Ivy Bridge) processor,i2.2xlarge,2 x 800 (SSD),61,244,December 2013,8
+40,8,Intel,Intel® Xeon® E5-2670 v2,115.00,N/A,N/A,Intel E5-2670 v2 (Ivy Bridge) processor,i2.2xlarge.elasticsearch,2 x 800 (SSD),61,244,December 2013,2
+40,16,Intel,Intel® Xeon® E5-2670 v2,115.00,N/A,N/A,Intel E5-2670 v2 (Ivy Bridge) processor,i2.4xlarge,4 x 800 (SSD),122,244,December 2013,8
+40,32,Intel,Intel® Xeon® E5-2670 v2,115.00,N/A,N/A,Intel E5-2670 v2 (Ivy Bridge) processor,i2.8xlarge,8 x 800 (SSD),244,244,December 2013,8
+40,4,Intel,Intel® Xeon® E5-2670 v2,115.00,N/A,N/A,Intel E5-2670 v2 (Ivy Bridge) processor,i2.xlarge,1 x 800 (SSD),30.5,244,December 2013,8
+40,4,Intel,Intel® Xeon® E5-2670 v2,115.00,N/A,N/A,Intel E5-2670 v2 (Ivy Bridge) processor,i2.xlarge.elasticsearch,1 x 800 (SSD),30.5,244,December 2013,2
+72,64,Intel,Intel® Xeon® E5-2686 v4,145.00,N/A,N/A,2.3 GHz Intel Xeon E5 2686 v4 Processor (Broadwell),i3.16xlarge,8 x 1.900 NVMe SSD,488,512,November 2016,8
+72,64,Intel,Intel® Xeon® E5-2686 v4,145.00,N/A,N/A,Intel Xeon E5-2686 v4 (Broadwell),i3.16xlarge.elasticsearch,8 x 1 900 (SSD NVMe),488,512,November 2016,8
+72,8,Intel,Intel® Xeon® E5-2686 v4,145.00,N/A,N/A,2.3 GHz Intel Xeon E5 2686 v4 Processor (Broadwell),i3.2xlarge,1 x 1.900 NVMe SSD,61,512,November 2016,8
+72,8,Intel,Intel® Xeon® E5-2686 v4,145.00,N/A,N/A,Intel Xeon E5-2686 v4 (Broadwell),i3.2xlarge.elasticsearch,1 x 1 900 (SSD NVMe),61,512,November 2016,8
+72,16,Intel,Intel® Xeon® E5-2686 v4,145.00,N/A,N/A,2.3 GHz Intel Xeon E5 2686 v4 Processor (Broadwell),i3.4xlarge,2 x 1.900 NVMe SSD,122,512,November 2016,8
+72,16,Intel,Intel® Xeon® E5-2686 v4,145.00,N/A,N/A,Intel Xeon E5-2686 v4 (Broadwell),i3.4xlarge.elasticsearch,2 x 1 900 (SSD NVMe),122,512,November 2016,8
+72,32,Intel,Intel® Xeon® E5-2686 v4,145.00,N/A,N/A,2.3 GHz Intel Xeon E5 2686 v4 Processor (Broadwell),i3.8xlarge,4 x 1.900 NVMe SSD,244,512,November 2016,8
+72,32,Intel,Intel® Xeon® E5-2686 v4,145.00,N/A,N/A,Intel Xeon E5-2686 v4 (Broadwell),i3.8xlarge.elasticsearch,4 x 1 900 (SSD NVMe),244,512,November 2016,8
+72,2,Intel,Intel® Xeon® E5-2686 v4,145.00,N/A,N/A,2.3 GHz Intel Xeon E5 2686 v4 Processor (Broadwell),i3.large,1 x 475 NVMe SSD,15.25,512,November 2016,8
+72,2,Intel,Intel® Xeon® E5-2686 v4,145.00,N/A,N/A,Intel Xeon E5-2686 v4 (Broadwell),i3.large.elasticsearch,1 x 475 (SSD NVMe),15.25,512,November 2016,8
+72,72,Intel,Intel® Xeon® E5-2686 v4,145.00,N/A,N/A,2.3 GHz Intel Xeon E5 2686 v4 Processor (Broadwell),i3.metal,8 x 1.900 NVMe SSD,512,512,November 2017,8
+72,4,Intel,Intel® Xeon® E5-2686 v4,145.00,N/A,N/A,2.3 GHz Intel Xeon E5 2686 v4 Processor (Broadwell),i3.xlarge,1 x 950 NVMe SSD,30.5,512,November 2016,8
+72,4,Intel,Intel® Xeon® E5-2686 v4,145.00,N/A,N/A,Intel Xeon E5-2686 v4 (Broadwell),i3.xlarge.elasticsearch,1 x 950 (SSD NVMe),30.5,512,November 2016,8
+96,48,Intel,Intel® Xeon® Platinum 8175M,240.00,N/A,N/A,3.1 GHz all core turbo Intel Xeon Scalable (Skylake) processors,i3en.12xlarge,4 x 7.500 NVMe SSD,384,768,May 2019,8
+96,96,Intel,Intel® Xeon® Platinum 8175M,240.00,N/A,N/A,3.1 GHz all core turbo Intel Xeon Scalable (Skylake) processors,i3en.24xlarge,8 x 7.500 NVMe SSD,768,768,May 2019,8
+96,8,Intel,Intel® Xeon® Platinum 8175M,240.00,N/A,N/A,3.1 GHz all core turbo Intel Xeon Scalable (Skylake) processors,i3en.2xlarge,2 x 2.500 NVMe SSD,64,768,May 2019,8
+96,12,Intel,Intel® Xeon® Platinum 8175M,240.00,N/A,N/A,3.1 GHz all core turbo Intel Xeon Scalable (Skylake) processors,i3en.3xlarge,1 x 7.500 NVMe SSD,96,768,May 2019,8
+96,24,Intel,Intel® Xeon® Platinum 8175M,240.00,N/A,N/A,3.1 GHz all core turbo Intel Xeon Scalable (Skylake) processors,i3en.6xlarge,2 x 7.500 NVMe SSD,192,768,May 2019,8
+96,2,Intel,Intel® Xeon® Platinum 8175M,240.00,N/A,N/A,3.1 GHz all core turbo Intel Xeon Scalable (Skylake) processors,i3en.large,1 x 1.250 NVMe SSD,16,768,May 2019,8
+96,96,Intel,Intel® Xeon® Platinum 8175M,240.00,N/A,N/A,3.1 GHz all core turbo Intel Xeon Scalable (Skylake) processors,i3en.metal,8 x 7.500 NVMe SSD,768,768,August 2019,8
+96,4,Intel,Intel® Xeon® Platinum 8175M,240.00,N/A,N/A,3.1 GHz all core turbo Intel Xeon Scalable (Skylake) processors,i3en.xlarge,1 x 2.500 NVMe SSD,32,768,May 2019,8
+96,96,Intel,Intel® Xeon® Platinum 8275CL,205.00,N/A,N/A,16 Inferencia chips - Comment: the estimated Scope 3 does not include the Inferencia chips,inf1.24xlarge,EBS only,192,192,December 2019,0
+96,8,Intel,Intel® Xeon® Platinum 8275CL,205.00,N/A,N/A,1 Inferencia chip - Comment: the estimated Scope 3 does not include the Inferencia chips,inf1.2xlarge,EBS only,16,192,December 2019,0
+96,24,Intel,Intel® Xeon® Platinum 8275CL,205.00,N/A,N/A,4 Inferencia chips - Comment: the estimated Scope 3 does not include the Inferencia chips,inf1.6xlarge,EBS only,48,192,December 2019,0
+96,4,Intel,Intel® Xeon® Platinum 8275CL,205.00,N/A,N/A,1 Inferencia chip - Comment: the estimated Scope 3 does not include the Inferencia chips,inf1.xlarge,EBS only,8,192,December 2019,0
+32,2,Intel,Intel® Xeon® E5-2650,95.00,N/A,N/A,,m1.large,2 x SSD 420,7.5,120,October 2007,4
+32,1,Intel,Intel® Xeon® E5-2650,95.00,N/A,N/A,,m1.medium,1 x SSD 410,3.75,120,March 2012,4
+32,1,Intel,Intel® Xeon® E5-2650,95.00,N/A,N/A,,m1.small,1 x 160 (SSD),1.7,120,August 2006,4
+32,4,Intel,Intel® Xeon® E5-2650,95.00,N/A,N/A,,m1.xlarge,4 x SSD 420,15,120,October 2007,4
+32,4,Intel,Intel® Xeon® E5-2665,115.00,N/A,N/A,,m2.2xlarge,1 x SSD 850,34.2,280,October 2009,2
+32,8,Intel,Intel® Xeon® E5-2665,115.00,N/A,N/A,,m2.4xlarge,2 x SSD 840,68.4,280,October 2009,2
+32,2,Intel,Intel® Xeon® E5-2665,115.00,N/A,N/A,,m2.xlarge,1 x SSD 420,17.1,280,February 2010,2
+32,8,Intel,Intel® Xeon® E5-2670,115.00,N/A,N/A,Intel Xeon E5-2670 (Sandy Bridge or Ivy Bridge) processors,m3.2xlarge,2 x 80 (SSD),30,240,October 2012,2
+32,8,Intel,Intel® Xeon® E5-2670,115.00,N/A,N/A,Intel Xeon E5-2670 (Sandy Bridge or Ivy Bridge) processors,m3.2xlarge.elasticsearch,2 x 80 (SSD),30,240,October 2012,2
+32,2,Intel,Intel® Xeon® E5-2670,115.00,N/A,N/A,Intel Xeon E5-2670 (Sandy Bridge or Ivy Bridge) processors,m3.large,1 x 32 (SSD),7.5,240,January 2014,2
+32,2,Intel,Intel® Xeon® E5-2670,115.00,N/A,N/A,Intel Xeon E5-2670 (Sandy Bridge or Ivy Bridge) processors,m3.large.elasticsearch,1 x 32 (SSD),7.5,240,January 2014,2
+32,1,Intel,Intel® Xeon® E5-2670,115.00,N/A,N/A,Intel Xeon E5-2670 (Sandy Bridge or Ivy Bridge) processors,m3.medium,1 x 4 (SSD),3.75,240,January 2014,2
+32,1,Intel,Intel® Xeon® E5-2670,115.00,N/A,N/A,Intel Xeon E5-2670 (Sandy Bridge or Ivy Bridge) processors,m3.medium.elasticsearch,1 x 4 (SSD),3.75,240,January 2014,2
+32,4,Intel,Intel® Xeon® E5-2670,115.00,N/A,N/A,Intel Xeon E5-2670 (Sandy Bridge or Ivy Bridge) processors,m3.xlarge,2 x 40 (SSD),15,240,October 2012,2
+32,4,Intel,Intel® Xeon® E5-2670,115.00,N/A,N/A,Intel Xeon E5-2670 (Sandy Bridge or Ivy Bridge) processors,m3.xlarge.elasticsearch,2 x 40 (SSD),15,240,October 2012,2
+48,40,Intel,Intel® Xeon® E5-2676 v3,120.00,N/A,N/A,2.3 GHz Intel Xeon E5-2686 v4 (Broadwell) or 2.4 GHz Intel Xeon E5-2676 v3 (Haswell),m4.10xlarge,EBS-Only,160,256,June 2015,0
+48,40,Intel,Intel® Xeon® E5-2676 v3,120.00,N/A,N/A,2.3 GHz Intel Xeon E5-2686 v4 (Broadwell) or 2.4 GHz Intel Xeon E5-2676 v3 (Haswell),m4.10xlarge.elasticsearch,EBS-Only,160,256,June 2015,0
+72,64,Intel,Intel® Xeon® E5-2686 v4,145.00,N/A,N/A,2.3 GHz Intel Xeon E5-2686 v4 (Broadwell) or 2.4 GHz Intel Xeon E5-2676 v3 (Haswell),m4.16xlarge,EBS-Only,256,256,September 2016,0
+72,8,Intel,Intel® Xeon® E5-2686 v4,145.00,N/A,N/A,2.3 GHz Intel Xeon E5-2686 v4 (Broadwell) or 2.4 GHz Intel Xeon E5-2676 v3 (Haswell),m4.2xlarge,EBS-Only,32,256,June 2015,0
+72,8,Intel,Intel® Xeon® E5-2686 v4,145.00,N/A,N/A,2.3 GHz Intel Xeon E5-2686 v4 (Broadwell) or 2.4 GHz Intel Xeon E5-2676 v3 (Haswell),m4.2xlarge.elasticsearch,EBS-Only,32,256,June 2015,0
+72,16,Intel,Intel® Xeon® E5-2686 v4,145.00,N/A,N/A,2.3 GHz Intel Xeon E5-2686 v4 (Broadwell) or 2.4 GHz Intel Xeon E5-2676 v3 (Haswell),m4.4xlarge,EBS-Only,64,256,June 2015,0
+72,16,Intel,Intel® Xeon® E5-2686 v4,145.00,N/A,N/A,2.3 GHz Intel Xeon E5-2686 v4 (Broadwell) or 2.4 GHz Intel Xeon E5-2676 v3 (Haswell),m4.4xlarge.elasticsearch,EBS-Only,64,256,June 2015,0
+72,2,Intel,Intel® Xeon® E5-2686 v4,145.00,N/A,N/A,2.3 GHz Intel Xeon E5-2686 v4 (Broadwell) or 2.4 GHz Intel Xeon E5-2676 v3 (Haswell),m4.large,EBS-Only,8,256,June 2015,0
+72,2,Intel,Intel® Xeon® E5-2686 v4,145.00,N/A,N/A,2.3 GHz Intel Xeon E5-2686 v4 (Broadwell) or 2.4 GHz Intel Xeon E5-2676 v3 (Haswell),m4.large.elasticsearch,EBS-Only,8,256,June 2015,0
+72,4,Intel,Intel® Xeon® E5-2686 v4,145.00,N/A,N/A,2.3 GHz Intel Xeon E5-2686 v4 (Broadwell) or 2.4 GHz Intel Xeon E5-2676 v3 (Haswell),m4.xlarge,EBS-Only,16,256,June 2015,0
+72,4,Intel,Intel® Xeon® E5-2686 v4,145.00,N/A,N/A,2.3 GHz Intel Xeon E5-2686 v4 (Broadwell) or 2.4 GHz Intel Xeon E5-2676 v3 (Haswell),m4.xlarge.elasticsearch,EBS-Only,16,256,June 2015,0
+96,48,Intel,Intel® Xeon® Platinum 8175M,240.00,N/A,N/A,Up to 3.1 GHz Intel Xeon Platinum 8175M,m5.12xlarge,EBS-Only,192,384,November 2017,0
+96,48,Intel,Intel® Xeon® Platinum 8259CL,210.00,N/A,N/A,Up to 3.1 GHz Intel Xeon Platinum 8175M,m5.12xlarge.elasticsearch,EBS-Only,192,384,November 2017,0
+96,64,Intel,Intel® Xeon® Platinum 8175M,240.00,N/A,N/A,Up to 3.1 GHz Intel Xeon Platinum 8175M,m5.16xlarge,EBS-Only,256,384,June 2019,0
+96,96,Intel,Intel® Xeon® Platinum 8175M,240.00,N/A,N/A,Up to 3.1 GHz Intel Xeon Platinum 8175M,m5.24xlarge,EBS-Only,384,384,November 2017,0
+96,8,Intel,Intel® Xeon® Platinum 8175M,240.00,N/A,N/A,Up to 3.1 GHz Intel Xeon Platinum 8175M,m5.2xlarge,EBS-Only,32,384,November 2017,0
+96,8,Intel,Intel® Xeon® Platinum 8259CL,210.00,N/A,N/A,Up to 3.1 GHz Intel Xeon Platinum 8175M,m5.2xlarge.elasticsearch,EBS-Only,32,384,November 2017,0
+96,16,Intel,Intel® Xeon® Platinum 8175M,240.00,N/A,N/A,Up to 3.1 GHz Intel Xeon Platinum 8175M,m5.4xlarge,EBS-Only,64,384,November 2017,0
+96,16,Intel,Intel® Xeon® Platinum 8259CL,210.00,N/A,N/A,Up to 3.1 GHz Intel Xeon Platinum 8175M,m5.4xlarge.elasticsearch,EBS-Only,64,384,November 2017,0
+96,32,Intel,Intel® Xeon® Platinum 8175M,240.00,N/A,N/A,Up to 3.1 GHz Intel Xeon Platinum 8175M,m5.8xlarge,EBS-Only,128,384,June 2019,0
+96,2,Intel,Intel® Xeon® Platinum 8175M,240.00,N/A,N/A,Up to 3.1 GHz Intel Xeon Platinum 8175M,m5.large,EBS-Only,8,384,November 2017,0
+96,2,Intel,Intel® Xeon® Platinum 8259CL,210.00,N/A,N/A,Up to 3.1 GHz Intel Xeon Platinum 8175M,m5.large.elasticsearch,EBS-Only,8,384,November 2017,0
+96,96,Intel,Intel® Xeon® Platinum 8175M,240.00,N/A,N/A,Up to 3.1 GHz Intel Xeon Platinum 8175M,m5.metal,EBS-Only,384,384,February 2019,0
+96,4,Intel,Intel® Xeon® Platinum 8175M,240.00,N/A,N/A,Up to 3.1 GHz Intel Xeon Platinum 8175M,m5.xlarge,EBS-Only,16,384,November 2017,0
+96,4,Intel,Intel® Xeon® Platinum 8259CL,210.00,N/A,N/A,Up to 3.1 GHz Intel Xeon Platinum 8175M,m5.xlarge.elasticsearch,EBS-Only,16,384,November 2017,0
+96,48,AMD,AMD EPYC™ 7571,120.00,N/A,N/A,2.5 GHz AMD EPYC 7000 Series Processor,m5a.12xlarge,EBS-Only,192,384,November 2018,0
+96,64,AMD,AMD EPYC™ 7571,120.00,N/A,N/A,2.5 GHz AMD EPYC 7000 Series Processor,m5a.16xlarge,EBS-Only,256,384,June 2019,0
+96,96,AMD,AMD EPYC™ 7571,120.00,N/A,N/A,2.5 GHz AMD EPYC 7000 Series Processor,m5a.24xlarge,EBS-Only,384,384,November 2018,0
+96,8,AMD,AMD EPYC™ 7571,120.00,N/A,N/A,2.5 GHz AMD EPYC 7000 Series Processor,m5a.2xlarge,EBS-Only,32,384,November 2018,0
+96,16,AMD,AMD EPYC™ 7571,120.00,N/A,N/A,2.5 GHz AMD EPYC 7000 Series Processor,m5a.4xlarge,EBS-Only,64,384,November 2018,0
+96,32,AMD,AMD EPYC™ 7571,120.00,N/A,N/A,2.5 GHz AMD EPYC 7000 Series Processor,m5a.8xlarge,EBS-Only,128,384,June 2019,0
+96,2,AMD,AMD EPYC™ 7571,120.00,N/A,N/A,2.5 GHz AMD EPYC 7000 Series Processor,m5a.large,EBS-Only,8,384,November 2018,0
+96,4,AMD,AMD EPYC™ 7571,120.00,N/A,N/A,2.5 GHz AMD EPYC 7000 Series Processor,m5a.xlarge,EBS-Only,16,384,November 2018,0
+96,48,AMD,AMD EPYC™ 7571,120.00,N/A,N/A,2.5 GHz AMD EPYC 7000 Series Processor,m5ad.12xlarge,2 x 900 NVMe SSD,192,384,March 2019,4
+96,64,AMD,AMD EPYC™ 7571,120.00,N/A,N/A,2.5 GHz AMD EPYC 7000 Series Processor,m5ad.16xlarge,4 x 600 NVMe SSD,256,384,March 2019,4
+96,96,AMD,AMD EPYC™ 7571,120.00,N/A,N/A,2.5 GHz AMD EPYC 7000 Series Processor,m5ad.24xlarge,4 x 900 NVMe SSD,384,384,March 2019,4
+96,8,AMD,AMD EPYC™ 7571,120.00,N/A,N/A,2.5 GHz AMD EPYC 7000 Series Processor,m5ad.2xlarge,1 x 300 NVMe SSD,32,384,March 2019,4
+96,16,AMD,AMD EPYC™ 7571,120.00,N/A,N/A,2.5 GHz AMD EPYC 7000 Series Processor,m5ad.4xlarge,2 x 300 NVMe SSD,64,384,March 2019,4
+96,32,AMD,AMD EPYC™ 7571,120.00,N/A,N/A,2.5 GHz AMD EPYC 7000 Series Processor,m5ad.8xlarge,2 x 600 NVMe SSD,128,384,March 2019,4
+96,2,AMD,AMD EPYC™ 7571,120.00,N/A,N/A,2.5 GHz AMD EPYC 7000 Series Processor,m5ad.large,1 x 75 NVMe SSD,8,384,March 2019,4
+96,4,AMD,AMD EPYC™ 7571,120.00,N/A,N/A,2.5 GHz AMD EPYC 7000 Series Processor,m5ad.xlarge,1 x 150 NVMe SSD,16,384,March 2019,4
+96,48,Intel,Intel® Xeon® Platinum 8175M,240.00,N/A,N/A,Up to 3.1 GHz Intel Xeon Platinum 8175M,m5d.12xlarge,2 x 900 NVMe SSD,192,384,June 2018,4
+96,64,Intel,Intel® Xeon® Platinum 8175M,240.00,N/A,N/A,Up to 3.1 GHz Intel Xeon Platinum 8175M,m5d.16xlarge,4 x 600 NVMe SSD,256,384,June 2019,4
+96,96,Intel,Intel® Xeon® Platinum 8175M,240.00,N/A,N/A,Up to 3.1 GHz Intel Xeon Platinum 8175M,m5d.24xlarge,4 x 900 NVMe SSD,384,384,June 2018,4
+96,8,Intel,Intel® Xeon® Platinum 8175M,240.00,N/A,N/A,Up to 3.1 GHz Intel Xeon Platinum 8175M,m5d.2xlarge,1 x 300 NVMe SSD,32,384,June 2018,4
+96,16,Intel,Intel® Xeon® Platinum 8175M,240.00,N/A,N/A,Up to 3.1 GHz Intel Xeon Platinum 8175M,m5d.4xlarge,2 x 300 NVMe SSD,64,384,June 2018,4
+96,32,Intel,Intel® Xeon® Platinum 8175M,240.00,N/A,N/A,Up to 3.1 GHz Intel Xeon Platinum 8175M,m5d.8xlarge,2 x 600 NVMe SSD,128,384,June 2019,4
+96,2,Intel,Intel® Xeon® Platinum 8175M,240.00,N/A,N/A,Up to 3.1 GHz Intel Xeon Platinum 8175M,m5d.large,1 x 75 NVMe SSD,8,384,June 2018,4
+96,96,Intel,Intel® Xeon® Platinum 8175M,240.00,N/A,N/A,Up to 3.1 GHz Intel Xeon Platinum 8175M,m5d.metal,4 x 900 NVMe SSD,384,384,February 2019,4
+96,4,Intel,Intel® Xeon® Platinum 8175M,240.00,N/A,N/A,Up to 3.1 GHz Intel Xeon Platinum 8175M,m5d.xlarge,1 x 150 NVMe SSD,16,384,June 2018,4
+96,48,Intel,Intel® Xeon® Platinum 8259CL,210.00,N/A,N/A,Up to 3.5 GHz 2nd generation Intel Xeon Scalable Processors (Cascade Lake),m5dn.12xlarge,2 x 900 NVMe SSD,192,384,October 2019,4
+96,64,Intel,Intel® Xeon® Platinum 8259CL,210.00,N/A,N/A,Up to 3.5 GHz 2nd generation Intel Xeon Scalable Processors (Cascade Lake),m5dn.16xlarge,4 x 600 NVMe SSD,256,384,October 2019,4
+96,96,Intel,Intel® Xeon® Platinum 8259CL,210.00,N/A,N/A,Up to 3.5 GHz 2nd generation Intel Xeon Scalable Processors (Cascade Lake),m5dn.24xlarge,4 x 900 NVMe SSD,384,384,October 2019,4
+96,8,Intel,Intel® Xeon® Platinum 8259CL,210.00,N/A,N/A,Up to 3.5 GHz 2nd generation Intel Xeon Scalable Processors (Cascade Lake),m5dn.2xlarge,1 x 300 NVMe SSD,32,384,October 2019,4
+96,16,Intel,Intel® Xeon® Platinum 8259CL,210.00,N/A,N/A,Up to 3.5 GHz 2nd generation Intel Xeon Scalable Processors (Cascade Lake),m5dn.4xlarge,2 x 300 NVMe SSD,64,384,October 2019,4
+96,32,Intel,Intel® Xeon® Platinum 8259CL,210.00,N/A,N/A,Up to 3.5 GHz 2nd generation Intel Xeon Scalable Processors (Cascade Lake),m5dn.8xlarge,2 x 600 NVMe SSD,128,384,October 2019,4
+96,2,Intel,Intel® Xeon® Platinum 8259CL,210.00,N/A,N/A,Up to 3.5 GHz 2nd generation Intel Xeon Scalable Processors (Cascade Lake),m5dn.large,1 x 75 NVMe SSD,8,384,October 2019,4
+96,96,Intel,Intel® Xeon® Platinum 8259CL,210.00,N/A,N/A,Up to 3.5 GHz 2nd generation Intel Xeon Scalable Processors (Cascade Lake),m5dn.metal,4 x 900 NVMe SSD,384,384,February 2021,4
+96,4,Intel,Intel® Xeon® Platinum 8259CL,210.00,N/A,N/A,Up to 3.5 GHz 2nd generation Intel Xeon Scalable Processors (Cascade Lake),m5dn.xlarge,1 x 150 NVMe SSD,16,384,October 2019,4
+96,48,Intel,Intel® Xeon® Platinum 8259CL,210.00,N/A,N/A,Up to 3.5 GHz 2nd generation Intel Xeon Scalable Processors (Cascade Lake),m5n.12xlarge,EBS-Only,192,384,October 2019,0
+96,64,Intel,Intel® Xeon® Platinum 8259CL,210.00,N/A,N/A,Up to 3.5 GHz 2nd generation Intel Xeon Scalable Processors (Cascade Lake),m5n.16xlarge,EBS-Only,256,384,October 2019,0
+96,96,Intel,Intel® Xeon® Platinum 8259CL,210.00,N/A,N/A,Up to 3.5 GHz 2nd generation Intel Xeon Scalable Processors (Cascade Lake),m5n.24xlarge,EBS-Only,384,384,October 2019,0
+96,8,Intel,Intel® Xeon® Platinum 8259CL,210.00,N/A,N/A,Up to 3.5 GHz 2nd generation Intel Xeon Scalable Processors (Cascade Lake),m5n.2xlarge,EBS-Only,32,384,October 2019,0
+96,16,Intel,Intel® Xeon® Platinum 8259CL,210.00,N/A,N/A,Up to 3.5 GHz 2nd generation Intel Xeon Scalable Processors (Cascade Lake),m5n.4xlarge,EBS-Only,64,384,October 2019,0
+96,32,Intel,Intel® Xeon® Platinum 8259CL,210.00,N/A,N/A,Up to 3.5 GHz 2nd generation Intel Xeon Scalable Processors (Cascade Lake),m5n.8xlarge,EBS-Only,128,384,October 2019,0
+96,2,Intel,Intel® Xeon® Platinum 8259CL,210.00,N/A,N/A,Up to 3.5 GHz 2nd generation Intel Xeon Scalable Processors (Cascade Lake),m5n.large,EBS-Only,8,384,October 2019,0
+96,96,Intel,Intel® Xeon® Platinum 8259CL,210.00,N/A,N/A,Up to 3.5 GHz 2nd generation Intel Xeon Scalable Processors (Cascade Lake),m5n.metal,EBS-Only,384,384,February 2021,0
+96,4,Intel,Intel® Xeon® Platinum 8259CL,210.00,N/A,N/A,Up to 3.5 GHz 2nd generation Intel Xeon Scalable Processors (Cascade Lake),m5n.xlarge,EBS-Only,16,384,October 2019,0
+48,48,Intel,Intel® Xeon® Platinum 8252C,105.00,N/A,N/A,Fastest Intel Xeon Scalable processors in the cloud with an all-core turbo frequency up to 4.5 GHz,m5zn.12xlarge,EBS-Only,192,192,December 2020,0
+48,8,Intel,Intel® Xeon® Platinum 8252C,105.00,N/A,N/A,Fastest Intel Xeon Scalable processors in the cloud with an all-core turbo frequency up to 4.5 GHz,m5zn.2xlarge,EBS-Only,32,192,December 2020,0
+48,12,Intel,Intel® Xeon® Platinum 8252C,105.00,N/A,N/A,Fastest Intel Xeon Scalable processors in the cloud with an all-core turbo frequency up to 4.5 GHz,m5zn.3xlarge,EBS-Only,48,192,December 2020,0
+48,24,Intel,Intel® Xeon® Platinum 8252C,105.00,N/A,N/A,Fastest Intel Xeon Scalable processors in the cloud with an all-core turbo frequency up to 4.5 GHz,m5zn.6xlarge,EBS Only,96,192,December 2020,0
+48,2,Intel,Intel® Xeon® Platinum 8252C,105.00,N/A,N/A,Fastest Intel Xeon Scalable processors in the cloud with an all-core turbo frequency up to 4.5 GHz,m5zn.large,EBS-Only,8,192,December 2020,0
+48,48,Intel,Intel® Xeon® Platinum 8252C,105.00,N/A,N/A,Fastest Intel Xeon Scalable processors in the cloud with an all-core turbo frequency up to 4.5 GHz,m5zn.metal,EBS-Only,192,192,December 2020,0
+48,4,Intel,Intel® Xeon® Platinum 8252C,105.00,N/A,N/A,Fastest Intel Xeon Scalable processors in the cloud with an all-core turbo frequency up to 4.5 GHz,m5zn.xlarge,EBS-Only,16,192,December 2020,0
+64,48,AWS,AWS Graviton2,110.00,N/A,N/A,AWS Graviton2 (ARM),m6g.12xlarge,EBS-Only,192,256,December 2019,0
+64,48,AWS,AWS Graviton2,110.00,N/A,N/A,AWS Graviton2 (ARM),m6g.12xlarge.elasticsearch,EBS-Only,192,256,December 2019,0
+64,64,AWS,AWS Graviton2,110.00,N/A,N/A,AWS Graviton2 (ARM),m6g.16xlarge,EBS-Only,256,256,December 2019,0
+64,8,AWS,AWS Graviton2,110.00,N/A,N/A,AWS Graviton2 (ARM),m6g.2xlarge,EBS-Only,32,256,December 2019,0
+64,8,AWS,AWS Graviton2,110.00,N/A,N/A,AWS Graviton2 (ARM),m6g.2xlarge.elasticsearch,EBS-Only,32,256,December 2019,0
+64,16,AWS,AWS Graviton2,110.00,N/A,N/A,AWS Graviton2 (ARM),m6g.4xlarge,EBS-Only,64,256,December 2019,0
+64,16,AWS,AWS Graviton2,110.00,N/A,N/A,AWS Graviton2 (ARM),m6g.4xlarge.elasticsearch,EBS-Only,64,256,December 2019,0
+64,32,AWS,AWS Graviton2,110.00,N/A,N/A,AWS Graviton2 (ARM),m6g.8xlarge,EBS-Only,128,256,December 2019,0
+64,32,AWS,AWS Graviton2,110.00,N/A,N/A,AWS Graviton2 (ARM),m6g.8xlarge.elasticsearch,EBS-Only,128,256,December 2019,0
+64,2,AWS,AWS Graviton2,110.00,N/A,N/A,AWS Graviton2 (ARM),m6g.large,EBS-Only,8,256,December 2019,0
+64,2,AWS,AWS Graviton2,110.00,N/A,N/A,AWS Graviton2 (ARM),m6g.large.elasticsearch,EBS-Only,8,256,December 2019,0
+64,1,AWS,AWS Graviton2,110.00,N/A,N/A,AWS Graviton2 (ARM),m6g.medium,EBS-Only,4,256,December 2019,0
+64,64,AWS,AWS Graviton2,110.00,N/A,N/A,AWS Graviton2 (ARM),m6g.metal,EBS-Only,256,256,December 2019,0
+64,4,AWS,AWS Graviton2,110.00,N/A,N/A,AWS Graviton2 (ARM),m6g.xlarge,EBS-Only,16,256,December 2019,0
+64,4,AWS,AWS Graviton2,110.00,N/A,N/A,AWS Graviton2 (ARM),m6g.xlarge.elasticsearch,EBS-Only,16,256,December 2019,0
+64,48,AWS,AWS Graviton2,110.00,N/A,N/A,AWS Graviton2 (ARM),m6gd.12xlarge,2 x 1425 NVMe SSD,192,256,December 2019,2
+64,64,AWS,AWS Graviton2,110.00,N/A,N/A,AWS Graviton2 (ARM),m6gd.16xlarge,2 x 1900 NVMe SSD,256,256,December 2019,2
+64,8,AWS,AWS Graviton2,110.00,N/A,N/A,AWS Graviton2 (ARM),m6gd.2xlarge,1 x 474 NVMe SSD,32,256,December 2019,2
+64,16,AWS,AWS Graviton2,110.00,N/A,N/A,AWS Graviton2 (ARM),m6gd.4xlarge,1 x 950 NVMe SSD,64,256,December 2019,2
+64,32,AWS,AWS Graviton2,110.00,N/A,N/A,AWS Graviton2 (ARM),m6gd.8xlarge,1 x 1900 NVMe SSD,128,256,December 2019,2
+64,2,AWS,AWS Graviton2,110.00,N/A,N/A,AWS Graviton2 (ARM),m6gd.large,1 x 118 NVMe SSD,8,256,December 2019,2
+64,1,AWS,AWS Graviton2,110.00,N/A,N/A,AWS Graviton2 (ARM),m6gd.medium,1 x 59 NVMe SSD,4,256,December 2019,2
+64,64,AWS,AWS Graviton2,110.00,N/A,N/A,AWS Graviton2 (ARM),m6gd.metal,2 x 1900 NVMe SSD,256,256,December 2019,2
+64,4,AWS,AWS Graviton2,110.00,N/A,N/A,AWS Graviton2 (ARM),m6gd.xlarge,1 x 237 NVMe SSD,16,256,December 2019,2
+128,48,Intel,Intel® Xeon® Platinum 8375C,300.00,N/A,N/A,3rd generation Intel Xeon Scalable processors,m6i.12xlarge,EBS-Only,192,512,August 2021,0
+128,64,Intel,Intel® Xeon® Platinum 8375C,300.00,N/A,N/A,3rd generation Intel Xeon Scalable processors,m6i.16xlarge,EBS-Only,256,512,August 2021,0
+128,96,Intel,Intel® Xeon® Platinum 8375C,300.00,N/A,N/A,3rd generation Intel Xeon Scalable processors,m6i.24xlarge,EBS-Only,384,512,August 2021,0
+128,8,Intel,Intel® Xeon® Platinum 8375C,300.00,N/A,N/A,3rd generation Intel Xeon Scalable processors,m6i.2xlarge,EBS-Only,32,512,August 2021,0
+128,128,Intel,Intel® Xeon® Platinum 8375C,300.00,N/A,N/A,3rd generation Intel Xeon Scalable processors,m6i.32xlarge,EBS-Only,512,512,August 2021,0
+128,16,Intel,Intel® Xeon® Platinum 8375C,300.00,N/A,N/A,3rd generation Intel Xeon Scalable processors,m6i.4xlarge,EBS-Only,64,512,August 2021,0
+128,32,Intel,Intel® Xeon® Platinum 8375C,300.00,N/A,N/A,3rd generation Intel Xeon Scalable processors,m6i.8xlarge,EBS-Only,128,512,August 2021,0
+128,2,Intel,Intel® Xeon® Platinum 8375C,300.00,N/A,N/A,3rd generation Intel Xeon Scalable processors,m6i.large,EBS-Only,8,512,August 2021,0
+128,4,Intel,Intel® Xeon® Platinum 8375C,300.00,N/A,N/A,3rd generation Intel Xeon Scalable processors,m6i.xlarge,EBS-Only,16,512,August 2021,0
+12,12,Intel,Intel® Core i7-8700B,65.00,N/A,N/A,,mac1.metal,N/A,32,32,November 2020,0
+72,64,Intel,Intel® Xeon® E5-2686 v4,145.00,16,Tesla K80,16 GPU NVIDIA Tesla K80,p2.16xlarge,N/A,732,732,September 2016,0
+72,32,Intel,Intel® Xeon® E5-2686 v4,145.00,16,Tesla K80,8 GPU NVIDIA Tesla K80,p2.8xlarge,N/A,488,732,September 2016,0
+72,4,Intel,Intel® Xeon® E5-2686 v4,145.00,16,Tesla K80,1 GPU NVIDIA Tesla K80,p2.xlarge,N/A,61,732,September 2016,0
+72,64,Intel,Intel® Xeon® E5-2686 v4,145.00,8,Tesla V100,8 NVIDIA Tesla V100,p3.16xlarge,N/A,488,768,October 2017,2
+72,8,Intel,Intel® Xeon® E5-2686 v4,145.00,8,Tesla V100,1 NVIDIA Tesla V100,p3.2xlarge,N/A,61,768,October 2017,2
+72,32,Intel,Intel® Xeon® E5-2686 v4,145.00,8,Tesla V100,4 NVIDIA Tesla V100,p3.8xlarge,N/A,244,768,October 2017,2
+96,96,Intel,Intel® Xeon® Platinum 8175M,240.00,8,Tesla V100,8 NVIDIA Tesla V100,p3dn.24xlarge,2 x 900 NVMe SSD,768,768,December 2018,2
+96,96,Intel,Intel® Xeon® Platinum 8275CL,205.00,8,Tesla A100,8 NVIDIA A100 Tensor Core GPU,p4d.24xlarge,8TB NVMe SSD,1152,1152,November 2020,8
+40,8,Intel,Intel® Xeon® E5-2670 v2,115.00,N/A,N/A,Intel Xeon Ivy Bridge Processors,r3.2xlarge,1 x 160 (SSD),61,244,April 2014,2
+40,8,Intel,Intel® Xeon® E5-2670 v2,115.00,N/A,N/A,Intel Xeon Ivy Bridge Processors,r3.2xlarge.elasticsearch,1 x 160 (SSD),61,244,April 2014,2
+40,16,Intel,Intel® Xeon® E5-2670 v2,115.00,N/A,N/A,Intel Xeon Ivy Bridge Processors,r3.4xlarge,1 x 320 (SSD),122,244,April 2014,2
+40,16,Intel,Intel® Xeon® E5-2670 v2,115.00,N/A,N/A,Intel Xeon Ivy Bridge Processors,r3.4xlarge.elasticsearch,1 x 320 (SSD),122,244,April 2014,2
+40,32,Intel,Intel® Xeon® E5-2670 v2,115.00,N/A,N/A,Intel Xeon Ivy Bridge Processors,r3.8xlarge,2 x 320 (SSD),244,244,April 2014,2
+40,32,Intel,Intel® Xeon® E5-2670 v2,115.00,N/A,N/A,Intel Xeon Ivy Bridge Processors,r3.8xlarge.elasticsearch,2 x 320 (SSD),244,244,April 2014,2
+40,2,Intel,Intel® Xeon® E5-2670 v2,115.00,N/A,N/A,Intel Xeon Ivy Bridge Processors,r3.large,1 x 32 (SSD),15.25,244,April 2014,2
+40,2,Intel,Intel® Xeon® E5-2670 v2,115.00,N/A,N/A,Intel Xeon Ivy Bridge Processors,r3.large.elasticsearch,1 x 32 (SSD),15.25,244,April 2014,2
+40,4,Intel,Intel® Xeon® E5-2670 v2,115.00,N/A,N/A,Intel Xeon Ivy Bridge Processors,r3.xlarge,1 x 80 (SSD),30.5,244,April 2014,2
+40,4,Intel,Intel® Xeon® E5-2670 v2,115.00,N/A,N/A,Intel Xeon Ivy Bridge Processors,r3.xlarge.elasticsearch,1 x 80 (SSD),30.5,244,April 2014,2
+72,64,Intel,Intel® Xeon® E5-2686 v4,145.00,N/A,N/A,2.3 GHz Intel Xeon E5-2686 v4 Processor,r4.16xlarge,EBS-Only,488,488,November 2016,0
+72,64,Intel,Intel® Xeon® E5-2686 v4,145.00,N/A,N/A,2.3 GHz Intel Xeon E5-2686 v4 Processor,r4.16xlarge.elasticsearch,EBS-Only,488,488,November 2016,0
+72,8,Intel,Intel® Xeon® E5-2686 v4,145.00,N/A,N/A,2.3 GHz Intel Xeon E5-2686 v4 Processor,r4.2xlarge,EBS-Only,61,488,November 2016,0
+72,8,Intel,Intel® Xeon® E5-2686 v4,145.00,N/A,N/A,2.3 GHz Intel Xeon E5-2686 v4 Processor,r4.2xlarge.elasticsearch,EBS-Only,61,488,November 2016,0
+72,16,Intel,Intel® Xeon® E5-2686 v4,145.00,N/A,N/A,2.3 GHz Intel Xeon E5-2686 v4 Processor,r4.4xlarge,EBS-Only,122,488,November 2016,0
+72,16,Intel,Intel® Xeon® E5-2686 v4,145.00,N/A,N/A,2.3 GHz Intel Xeon E5-2686 v4 Processor,r4.4xlarge.elasticsearch,EBS-Only,122,488,November 2016,0
+72,32,Intel,Intel® Xeon® E5-2686 v4,145.00,N/A,N/A,2.3 GHz Intel Xeon E5-2686 v4 Processor,r4.8xlarge,EBS-Only,244,488,November 2016,0
+72,32,Intel,Intel® Xeon® E5-2686 v4,145.00,N/A,N/A,2.3 GHz Intel Xeon E5-2686 v4 Processor,r4.8xlarge.elasticsearch,EBS-Only,244,488,November 2016,0
+72,2,Intel,Intel® Xeon® E5-2686 v4,145.00,N/A,N/A,2.3 GHz Intel Xeon E5-2686 v4 Processor,r4.large,EBS-Only,15.25,488,November 2016,0
+72,2,Intel,Intel® Xeon® E5-2686 v4,145.00,N/A,N/A,2.3 GHz Intel Xeon E5-2686 v4 Processor,r4.large.elasticsearch,EBS-Only,15.25,488,November 2016,0
+72,4,Intel,Intel® Xeon® E5-2686 v4,145.00,N/A,N/A,2.3 GHz Intel Xeon E5-2686 v4 Processor,r4.xlarge,EBS-Only,30.5,488,November 2016,0
+72,4,Intel,Intel® Xeon® E5-2686 v4,145.00,N/A,N/A,2.3 GHz Intel Xeon E5-2686 v4 Processor,r4.xlarge.elasticsearch,EBS-Only,30.5,488,November 2016,0
+96,48,Intel,Intel® Xeon® Platinum 8175M,240.00,N/A,N/A,Up to 3.1 GHz Intel Xeon Platinum 8000 series processors (Skylake-SP or Cascade Lake),r5.12xlarge,EBS-Only,384,768,July 2018,0
+96,48,Intel,Intel® Xeon® Platinum 8175M,240.00,N/A,N/A,Up to 3.1 GHz Intel Xeon Platinum 8000 series processors (Skylake-SP or Cascade Lake),r5.12xlarge.elasticsearch,EBS-Only,384,768,July 2018,0
+96,64,Intel,Intel® Xeon® Platinum 8175M,240.00,N/A,N/A,Up to 3.1 GHz Intel Xeon Platinum 8000 series processors (Skylake-SP or Cascade Lake),r5.16xlarge,EBS-Only,512,768,June 2019,0
+96,96,Intel,Intel® Xeon® Platinum 8175M,240.00,N/A,N/A,Up to 3.1 GHz Intel Xeon Platinum 8000 series processors (Skylake-SP or Cascade Lake),r5.24xlarge,EBS-Only,768,768,July 2018,0
+96,8,Intel,Intel® Xeon® Platinum 8175M,240.00,N/A,N/A,Up to 3.1 GHz Intel Xeon Platinum 8000 series processors (Skylake-SP or Cascade Lake),r5.2xlarge,EBS-Only,64,768,July 2018,0
+96,8,Intel,Intel® Xeon® Platinum 8175M,240.00,N/A,N/A,Up to 3.1 GHz Intel Xeon Platinum 8000 series processors (Skylake-SP or Cascade Lake),r5.2xlarge.elasticsearch,EBS-Only,64,768,July 2018,0
+96,16,Intel,Intel® Xeon® Platinum 8175M,240.00,N/A,N/A,Up to 3.1 GHz Intel Xeon Platinum 8000 series processors (Skylake-SP or Cascade Lake),r5.4xlarge,EBS-Only,128,768,July 2018,0
+96,16,Intel,Intel® Xeon® Platinum 8175M,240.00,N/A,N/A,Up to 3.1 GHz Intel Xeon Platinum 8000 series processors (Skylake-SP or Cascade Lake),r5.4xlarge.elasticsearch,EBS-Only,128,768,July 2018,0
+96,32,Intel,Intel® Xeon® Platinum 8175M,240.00,N/A,N/A,Up to 3.1 GHz Intel Xeon Platinum 8000 series processors (Skylake-SP or Cascade Lake),r5.8xlarge,EBS-Only,256,768,June 2019,0
+96,2,Intel,Intel® Xeon® Platinum 8175M,240.00,N/A,N/A,Up to 3.1 GHz Intel Xeon Platinum 8000 series processors (Skylake-SP or Cascade Lake),r5.large,EBS-Only,16,768,July 2018,0
+96,2,Intel,Intel® Xeon® Platinum 8175M,240.00,N/A,N/A,Up to 3.1 GHz Intel Xeon Platinum 8000 series processors (Skylake-SP or Cascade Lake),r5.large.elasticsearch,EBS-Only,16,768,July 2018,0
+96,96,Intel,Intel® Xeon® Platinum 8175M,240.00,N/A,N/A,Up to 3.1 GHz Intel Xeon Platinum 8000 series processors (Skylake-SP or Cascade Lake),r5.metal,EBS-Only,768,768,July 2018,0
+96,4,Intel,Intel® Xeon® Platinum 8175M,240.00,N/A,N/A,Up to 3.1 GHz Intel Xeon Platinum 8000 series processors (Skylake-SP or Cascade Lake),r5.xlarge,EBS-Only,32,768,July 2018,0
+96,4,Intel,Intel® Xeon® Platinum 8175M,240.00,N/A,N/A,Up to 3.1 GHz Intel Xeon Platinum 8000 series processors (Skylake-SP or Cascade Lake),r5.xlarge.elasticsearch,EBS-Only,32,768,July 2018,0
+96,48,AMD,AMD EPYC™ 7571,120.00,N/A,N/A,2.5 GHz AMD EPYC 7000 series processors,r5a.12xlarge,EBS-Only,384,768,November 2018,0
+96,64,AMD,AMD EPYC™ 7571,120.00,N/A,N/A,2.5 GHz AMD EPYC 7000 series processors,r5a.16xlarge,EBS-Only,512,768,June 2019,0
+96,96,AMD,AMD EPYC™ 7571,120.00,N/A,N/A,2.5 GHz AMD EPYC 7000 series processors,r5a.24xlarge,EBS-Only,768,768,November 2018,0
+96,8,AMD,AMD EPYC™ 7571,120.00,N/A,N/A,2.5 GHz AMD EPYC 7000 series processors,r5a.2xlarge,EBS-Only,64,768,November 2018,0
+96,16,AMD,AMD EPYC™ 7571,120.00,N/A,N/A,2.5 GHz AMD EPYC 7000 series processors,r5a.4xlarge,EBS-Only,128,768,November 2018,0
+96,32,AMD,AMD EPYC™ 7571,120.00,N/A,N/A,2.5 GHz AMD EPYC 7000 series processors,r5a.8xlarge,EBS-Only,256,768,June 2019,0
+96,2,AMD,AMD EPYC™ 7571,120.00,N/A,N/A,2.5 GHz AMD EPYC 7000 series processors,r5a.large,EBS-Only,16,768,November 2018,0
+96,4,AMD,AMD EPYC™ 7571,120.00,N/A,N/A,2.5 GHz AMD EPYC 7000 series processors,r5a.xlarge,EBS-Only,32,768,November 2018,0
+96,48,AMD,AMD EPYC™ 7571,120.00,N/A,N/A,2.5 GHz AMD EPYC 7000 series processors,r5ad.12xlarge,2 x 900 NVMe SSD,384,768,March 2019,4
+96,64,AMD,AMD EPYC™ 7571,120.00,N/A,N/A,2.5 GHz AMD EPYC 7000 series processors,r5ad.16xlarge,4 x 600 NVMe SSD,512,768,March 2019,4
+96,96,AMD,AMD EPYC™ 7571,120.00,N/A,N/A,2.5 GHz AMD EPYC 7000 series processors,r5ad.24xlarge,4 x 900 NVMe SSD,768,768,March 2019,4
+96,8,AMD,AMD EPYC™ 7571,120.00,N/A,N/A,2.5 GHz AMD EPYC 7000 series processors,r5ad.2xlarge,1 x 300 NVMe SSD,64,768,March 2019,4
+96,16,AMD,AMD EPYC™ 7571,120.00,N/A,N/A,2.5 GHz AMD EPYC 7000 series processors,r5ad.4xlarge,2 x 300 NVMe SSD,128,768,March 2019,4
+96,32,AMD,AMD EPYC™ 7571,120.00,N/A,N/A,2.5 GHz AMD EPYC 7000 series processors,r5ad.8xlarge,2 x 600 NVMe SSD,256,768,March 2019,4
+96,2,AMD,AMD EPYC™ 7571,120.00,N/A,N/A,2.5 GHz AMD EPYC 7000 series processors,r5ad.large,1 x 75 NVMe SSD,16,768,March 2019,4
+96,4,AMD,AMD EPYC™ 7571,120.00,N/A,N/A,2.5 GHz AMD EPYC 7000 series processors,r5ad.xlarge,1 x 150 NVMe SSD,32,768,March 2019,4
+96,48,Intel,Intel® Xeon® Platinum 8259CL,210.00,N/A,N/A,,r5b.12xlarge,EBS-Only,384,768,December 2020,0
+96,64,Intel,Intel® Xeon® Platinum 8259CL,210.00,N/A,N/A,,r5b.16xlarge,EBS Only,512,768,December 2020,0
+96,96,Intel,Intel® Xeon® Platinum 8259CL,210.00,N/A,N/A,,r5b.24xlarge,EBS-Only,768,768,December 2020,0
+96,8,Intel,Intel® Xeon® Platinum 8259CL,210.00,N/A,N/A,,r5b.2xlarge,EBS-Only,64,768,December 2020,0
+96,16,Intel,Intel® Xeon® Platinum 8259CL,210.00,N/A,N/A,,r5b.4xlarge,EBS-Only,128,768,December 2020,0
+96,32,Intel,Intel® Xeon® Platinum 8259CL,210.00,N/A,N/A,,r5b.8xlarge,EBS-Only,256,768,December 2020,0
+96,2,Intel,Intel® Xeon® Platinum 8259CL,210.00,N/A,N/A,,r5b.large,EBS-Only,16,768,December 2020,0
+96,96,Intel,Intel® Xeon® Platinum 8259CL,210.00,N/A,N/A,,r5b.metal,EBS-Only,768,768,December 2020,0
+96,4,Intel,Intel® Xeon® Platinum 8259CL,210.00,N/A,N/A,,r5b.xlarge,EBS-Only,32,768,December 2020,0
+96,48,Intel,Intel® Xeon® Platinum 8259CL,210.00,N/A,N/A,Up to 3.1 GHz Intel Xeon Platinum 8000 series processors (Skylake-SP or Cascade Lake),r5d.12xlarge,2 x 900 NVMe SSD,384,768,July 2018,4
+96,64,Intel,Intel® Xeon® Platinum 8259CL,210.00,N/A,N/A,Up to 3.1 GHz Intel Xeon Platinum 8000 series processors (Skylake-SP or Cascade Lake),r5d.16xlarge,4 x 600 NVMe SSD,512,768,June 2019,4
+96,96,Intel,Intel® Xeon® Platinum 8259CL,210.00,N/A,N/A,Up to 3.1 GHz Intel Xeon Platinum 8000 series processors (Skylake-SP or Cascade Lake),r5d.24xlarge,4 x 900 NVMe SSD,768,768,July 2018,4
+96,8,Intel,Intel® Xeon® Platinum 8259CL,210.00,N/A,N/A,Up to 3.1 GHz Intel Xeon Platinum 8000 series processors (Skylake-SP or Cascade Lake),r5d.2xlarge,1 x 300 NVMe SSD,64,768,July 2018,4
+96,16,Intel,Intel® Xeon® Platinum 8259CL,210.00,N/A,N/A,Up to 3.1 GHz Intel Xeon Platinum 8000 series processors (Skylake-SP or Cascade Lake),r5d.4xlarge,2 x 300 NVMe SSD,128,768,July 2018,4
+96,32,Intel,Intel® Xeon® Platinum 8259CL,210.00,N/A,N/A,Up to 3.1 GHz Intel Xeon Platinum 8000 series processors (Skylake-SP or Cascade Lake),r5d.8xlarge,2 x 600 NVMe SSD,256,768,June 2019,4
+96,2,Intel,Intel® Xeon® Platinum 8259CL,210.00,N/A,N/A,Up to 3.1 GHz Intel Xeon Platinum 8000 series processors (Skylake-SP or Cascade Lake),r5d.large,1 x 75 NVMe SSD,16,768,July 2018,4
+96,96,Intel,Intel® Xeon® Platinum 8259CL,210.00,N/A,N/A,Up to 3.1 GHz Intel Xeon Platinum 8000 series processors (Skylake-SP or Cascade Lake),r5d.metal,4 x 900 NVMe SSD,768,768,July 2018,4
+96,4,Intel,Intel® Xeon® Platinum 8259CL,210.00,N/A,N/A,Up to 3.1 GHz Intel Xeon Platinum 8000 series processors (Skylake-SP or Cascade Lake),r5d.xlarge,1 x 150 NVMe SSD,32,768,July 2018,4
+96,48,Intel,Intel® Xeon® Platinum 8259CL,210.00,N/A,N/A,Up to 3.5 GHz 2nd generation Intel Xeon Scalable Processors (Cascade Lake),r5dn.12xlarge,2 x 900 NVMe SSD,384,768,October 2019,4
+96,64,Intel,Intel® Xeon® Platinum 8259CL,210.00,N/A,N/A,Up to 3.5 GHz 2nd generation Intel Xeon Scalable Processors (Cascade Lake),r5dn.16xlarge,4 x 600 NVMe SSD,512,768,October 2019,4
+96,96,Intel,Intel® Xeon® Platinum 8259CL,210.00,N/A,N/A,Up to 3.5 GHz 2nd generation Intel Xeon Scalable Processors (Cascade Lake),r5dn.24xlarge,4 x 900 NVMe SSD,768,768,October 2019,4
+96,8,Intel,Intel® Xeon® Platinum 8259CL,210.00,N/A,N/A,Up to 3.5 GHz 2nd generation Intel Xeon Scalable Processors (Cascade Lake),r5dn.2xlarge,1 x 300 NVMe SSD,64,768,October 2019,4
+96,16,Intel,Intel® Xeon® Platinum 8259CL,210.00,N/A,N/A,Up to 3.5 GHz 2nd generation Intel Xeon Scalable Processors (Cascade Lake),r5dn.4xlarge,2 x 300 NVMe SSD,128,768,October 2019,4
+96,32,Intel,Intel® Xeon® Platinum 8259CL,210.00,N/A,N/A,Up to 3.5 GHz 2nd generation Intel Xeon Scalable Processors (Cascade Lake),r5dn.8xlarge,2 x 600 NVMe SSD,256,768,October 2019,4
+96,2,Intel,Intel® Xeon® Platinum 8259CL,210.00,N/A,N/A,Up to 3.5 GHz 2nd generation Intel Xeon Scalable Processors (Cascade Lake),r5dn.large,1 x 75 NVMe SSD,16,768,October 2019,4
+96,96,Intel,Intel® Xeon® Platinum 8259CL,210.00,N/A,N/A,Up to 3.5 GHz 2nd generation Intel Xeon Scalable Processors (Cascade Lake),r5dn.metal,4 x 900 NVMe SSD,768,768,February 2021,4
+96,4,Intel,Intel® Xeon® Platinum 8259CL,210.00,N/A,N/A,Up to 3.5 GHz 2nd generation Intel Xeon Scalable Processors (Cascade Lake),r5dn.xlarge,1 x 150 NVMe SSD,32,768,October 2019,4
+96,48,Intel,Intel® Xeon® Platinum 8259CL,210.00,N/A,N/A,Up to 3.5 GHz 2nd generation Intel Xeon Scalable Processors (Cascade Lake),r5n.12xlarge,EBS-Only,384,768,October 2019,0
+96,64,Intel,Intel® Xeon® Platinum 8259CL,210.00,N/A,N/A,Up to 3.5 GHz 2nd generation Intel Xeon Scalable Processors (Cascade Lake),r5n.16xlarge,EBS-Only,512,768,October 2019,0
+96,96,Intel,Intel® Xeon® Platinum 8259CL,210.00,N/A,N/A,Up to 3.5 GHz 2nd generation Intel Xeon Scalable Processors (Cascade Lake),r5n.24xlarge,EBS-Only,768,768,October 2019,0
+96,8,Intel,Intel® Xeon® Platinum 8259CL,210.00,N/A,N/A,Up to 3.5 GHz 2nd generation Intel Xeon Scalable Processors (Cascade Lake),r5n.2xlarge,EBS-Only,64,768,October 2019,0
+96,16,Intel,Intel® Xeon® Platinum 8259CL,210.00,N/A,N/A,Up to 3.5 GHz 2nd generation Intel Xeon Scalable Processors (Cascade Lake),r5n.4xlarge,EBS-Only,128,768,October 2019,0
+96,32,Intel,Intel® Xeon® Platinum 8259CL,210.00,N/A,N/A,Up to 3.5 GHz 2nd generation Intel Xeon Scalable Processors (Cascade Lake),r5n.8xlarge,EBS-Only,256,768,October 2019,0
+96,2,Intel,Intel® Xeon® Platinum 8259CL,210.00,N/A,N/A,Up to 3.5 GHz 2nd generation Intel Xeon Scalable Processors (Cascade Lake),r5n.large,EBS-Only,16,768,October 2019,0
+96,96,Intel,Intel® Xeon® Platinum 8259CL,210.00,N/A,N/A,Up to 3.5 GHz 2nd generation Intel Xeon Scalable Processors (Cascade Lake),r5n.metal,EBS-Only,768,768,February 2021,0
+96,4,Intel,Intel® Xeon® Platinum 8259CL,210.00,N/A,N/A,Up to 3.5 GHz 2nd generation Intel Xeon Scalable Processors (Cascade Lake),r5n.xlarge,EBS-Only,32,768,October 2019,0
+64,48,AWS,AWS Graviton2,110.00,N/A,N/A,AWS Graviton2 (ARM),r6g.12xlarge,EBS-Only,384,512,December 2019,0
+64,48,AWS,AWS Graviton2,110.00,N/A,N/A,AWS Graviton2 (ARM),r6g.12xlarge.elasticsearch,EBS-Only,384,512,December 2019,0
+64,64,AWS,AWS Graviton2,110.00,N/A,N/A,AWS Graviton2 (ARM),r6g.16xlarge,EBS-Only,512,512,December 2019,0
+64,8,AWS,AWS Graviton2,110.00,N/A,N/A,AWS Graviton2 (ARM),r6g.2xlarge,EBS-Only,64,512,December 2019,0
+64,8,AWS,AWS Graviton2,110.00,N/A,N/A,AWS Graviton2 (ARM),r6g.2xlarge.elasticsearch,EBS-Only,64,512,December 2019,0
+64,16,AWS,AWS Graviton2,110.00,N/A,N/A,AWS Graviton2 (ARM),r6g.4xlarge,EBS-Only,128,512,December 2019,0
+64,16,AWS,AWS Graviton2,110.00,N/A,N/A,AWS Graviton2 (ARM),r6g.4xlarge.elasticsearch,EBS-Only,128,512,December 2019,0
+64,32,AWS,AWS Graviton2,110.00,N/A,N/A,AWS Graviton2 (ARM),r6g.8xlarge,EBS-Only,256,512,December 2019,0
+64,32,AWS,AWS Graviton2,110.00,N/A,N/A,AWS Graviton2 (ARM),r6g.8xlarge.elasticsearch,EBS-Only,256,512,December 2019,0
+64,2,AWS,AWS Graviton2,110.00,N/A,N/A,AWS Graviton2 (ARM),r6g.large,EBS-Only,16,512,December 2019,0
+64,2,AWS,AWS Graviton2,110.00,N/A,N/A,AWS Graviton2 (ARM),r6g.large.elasticsearch,EBS-Only,16,512,December 2019,0
+64,1,AWS,AWS Graviton2,110.00,N/A,N/A,AWS Graviton2 (ARM),r6g.medium,EBS-Only,8,512,December 2019,0
+64,64,AWS,AWS Graviton2,110.00,N/A,N/A,AWS Graviton2 (ARM),r6g.metal,EBS-Only,512,512,December 2019,0
+64,4,AWS,AWS Graviton2,110.00,N/A,N/A,AWS Graviton2 (ARM),r6g.xlarge,EBS-Only,32,512,December 2019,0
+64,4,AWS,AWS Graviton2,110.00,N/A,N/A,AWS Graviton2 (ARM),r6g.xlarge.elasticsearch,EBS-Only,32,512,December 2019,0
+64,48,AWS,AWS Graviton2,110.00,N/A,N/A,AWS Graviton2 (ARM),r6gd.12xlarge,2 x 1425 NVMe SSD,384,512,December 2019,2
+64,48,AWS,AWS Graviton2,110.00,N/A,N/A,AWS Graviton2 (ARM),r6gd.12xlarge.elasticsearch,2 x 1425 NVMe SSD,384,512,December 2019,2
+64,64,AWS,AWS Graviton2,110.00,N/A,N/A,AWS Graviton2 (ARM),r6gd.16xlarge,2 x 1900 NVMe SSD,512,512,December 2019,2
+64,64,AWS,AWS Graviton2,110.00,N/A,N/A,AWS Graviton2 (ARM),r6gd.16xlarge.elasticsearch,2 x 1900 NVMe SSD,512,512,December 2019,2
+64,8,AWS,AWS Graviton2,110.00,N/A,N/A,AWS Graviton2 (ARM),r6gd.2xlarge,1 x 474 NVMe SSD,64,512,December 2019,2
+64,8,AWS,AWS Graviton2,110.00,N/A,N/A,AWS Graviton2 (ARM),r6gd.2xlarge.elasticsearch,1 x 474 NVMe SSD,64,512,December 2019,2
+64,16,AWS,AWS Graviton2,110.00,N/A,N/A,AWS Graviton2 (ARM),r6gd.4xlarge,1 x 950 NVMe SSD,128,512,December 2019,2
+64,16,AWS,AWS Graviton2,110.00,N/A,N/A,AWS Graviton2 (ARM),r6gd.4xlarge.elasticsearch,1 x 950 NVMe SSD,128,512,December 2019,2
+64,32,AWS,AWS Graviton2,110.00,N/A,N/A,AWS Graviton2 (ARM),r6gd.8xlarge,1 x 1900 NVMe SSD,256,512,December 2019,2
+64,32,AWS,AWS Graviton2,110.00,N/A,N/A,AWS Graviton2 (ARM),r6gd.8xlarge.elasticsearch,1 x 1900 NVMe SSD,256,512,December 2019,2
+64,2,AWS,AWS Graviton2,110.00,N/A,N/A,AWS Graviton2 (ARM),r6gd.large,1 x 118 NVMe SSD,16,512,December 2019,2
+64,2,AWS,AWS Graviton2,110.00,N/A,N/A,AWS Graviton2 (ARM),r6gd.large.elasticsearch,1 x 118 NVMe SSD,16,512,December 2019,2
+64,1,AWS,AWS Graviton2,110.00,N/A,N/A,AWS Graviton2 (ARM),r6gd.medium,1 x 59 NVMe SSD,8,512,December 2019,2
+64,64,AWS,AWS Graviton2,110.00,N/A,N/A,AWS Graviton2 (ARM),r6gd.metal,2 x 1900 NVMe SSD,512,512,December 2019,2
+64,4,AWS,AWS Graviton2,110.00,N/A,N/A,AWS Graviton2 (ARM),r6gd.xlarge,1 x 237 NVMe SSD,32,512,December 2019,2
+64,4,AWS,AWS Graviton2,110.00,N/A,N/A,AWS Graviton2 (ARM),r6gd.xlarge.elasticsearch,1 x 237 NVMe SSD,32,512,December 2019,2
+48,48,Intel,Intel® Xeon® E5-2676 v3,120.00,N/A,N/A,Comment: CPU platform assumed to be the same as ds2 instances,ra3.16xlarge,64000 RMS,384,384,December 2019,10
+48,12,Intel,Intel® Xeon® E5-2676 v3,120.00,N/A,N/A,Comment: CPU platform assumed to be the same as ds2 instances,ra3.4xlarge,64000 RMS,96,384,December 2019,10
+32,1,Intel,Intel® Xeon® E5-2670,115.00,N/A,N/A,,t1.micro,EBS-Only,613,144,September 2010,0
+72,8,Intel,Intel® Xeon® E5-2686 v4,145.00,N/A,N/A,3.0 GHz Intel Scalable Processor,t2.2xlarge,EBS-Only,32,288,November 2016,0
+72,2,Intel,Intel® Xeon® E5-2686 v4,145.00,N/A,N/A,3.0 GHz Intel Scalable Processor,t2.large,EBS-Only,8,288,June 2015,0
+48,2,Intel,Intel® Xeon® E5-2676 v3,120.00,N/A,N/A,3.3 GHz Intel Scalable Processor,t2.medium,EBS-Only,4,288,July 2014,0
+48,2,Intel,Intel® Xeon® E5-2676 v3,120.00,N/A,N/A,3.3 GHz Intel Scalable Processor,t2.medium.elasticsearch,EBS-Only,4,288,July 2014,0
+48,1,Intel,Intel® Xeon® E5-2676 v3,120.00,N/A,N/A,3.3 GHz Intel Scalable Processor,t2.micro,EBS-Only,1,288,July 2014,0
+48,1,Intel,Intel® Xeon® E5-2676 v3,120.00,N/A,N/A,3.3 GHz Intel Scalable Processor,t2.micro.elasticsearch,EBS-Only,1,288,July 2014,0
+48,1,Intel,Intel® Xeon® E5-2676 v3,120.00,N/A,N/A,3.3 GHz Intel Scalable Processor,t2.nano,EBS-Only,0.5,288,December 2015,0
+48,1,Intel,Intel® Xeon® E5-2676 v3,120.00,N/A,N/A,3.3 GHz Intel Scalable Processor,t2.small,EBS-Only,2,288,July 2014,0
+48,1,Intel,Intel® Xeon® E5-2676 v3,120.00,N/A,N/A,3.3 GHz Intel Scalable Processor,t2.small.elasticsearch,EBS-Only,2,288,July 2014,0
+72,4,Intel,Intel® Xeon® E5-2686 v4,145.00,N/A,N/A,3.0 GHz Intel Scalable Processor,t2.xlarge,EBS-Only,16,288,November 2016,0
+96,8,Intel,Intel® Xeon® Platinum 8175M,240.00,N/A,N/A,2.5 GHz Intel Scalable Processor,t3.2xlarge,EBS-Only,32,384,August 2018,0
+96,2,Intel,Intel® Xeon® Platinum 8175M,240.00,N/A,N/A,2.5 GHz Intel Scalable Processor,t3.large,EBS-Only,8,384,August 2018,0
+96,2,Intel,Intel® Xeon® Platinum 8175M,240.00,N/A,N/A,2.5 GHz Intel Scalable Processor,t3.medium,EBS-Only,4,384,August 2018,0
+96,2,Intel,Intel® Xeon® Platinum 8175M,240.00,N/A,N/A,2.5 GHz Intel Scalable Processor,t3.medium.elasticsearch,EBS-Only,4,384,August 2018,0
+96,2,Intel,Intel® Xeon® Platinum 8175M,240.00,N/A,N/A,2.5 GHz Intel Scalable Processor,t3.micro,EBS-Only,1,384,August 2018,0
+96,2,Intel,Intel® Xeon® Platinum 8175M,240.00,N/A,N/A,2.5 GHz Intel Scalable Processor,t3.nano,EBS-Only,0.5,384,August 2018,0
+96,2,Intel,Intel® Xeon® Platinum 8175M,240.00,N/A,N/A,2.5 GHz Intel Scalable Processor,t3.small,EBS-Only,2,384,August 2018,0
+96,2,Intel,Intel® Xeon® Platinum 8175M,240.00,N/A,N/A,2.5 GHz Intel Scalable Processor,t3.small.elasticsearch,EBS-Only,2,384,August 2018,0
+96,4,Intel,Intel® Xeon® Platinum 8175M,240.00,N/A,N/A,2.5 GHz Intel Scalable Processor,t3.xlarge,EBS-Only,16,384,August 2018,0
+96,8,AMD,AMD EPYC™ 7571,120.00,N/A,N/A,2.5 GHz AMD EPYC 7000 Series Processor,t3a.2xlarge,EBS-Only,32,384,April 2019,0
+96,2,AMD,AMD EPYC™ 7571,120.00,N/A,N/A,2.5 GHz AMD EPYC 7000 Series Processor,t3a.large,EBS-Only,8,384,April 2019,0
+96,2,AMD,AMD EPYC™ 7571,120.00,N/A,N/A,2.5 GHz AMD EPYC 7000 Series Processor,t3a.medium,EBS-Only,4,384,April 2019,0
+96,2,AMD,AMD EPYC™ 7571,120.00,N/A,N/A,2.5 GHz AMD EPYC 7000 Series Processor,t3a.micro,EBS-Only,1,384,April 2019,0
+96,2,AMD,AMD EPYC™ 7571,120.00,N/A,N/A,2.5 GHz AMD EPYC 7000 Series Processor,t3a.nano,EBS-Only,0.5,384,April 2019,0
+96,2,AMD,AMD EPYC™ 7571,120.00,N/A,N/A,2.5 GHz AMD EPYC 7000 Series Processor,t3a.small,EBS-Only,2,384,April 2019,0
+96,4,AMD,AMD EPYC™ 7571,120.00,N/A,N/A,2.5 GHz AMD EPYC 7000 Series Processor,t3a.xlarge,EBS-Only,16,384,April 2019,0
+64,8,AWS,AWS Graviton2,110.00,N/A,N/A,Baseline Performance / vCPU 40%,t4g.2xlarge,EBS-Only,32,256,September 2020,0
+64,2,AWS,AWS Graviton2,110.00,N/A,N/A,Baseline Performance / vCPU 30%,t4g.large,EBS-Only,8,256,September 2020,0
+64,2,AWS,AWS Graviton2,110.00,N/A,N/A,Baseline Performance / vCPU 20%,t4g.medium,EBS-Only,4,256,September 2020,0
+64,2,AWS,AWS Graviton2,110.00,N/A,N/A,Baseline Performance / vCPU 10%,t4g.micro,EBS-Only,1,256,September 2020,0
+64,2,AWS,AWS Graviton2,110.00,N/A,N/A,Baseline Performance / vCPU 5%,t4g.nano,EBS-Only,0.5,256,September 2020,0
+64,2,AWS,AWS Graviton2,110.00,N/A,N/A,Baseline Performance / vCPU 20%,t4g.small,EBS-Only,2,256,September 2020,0
+64,4,AWS,AWS Graviton2,110.00,N/A,N/A,Baseline Performance / vCPU 40%,t4g.xlarge,EBS-Only,16,256,September 2020,0
+448,448,Intel,Intel® Xeon® Platinum 8176M,165.00,N/A,N/A,Intel Xeon Platinum 8176M (Skylake) processors,u-12tb1.metal,EBS-Only,12288,24576,September 2018,0
+448,448,Intel,Intel® Xeon® Platinum 8176M,165.00,N/A,N/A,Intel Xeon Platinum 8176M (Skylake) processors,u-18tb1.metal,EBS-Only,18432,24576,May 2019,0
+448,448,Intel,Intel® Xeon® Platinum 8176M,165.00,N/A,N/A,Intel Xeon Platinum 8176M (Skylake) processors,u-24tb1.metal,EBS-Only,24576,24576,May 2019,0
+448,448,Intel,Intel® Xeon® Platinum 8176M,165.00,N/A,N/A,Intel Xeon Platinum 8176M (Skylake) processors,u-6tb1.metal,EBS-Only,6144,24576,September 2018,0
+448,448,Intel,Intel® Xeon® Platinum 8176M,165.00,N/A,N/A,Intel Xeon Platinum 8176M (Skylake) processors,u-9tb1.metal,EBS-Only,9216,24576,September 2018,0
+128,64,Intel,Intel® Xeon® E7-8880 v3,150.00,N/A,N/A,2.3 GHz Intel Xeon E7-8880 v3 Processor (Haswell),x1.16xlarge,1 x 1.920 SSD,976,1952,October 2016,2
+128,128,Intel,Intel® Xeon® E7-8880 v3,150.00,N/A,N/A,2.3 GHz Intel Xeon E7-8880 v3 Processor (Haswell),x1.32xlarge,2 x 1.920 SSD,1952,1952,May 2016,2
+128,64,Intel,Intel® Xeon® E7-8880 v3,150.00,N/A,N/A,2.3 GHz Intel Xeon E7-8880 v3 Processor (Haswell),x1e.16xlarge,1 x 1.920 SSD,1952,3904,November 2017,2
+128,8,Intel,Intel® Xeon® E7-8880 v3,150.00,N/A,N/A,2.3 GHz Intel Xeon E7-8880 v3 Processor (Haswell),x1e.2xlarge,1 x 240 SSD,244,3904,November 2017,2
+128,128,Intel,Intel® Xeon® E7-8880 v3,150.00,N/A,N/A,2.3 GHz Intel Xeon E7-8880 v3 Processor (Haswell),x1e.32xlarge,2 x 1.920 SSD,3904,3904,September 2017,2
+128,16,Intel,Intel® Xeon® E7-8880 v3,150.00,N/A,N/A,2.3 GHz Intel Xeon E7-8880 v3 Processor (Haswell),x1e.4xlarge,1 x 480 SSD,488,3904,November 2017,2
+128,32,Intel,Intel® Xeon® E7-8880 v3,150.00,N/A,N/A,2.3 GHz Intel Xeon E7-8880 v3 Processor (Haswell),x1e.8xlarge,1 x 960 SSD,976,3904,November 2017,2
+128,4,Intel,Intel® Xeon® E7-8880 v3,150.00,N/A,N/A,2.3 GHz Intel Xeon E7-8880 v3 Processor (Haswell),x1e.xlarge,1 x 120 SSD,122,3904,November 2017,2
+64,48,AWS,AWS Graviton2,110.00,N/A,N/A,,x2gd.12xlarge,2x1425 NVMe SSD,768,1024,March 2021,2
+64,64,AWS,AWS Graviton2,110.00,N/A,N/A,,x2gd.16xlarge,2x1900 NVMe SSD,1024,1024,March 2021,2
+64,8,AWS,AWS Graviton2,110.00,N/A,N/A,,x2gd.2xlarge,1x475 NVMe SSD,128,1024,March 2021,2
+64,16,AWS,AWS Graviton2,110.00,N/A,N/A,,x2gd.4xlarge,1x950 NVMe SSD,256,1024,March 2021,2
+64,32,AWS,AWS Graviton2,110.00,N/A,N/A,,x2gd.8xlarge,1x1900 NVMe SSD,512,1024,March 2021,2
+64,2,AWS,AWS Graviton2,110.00,N/A,N/A,,x2gd.large,1x118 NVMe SSD,32,1024,March 2021,2
+64,1,AWS,AWS Graviton2,110.00,N/A,N/A,,x2gd.medium,1x59 NVMe SSD,16,1024,March 2021,2
+64,64,AWS,AWS Graviton2,110.00,N/A,N/A,,x2gd.metal,2x1900 NVMe SSD,1024,1024,March 2021,2
+64,4,AWS,AWS Graviton2,110.00,N/A,N/A,,x2gd.xlarge,1x237 NVMe SSD,64,1024,March 2021,2
+48,48,Intel,Intel® Xeon® Platinum 8151,150.00,N/A,N/A,Up to 4.0 GHz Intel Xeon Scalable Processors,z1d.12xlarge,2 x 900 NVMe SSD,384,384,July 2018,2
+48,8,Intel,Intel® Xeon® Platinum 8151,150.00,N/A,N/A,Up to 4.0 GHz Intel Xeon Scalable Processors,z1d.2xlarge,1 x 300 NVMe SSD,64,384,July 2018,2
+48,12,Intel,Intel® Xeon® Platinum 8151,150.00,N/A,N/A,Up to 4.0 GHz Intel Xeon Scalable Processors,z1d.3xlarge,1 x 450 NVMe SSD,96,384,July 2018,2
+48,24,Intel,Intel® Xeon® Platinum 8151,150.00,N/A,N/A,Up to 4.0 GHz Intel Xeon Scalable Processors,z1d.6xlarge,1 x 900 NVMe SSD,192,384,July 2018,2
+48,2,Intel,Intel® Xeon® Platinum 8151,150.00,N/A,N/A,Up to 4.0 GHz Intel Xeon Scalable Processors,z1d.large,1 x 75 NVMe SSD,16,384,July 2018,2
+48,48,Intel,Intel® Xeon® Platinum 8151,150.00,N/A,N/A,Up to 4.0 GHz Intel Xeon Scalable Processors,z1d.metal,2 x 900 NVMe SSD,384,384,July 2018,2
+48,4,Intel,Intel® Xeon® Platinum 8151,150.00,N/A,N/A,Up to 4.0 GHz Intel Xeon Scalable Processors,z1d.xlarge,1 x 150 NVMe SSD,32,384,July 2018,2
