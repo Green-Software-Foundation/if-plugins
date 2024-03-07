@@ -5,3 +5,11 @@ export type InstanceInput = {
   'cpu-model-name': string;
   'cpu-tdp': string;
 };
+
+export type RegionInput = {
+  'cfe-region': string;
+  'em-zone-id': string;
+  'wt-region-id': string;
+  location: string;
+  geolocation: string;
+};
