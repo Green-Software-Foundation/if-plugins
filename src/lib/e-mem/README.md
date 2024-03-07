@@ -1,14 +1,14 @@
 # E-MEM (energy due to memory)
 
 `e-mem` simply multiples the amount of memory being used by a energy-per-gb
-(0.38 kWh/GB) to yield `memory/energy`.
+(0.000392 kWh/GB) to yield `memory/energy`.
 
 ## Parameters
 
 ### Plugin global config
 
 - `energy-per-gb`: a coefficient for energy in kWh per GB. If not provided,
-  defaults to 0.38. (optional)
+  defaults to 0.000392. (optional)
 
 ### Inputs
 

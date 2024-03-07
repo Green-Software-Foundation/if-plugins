@@ -50,8 +50,8 @@ export const EMem = (globalConfig: ConfigParams): PluginInterface => {
       'energy-per-gb': z.number().gt(0),
     });
 
-    //Manually add default value
-    const energyPerGB = globalConfig['energy-per-gb'] ?? 0.38;
+    //Manually add default value from CCF: https://www.cloudcarbonfootprint.org/docs/methodology/#memory
+    const energyPerGB = globalConfig['energy-per-gb'] ?? 0.000392;
 
     return validate<z.infer<typeof schema>>(schema, {
       ...globalConfig,
