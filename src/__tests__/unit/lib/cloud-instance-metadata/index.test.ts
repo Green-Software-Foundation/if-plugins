@@ -119,7 +119,7 @@ describe('lib/cloud-instance-metadata:', () => {
 
       it('throws on unsupported `cloud/vendor`.', async () => {
         const errorMessage =
-          "\"cloud/vendor\" parameter is invalid enum value. expected 'aws' | 'azure', received 'aws2'. Error code: invalid_enum_value.";
+          "\"cloud/vendor\" parameter is invalid enum value. expected 'aws' | 'azure' | 'gcp', received 'aws2'. Error code: invalid_union.";
         const inputs = [
           {
             timestamp: '',
@@ -141,7 +141,7 @@ describe('lib/cloud-instance-metadata:', () => {
 
       it('throws on missed required parameters.', async () => {
         const errorMessage =
-          '"cloud/vendor" parameter is only aws,azure is currently supported. Error code: invalid_type.,"cloud/instance-type" parameter is required. Error code: invalid_type.';
+          '"cloud/vendor" parameter is only aws,azure,gcp is currently supported. Error code: invalid_union.';
         const inputs = [
           {
             timestamp: '',
