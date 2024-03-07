@@ -20,7 +20,7 @@ const GSF_DATA = path.resolve(__dirname, './GSF-data.csv');
 const {UnsupportedValueError} = ERRORS;
 
 export const CloudInstanceMetadata = (): PluginInterface => {
-  const SUPPORTED_CLOUDS = ['aws', 'azure', 'gcp'] as const;
+  const SUPPORTED_CLOUDS = ['aws', 'azure'] as const;
   const errorBuilder = buildErrorMessage(CloudInstanceMetadata.name);
   const metadata = {
     kind: 'execute',
@@ -35,16 +35,17 @@ export const CloudInstanceMetadata = (): PluginInterface => {
     for await (const input of inputs) {
       const safeInput = Object.assign({}, input, validateInput(input));
       const outputParameters = (config && config['fields']) || [];
+      const region = input['cloud/region'];
       const draftInput: Record<string, any> = {};
-
-      // Process region metadata based on cloud vendor
-      if (safeInput['cloud/region']) {
-        Object.assign(draftInput, await processRegionData(safeInput));
-      }
 
       // Process instance metadata based on cloud vendor
       if (safeInput['cloud/instance-type']) {
         Object.assign(draftInput, await processInstanceTypeData(safeInput));
+      }
+
+      // Process region metadata based on cloud vendor
+      if (region) {
+        Object.assign(draftInput, await processRegionData(safeInput));
       }
 
       const configuredParmeters = configureOutput(draftInput, outputParameters);
@@ -68,7 +69,7 @@ export const CloudInstanceMetadata = (): PluginInterface => {
     if (!regionInput) {
       throw new UnsupportedValueError(
         errorBuilder({
-          message: `'${region}' is not supported in '${vendor}'`,
+          message: `'${region}' region is not supported in '${vendor}' cloud vendor`,
         })
       );
     }
@@ -97,7 +98,7 @@ export const CloudInstanceMetadata = (): PluginInterface => {
       throw new UnsupportedValueError(
         errorBuilder({
           scope: 'cloud/instance-type',
-          message: `'${instanceType}' is not supported in '${vendor}'`,
+          message: `'${instanceType}' instance type is not supported in '${vendor}' cloud vendor`,
         })
       );
     }
@@ -141,7 +142,7 @@ export const CloudInstanceMetadata = (): PluginInterface => {
     const filteredResult = result.find(
       item =>
         item['cloud-provider'] === cloudProvider[vendor] &&
-        item['cloud-region'] === region
+        (item['cloud-region'] === region || item['cfe-region'] === region)
     );
 
     return filteredResult;
@@ -198,32 +199,13 @@ export const CloudInstanceMetadata = (): PluginInterface => {
    * Checks for required fields in input.
    */
   const validateInput = (input: PluginParams) => {
-    const regionSchema = z.object({
+    const schema = z.object({
       'cloud/vendor': z.enum(SUPPORTED_CLOUDS, {
         required_error: `Only ${SUPPORTED_CLOUDS} is currently supported`,
       }),
-      'cloud/region': z.string(),
+      'cloud/instance-type': z.string(),
+      'cloud/region': z.string().optional(),
     });
-
-    const instanceSchema = z
-      .object({
-        'cloud/vendor': z.enum(SUPPORTED_CLOUDS, {
-          required_error: `Only ${SUPPORTED_CLOUDS} is currently supported`,
-        }),
-        'cloud/instance-type': z.string(),
-      })
-      .refine(
-        param => {
-          if (param['cloud/vendor'] === 'gcp') return false;
-          return true;
-        },
-        {
-          message:
-            '`cloud/vendor` is aceppted `aws` or `azure` if `cloud/instance-type` is provided.',
-        }
-      );
-
-    const schema = regionSchema.or(instanceSchema);
 
     return validate<z.infer<typeof schema>>(schema, input);
   };
