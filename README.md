@@ -4,7 +4,7 @@
 
 ## Implementations
 
-- [Cloud Instance Metadata](./src/lib/cloud-instance-metadata/README.md)
+- [Cloud Instance Metadata](./src/lib/cloud-metadata/README.md)
 - [Coefficient](./src/lib/coefficient/README.md)
 - [CSV Export](./src/lib/csv-export/README.md)
 - [E-Mem](./src/lib/e-mem/README.md)

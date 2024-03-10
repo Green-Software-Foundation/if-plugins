@@ -4,7 +4,7 @@ import {ERRORS} from '../../../../util/errors';
 
 const {InputValidationError, UnsupportedValueError} = ERRORS;
 
-describe('lib/cloud-instance-metadata:', () => {
+describe('lib/cloud-metadata:', () => {
   describe('CloudMetadata', () => {
     const cloudMetadata = CloudMetadata();
 

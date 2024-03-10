@@ -56,19 +56,19 @@ The following is an example of how cloud instance metadata can be invoked using 
 ./examples/manifests/test/cim.yml
 
 ```yaml
-name: cloud-instance-metadata
+name: cloud-metadata
 description: example manifest invoking Cloud Instance Metadata plugin
 tags:
 initialize:
   plugins:
-    cloud-instance-metadata:
+    cloud-metadata:
       method: CloudMetadata
       path: '@grnsft/if-plugins'
 tree:
   children:
     child:
       pipeline:
-        - cloud-instance-metadata
+        - cloud-metadata
       config:
       inputs:
         - timestamp: 2023-07-06T00:00 # [KEYWORD] [NO-SUBFIELDS] time when measurement occurred
@@ -91,19 +91,19 @@ ie --manifest ./examples/manifests/test/cim.yml --output ./outputs/cim.yml
 This yields a result that looks like the following (saved to `./outputs/cim.yml`):
 
 ```yaml
-name: cloud-instance-metadata
+name: cloud-metadata
 description: example manifest invoking Cloud Instance Metadata plugin
 tags:
 initialize:
   plugins:
-    cloud-instance-metadata:
+    cloud-metadata:
       method: CloudMetadata
       path: '@grnsft/if-plugins'
 tree:
   children:
     front-end:
       pipeline:
-        - cloud-instance-metadata
+        - cloud-metadata
       inputs:
         - timestamp: 2023-07-06T00:00
           cloud/vendor: aws
