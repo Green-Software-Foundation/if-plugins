@@ -19,9 +19,9 @@ const GSF_DATA = path.resolve(__dirname, './GSF-data.csv');
 
 const {UnsupportedValueError} = ERRORS;
 
-export const CloudInstanceMetadata = (): PluginInterface => {
+export const CloudMetadata = (): PluginInterface => {
   const SUPPORTED_CLOUDS = ['aws', 'azure'] as const;
-  const errorBuilder = buildErrorMessage(CloudInstanceMetadata.name);
+  const errorBuilder = buildErrorMessage(CloudMetadata.name);
   const metadata = {
     kind: 'execute',
   };

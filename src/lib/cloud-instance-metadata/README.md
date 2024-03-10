@@ -38,9 +38,9 @@ You can see example Typescript invocations for each vendor below:
 ### AWS
 
 ```typescript
-import {CloudInstanceMetadata} from '@grnsft/if-plugins';
+import {CloudMetadata} from '@grnsft/if-plugins';
 
-const cim = CloudInstanceMetadata();
+const cim = CloudMetadata();
 const result = await cim.execute([
   {
     'cloud/vendor': 'aws',
@@ -62,7 +62,7 @@ tags:
 initialize:
   plugins:
     cloud-instance-metadata:
-      method: CloudInstanceMetadata
+      method: CloudMetadata
       path: '@grnsft/if-plugins'
 tree:
   children:
@@ -97,7 +97,7 @@ tags:
 initialize:
   plugins:
     cloud-instance-metadata:
-      method: CloudInstanceMetadata
+      method: CloudMetadata
       path: '@grnsft/if-plugins'
 tree:
   children:
