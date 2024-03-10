@@ -78,7 +78,7 @@ export const CloudInstanceMetadata = (): PluginInterface => {
       'cloud/region-em-zone-id': regionInput['em-zone-id'],
       'cloud/region-wt-id': regionInput['wt-region-id'],
       'cloud/region-location': regionInput['location'],
-      'cloud/region-geolocation': regionInput['geolocation'],
+      'cloud/region-geolocation': regionInput['geolocation'].trim(),
     };
   };
 
