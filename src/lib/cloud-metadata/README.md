@@ -1,4 +1,4 @@
-# Cloud Instance Metadata
+# Cloud Metadata
 
 This plugin allows you to determine an instance's physical processor and thermal design power based on its instance name.
 
@@ -27,7 +27,7 @@ An array containing:
 
 IF implements this plugin using data from Cloud Carbon Footprint. This allows determination of cpu for type of instance in a cloud and can be invoked as part of a plugin pipeline defined in a `manifest`.
 
-Cloud Instance Metadata currently implements only for 'AWS'.
+Cloud Metadata currently implements only for 'AWS' and 'Azure'.
 
 ## Usage
 
@@ -51,13 +51,13 @@ const result = await cim.execute([
 
 ## Example Manifest
 
-The following is an example of how cloud instance metadata can be invoked using a `manifest`.
+The following is an example of how cloud metadata can be invoked using a `manifest`.
 
 ./examples/manifests/test/cim.yml
 
 ```yaml
 name: cloud-metadata
-description: example manifest invoking Cloud Instance Metadata plugin
+description: example manifest invoking Cloud Metadata plugin
 tags:
 initialize:
   plugins:
@@ -92,7 +92,7 @@ This yields a result that looks like the following (saved to `./outputs/cim.yml`
 
 ```yaml
 name: cloud-metadata
-description: example manifest invoking Cloud Instance Metadata plugin
+description: example manifest invoking Cloud Metadata plugin
 tags:
 initialize:
   plugins:
