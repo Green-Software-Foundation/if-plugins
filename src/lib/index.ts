@@ -1,4 +1,4 @@
-export {CloudInstanceMetadata} from './cloud-instance-metadata';
+export {CloudMetadata} from './cloud-metadata';
 export {EMem} from './e-mem';
 export {ENet} from './e-net';
 export {Sci} from './sci';

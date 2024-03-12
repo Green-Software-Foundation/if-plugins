@@ -1,4 +1,4 @@
-# Cloud Instance Metadata
+# Cloud Metadata
 
 This plugin allows you to determine an instance's physical processor and thermal design power based on its instance name.
 
@@ -27,7 +27,7 @@ An array containing:
 
 IF implements this plugin using data from Cloud Carbon Footprint. This allows determination of cpu for type of instance in a cloud and can be invoked as part of a plugin pipeline defined in a `manifest`.
 
-Cloud Instance Metadata currently implements only for 'AWS'.
+Cloud Metadata currently implements only for 'AWS' and 'Azure'.
 
 ## Usage
 
@@ -38,9 +38,9 @@ You can see example Typescript invocations for each vendor below:
 ### AWS
 
 ```typescript
-import {CloudInstanceMetadata} from '@grnsft/if-plugins';
+import {CloudMetadata} from '@grnsft/if-plugins';
 
-const cim = CloudInstanceMetadata();
+const cim = CloudMetadata();
 const result = await cim.execute([
   {
     'cloud/vendor': 'aws',
@@ -51,24 +51,24 @@ const result = await cim.execute([
 
 ## Example Manifest
 
-The following is an example of how cloud instance metadata can be invoked using a `manifest`.
+The following is an example of how cloud metadata can be invoked using a `manifest`.
 
 ./examples/manifests/test/cim.yml
 
 ```yaml
-name: cloud-instance-metadata
-description: example manifest invoking Cloud Instance Metadata plugin
+name: cloud-metadata
+description: example manifest invoking Cloud Metadata plugin
 tags:
 initialize:
   plugins:
-    cloud-instance-metadata:
-      method: CloudInstanceMetadata
+    cloud-metadata:
+      method: CloudMetadata
       path: '@grnsft/if-plugins'
 tree:
   children:
     child:
       pipeline:
-        - cloud-instance-metadata
+        - cloud-metadata
       config:
       inputs:
         - timestamp: 2023-07-06T00:00 # [KEYWORD] [NO-SUBFIELDS] time when measurement occurred
@@ -91,19 +91,19 @@ ie --manifest ./examples/manifests/test/cim.yml --output ./outputs/cim.yml
 This yields a result that looks like the following (saved to `./outputs/cim.yml`):
 
 ```yaml
-name: cloud-instance-metadata
-description: example manifest invoking Cloud Instance Metadata plugin
+name: cloud-metadata
+description: example manifest invoking Cloud Metadata plugin
 tags:
 initialize:
   plugins:
-    cloud-instance-metadata:
-      method: CloudInstanceMetadata
+    cloud-metadata:
+      method: CloudMetadata
       path: '@grnsft/if-plugins'
 tree:
   children:
     front-end:
       pipeline:
-        - cloud-instance-metadata
+        - cloud-metadata
       inputs:
         - timestamp: 2023-07-06T00:00
           cloud/vendor: aws

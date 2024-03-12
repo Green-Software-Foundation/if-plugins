@@ -1,17 +1,17 @@
-import {CloudInstanceMetadata} from '../../../../lib';
+import {CloudMetadata} from '../../../../lib';
 
 import {ERRORS} from '../../../../util/errors';
 
 const {InputValidationError, UnsupportedValueError} = ERRORS;
 
-describe('lib/cloud-instance-metadata:', () => {
-  describe('CloudInstanceMetadata', () => {
-    const cloudInstanceMetadata = CloudInstanceMetadata();
+describe('lib/cloud-metadata:', () => {
+  describe('CloudMetadata', () => {
+    const cloudMetadata = CloudMetadata();
 
     describe('init: ', () => {
       it('successfully initalized.', () => {
-        expect(cloudInstanceMetadata).toHaveProperty('metadata');
-        expect(cloudInstanceMetadata).toHaveProperty('execute');
+        expect(cloudMetadata).toHaveProperty('metadata');
+        expect(cloudMetadata).toHaveProperty('execute');
       });
     });
 
@@ -25,7 +25,7 @@ describe('lib/cloud-instance-metadata:', () => {
             'cloud/vendor': 'aws',
           },
         ];
-        const result = await cloudInstanceMetadata.execute(inputs);
+        const result = await cloudMetadata.execute(inputs);
 
         expect.assertions(1);
 
@@ -54,7 +54,7 @@ describe('lib/cloud-instance-metadata:', () => {
           },
         ];
 
-        const result = await cloudInstanceMetadata.execute(inputs);
+        const result = await cloudMetadata.execute(inputs);
 
         expect.assertions(1);
 
@@ -75,7 +75,7 @@ describe('lib/cloud-instance-metadata:', () => {
 
       it('throws on `cloud/instance-type` when `cloud/vendor` is aws.', async () => {
         const errorMessage =
-          "CloudInstanceMetadata(cloud/instance-type): 't2.micro2' is not supported in 'aws'.";
+          "CloudMetadata(cloud/instance-type): 't2.micro2' instance type is not supported in 'aws' cloud vendor.";
         const inputs = [
           {
             timestamp: '',
@@ -88,7 +88,7 @@ describe('lib/cloud-instance-metadata:', () => {
         expect.assertions(2);
 
         try {
-          await cloudInstanceMetadata.execute(inputs);
+          await cloudMetadata.execute(inputs);
         } catch (error) {
           expect(error).toStrictEqual(new UnsupportedValueError(errorMessage));
           expect(error).toBeInstanceOf(UnsupportedValueError);
@@ -97,7 +97,7 @@ describe('lib/cloud-instance-metadata:', () => {
 
       it('throws on `cloud/instance-type` when `cloud/vendor` is azure.', async () => {
         const errorMessage =
-          "CloudInstanceMetadata(cloud/instance-type): 't2.micro2' is not supported in 'azure'.";
+          "CloudMetadata(cloud/instance-type): 't2.micro2' instance type is not supported in 'azure' cloud vendor.";
         const inputs = [
           {
             timestamp: '',
@@ -110,7 +110,7 @@ describe('lib/cloud-instance-metadata:', () => {
         expect.assertions(2);
 
         try {
-          await cloudInstanceMetadata.execute(inputs);
+          await cloudMetadata.execute(inputs);
         } catch (error) {
           expect(error).toStrictEqual(new UnsupportedValueError(errorMessage));
           expect(error).toBeInstanceOf(UnsupportedValueError);
@@ -132,7 +132,7 @@ describe('lib/cloud-instance-metadata:', () => {
         expect.assertions(2);
 
         try {
-          await cloudInstanceMetadata.execute(inputs);
+          await cloudMetadata.execute(inputs);
         } catch (error) {
           expect(error).toStrictEqual(new InputValidationError(errorMessage));
           expect(error).toBeInstanceOf(InputValidationError);
@@ -152,7 +152,7 @@ describe('lib/cloud-instance-metadata:', () => {
         expect.assertions(2);
 
         try {
-          await cloudInstanceMetadata.execute(inputs);
+          await cloudMetadata.execute(inputs);
         } catch (error) {
           expect(error).toStrictEqual(new InputValidationError(errorMessage));
           expect(error).toBeInstanceOf(InputValidationError);

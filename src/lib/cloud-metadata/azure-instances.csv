@@ -1,0 +1,586 @@
+cpu-cores-available,cpu-cores-utilized,cpu-manufacturer,cpu-model-name,cpu-tdp,gpu-count,gpu-model-name,gpu-tdp,instance-class,memory-available
+52.00,1.0,Intel,"Intel® Xeon® Platinum 8272CL,Intel® Xeon® 8171M 2.1 GHz,Intel® Xeon® E5-2673 v4 2.3 GHz,Intel® Xeon® E5-2673 v3 2.4 GHz",205.00,,,,Standard_A1_v2,2.0
+52.00,2.0,Intel,"Intel® Xeon® Platinum 8272CL,Intel® Xeon® 8171M 2.1 GHz,Intel® Xeon® E5-2673 v4 2.3 GHz,Intel® Xeon® E5-2673 v3 2.4 GHz",205.00,,,,Standard_A2_v2,4.0
+52.00,2.0,Intel,"Intel® Xeon® Platinum 8272CL,Intel® Xeon® 8171M 2.1 GHz,Intel® Xeon® E5-2673 v4 2.3 GHz,Intel® Xeon® E5-2673 v3 2.4 GHz",205.00,,,,Standard_A2m_v2,16.0
+52.00,4.0,Intel,"Intel® Xeon® Platinum 8272CL,Intel® Xeon® 8171M 2.1 GHz,Intel® Xeon® E5-2673 v4 2.3 GHz,Intel® Xeon® E5-2673 v3 2.4 GHz",205.00,,,,Standard_A4_v2,8.0
+52.00,4.0,Intel,"Intel® Xeon® Platinum 8272CL,Intel® Xeon® 8171M 2.1 GHz,Intel® Xeon® E5-2673 v4 2.3 GHz,Intel® Xeon® E5-2673 v3 2.4 GHz",205.00,,,,Standard_A4m_v2,32.0
+52.00,8.0,Intel,"Intel® Xeon® Platinum 8272CL,Intel® Xeon® 8171M 2.1 GHz,Intel® Xeon® E5-2673 v4 2.3 GHz,Intel® Xeon® E5-2673 v3 2.4 GHz",205.00,,,,Standard_A8_v2,16.0
+52.00,8.0,Intel,"Intel® Xeon® Platinum 8272CL,Intel® Xeon® 8171M 2.1 GHz,Intel® Xeon® E5-2673 v4 2.3 GHz,Intel® Xeon® E5-2673 v3 2.4 GHz",205.00,,,,Standard_A8m_v2,64.0
+64.00,12.0,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL,Intel® Xeon® 8171M 2.1 GHz,Intel® Xeon® E5-2673 v4 2.3 GHz,Intel® Xeon® E5-2673 v3 2.4 GHz",270.00,,,,Standard_B12ms,48.0
+128.00,16.0,AMD,AMD EPYC™ 7763,280.00,,,,Standard_B16als_v2,32.0
+128.00,16.0,AMD,AMD EPYC™ 7763,280.00,,,,Standard_B16as_v2,64.0
+64.00,16.0,Intel,Intel® Xeon® Platinum 8370C,270.00,,,,Standard_B16ls_v2,32.0
+64.00,16.0,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL,Intel® Xeon® 8171M 2.1 GHz,Intel® Xeon® E5-2673 v4 2.3 GHz,Intel® Xeon® E5-2673 v3 2.4 GHz",270.00,,,,Standard_B16ms,64.0
+128.00,16.0,Ampere,Ampere® Altra®,180.00,,,,Standard_B16pls_v2,32.0
+128.00,16.0,Ampere,Ampere® Altra®,180.00,,,,Standard_B16ps_v2,64.0
+64.00,16.0,Intel,Intel® Xeon® Platinum 8370C,270.00,,,,Standard_B16s_v2,64.0
+64.00,1.0,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL,Intel® Xeon® 8171M 2.1 GHz,Intel® Xeon® E5-2673 v4 2.3 GHz,Intel® Xeon® E5-2673 v3 2.4 GHz",270.00,,,,Standard_B1ls2,0.5
+64.00,1.0,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL,Intel® Xeon® 8171M 2.1 GHz,Intel® Xeon® E5-2673 v4 2.3 GHz,Intel® Xeon® E5-2673 v3 2.4 GHz",270.00,,,,Standard_B1ms,2.0
+64.00,1.0,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL,Intel® Xeon® 8171M 2.1 GHz,Intel® Xeon® E5-2673 v4 2.3 GHz,Intel® Xeon® E5-2673 v3 2.4 GHz",270.00,,,,Standard_B1s,1.0
+64.00,20.0,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL,Intel® Xeon® 8171M 2.1 GHz,Intel® Xeon® E5-2673 v4 2.3 GHz,Intel® Xeon® E5-2673 v3 2.4 GHz",270.00,,,,Standard_B20ms,80.0
+128.00,2.0,AMD,AMD EPYC™ 7763,280.00,,,,Standard_B2als_v2,4.0
+128.00,2.0,AMD,AMD EPYC™ 7763,280.00,,,,Standard_B2as_v2,8.0
+128.00,2.0,AMD,AMD EPYC™ 7763,280.00,,,,Standard_B2ats_v2,1.0
+64.00,2.0,Intel,Intel® Xeon® Platinum 8370C,270.00,,,,Standard_B2ls_v2,4.0
+64.00,2.0,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL,Intel® Xeon® 8171M 2.1 GHz,Intel® Xeon® E5-2673 v4 2.3 GHz,Intel® Xeon® E5-2673 v3 2.4 GHz",270.00,,,,Standard_B2ms,8.0
+128.00,2.0,Ampere,Ampere® Altra®,180.00,,,,Standard_B2pls_v2,4.0
+128.00,2.0,Ampere,Ampere® Altra®,180.00,,,,Standard_B2ps_v2,8.0
+128.00,2.0,Ampere,Ampere® Altra®,180.00,,,,Standard_B2pts_v2,1.0
+64.00,2.0,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL,Intel® Xeon® 8171M 2.1 GHz,Intel® Xeon® E5-2673 v4 2.3 GHz,Intel® Xeon® E5-2673 v3 2.4 GHz",270.00,,,,Standard_B2s,4.0
+64.00,2.0,Intel,Intel® Xeon® Platinum 8370C,270.00,,,,Standard_B2s_v2,8.0
+64.00,2.0,Intel,Intel® Xeon® Platinum 8370C,270.00,,,,Standard_B2ts_v2,1.0
+128.00,32.0,AMD,AMD EPYC™ 7763,280.00,,,,Standard_B32als_v2,64.0
+128.00,32.0,AMD,AMD EPYC™ 7763,280.00,,,,Standard_B32as_v2,128.0
+64.00,32.0,Intel,Intel® Xeon® Platinum 8370C,270.00,,,,Standard_B32ls_v2,64.0
+64.00,32.0,Intel,Intel® Xeon® Platinum 8370C,270.00,,,,Standard_B32s_v2,128.0
+128.00,4.0,AMD,AMD EPYC™ 7763,280.00,,,,Standard_B4als_v2,8.0
+128.00,4.0,AMD,AMD EPYC™ 7763,280.00,,,,Standard_B4as_v2,16.0
+64.00,4.0,Intel,Intel® Xeon® Platinum 8370C,270.00,,,,Standard_B4ls_v2,8.0
+64.00,4.0,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL,Intel® Xeon® 8171M 2.1 GHz,Intel® Xeon® E5-2673 v4 2.3 GHz,Intel® Xeon® E5-2673 v3 2.4 GHz",270.00,,,,Standard_B4ms,16.0
+128.00,4.0,Ampere,Ampere® Altra®,180.00,,,,Standard_B4pls_v2,8.0
+128.00,4.0,Ampere,Ampere® Altra®,180.00,,,,Standard_B4ps_v2,16.0
+64.00,4.0,Intel,Intel® Xeon® Platinum 8370C,270.00,,,,Standard_B4s_v2,16.0
+128.00,8.0,AMD,AMD EPYC™ 7763,280.00,,,,Standard_B8als_v2,16.0
+128.00,8.0,AMD,AMD EPYC™ 7763,280.00,,,,Standard_B8as_v2,32.0
+64.00,8.0,Intel,Intel® Xeon® Platinum 8370C,270.00,,,,Standard_B8ls_v2,16.0
+64.00,8.0,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL,Intel® Xeon® 8171M 2.1 GHz,Intel® Xeon® E5-2673 v4 2.3 GHz,Intel® Xeon® E5-2673 v3 2.4 GHz",270.00,,,,Standard_B8ms,32.0
+128.00,8.0,Ampere,Ampere® Altra®,180.00,,,,Standard_B8pls_v2,16.0
+128.00,8.0,Ampere,Ampere® Altra®,180.00,,,,Standard_B8ps_v2,32.0
+64.00,8.0,Intel,Intel® Xeon® Platinum 8370C,270.00,,,,Standard_B8s_v2,32.0
+64.00,1.0,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL,Intel® Xeon® 8171M 2.1 GHz,Intel® Xeon® E5-2673 v4 2.3 GHz,Intel® Xeon® E5-2673 v3 2.4 GHz",270.00,,,,Standard_D1_v2,3.5
+64.00,2,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL,Intel® Xeon® 8171M 2.1 GHz,Intel® Xeon® E5-2673 v4 2.3 GHz,Intel® Xeon® E5-2673 v3 2.4 GHz",270.00,,,,Standard_D11_v2,14.00
+64.00,4,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL,Intel® Xeon® 8171M 2.1 GHz,Intel® Xeon® E5-2673 v4 2.3 GHz,Intel® Xeon® E5-2673 v3 2.4 GHz",270.00,,,,Standard_D12_v2,28.00
+64.00,8,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL,Intel® Xeon® 8171M 2.1 GHz,Intel® Xeon® E5-2673 v4 2.3 GHz,Intel® Xeon® E5-2673 v3 2.4 GHz",270.00,,,,Standard_D13_v2,56.00
+64.00,16,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL,Intel® Xeon® 8171M 2.1 GHz,Intel® Xeon® E5-2673 v4 2.3 GHz,Intel® Xeon® E5-2673 v3 2.4 GHz",270.00,,,,Standard_D14_v2,112.00
+64.00,20,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL,Intel® Xeon® 8171M 2.1 GHz,Intel® Xeon® E5-2673 v4 2.3 GHz,Intel® Xeon® E5-2673 v3 2.4 GHz",270.00,,,,Standard_D15_v2,140.00
+64.00,16.0,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL,Intel® Xeon® 8171M 2.1 GHz,Intel® Xeon® E5-2673 v4 2.3 GHz,Intel® Xeon® E5-2673 v3 2.4 GHz",270.00,,,,Standard_D16_v3,64.0
+64.00,16.0,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL",270.00,,,,Standard_D16_v4,64.0
+64.00,16.0,Intel,Intel® Xeon® Platinum 8370C,270.00,,,,Standard_D16_v5,64.0
+64.00,16.0,AMD,AMD EPYC™ 7452,155.00,,,,Standard_D16a_v4,64.0
+128.00,16.0,AMD,AMD EPYC™ 7763,280.00,,,,Standard_D16ads_v5,64.0
+64.00,16.0,AMD,AMD EPYC™ 7452,155.00,,,,Standard_D16as_v4,64.0
+128.00,16.0,AMD,AMD EPYC™ 7763,280.00,,,,Standard_D16as_v5,64.0
+64.00,16.0,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL",270.00,,,,Standard_D16d_v4,64.0
+64.00,16.0,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL",270.00,,,,Standard_D16d_v4,64.0
+64.00,16.0,Intel,Intel® Xeon® Platinum 8370C,270.00,,,,Standard_D16d_v5,64.0
+64.00,16.0,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL",270.00,,,,Standard_D16ds_v4,64.0
+64.00,16.0,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL",270.00,,,,Standard_D16ds_v4,64.0
+64.00,16.0,Intel,Intel® Xeon® Platinum 8370C,270.00,,,,Standard_D16ds_v5,64.0
+64.00,16.0,Intel,Intel® Xeon® Platinum 8370C,270.00,,,,Standard_D16lds_v5,32.0
+64.00,16.0,Intel,Intel® Xeon® Platinum 8370C,270.00,,,,Standard_D16ls_v5,32.0
+128.00,8.0,Ampere,Ampere® Altra®,180.00,,,,Standard_D16pds_v5,16.0
+128.00,16.0,Ampere,Ampere® Altra®,180.00,,,,Standard_D16plds_v5,32.0
+128.00,16.0,Ampere,Ampere® Altra®,180.00,,,,Standard_D16pls_v5,32.0
+128.00,8.0,Ampere,Ampere® Altra®,180.00,,,,Standard_D16ps_v5,16.0
+64.00,16.0,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL,Intel® Xeon® 8171M 2.1 GHz,Intel® Xeon® E5-2673 v4 2.3 GHz,Intel® Xeon® E5-2673 v3 2.4 GHz",270.00,,,,Standard_D16s_v3,64.0
+64.00,16.0,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL",270.00,,,,Standard_D16s_v4,64.0
+64.00,16.0,Intel,Intel® Xeon® Platinum 8370C,270.00,,,,Standard_D16s_v5,64.0
+64.00,2.0,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL,Intel® Xeon® 8171M 2.1 GHz,Intel® Xeon® E5-2673 v4 2.3 GHz,Intel® Xeon® E5-2673 v3 2.4 GHz",270.00,,,,Standard_D2_v2,7.0
+64.00,2.0,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL,Intel® Xeon® 8171M 2.1 GHz,Intel® Xeon® E5-2673 v4 2.3 GHz,Intel® Xeon® E5-2673 v3 2.4 GHz",270.00,,,,Standard_D2_v31,8.0
+64.00,2.0,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL",270.00,,,,Standard_D2_v41,8.0
+64.00,2.0,Intel,Intel® Xeon® Platinum 8370C,270.00,,,,Standard_D2_v5,8.0
+64.00,2.0,AMD,AMD EPYC™ 7452,155.00,,,,Standard_D2a_v41,8.0
+128.00,2.0,AMD,AMD EPYC™ 7763,280.00,,,,Standard_D2ads_v5,8.0
+64.00,2.0,AMD,AMD EPYC™ 7452,155.00,,,,Standard_D2as_v42,8.0
+128.00,2.0,AMD,AMD EPYC™ 7763,280.00,,,,Standard_D2as_v5,8.0
+64.00,2.0,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL",270.00,,,,Standard_D2d_v41,8.0
+64.00,2.0,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL",270.00,,,,Standard_D2d_v41,8.0
+64.00,2.0,Intel,Intel® Xeon® Platinum 8370C,270.00,,,,Standard_D2d_v5,8.0
+64.00,2.0,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL",270.00,,,,Standard_D2ds_v42,8.0
+64.00,2.0,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL",270.00,,,,Standard_D2ds_v42,8.0
+64.00,2.0,Intel,Intel® Xeon® Platinum 8370C,270.00,,,,Standard_D2ds_v5,8.0
+64.00,2.0,Intel,Intel® Xeon® Platinum 8370C,270.00,,,,Standard_D2lds_v5,4.0
+64.00,2.0,Intel,Intel® Xeon® Platinum 8370C,270.00,,,,Standard_D2ls_v5,4.0
+128.00,2.0,Ampere,Ampere® Altra®,180.00,,,,Standard_D2pds_v5,8.0
+128.00,2.0,Ampere,Ampere® Altra®,180.00,,,,Standard_D2plds_v5,4.0
+128.00,2.0,Ampere,Ampere® Altra®,180.00,,,,Standard_D2pls_v5,4.0
+128.00,2.0,Ampere,Ampere® Altra®,180.00,,,,Standard_D2ps_v5,8.0
+64.00,2.0,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL,Intel® Xeon® 8171M 2.1 GHz,Intel® Xeon® E5-2673 v4 2.3 GHz,Intel® Xeon® E5-2673 v3 2.4 GHz",270.00,,,,Standard_D2s_v32,8.0
+64.00,2.0,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL",270.00,,,,Standard_D2s_v42,8.0
+64.00,2.0,Intel,Intel® Xeon® Platinum 8370C,270.00,,,,Standard_D2s_v5,8.0
+64.00,4.0,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL,Intel® Xeon® 8171M 2.1 GHz,Intel® Xeon® E5-2673 v4 2.3 GHz,Intel® Xeon® E5-2673 v3 2.4 GHz",270.00,,,,Standard_D3_v2,14.0
+64.00,32.0,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL,Intel® Xeon® 8171M 2.1 GHz,Intel® Xeon® E5-2673 v4 2.3 GHz,Intel® Xeon® E5-2673 v3 2.4 GHz",270.00,,,,Standard_D32_v3,128.0
+64.00,32.0,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL",270.00,,,,Standard_D32_v4,128.0
+64.00,32.0,Intel,Intel® Xeon® Platinum 8370C,270.00,,,,Standard_D32_v5,128.0
+64.00,32.0,AMD,AMD EPYC™ 7452,155.00,,,,Standard_D32a_v4,128.0
+128.00,32.0,AMD,AMD EPYC™ 7763,280.00,,,,Standard_D32ads_v5,128.0
+64.00,32.0,AMD,AMD EPYC™ 7452,155.00,,,,Standard_D32as_v4,128.0
+128.00,32.0,AMD,AMD EPYC™ 7763,280.00,,,,Standard_D32as_v5,128.0
+64.00,32.0,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL",270.00,,,,Standard_D32d_v4,128.0
+64.00,32.0,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL",270.00,,,,Standard_D32d_v4,128.0
+64.00,32.0,Intel,Intel® Xeon® Platinum 8370C,270.00,,,,Standard_D32d_v5,128.0
+64.00,32.0,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL",270.00,,,,Standard_D32ds_v4,128.0
+64.00,32.0,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL",270.00,,,,Standard_D32ds_v4,128.0
+64.00,32.0,Intel,Intel® Xeon® Platinum 8370C,270.00,,,,Standard_D32ds_v5,128.0
+64.00,32.0,Intel,Intel® Xeon® Platinum 8370C,270.00,,,,Standard_D32lds_v5,64.0
+64.00,32.0,Intel,Intel® Xeon® Platinum 8370C,270.00,,,,Standard_D32ls_v5,64.0
+128.00,8.0,Ampere,Ampere® Altra®,180.00,,,,Standard_D32pds_v5,32.0
+128.00,32.0,Ampere,Ampere® Altra®,180.00,,,,Standard_D32plds_v5,64.0
+128.00,32.0,Ampere,Ampere® Altra®,180.00,,,,Standard_D32pls_v5,64.0
+128.00,8.0,Ampere,Ampere® Altra®,180.00,,,,Standard_D32ps_v5,32.0
+64.00,32.0,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL,Intel® Xeon® 8171M 2.1 GHz,Intel® Xeon® E5-2673 v4 2.3 GHz,Intel® Xeon® E5-2673 v3 2.4 GHz",270.00,,,,Standard_D32s_v3,128.0
+64.00,32.0,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL",270.00,,,,Standard_D32s_v4,128.0
+64.00,32.0,Intel,Intel® Xeon® Platinum 8370C,270.00,,,,Standard_D32s_v5,128.0
+64.00,8.0,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL,Intel® Xeon® 8171M 2.1 GHz,Intel® Xeon® E5-2673 v4 2.3 GHz,Intel® Xeon® E5-2673 v3 2.4 GHz",270.00,,,,Standard_D4_v2,28.0
+64.00,4.0,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL,Intel® Xeon® 8171M 2.1 GHz,Intel® Xeon® E5-2673 v4 2.3 GHz,Intel® Xeon® E5-2673 v3 2.4 GHz",270.00,,,,Standard_D4_v3,16.0
+64.00,4.0,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL",270.00,,,,Standard_D4_v4,16.0
+64.00,4.0,Intel,Intel® Xeon® Platinum 8370C,270.00,,,,Standard_D4_v5,16.0
+64.00,48.0,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL,Intel® Xeon® 8171M 2.1 GHz",270.00,,,,Standard_D48_v3,192.0
+64.00,48.0,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL",270.00,,,,Standard_D48_v4,192.0
+64.00,48.0,Intel,Intel® Xeon® Platinum 8370C,270.00,,,,Standard_D48_v5,192.0
+64.00,48.0,AMD,AMD EPYC™ 7452,155.00,,,,Standard_D48a_v4,192.0
+128.00,48.0,AMD,AMD EPYC™ 7763,280.00,,,,Standard_D48ads_v5,192.0
+64.00,48.0,AMD,AMD EPYC™ 7452,155.00,,,,Standard_D48as_v4,192.0
+128.00,48.0,AMD,AMD EPYC™ 7763,280.00,,,,Standard_D48as_v5,192.0
+64.00,48.0,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL",270.00,,,,Standard_D48d_v4,192.0
+64.00,48.0,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL",270.00,,,,Standard_D48d_v4,192.0
+64.00,48.0,Intel,Intel® Xeon® Platinum 8370C,270.00,,,,Standard_D48d_v5,192.0
+64.00,48.0,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL",270.00,,,,Standard_D48ds_v4,192.0
+64.00,48.0,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL",270.00,,,,Standard_D48ds_v4,192.0
+64.00,48.0,Intel,Intel® Xeon® Platinum 8370C,270.00,,,,Standard_D48ds_v5,192.0
+64.00,48.0,Intel,Intel® Xeon® Platinum 8370C,270.00,,,,Standard_D48lds_v5,96.0
+64.00,48.0,Intel,Intel® Xeon® Platinum 8370C,270.00,,,,Standard_D48ls_v5,96.0
+128.00,16.0,Ampere,Ampere® Altra®,180.00,,,,Standard_D48pds_v5,32.0
+128.00,48.0,Ampere,Ampere® Altra®,180.00,,,,Standard_D48plds_v5,96.0
+128.00,48.0,Ampere,Ampere® Altra®,180.00,,,,Standard_D48pls_v5,96.0
+128.00,16.0,Ampere,Ampere® Altra®,180.00,,,,Standard_D48ps_v5,32.0
+64.00,48.0,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL,Intel® Xeon® 8171M 2.1 GHz",270.00,,,,Standard_D48s_v3,192.0
+64.00,48.0,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL",270.00,,,,Standard_D48s_v4,192.0
+64.00,48.0,Intel,Intel® Xeon® Platinum 8370C,270.00,,,,Standard_D48s_v5,192.0
+64.00,4.0,AMD,AMD EPYC™ 7452,155.00,,,,Standard_D4a_v4,16.0
+128.00,4.0,AMD,AMD EPYC™ 7763,280.00,,,,Standard_D4ads_v5,16.0
+64.00,4.0,AMD,AMD EPYC™ 7452,155.00,,,,Standard_D4as_v4,16.0
+128.00,4.0,AMD,AMD EPYC™ 7763,280.00,,,,Standard_D4as_v5,16.0
+64.00,4.0,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL",270.00,,,,Standard_D4d_v4,16.0
+64.00,4.0,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL",270.00,,,,Standard_D4d_v4,16.0
+64.00,4.0,Intel,Intel® Xeon® Platinum 8370C,270.00,,,,Standard_D4d_v5,16.0
+64.00,4.0,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL",270.00,,,,Standard_D4ds_v4,16.0
+64.00,4.0,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL",270.00,,,,Standard_D4ds_v4,16.0
+64.00,4.0,Intel,Intel® Xeon® Platinum 8370C,270.00,,,,Standard_D4ds_v5,16.0
+64.00,4.0,Intel,Intel® Xeon® Platinum 8370C,270.00,,,,Standard_D4lds_v5,8.0
+64.00,4.0,Intel,Intel® Xeon® Platinum 8370C,270.00,,,,Standard_D4ls_v5,8.0
+128.00,4.0,Ampere,Ampere® Altra®,180.00,,,,Standard_D4pds_v5,8.0
+128.00,4.0,Ampere,Ampere® Altra®,180.00,,,,Standard_D4plds_v5,8.0
+128.00,4.0,Ampere,Ampere® Altra®,180.00,,,,Standard_D4pls_v5,8.0
+128.00,4.0,Ampere,Ampere® Altra®,180.00,,,,Standard_D4ps_v5,8.0
+64.00,4.0,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL,Intel® Xeon® 8171M 2.1 GHz,Intel® Xeon® E5-2673 v4 2.3 GHz,Intel® Xeon® E5-2673 v3 2.4 GHz",270.00,,,,Standard_D4s_v3,16.0
+64.00,4.0,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL",270.00,,,,Standard_D4s_v4,16.0
+64.00,4.0,Intel,Intel® Xeon® Platinum 8370C,270.00,,,,Standard_D4s_v5,16.0
+64.00,16.0,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL,Intel® Xeon® 8171M 2.1 GHz,Intel® Xeon® E5-2673 v4 2.3 GHz,Intel® Xeon® E5-2673 v3 2.4 GHz",270.00,,,,Standard_D5_v2,56.0
+64.00,64.0,Intel,Intel® Xeon® Platinum 8370C,270.00,,,,Standard_D64_v3,256.0
+64.00,64.0,Intel,Intel® Xeon® Platinum 8370C,270.00,,,,Standard_D64_v4,256.0
+64.00,64.0,Intel,Intel® Xeon® Platinum 8370C,270.00,,,,Standard_D64_v5,256.0
+64.00,64.0,AMD,AMD EPYC™ 7452,155.00,,,,Standard_D64a_v4,256.0
+128.00,64.0,AMD,AMD EPYC™ 7763,280.00,,,,Standard_D64ads_v5,256.0
+64.00,64.0,AMD,AMD EPYC™ 7452,155.00,,,,Standard_D64as_v4,256.0
+128.00,64.0,AMD,AMD EPYC™ 7763,280.00,,,,Standard_D64as_v5,256.0
+64.00,64.0,Intel,Intel® Xeon® Platinum 8370C,270.00,,,,Standard_D64d_v4,256.0
+64.00,64.0,Intel,Intel® Xeon® Platinum 8370C,270.00,,,,Standard_D64d_v4,256.0
+64.00,64.0,Intel,Intel® Xeon® Platinum 8370C,270.00,,,,Standard_D64d_v5,256.0
+64.00,64.0,Intel,Intel® Xeon® Platinum 8370C,270.00,,,,Standard_D64ds_v4,256.0
+64.00,64.0,Intel,Intel® Xeon® Platinum 8370C,270.00,,,,Standard_D64ds_v4,256.0
+64.00,64.0,Intel,Intel® Xeon® Platinum 8370C,270.00,,,,Standard_D64ds_v5,256.0
+64.00,64.0,Intel,Intel® Xeon® Platinum 8370C,270.00,,,,Standard_D64lds_v5,128.0
+64.00,64.0,Intel,Intel® Xeon® Platinum 8370C,270.00,,,,Standard_D64ls_v5,128.0
+128.00,16.0,Ampere,Ampere® Altra®,180.00,,,,Standard_D64pds_v5,64.0
+128.00,64.0,Ampere,Ampere® Altra®,180.00,,,,Standard_D64plds_v5,128.0
+128.00,64.0,Ampere,Ampere® Altra®,180.00,,,,Standard_D64pls_v5,128.0
+128.00,16.0,Ampere,Ampere® Altra®,180.00,,,,Standard_D64ps_v5,64.0
+64.00,64.0,Intel,Intel® Xeon® Platinum 8370C,270.00,,,,Standard_D64s_v3,256.0
+64.00,64.0,Intel,Intel® Xeon® Platinum 8370C,270.00,,,,Standard_D64s_v4,256.0
+64.00,64.0,Intel,Intel® Xeon® Platinum 8370C,270.00,,,,Standard_D64s_v5,256.0
+64.00,8.0,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL,Intel® Xeon® 8171M 2.1 GHz,Intel® Xeon® E5-2673 v4 2.3 GHz,Intel® Xeon® E5-2673 v3 2.4 GHz",270.00,,,,Standard_D8_v3,32.0
+64.00,8.0,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL",270.00,,,,Standard_D8_v4,32.0
+64.00,8.0,Intel,Intel® Xeon® Platinum 8370C,270.00,,,,Standard_D8_v5,32.0
+64.00,8.0,AMD,AMD EPYC™ 7452,155.00,,,,Standard_D8a_v4,32.0
+128.00,8.0,AMD,AMD EPYC™ 7763,280.00,,,,Standard_D8ads_v5,32.0
+64.00,8.0,AMD,AMD EPYC™ 7452,155.00,,,,Standard_D8as_v4,32.0
+128.00,8.0,AMD,AMD EPYC™ 7763,280.00,,,,Standard_D8as_v5,32.0
+64.00,8.0,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL",270.00,,,,Standard_D8d_v4,32.0
+64.00,8.0,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL",270.00,,,,Standard_D8d_v4,32.0
+64.00,8.0,Intel,Intel® Xeon® Platinum 8370C,270.00,,,,Standard_D8d_v5,32.0
+64.00,8.0,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL",270.00,,,,Standard_D8ds_v4,32.0
+64.00,8.0,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL",270.00,,,,Standard_D8ds_v4,32.0
+64.00,8.0,Intel,Intel® Xeon® Platinum 8370C,270.00,,,,Standard_D8ds_v5,32.0
+64.00,8.0,Intel,Intel® Xeon® Platinum 8370C,270.00,,,,Standard_D8lds_v5,16.0
+64.00,8.0,Intel,Intel® Xeon® Platinum 8370C,270.00,,,,Standard_D8ls_v5,16.0
+128.00,4.0,Ampere,Ampere® Altra®,180.00,,,,Standard_D8pds_v5,16.0
+128.00,8.0,Ampere,Ampere® Altra®,180.00,,,,Standard_D8plds_v5,16.0
+128.00,8.0,Ampere,Ampere® Altra®,180.00,,,,Standard_D8pls_v5,16.0
+128.00,4.0,Ampere,Ampere® Altra®,180.00,,,,Standard_D8ps_v5,16.0
+64.00,8.0,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL,Intel® Xeon® 8171M 2.1 GHz,Intel® Xeon® E5-2673 v4 2.3 GHz,Intel® Xeon® E5-2673 v3 2.4 GHz",270.00,,,,Standard_D8s_v3,32.0
+64.00,8.0,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL",270.00,,,,Standard_D8s_v4,32.0
+64.00,8.0,Intel,Intel® Xeon® Platinum 8370C,270.00,,,,Standard_D8s_v5,32.0
+64.00,96.0,Intel,Intel® Xeon® Platinum 8370C,270.00,,,,Standard_D96_v5,384.0
+64.00,96.0,AMD,AMD EPYC™ 7452,155.00,,,,Standard_D96a_v4,384.0
+128.00,96.0,AMD,AMD EPYC™ 7763,280.00,,,,Standard_D96ads_v5,384.0
+64.00,96.0,AMD,AMD EPYC™ 7452,155.00,,,,Standard_D96as_v4,384.0
+128.00,96.0,AMD,AMD EPYC™ 7763,280.00,,,,Standard_D96as_v5,384.0
+64.00,96.0,Intel,Intel® Xeon® Platinum 8370C,270.00,,,,Standard_D96d_v5,384.0
+64.00,96.0,Intel,Intel® Xeon® Platinum 8370C,270.00,,,,Standard_D96ds_v5,384.0
+64.00,96.0,Intel,Intel® Xeon® Platinum 8370C,270.00,,,,Standard_D96lds_v5,192.0
+64.00,96.0,Intel,Intel® Xeon® Platinum 8370C,270.00,,,,Standard_D96ls_v5,192.0
+64.00,96.0,Intel,Intel® Xeon® Platinum 8370C,270.00,,,,Standard_D96s_v5,384.0
+128.00,16.0,AMD,AMD EPYC™ 7763,280.00,,,,Standard_DC16ads_v5,64.0
+128.00,16.0,AMD,AMD EPYC™ 7763,280.00,,,,Standard_DC16as_cc_v5,64.0
+128.00,16.0,AMD,AMD EPYC™ 7763,280.00,,,,Standard_DC16as_v5,64.0
+64.00,16.0,Intel,Intel® Xeon® Platinum 8370C,270.00,,,,Standard_DC16ds_v3,128.0
+64.00,16.0,Intel,Intel® Xeon® Platinum 8370C,270.00,,,,Standard_DC16s_v3,128.0
+64.00,1.0,Intel,Intel® Xeon® Platinum 8370C,270.00,,,,Standard_DC1ds_v3,8.0
+16.00,1.0,Intel,Intel® Xeon® E-2288G,95.00,,,,Standard_DC1s_v2,4.0
+64.00,1.0,Intel,Intel® Xeon® Platinum 8370C,270.00,,,,Standard_DC1s_v3,8.0
+64.00,24.0,Intel,Intel® Xeon® Platinum 8370C,270.00,,,,Standard_DC24ds_v3,192.0
+64.00,24.0,Intel,Intel® Xeon® Platinum 8370C,270.00,,,,Standard_DC24s_v3,192.0
+128.00,2.0,AMD,AMD EPYC™ 7763,280.00,,,,Standard_DC2ads_v5,8.0
+128.00,2.0,AMD,AMD EPYC™ 7763,280.00,,,,Standard_DC2as_v5,8.0
+64.00,2.0,Intel,Intel® Xeon® Platinum 8370C,270.00,,,,Standard_DC2ds_v3,16.0
+16.00,2.0,Intel,Intel® Xeon® E-2288G,95.00,,,,Standard_DC2s_v2,8.0
+64.00,2.0,Intel,Intel® Xeon® Platinum 8370C,270.00,,,,Standard_DC2s_v3,16.0
+128.00,32.0,AMD,AMD EPYC™ 7763,280.00,,,,Standard_DC32ads_v5,128.0
+128.00,32.0,AMD,AMD EPYC™ 7763,280.00,,,,Standard_DC32as_cc_v5,128.0
+128.00,32.0,AMD,AMD EPYC™ 7763,280.00,,,,Standard_DC32as_v5,128.0
+64.00,32.0,Intel,Intel® Xeon® Platinum 8370C,270.00,,,,Standard_DC32ds_v3,256.0
+64.00,32.0,Intel,Intel® Xeon® Platinum 8370C,270.00,,,,Standard_DC32s_v3,256.0
+128.00,48.0,AMD,AMD EPYC™ 7763,280.00,,,,Standard_DC48ads_v5,192.0
+128.00,48.0,AMD,AMD EPYC™ 7763,280.00,,,,Standard_DC48as_cc_v5,192.0
+128.00,48.0,AMD,AMD EPYC™ 7763,280.00,,,,Standard_DC48as_v5,192.0
+64.00,48.0,Intel,Intel® Xeon® Platinum 8370C,270.00,,,,Standard_DC48ds_v3,384.0
+64.00,48.0,Intel,Intel® Xeon® Platinum 8370C,270.00,,,,Standard_DC48s_v3,384.0
+128.00,4.0,AMD,AMD EPYC™ 7763,280.00,,,,Standard_DC4ads_v5,16.0
+128.00,4.0,AMD,AMD EPYC™ 7763,280.00,,,,Standard_DC4as_cc_v5,16.0
+128.00,4.0,AMD,AMD EPYC™ 7763,280.00,,,,Standard_DC4as_v5,16.0
+64.00,4.0,Intel,Intel® Xeon® Platinum 8370C,270.00,,,,Standard_DC4ds_v3,32.0
+16.00,4.0,Intel,Intel® Xeon® E-2288G,95.00,,,,Standard_DC4s_v2,16.0
+64.00,4.0,Intel,Intel® Xeon® Platinum 8370C,270.00,,,,Standard_DC4s_v3,32.0
+128.00,64.0,AMD,AMD EPYC™ 7763,280.00,,,,Standard_DC64ads_v5,256.0
+128.00,64.0,AMD,AMD EPYC™ 7763,280.00,,,,Standard_DC64as_cc_v5,256.0
+128.00,64.0,AMD,AMD EPYC™ 7763,280.00,,,,Standard_DC64as_v5,256.0
+16.00,8.0,Intel,Intel® Xeon® E-2288G,95.00,,,,Standard_DC8_v2,32.0
+128.00,8.0,AMD,AMD EPYC™ 7763,280.00,,,,Standard_DC8ads_v5,32.0
+128.00,8.0,AMD,AMD EPYC™ 7763,280.00,,,,Standard_DC8as_cc_v5,32.0
+128.00,8.0,AMD,AMD EPYC™ 7763,280.00,,,,Standard_DC8as_v5,32.0
+64.00,8.0,Intel,Intel® Xeon® Platinum 8370C,270.00,,,,Standard_DC8ds_v3,64.0
+64.00,8.0,Intel,Intel® Xeon® Platinum 8370C,270.00,,,,Standard_DC8s_v3,64.0
+128.00,96.0,AMD,AMD EPYC™ 7763,280.00,,,,Standard_DC96ads_v5,384.0
+128.00,96.0,AMD,AMD EPYC™ 7763,280.00,,,,Standard_DC96as_cc_v5,384.0
+128.00,96.0,AMD,AMD EPYC™ 7763,280.00,,,,Standard_DC96as_v5,384.0
+64.00,1.0,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL,Intel® Xeon® 8171M 2.1 GHz,Intel® Xeon® E5-2673 v4 2.3 GHz,Intel® Xeon® E5-2673 v3 2.4 GHz",270.00,,,,Standard_DS1_v2,3.5
+64.00,2.0,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL,Intel® Xeon® 8171M 2.1 GHz,Intel® Xeon® E5-2673 v4 2.3 GHz,Intel® Xeon® E5-2673 v3 2.4 GHz",270.00,,,,Standard_DS2_v2,7.0
+64.00,4.0,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL,Intel® Xeon® 8171M 2.1 GHz,Intel® Xeon® E5-2673 v4 2.3 GHz,Intel® Xeon® E5-2673 v3 2.4 GHz",270.00,,,,Standard_DS3_v2,14.0
+64.00,8.0,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL,Intel® Xeon® 8171M 2.1 GHz,Intel® Xeon® E5-2673 v4 2.3 GHz,Intel® Xeon® E5-2673 v3 2.4 GHz",270.00,,,,Standard_DS4_v2,28.0
+64.00,16.0,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL,Intel® Xeon® 8171M 2.1 GHz,Intel® Xeon® E5-2673 v4 2.3 GHz,Intel® Xeon® E5-2673 v3 2.4 GHz",270.00,,,,Standard_DS5_v2,56.0
+64.00,104,Intel,Intel® Xeon® Platinum 8370C,270.00,,,,Standard_E104i_v5,672.00
+64.00,104,Intel,Intel® Xeon® Platinum 8370C,270.00,,,,Standard_E104id_v5,672.00
+64.00,104,Intel,Intel® Xeon® Platinum 8370C,270.00,,,,Standard_E104is_v5,672.00
+128.00,112,AMD,AMD EPYC™ 7763,280.00,,,,Standard_E112iads_v53,672.00
+128.00,112,AMD,AMD EPYC™ 7763,280.00,,,,Standard_E112ias_v5,672.00
+52.00,96,Intel,Intel® Xeon® Platinum 8272CL,205.00,,,,Standard_E112ibs_v5,672.00
+64.00,16,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL,Intel® Xeon® 8171M 2.1 GHz,Intel® Xeon® E5-2673 v4 2.3 GHz",270.00,,,,Standard_E16_v3,128.00
+64.00,16,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL",270.00,,,,Standard_E16_v4,128.00
+64.00,16,Intel,Intel® Xeon® Platinum 8370C,270.00,,,,Standard_E16_v5,128.00
+128.00,16,AMD,"AMD EPYC™ 7452,AMD EPYC™ 7763",280.00,,,,Standard_E16a_v4,128.00
+128.00,16,AMD,AMD EPYC™ 7763,280.00,,,,Standard_E16ads_v52,128.00
+128.00,16,AMD,"AMD EPYC™ 7452,AMD EPYC™ 7763",280.00,,,,Standard_E16as_v4,128.00
+128.00,16,AMD,AMD EPYC™ 7763,280.00,,,,Standard_E16as_v5,128.00
+52.00,16,Intel,Intel® Xeon® Platinum 8272CL,205.00,,,,Standard_E16bs_v5,128.00
+52.00,16,Intel,Intel® Xeon® Platinum 8272CL,205.00,,,,Standard_E16bs_v5,128.00
+64.00,16,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL",270.00,,,,Standard_E16d_v4,128.00
+64.00,16,Intel,Intel® Xeon® Platinum 8370C,270.00,,,,Standard_E16d_v5,128.00
+64.00,16,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL",270.00,,,,Standard_E16ds_v4,128.00
+128.00,16,Ampere,Ampere® Altra®,180.00,,,,Standard_E16pds_v5,128.00
+128.00,16,Ampere,Ampere® Altra®,180.00,,,,Standard_E16ps_v5,128.00
+64.00,16,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL,Intel® Xeon® 8171M 2.1 GHz,Intel® Xeon® E5-2673 v4 2.3 GHz",270.00,,,,Standard_E16s_v3,128.00
+64.00,16,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL",270.00,,,,Standard_E16s_v4,128.00
+64.00,16,Intel,Intel® Xeon® Platinum 8370C,270.00,,,,Standard_E16s_v5,128.00
+64.00,2,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL,Intel® Xeon® 8171M 2.1 GHz,Intel® Xeon® E5-2673 v4 2.3 GHz",270.00,,,,Standard_E2_v3,16.00
+64.00,2,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL",270.00,,,,Standard_E2_v4,16.00
+64.00,2,Intel,Intel® Xeon® Platinum 8370C,270.00,,,,Standard_E2_v5,16.00
+64.00,20,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL,Intel® Xeon® 8171M 2.1 GHz,Intel® Xeon® E5-2673 v4 2.3 GHz",270.00,,,,Standard_E20_v3,160.00
+64.00,20,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL",270.00,,,,Standard_E20_v4,160.00
+64.00,20,Intel,Intel® Xeon® Platinum 8370C,270.00,,,,Standard_E20_v5,160.00
+128.00,20,AMD,"AMD EPYC™ 7452,AMD EPYC™ 7763",280.00,,,,Standard_E20a_v4,160.00
+128.00,20,AMD,AMD EPYC™ 7763,280.00,,,,Standard_E20ads_v5,160.00
+128.00,20,AMD,"AMD EPYC™ 7452,AMD EPYC™ 7763",280.00,,,,Standard_E20as_v4,160.00
+128.00,20,AMD,AMD EPYC™ 7763,280.00,,,,Standard_E20as_v5,160.00
+64.00,20,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL",270.00,,,,Standard_E20d_v4,160.00
+64.00,20,Intel,Intel® Xeon® Platinum 8370C,270.00,,,,Standard_E20d_v5,160.00
+64.00,20,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL",270.00,,,,Standard_E20ds_v4,160.00
+128.00,20,Ampere,Ampere® Altra®,180.00,,,,Standard_E20pds_v5,160.00
+128.00,20,Ampere,Ampere® Altra®,180.00,,,,Standard_E20ps_v5,160.00
+64.00,20,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL,Intel® Xeon® 8171M 2.1 GHz,Intel® Xeon® E5-2673 v4 2.3 GHz",270.00,,,,Standard_E20s_v3,160.00
+64.00,20,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL",270.00,,,,Standard_E20s_v4,160.00
+64.00,20,Intel,Intel® Xeon® Platinum 8370C,270.00,,,,Standard_E20s_v5,160.00
+128.00,2,AMD,"AMD EPYC™ 7452,AMD EPYC™ 7763",280.00,,,,Standard_E2a_v4,16.00
+128.00,2,AMD,AMD EPYC™ 7763,280.00,,,,Standard_E2ads_v5,16.00
+128.00,2,AMD,"AMD EPYC™ 7452,AMD EPYC™ 7763",280.00,,,,Standard_E2as_v4,16.00
+128.00,2,AMD,AMD EPYC™ 7763,280.00,,,,Standard_E2as_v5,16.00
+52.00,2,Intel,Intel® Xeon® Platinum 8272CL,205.00,,,,Standard_E2bs_v5,16.00
+52.00,2,Intel,Intel® Xeon® Platinum 8272CL,205.00,,,,Standard_E2bs_v5,16.00
+64.00,2,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL",270.00,,,,Standard_E2d_v4,16.00
+64.00,2,Intel,Intel® Xeon® Platinum 8370C,270.00,,,,Standard_E2d_v5,16.00
+64.00,2,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL",270.00,,,,Standard_E2ds_v4,16.00
+128.00,2,Ampere,Ampere® Altra®,180.00,,,,Standard_E2pds_v5,16.00
+128.00,2,Ampere,Ampere® Altra®,180.00,,,,Standard_E2ps_v5,16.00
+64.00,2,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL,Intel® Xeon® 8171M 2.1 GHz,Intel® Xeon® E5-2673 v4 2.3 GHz",270.00,,,,Standard_E2s_v3,16.00
+64.00,2,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL",270.00,,,,Standard_E2s_v4,16.00
+64.00,2,Intel,Intel® Xeon® Platinum 8370C,270.00,,,,Standard_E2s_v5,16.00
+64.00,32,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL,Intel® Xeon® 8171M 2.1 GHz,Intel® Xeon® E5-2673 v4 2.3 GHz",270.00,,,,Standard_E32_v3,256.00
+64.00,32,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL",270.00,,,,Standard_E32_v4,256.00
+64.00,32,Intel,Intel® Xeon® Platinum 8370C,270.00,,,,Standard_E32_v5,256.00
+128.00,32,AMD,"AMD EPYC™ 7452,AMD EPYC™ 7763",280.00,,,,Standard_E32a_v4,256.00
+128.00,32,AMD,AMD EPYC™ 7763,280.00,,,,Standard_E32ads_v52,256.00
+128.00,32,AMD,"AMD EPYC™ 7452,AMD EPYC™ 7763",280.00,,,,Standard_E32as_v4,256.00
+128.00,32,AMD,AMD EPYC™ 7763,280.00,,,,Standard_E32as_v5,256.00
+52.00,32,Intel,Intel® Xeon® Platinum 8272CL,205.00,,,,Standard_E32bs_v5,256.00
+52.00,20,Intel,Intel® Xeon® Platinum 8272CL,205.00,,,,Standard_E32bs_v5,160.00
+64.00,32,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL",270.00,,,,Standard_E32d_v4,256.00
+64.00,32,Intel,Intel® Xeon® Platinum 8370C,270.00,,,,Standard_E32d_v5,256.00
+64.00,32,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL",270.00,,,,Standard_E32ds_v4,256.00
+128.00,32,Ampere,Ampere® Altra®,180.00,,,,Standard_E32pds_v5,208.00
+128.00,32,Ampere,Ampere® Altra®,180.00,,,,Standard_E32ps_v5,208.00
+64.00,32,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL,Intel® Xeon® 8171M 2.1 GHz,Intel® Xeon® E5-2673 v4 2.3 GHz",270.00,,,,Standard_E32s_v3,256.00
+64.00,32,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL",270.00,,,,Standard_E32s_v4,256.00
+64.00,32,Intel,Intel® Xeon® Platinum 8370C,270.00,,,,Standard_E32s_v5,256.00
+64.00,4,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL,Intel® Xeon® 8171M 2.1 GHz,Intel® Xeon® E5-2673 v4 2.3 GHz",270.00,,,,Standard_E4_v3,32.00
+64.00,4,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL",270.00,,,,Standard_E4_v4,32.00
+64.00,4,Intel,Intel® Xeon® Platinum 8370C,270.00,,,,Standard_E4_v5,32.00
+64.00,48,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL,Intel® Xeon® 8171M 2.1 GHz,Intel® Xeon® E5-2673 v4 2.3 GHz",270.00,,,,Standard_E48_v3,384.00
+64.00,48,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL",270.00,,,,Standard_E48_v4,384.00
+64.00,48,Intel,Intel® Xeon® Platinum 8370C,270.00,,,,Standard_E48_v5,384.00
+128.00,48,AMD,"AMD EPYC™ 7452,AMD EPYC™ 7763",280.00,,,,Standard_E48a_v4,384.00
+128.00,48,AMD,AMD EPYC™ 7763,280.00,,,,Standard_E48ads_v5,384.00
+128.00,48,AMD,"AMD EPYC™ 7452,AMD EPYC™ 7763",280.00,,,,Standard_E48as_v4,384.00
+128.00,48,AMD,AMD EPYC™ 7763,280.00,,,,Standard_E48as_v5,384.00
+52.00,48,Intel,Intel® Xeon® Platinum 8272CL,205.00,,,,Standard_E48bs_v5,384.00
+52.00,32,Intel,Intel® Xeon® Platinum 8272CL,205.00,,,,Standard_E48bs_v5,256.00
+64.00,48,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL",270.00,,,,Standard_E48d_v4,384.00
+64.00,48,Intel,Intel® Xeon® Platinum 8370C,270.00,,,,Standard_E48d_v5,384.00
+64.00,48,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL",270.00,,,,Standard_E48ds_v4,384.00
+64.00,48,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL,Intel® Xeon® 8171M 2.1 GHz,Intel® Xeon® E5-2673 v4 2.3 GHz",270.00,,,,Standard_E48s_v3,384.00
+64.00,48,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL",270.00,,,,Standard_E48s_v4,384.00
+64.00,48,Intel,Intel® Xeon® Platinum 8370C,270.00,,,,Standard_E48s_v5,384.00
+128.00,4,AMD,"AMD EPYC™ 7452,AMD EPYC™ 7763",280.00,,,,Standard_E4a_v4,32.00
+128.00,4,AMD,AMD EPYC™ 7763,280.00,,,,Standard_E4ads_v52,32.00
+128.00,4,AMD,"AMD EPYC™ 7452,AMD EPYC™ 7763",280.00,,,,Standard_E4as_v4,32.00
+128.00,4,AMD,AMD EPYC™ 7763,280.00,,,,Standard_E4as_v5,32.00
+52.00,4,Intel,Intel® Xeon® Platinum 8272CL,205.00,,,,Standard_E4bs_v5,32.00
+52.00,4,Intel,Intel® Xeon® Platinum 8272CL,205.00,,,,Standard_E4bs_v5,32.00
+64.00,4,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL",270.00,,,,Standard_E4d_v4,32.00
+64.00,4,Intel,Intel® Xeon® Platinum 8370C,270.00,,,,Standard_E4d_v5,32.00
+64.00,4,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL",270.00,,,,Standard_E4ds_v4,32.00
+128.00,4,Ampere,Ampere® Altra®,180.00,,,,Standard_E4pds_v5,32.00
+128.00,4,Ampere,Ampere® Altra®,180.00,,,,Standard_E4ps_v5,32.00
+64.00,4,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL,Intel® Xeon® 8171M 2.1 GHz,Intel® Xeon® E5-2673 v4 2.3 GHz",270.00,,,,Standard_E4s_v3,32.00
+64.00,4,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL",270.00,,,,Standard_E4s_v4,32.00
+64.00,4,Intel,Intel® Xeon® Platinum 8370C,270.00,,,,Standard_E4s_v5,32.00
+64.00,64,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL,Intel® Xeon® 8171M 2.1 GHz,Intel® Xeon® E5-2673 v4 2.3 GHz",270.00,,,,Standard_E64_v3,432.00
+64.00,64,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL",270.00,,,,Standard_E64_v4,504.00
+64.00,64,Intel,Intel® Xeon® Platinum 8370C,270.00,,,,Standard_E64_v5,512.00
+128.00,64,AMD,"AMD EPYC™ 7452,AMD EPYC™ 7763",280.00,,,,Standard_E64a_v4,512.00
+128.00,64,AMD,AMD EPYC™ 7763,280.00,,,,Standard_E64ads_v52,512.00
+128.00,64,AMD,"AMD EPYC™ 7452,AMD EPYC™ 7763",280.00,,,,Standard_E64as_v4,512.00
+128.00,64,AMD,AMD EPYC™ 7763,280.00,,,,Standard_E64as_v5,512.00
+52.00,64,Intel,Intel® Xeon® Platinum 8272CL,205.00,,,,Standard_E64bs_v5,512.00
+52.00,48,Intel,Intel® Xeon® Platinum 8272CL,205.00,,,,Standard_E64bs_v5,384.00
+64.00,64,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL",270.00,,,,Standard_E64d_v4,504.00
+64.00,64,Intel,Intel® Xeon® Platinum 8370C,270.00,,,,Standard_E64d_v5,512.00
+64.00,64,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL",270.00,,,,Standard_E64ds_v4,504.00
+64.00,64,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL,Intel® Xeon® 8171M 2.1 GHz,Intel® Xeon® E5-2673 v4 2.3 GHz",270.00,,,,Standard_E64i_v3,432.00
+64.00,32.0,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL,Intel® Xeon® 8171M 2.1 GHz,Intel® Xeon® E5-2673 v4 2.3 GHz",270.00,,,,Standard_E64is_v3,432.00
+64.00,64,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL,Intel® Xeon® 8171M 2.1 GHz,Intel® Xeon® E5-2673 v4 2.3 GHz",270.00,,,,Standard_E64s_v3,432.00
+64.00,64,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL",270.00,,,,Standard_E64s_v4,504.00
+64.00,64,Intel,Intel® Xeon® Platinum 8370C,270.00,,,,Standard_E64s_v5,512.00
+64.00,8,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL,Intel® Xeon® 8171M 2.1 GHz,Intel® Xeon® E5-2673 v4 2.3 GHz",270.00,,,,Standard_E8_v3,64.00
+64.00,8,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL",270.00,,,,Standard_E8_v4,64.00
+64.00,8,Intel,Intel® Xeon® Platinum 8370C,270.00,,,,Standard_E8_v5,64.00
+64.00,80,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL",270.00,,,,Standard_E80ids_v4,504.00
+64.00,80,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL",270.00,,,,Standard_E80is_v4,504.00
+128.00,8,AMD,"AMD EPYC™ 7452,AMD EPYC™ 7763",280.00,,,,Standard_E8a_v4,64.00
+128.00,8,AMD,AMD EPYC™ 7763,280.00,,,,Standard_E8ads_v52,64.00
+128.00,8,AMD,"AMD EPYC™ 7452,AMD EPYC™ 7763",280.00,,,,Standard_E8as_v4,64.00
+128.00,8,AMD,AMD EPYC™ 7763,280.00,,,,Standard_E8as_v5,64.00
+52.00,8,Intel,Intel® Xeon® Platinum 8272CL,205.00,,,,Standard_E8bs_v5,64.00
+52.00,8,Intel,Intel® Xeon® Platinum 8272CL,205.00,,,,Standard_E8bs_v5,64.00
+64.00,8,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL",270.00,,,,Standard_E8d_v4,64.00
+64.00,8,Intel,Intel® Xeon® Platinum 8370C,270.00,,,,Standard_E8d_v5,64.00
+64.00,8,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL",270.00,,,,Standard_E8ds_v4,64.00
+128.00,8,Ampere,Ampere® Altra®,180.00,,,,Standard_E8pds_v5,64.00
+128.00,8,Ampere,Ampere® Altra®,180.00,,,,Standard_E8ps_v5,64.00
+64.00,8,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL,Intel® Xeon® 8171M 2.1 GHz,Intel® Xeon® E5-2673 v4 2.3 GHz",270.00,,,,Standard_E8s_v3,64.00
+64.00,8,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL",270.00,,,,Standard_E8s_v4,64.00
+64.00,8,Intel,Intel® Xeon® Platinum 8370C,270.00,,,,Standard_E8s_v5,64.00
+64.00,96,Intel,Intel® Xeon® Platinum 8370C,270.00,,,,Standard_E96_v5,672.00
+128.00,96,AMD,"AMD EPYC™ 7452,AMD EPYC™ 7763",280.00,,,,Standard_E96a_v4,672.00
+128.00,96,AMD,AMD EPYC™ 7763,280.00,,,,Standard_E96ads_v52,672.00
+128.00,96,AMD,"AMD EPYC™ 7452,AMD EPYC™ 7763",280.00,,,,Standard_E96as_v4,672.00
+128.00,96,AMD,AMD EPYC™ 7763,280.00,,,,Standard_E96as_v5,672.00
+52.00,96,Intel,Intel® Xeon® Platinum 8272CL,205.00,,,,Standard_E96bs_v5,672.00
+52.00,64,Intel,Intel® Xeon® Platinum 8272CL,205.00,,,,Standard_E96bs_v5,512.00
+64.00,96,Intel,Intel® Xeon® Platinum 8370C,270.00,,,,Standard_E96d_v5,672.00
+64.00,96,Intel,Intel® Xeon® Platinum 8370C,270.00,,,,Standard_E96s_v5,672.00
+128.00,16,AMD,AMD EPYC™ 7763,280.00,,,,Standard_EC16ads_cc_v5,128.00
+128.00,16,AMD,AMD EPYC™ 7763,280.00,,,,Standard_EC16ads_v5,128.00
+128.00,16,AMD,AMD EPYC™ 7763,280.00,,,,Standard_EC16as_cc_v5,128.00
+128.00,16,AMD,AMD EPYC™ 7763,280.00,,,,Standard_EC16as_v5,128.00
+128.00,20,AMD,AMD EPYC™ 7763,280.00,,,,Standard_EC20ads_cc_v5,160.00
+128.00,20,AMD,AMD EPYC™ 7763,280.00,,,,Standard_EC20ads_v5,160.00
+128.00,20,AMD,AMD EPYC™ 7763,280.00,,,,Standard_EC20as_cc_v5,160.00
+128.00,20,AMD,AMD EPYC™ 7763,280.00,,,,Standard_EC20as_v5,160.00
+128.00,2,AMD,AMD EPYC™ 7763,280.00,,,,Standard_EC2ads_v5,16.00
+128.00,2,AMD,AMD EPYC™ 7763,280.00,,,,Standard_EC2as_v5,16.00
+128.00,32,AMD,AMD EPYC™ 7763,280.00,,,,Standard_EC32ads_cc_v5,256.00
+128.00,32,AMD,AMD EPYC™ 7763,280.00,,,,Standard_EC32ads_v5,256.00
+128.00,32,AMD,AMD EPYC™ 7763,280.00,,,,Standard_EC32as_cc_v5,256.00
+128.00,32,AMD,AMD EPYC™ 7763,280.00,,,,Standard_EC32as_v5,256.00
+128.00,48,AMD,AMD EPYC™ 7763,280.00,,,,Standard_EC48ads_cc_v5,384.00
+128.00,48,AMD,AMD EPYC™ 7763,280.00,,,,Standard_EC48ads_v5,384.00
+128.00,48,AMD,AMD EPYC™ 7763,280.00,,,,Standard_EC48as_cc_v5,384.00
+128.00,48,AMD,AMD EPYC™ 7763,280.00,,,,Standard_EC48as_v5,384.00
+128.00,4,AMD,AMD EPYC™ 7763,280.00,,,,Standard_EC4ads_cc_v5,32.00
+128.00,4,AMD,AMD EPYC™ 7763,280.00,,,,Standard_EC4ads_v5,32.00
+128.00,4,AMD,AMD EPYC™ 7763,280.00,,,,Standard_EC4as_cc_v5,32.00
+128.00,4,AMD,AMD EPYC™ 7763,280.00,,,,Standard_EC4as_v5,32.00
+128.00,64,AMD,AMD EPYC™ 7763,280.00,,,,Standard_EC64ads_cc_v5,512.00
+128.00,64,AMD,AMD EPYC™ 7763,280.00,,,,Standard_EC64ads_v5,512.00
+128.00,64,AMD,AMD EPYC™ 7763,280.00,,,,Standard_EC64as_cc_v5,512.00
+128.00,64,AMD,AMD EPYC™ 7763,280.00,,,,Standard_EC64as_v5,512.00
+128.00,8,AMD,AMD EPYC™ 7763,280.00,,,,Standard_EC8ads_cc_v5,64.00
+128.00,8,AMD,AMD EPYC™ 7763,280.00,,,,Standard_EC8ads_v5,64.00
+128.00,8,AMD,AMD EPYC™ 7763,280.00,,,,Standard_EC8as_cc_v5,64.00
+128.00,8,AMD,AMD EPYC™ 7763,280.00,,,,Standard_EC8as_v5,64.00
+128.00,96,AMD,AMD EPYC™ 7763,280.00,,,,Standard_EC96ads_cc_v5,672.00
+128.00,96,AMD,AMD EPYC™ 7763,280.00,,,,Standard_EC96ads_v5,672.00
+128.00,96,AMD,AMD EPYC™ 7763,280.00,,,,Standard_EC96as_cc_v5,672.00
+128.00,96,AMD,AMD EPYC™ 7763,280.00,,,,Standard_EC96as_v5,672.00
+64.00,16.0,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL,Intel® Xeon® Platinum 8168",270.00,,,,Standard_F16s_v2,32.0
+64.00,2.0,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL,Intel® Xeon® Platinum 8168",270.00,,,,Standard_F2s_v2,4.0
+64.00,32.0,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL,Intel® Xeon® Platinum 8168",270.00,,,,Standard_F32s_v2,64.0
+64.00,48.0,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL,Intel® Xeon® Platinum 8168",270.00,,,,Standard_F48s_v2,96.0
+64.00,4.0,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL,Intel® Xeon® Platinum 8168",270.00,,,,Standard_F4s_v2,8.0
+64.00,64.0,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL,Intel® Xeon® Platinum 8168",270.00,,,,Standard_F64s_v2,128.0
+64.00,72.0,Intel,Intel® Xeon® Platinum 8370C,270.00,,,,Standard_F72s_v2,144.0
+64.00,8.0,Intel,"Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL,Intel® Xeon® Platinum 8168",270.00,,,,Standard_F8s_v2,16.0
+32.00,12.0,Intel,Intel® Xeon® Gold 6246R,205.00,,,,Standard_FX12mds,252.0
+32.00,24.0,Intel,Intel® Xeon® Gold 6246R,205.00,,,,Standard_FX24mds,504.0
+32.00,36.0,Intel,Intel® Xeon® Gold 6246R,205.00,,,,Standard_FX36mds,756.0
+32.00,48.0,Intel,Intel® Xeon® Gold 6246R,205.00,,,,Standard_FX48mds,1008.0
+32.00,4.0,Intel,Intel® Xeon® Gold 6246R,205.00,,,,Standard_FX4mds,84.0
+128.00,120,AMD,AMD EPYC™ 7V12,280.00,,,,Standard_HB120rs_v2,456.0
+128.00,120,AMD,AMD EPYC™ 7V73X,280.00,,,,Standard_HB120rs_v3,448.0
+96.00,176,AMD,AMD EPYC™ 9V33X,280.00,,,,Standard_HB176rs_v4,768.0
+64.00,60,AMD,AMD EPYC™ 7551,180.00,,,,Standard_HB60rs,228.0
+48.00,44,Intel,Intel® Xeon® Platinum 8168,205.00,,,,Standard_HC44rs,352.0
+96.00,176,AMD,AMD EPYC™ 9V33X,280.00,,,,Standard_HX176rs,1408.0
+128.00,16,AMD,AMD EPYC™ 7763,280.00,,,,Standard_L16as_v3,128.00
+64.00,16,AMD,AMD EPYC™ 7551,180.00,,,,Standard_L16s_v2,128.00
+64.00,16,Intel,Intel® Xeon® Platinum 8370C,270.00,,,,Standard_L16s_v3,128.00
+128.00,32,AMD,AMD EPYC™ 7763,280.00,,,,Standard_L32as_v3,256.00
+64.00,32,AMD,AMD EPYC™ 7551,180.00,,,,Standard_L32s_v2,256.00
+64.00,32,Intel,Intel® Xeon® Platinum 8370C,270.00,,,,Standard_L32s_v3,256.00
+128.00,48,AMD,AMD EPYC™ 7763,280.00,,,,Standard_L48as_v3,384.00
+64.00,48,AMD,AMD EPYC™ 7551,180.00,,,,Standard_L48s_v2,384.00
+64.00,48,Intel,Intel® Xeon® Platinum 8370C,270.00,,,,Standard_L48s_v3,384.00
+128.00,64,AMD,AMD EPYC™ 7763,280.00,,,,Standard_L64as_v3,512.00
+64.00,64,AMD,AMD EPYC™ 7551,180.00,,,,Standard_L64s_v2,512.00
+64.00,64,Intel,Intel® Xeon® Platinum 8370C,270.00,,,,Standard_L64s_v3,512.00
+128.00,80,AMD,AMD EPYC™ 7763,280.00,,,,Standard_L80as_v3,640.00
+64.00,80,AMD,AMD EPYC™ 7551,180.00,,,,Standard_L80s_v2,640.00
+64.00,80,Intel,Intel® Xeon® Platinum 8370C,270.00,,,,Standard_L80s_v3,640.00
+128.00,8,AMD,AMD EPYC™ 7763,280.00,,,,Standard_L8as_v3,64.00
+64.00,8,AMD,AMD EPYC™ 7551,180.00,,,,Standard_L8s_v2,64.00
+64.00,8,Intel,Intel® Xeon® Platinum 8370C,270.00,,,,Standard_L8s_v3,64.00
+56.00,128,Intel,"Intel® Xeon® Processor E7-8890 v3,Intel® Xeon® Platinum 8280",205.00,,,,Standard_M128,2048.00
+56.00,128,Intel,Intel® Xeon® Platinum 8280,205.00,,,,Standard_M128dms_v2,3892.00
+56.00,128,Intel,Intel® Xeon® Platinum 8280,205.00,,,,Standard_M128ds_v2,2048.00
+56.00,128,Intel,"Intel® Xeon® Processor E7-8890 v3,Intel® Xeon® Platinum 8280",205.00,,,,Standard_M128m,3892.00
+56.00,128,Intel,"Intel® Xeon® Processor E7-8890 v3,Intel® Xeon® Platinum 8280",205.00,,,,Standard_M128ms,3892.00
+56.00,128.00,Intel,Intel® Xeon® Platinum 8280,205.00,,,,Standard_M128ms_v2,3892.0
+56.00,128,Intel,"Intel® Xeon® Processor E7-8890 v3,Intel® Xeon® Platinum 8280",205.00,,,,Standard_M128s,2048.00
+56.00,128.00,Intel,Intel® Xeon® Platinum 8280,205.00,,,,Standard_M128s_v2,2048.0
+,12,Intel,Intel® Xeon® Scalable,270.00,,,,Standard_M12ds_v3,240.00
+,12,Intel,Intel® Xeon® Scalable,270.00,,,,Standard_M12s_v3,240.00
+56.00,16,Intel,"Intel® Xeon® Processor E7-8890 v3,Intel® Xeon® Platinum 8280",205.00,,,,Standard_M16ms,437.50
+,176,Intel,Intel® Xeon® Scalable,270.00,,,,Standard_M176ds_3_v3,2794.00
+,176,Intel,Intel® Xeon® Scalable,270.00,,,,Standard_M176s_3_v3,2794.00
+56.00,192,Intel,Intel® Xeon® Platinum 8280,205.00,,,,Standard_M192idms_v2,4096.00
+56.00,192,Intel,Intel® Xeon® Platinum 8280,205.00,,,,Standard_M192ids_v2,2048.00
+56.00,192.00,Intel,Intel® Xeon® Platinum 8280,205.00,,,,Standard_M192ims_v2,4096.0
+56.00,192.00,Intel,Intel® Xeon® Platinum 8280,205.00,,,,Standard_M192is_v2,2048.0
+56.00,208,Intel,Intel® Xeon® Platinum 8180M,205.00,,,,Standard_M208ms_v2,5700.00
+56.00,208,Intel,Intel® Xeon® Platinum 8180M,205.00,,,,Standard_M208s_v2,2850.00
+,24,Intel,Intel® Xeon® Scalable,270.00,,,,Standard_M24ds_v3,480.00
+,24,Intel,Intel® Xeon® Scalable,270.00,,,,Standard_M24s_v3,480.00
+56.00,32,Intel,Intel® Xeon® Platinum 8280,205.00,,,,Standard_M32dms_v2,875.00
+56.00,32,Intel,"Intel® Xeon® Processor E7-8890 v3,Intel® Xeon® Platinum 8280",205.00,,,,Standard_M32ls,256.00
+56.00,32,Intel,"Intel® Xeon® Processor E7-8890 v3,Intel® Xeon® Platinum 8280",205.00,,,,Standard_M32ms,875.00
+56.00,32.00,Intel,Intel® Xeon® Platinum 8280,205.00,,,,Standard_M32ms_v2,875.0
+56.00,32,Intel,"Intel® Xeon® Processor E7-8890 v3,Intel® Xeon® Platinum 8280",205.00,,,,Standard_M32ts,192.00
+56.00,416,Intel,Intel® Xeon® Platinum 8180M,205.00,,,,Standard_M416ms_v2,11400.00
+56.00,416,Intel,Intel® Xeon® Platinum 8180M,205.00,,,,Standard_M416s_8_v2,7600.00
+56.00,416,Intel,Intel® Xeon® Platinum 8180M,205.00,,,,Standard_M416s_v2,5700.00
+,48,Intel,Intel® Xeon® Scalable,270.00,,,,Standard_M48ds_1_v3,974.00
+,48,Intel,Intel® Xeon® Scalable,270.00,,,,Standard_M48s_1_v3,974.00
+56.00,64,Intel,"Intel® Xeon® Processor E7-8890 v3,Intel® Xeon® Platinum 8280",205.00,,,,Standard_M64,1024.00
+56.00,64,Intel,Intel® Xeon® Platinum 8280,205.00,,,,Standard_M64dms_v2,1792.00
+56.00,64,Intel,Intel® Xeon® Platinum 8280,205.00,,,,Standard_M64ds_v2,1024.00
+56.00,64,Intel,"Intel® Xeon® Processor E7-8890 v3,Intel® Xeon® Platinum 8280",205.00,,,,Standard_M64ls,512.00
+56.00,64,Intel,"Intel® Xeon® Processor E7-8890 v3,Intel® Xeon® Platinum 8280",205.00,,,,Standard_M64m,1792.00
+56.00,64,Intel,"Intel® Xeon® Processor E7-8890 v3,Intel® Xeon® Platinum 8280",205.00,,,,Standard_M64ms,1792.00
+56.00,64.00,Intel,Intel® Xeon® Platinum 8280,205.00,,,,Standard_M64ms_v2,1792.0
+56.00,64,Intel,"Intel® Xeon® Processor E7-8890 v3,Intel® Xeon® Platinum 8280",205.00,,,,Standard_M64s,1024.00
+56.00,64.00,Intel,Intel® Xeon® Platinum 8280,205.00,,,,Standard_M64s_v2,1024.0
+56.00,8,Intel,"Intel® Xeon® Processor E7-8890 v3,Intel® Xeon® Platinum 8280",205.00,,,,Standard_M8ms,218.75
+,96,Intel,Intel® Xeon® Scalable,270.00,,,,Standard_M96ds_1_v3,974.00
+,96,Intel,Intel® Xeon® Scalable,270.00,,,,Standard_M96ds_2_v3,1946.00
+,96,Intel,Intel® Xeon® Scalable,270.00,,,,Standard_M96s_1_v3,974.00
+,96,Intel,Intel® Xeon® Scalable,270.00,,,,Standard_M96s_2_v3,1946.00
+24.00,12,Intel,Intel® Xeon® E5-2690 v3,135.00,2,NVIDIA Tesla K80,,Standard_NC12,112.00
+28.00,12,Intel,Intel® Xeon® E5-2690 v4,135.00,2,NVIDIA Tesla P100,,Standard_NC12s_v2,224.00
+28.00,12,Intel,Intel® Xeon® E5-2690 v4,135.00,,NVIDIA Tesla V100,,Standard_NC12s_v3,224.00
+128.00,16,AMD,AMD EPYC™ 7V12,280.00,1,NVIDIA Tesla T4,,Standard_NC16as_T4_v3,110.00
+24.00,24,Intel,Intel® Xeon® E5-2690 v3,135.00,4,NVIDIA Tesla K80,,Standard_NC24,224.00
+128.00,24,AMD,AMD EPYC™ 7V13,240.00,1,NVIDIA A100,,Standard_NC24ads_A100_v4,220.00
+24.00,24,Intel,Intel® Xeon® E5-2690 v3,135.00,4,NVIDIA Tesla K80,,Standard_NC24r,224.00
+28.00,24,Intel,Intel® Xeon® E5-2690 v4,135.00,4,NVIDIA Tesla P100,,Standard_NC24rs_v2,448.00
+28.00,24,Intel,Intel® Xeon® E5-2690 v4,135.00,,NVIDIA Tesla V100,,Standard_NC24rs_v3,448.00
+28.00,24,Intel,Intel® Xeon® E5-2690 v4,135.00,4,NVIDIA Tesla P100,,Standard_NC24s_v2,448.00
+28.00,24,Intel,Intel® Xeon® E5-2690 v4,135.00,,NVIDIA Tesla V100,,Standard_NC24s_v3,448.00
+128.00,48,AMD,AMD EPYC™ 7V13,240.00,2,NVIDIA A100,,Standard_NC48ads_A100_v4,440.00
+128.00,4,AMD,AMD EPYC™ 7V12,280.00,1,NVIDIA Tesla T4,,Standard_NC4as_T4_v3,28.00
+24.00,6,Intel,Intel® Xeon® E5-2690 v3,135.00,1,NVIDIA Tesla K80,,Standard_NC6,56.00
+128.00,64,AMD,AMD EPYC™ 7V12,280.00,4,NVIDIA Tesla T4,,Standard_NC64as_T4_v3,440.00
+28.00,6,Intel,Intel® Xeon® E5-2690 v4,135.00,1,NVIDIA Tesla P100,,Standard_NC6s_v2,112.00
+28.00,6,Intel,Intel® Xeon® E5-2690 v4,135.00,,NVIDIA Tesla V100,,Standard_NC6s_v3,112.00
+128.00,8,AMD,AMD EPYC™ 7V12,280.00,1,NVIDIA Tesla T4,,Standard_NC8as_T4_v3,56.00
+128.00,96,AMD,AMD EPYC™ 7V13,240.00,4,NVIDIA A100,,Standard_NC96ads_A100_v4,880.00
+28.00,12,Intel,Intel® Xeon® E5-2690 v4,135.00,2.0,NVIDIA Tesla P40,,Standard_ND12s,224.00
+28.00,24,Intel,Intel® Xeon® E5-2690 v4,135.00,4.0,NVIDIA Tesla P40,,Standard_ND24rs,448.00
+28.00,24,Intel,Intel® Xeon® E5-2690 v4,135.00,4.0,NVIDIA Tesla P40,,Standard_ND24s,448.00
+48.00,80,Intel,Intel® Xeon® Platinum 8168,205.00,,,,Standard_ND40rs_v2,672.00
+28.00,6,Intel,Intel® Xeon® E5-2690 v4,135.00,1.0,NVIDIA Tesla P40,,Standard_ND6s,112.00
+128.00,96,AMD,AMD EPYC™ 7V12,280.00,,,,Standard_ND96amsr_A100_v4,1900.00
+128.00,96,AMD,AMD EPYC™ 7V12,280.00,8,NVIDIA Ampere A100,,Standard_ND96asr_v4,900.00
+,96,Intel,NO DATA: https://learn.microsoft.com/en-us/azure/virtual-machines/nd-h100-v5-series,270.00,,,,Standard_ND96isr_v5,1900.00
+128.00,16,AMD,AMD EPYC™ 7763,280.00,0.5,AMD Radeon(tm) PRO V620,,Standard_NG16ads_V620_v1,32.00
+128.00,32,AMD,AMD EPYC™ 7763,280.00,1,AMD Radeon(tm) PRO V620,,Standard_NG32adms_V620_v1,176.00
+128.00,32,AMD,AMD EPYC™ 7763,280.00,1,AMD Radeon(tm) PRO V620,,Standard_NG32ads_V620_v1,64.00
+128.00,8,AMD,AMD EPYC™ 7763,280.00,0.25,AMD Radeon(tm) PRO V620,,Standard_NG8ads_V620_v1,16.00
+52.00,10,Intel,Intel® Xeon® 8171M,165.00,1,Xilinx U250,,Standard_NP10s,168.00
+52.00,20,Intel,Intel® Xeon® 8171M,165.00,2,Xilinx U250,,Standard_NP20s,336.00
+52.00,40,Intel,Intel® Xeon® 8171M,165.00,4,Xilinx U250,,Standard_NP40s,672.00
+24.00,12,Intel,Intel® Xeon® E5-2690 v3,135.00,2,NVIDA Tesla M60,,Standard_NV12,112.00
+48.00,12,AMD,AMD EPYC™ 74F3V,240.00,0.3333333333,NVIDIA A10,,Standard_NV12ads_A10_v5,110.00
+28.00,12,Intel,Intel® Xeon® E5-2690 v4,135.00,1,NVIDA Tesla M60,,Standard_NV12s_v3,112.00
+128.00,16,AMD,AMD EPYC™ 7V12,280.00,0.5,AMD Radeon Instinct MI25,,Standard_NV16as_v4,56.00
+48.00,18,AMD,AMD EPYC™ 74F3V,240.00,0.5,NVIDIA A10,,Standard_NV18ads_A10_v5,220.00
+24.00,24,Intel,Intel® Xeon® E5-2690 v3,135.00,4,NVIDA Tesla M60,,Standard_NV24,224.00
+28.00,24,Intel,Intel® Xeon® E5-2690 v4,135.00,2,NVIDA Tesla M60,,Standard_NV24s_v3,224.00
+128.00,32,AMD,AMD EPYC™ 7V12,280.00,1,AMD Radeon Instinct MI25,,Standard_NV32as_v4,112.00
+48.00,36,AMD,AMD EPYC™ 74F3V,240.00,1,NVIDIA A10,,Standard_NV36adms_A10_v5,880.00
+48.00,36,AMD,AMD EPYC™ 74F3V,240.00,1,NVIDIA A10,,Standard_NV36ads_A10_v5,440.00
+28.00,48,Intel,Intel® Xeon® E5-2690 v4,135.00,4,NVIDA Tesla M60,,Standard_NV48s_v3,448.00
+128.00,4,AMD,AMD EPYC™ 7V12,280.00,0.125,AMD Radeon Instinct MI25,,Standard_NV4as_v4,14.00
+24.00,6,Intel,Intel® Xeon® E5-2690 v3,135.00,1,NVIDA Tesla M60,,Standard_NV6,56.00
+48.00,6,AMD,AMD EPYC™ 74F3V,240.00,0.1666666667,NVIDIA A10,,Standard_NV6ads_A10_v5,55.00
+48.00,72,AMD,AMD EPYC™ 74F3V,240.00,2,NVIDIA A10,,Standard_NV72ads_A10_v5,880.00
+128.00,8,AMD,AMD EPYC™ 7V12,280.00,0.25,AMD Radeon Instinct MI25,,Standard_NV8as_v4,28.00
