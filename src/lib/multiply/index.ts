@@ -39,7 +39,10 @@ export const Multiply = (globalConfig: MultiplyConfig): PluginInterface => {
     inputParameters: string[]
   ) => {
     inputParameters.forEach(metricToMultiply => {
-      if (input[metricToMultiply] === undefined) {
+      if (
+        input[metricToMultiply] === undefined ||
+        isNaN(input[metricToMultiply])
+      ) {
         throw new InputValidationError(
           errorBuilder({
             message: `${metricToMultiply} is missing from the input array`,
