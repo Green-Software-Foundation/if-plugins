@@ -145,7 +145,7 @@ export const MockObservations = (
     generatorToHistory: Map<Generator, number[]>
   ): PluginParams => {
     const {duration, component, timeBucket, generators} = observationParams;
-    const timestamp = timeBucket.format('YYYY-MM-DD HH:mm:ss');
+    const timestamp = timeBucket.format('YYYY-MM-DDTHH:mm:ss:SSS[Z]');
 
     const generateObservation = (generator: Generator) => {
       const history = generatorToHistory.get(generator) || [];
