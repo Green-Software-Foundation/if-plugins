@@ -1,4 +1,6 @@
 import * as dayjs from 'dayjs';
+import * as utc from 'dayjs/plugin/utc';
+import * as timezone from 'dayjs/plugin/timezone';
 
 import {buildErrorMessage} from '../../util/helpers';
 import {ERRORS} from '../../util/errors';
@@ -10,6 +12,9 @@ import {CommonGenerator} from './helpers/common-generator';
 import {RandIntGenerator} from './helpers/rand-int-generator';
 import {Generator} from './interfaces/index';
 import {ObservationParams} from './types';
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 const {InputValidationError} = ERRORS;
 
@@ -55,11 +60,13 @@ export const MockObservations = (
    * Configures the MockObservations Plugin for IF
    */
   const generateParamsFromConfig = async () => {
-    const timestampFrom: dayjs.Dayjs = dayjs(
-      <string>getValidatedParam('timestamp-from', globalConfig)
+    const timestampFrom = dayjs.tz(
+      <string>getValidatedParam('timestamp-from', globalConfig),
+      'UTC'
     );
-    const timestampTo: dayjs.Dayjs = dayjs(
-      <string>getValidatedParam('timestamp-to', globalConfig)
+    const timestampTo = dayjs.tz(
+      <string>getValidatedParam('timestamp-to', globalConfig),
+      'UTC'
     );
     const duration = <number>getValidatedParam('duration', globalConfig);
 
@@ -145,7 +152,7 @@ export const MockObservations = (
     generatorToHistory: Map<Generator, number[]>
   ): PluginParams => {
     const {duration, component, timeBucket, generators} = observationParams;
-    const timestamp = timeBucket.format('YYYY-MM-DDTHH:mm:ss:SSS[Z]');
+    const timestamp = timeBucket.toISOString();
 
     const generateObservation = (generator: Generator) => {
       const history = generatorToHistory.get(generator) || [];
