@@ -27,10 +27,9 @@ export const MockObservations = (
   };
 
   /**
-   * Generate sets of mocked observations based on config
-   * @param {Object[]} _inputs required per convention, ignored (does not effect the generated mocked observations)
+   * Generate sets of mocked observations based on config.
    */
-  const execute = async (_inputs: PluginParams[]) => {
+  const execute = async (inputs: PluginParams[]) => {
     const {duration, timeBuckets, components, generators} =
       await generateParamsFromConfig();
     const generatorToHistory = new Map<Generator, number[]>();
@@ -38,6 +37,8 @@ export const MockObservations = (
     generators.forEach(generator => {
       generatorToHistory.set(generator, []);
     });
+
+    const defaults = inputs && inputs[0];
 
     return Object.entries(components).reduce(
       (acc: PluginParams[], [_key, component]) => {
@@ -47,7 +48,7 @@ export const MockObservations = (
             generatorToHistory
           );
 
-          acc.push(observation);
+          acc.push(Object.assign(observation, defaults));
         });
 
         return acc;
