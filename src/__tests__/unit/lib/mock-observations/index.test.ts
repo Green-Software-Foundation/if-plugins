@@ -66,13 +66,6 @@ describe('lib/mock-observations: ', () => {
         {
           'common-key': 'common-val',
           duration: 30,
-          'instance-type': 'A1',
-          region: 'uk-west',
-          timestamp: '2023-07-06T00:01:00.000Z',
-        },
-        {
-          'common-key': 'common-val',
-          duration: 30,
           'instance-type': 'B1',
           region: 'uk-west',
           timestamp: '2023-07-06T00:00:00.000Z',
@@ -83,13 +76,6 @@ describe('lib/mock-observations: ', () => {
           'instance-type': 'B1',
           region: 'uk-west',
           timestamp: '2023-07-06T00:00:30.000Z',
-        },
-        {
-          'common-key': 'common-val',
-          duration: 30,
-          'instance-type': 'B1',
-          region: 'uk-west',
-          timestamp: '2023-07-06T00:01:00.000Z',
         },
       ]);
     });
