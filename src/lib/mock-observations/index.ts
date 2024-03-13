@@ -108,7 +108,7 @@ export const MockObservations = (
   ): dayjs.Dayjs[] => {
     if (
       timestampFrom.isBefore(timestampTo) ||
-      timestampFrom.isSame(timestampTo, 'second')
+      timestampFrom.add(duration, 'second').isBefore(timestampTo)
     ) {
       return createTimeBuckets(
         timestampFrom.add(duration, 'second'),
