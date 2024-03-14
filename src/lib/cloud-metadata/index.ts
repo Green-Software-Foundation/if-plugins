@@ -163,10 +163,7 @@ export const CloudMetadata = (): PluginInterface => {
         if (instanceType.includes('-')) {
           const [instanceFamily, instanceSize] = instanceType.split('-');
           const sizeNumberIndex = instanceSize.search(/\D/);
-          const instanceSizeNumber =
-            sizeNumberIndex !== -1
-              ? instanceSize.slice(sizeNumberIndex)
-              : instanceSize;
+          const instanceSizeNumber = instanceSize.slice(sizeNumberIndex);
 
           instanceType = `${instanceFamily}${instanceSizeNumber}`;
         }
