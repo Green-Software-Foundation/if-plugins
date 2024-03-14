@@ -191,6 +191,37 @@ describe('lib/sci-m:', () => {
         ]);
       });
 
+      it('throws an error when `device/emissions-embodied` is string.', async () => {
+        const errorMessage =
+          '"device/emissions-embodied" parameter is not a valid number in input. please provide it as `gco2e`. Error code: invalid_union.';
+        const inputs = [
+          {
+            timestamp: '2021-01-01T00:00:00Z',
+            duration: 60 * 60 * 24 * 30,
+            'device/emissions-embodied': '10,00',
+            'device/expected-lifespan': 60 * 60 * 24 * 365 * 4,
+            'resources-reserved': 1,
+            'resources-total': 1,
+          },
+          {
+            timestamp: '2021-01-01T00:00:00Z',
+            duration: 60 * 60 * 24 * 30 * 2,
+            'device/emissions-embodied': 200,
+            'device/expected-lifespan': 60 * 60 * 24 * 365 * 4,
+            'resources-reserved': 1,
+            'resources-total': 1,
+          },
+        ];
+
+        expect.assertions(2);
+        try {
+          await sciM.execute(inputs);
+        } catch (error) {
+          expect(error).toStrictEqual(new InputValidationError(errorMessage));
+          expect(error).toBeInstanceOf(InputValidationError);
+        }
+      });
+
       it('throws an exception on missing `device/emissions-embodied`.', async () => {
         const errorMessage =
           '"device/emissions-embodied" parameter is required. Error code: invalid_union.';
@@ -239,7 +270,7 @@ describe('lib/sci-m:', () => {
 
       it('throws an exception on invalid values.', async () => {
         const errorMessage =
-          '"device/emissions-embodied" parameter is expected number, received string. Error code: invalid_union.';
+          '"device/emissions-embodied" parameter is not a valid number in input. please provide it as `gco2e`. Error code: invalid_union.';
         const inputs = [
           {
             timestamp: '2021-01-01T00:00:00Z',
