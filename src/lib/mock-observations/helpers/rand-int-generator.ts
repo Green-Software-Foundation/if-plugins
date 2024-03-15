@@ -13,11 +13,9 @@ export const RandIntGenerator = (
 ): Generator => {
   const errorBuilder = buildErrorMessage(RandIntGenerator.name);
 
-  const next = (_historical: Object[] | undefined): Object =>
-    (validatedName && {
-      [validatedName]: generateRandInt(getFieldToPopulate()),
-    }) ||
-    {};
+  const next = (_historical: Object[] | undefined) => ({
+    [validatedName]: generateRandInt(getFieldToPopulate()),
+  });
 
   const validateName = (name: string | null): string => {
     if (!name || name.trim() === '') {
