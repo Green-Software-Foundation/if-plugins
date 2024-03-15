@@ -33,6 +33,8 @@ describe('lib/mock-observations/CommonGenerator: ', () => {
       };
       const commonGenerator = CommonGenerator(config);
 
+      expect.assertions(1);
+
       expect(commonGenerator.next([])).toStrictEqual({
         key1: 'value1',
         key2: 'value2',
