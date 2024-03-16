@@ -1,6 +1,6 @@
 # Shell Plugin
 
-The `shell` is a wrapper enabling plugins implemented in any other programming language to be executed as a part of IF pipeline. For example, you might have a standalone plugin written in Python. `shell` spawns a subprocess to execute that Python plugin in a dedicated shell and pipes the results back into IF's Typescript process.
+`ShellExecPlugin` is a wrapper enabling plugins implemented in any other programming language to be executed as a part of IF pipeline. For example, you might have a standalone plugin written in Python. `ShellExecPlugin` spawns a subprocess to execute that Python plugin in a dedicated shell and pipes the results back into IF's Typescript process.
 
 ## Parameters
 
@@ -8,7 +8,7 @@ The `shell` is a wrapper enabling plugins implemented in any other programming l
 
 The plugin should be initialized as follows:
 
-The shell plugin interface requires a path to the plugin command. This path is provided in the plugin configuration with the name command. The path should be appended by the execution command, for example if the executable is a binary, the path would be prepended with ./ on a Linux system. If the plugin is intended to be run as Python, you can prepend python.
+The shell exec plugin interface requires a path to the plugin command. This path is provided in the plugin configuration with the name command. The path should be appended by the execution command, for example if the executable is a binary, the path would be prepended with ./ on a Linux system. If the plugin is intended to be run as Python, you can prepend python.
 
 - `command`: the path to the plugin executable along with the execution command as it would be entered into a shell.
 
@@ -25,11 +25,11 @@ The specific return types depend on the plugin being invoked. Typically, we woul
 
 ## Implementation
 
-To run the plugin, you must first create an instance of `Shell` and call its `execute()` to run the external plugin.
+To run the plugin, you must first create an instance of `ShellExecPlugin` and call its `execute()` to run the external plugin.
 
 ```typescript
-import {Shell} from '@grnsft/if-plugins';
-const output = Shell({command: '/usr/local/bin/sampler'});
+import {ShellExecPlugin} from '@grnsft/if-plugins';
+const output = ShellExecPlugin({command: '/usr/local/bin/sampler'});
 const result = await output.execute([
   {
     timestamp: '2021-01-01T00:00:00Z',
@@ -42,7 +42,7 @@ const result = await output.execute([
 
 ## Considerations
 
-The `shell` is designed to run arbitrary external plugins. This means IF does not necessarily know what calculations are being executed in the external plugin. There is no struct requirement on the return type, as this depends upon the calculations and the position of the external plugin in a plugin pipeline. For example, one external plugin might carry out the entire end-to-end SCI calculation, taking in usage inputs and returning `sci`. In this case, the plugin is expected to return `sci` and it would be the only plugin invoked in the `manifest`.
+The `ShellExecPlugin` is designed to run arbitrary external plugins. This means IF does not necessarily know what calculations are being executed in the external plugin. There is no struct requirement on the return type, as this depends upon the calculations and the position of the external plugin in a plugin pipeline. For example, one external plugin might carry out the entire end-to-end SCI calculation, taking in usage inputs and returning `sci`. In this case, the plugin is expected to return `sci` and it would be the only plugin invoked in the `manifest`.
 
 However, it is also entirely possible to have external plugins that only deliver some small part of the overall SCI calculation, and rely on IF builtin plugins to do the rest. For example, perhaps there is a proprietary plugin that a user wishes to use as a drop-in replacement for the Teads TDP plugin. In this case, the plugin would take usage inputs as inputs and would need to return some or all of `cpu/energy`, `network/energy`, and `memory/energy`. These would then be passed to the `sci-e` plugin to return `energy`, then `sci-o` to return `carbon-embodied`.
 
@@ -50,7 +50,7 @@ Since the design space for external plugins is so large, it is up to external pl
 
 ## Example manifest
 
-IF users will typically call the shell plugin as part of a pipeline defined in a `manifest` file. In this case, instantiating and configuring the plugin is handled by and does not have to be done explicitly by the user. The following is an example `manifest` that calls an external plugin via `shell`. It assumes the plugin takes `cpu/energy` and `memory/energy` as inputs and returns `energy`:
+IF users will typically call shell exec plugin as part of a pipeline defined in a `manifest` file. In this case, instantiating and configuring the plugin is handled by and does not have to be done explicitly by the user. The following is an example `manifest` that calls an external plugin via `shell`. It assumes the plugin takes `cpu/energy` and `memory/energy` as inputs and returns `energy`:
 
 ```yaml
 name: shell-demo
@@ -59,7 +59,7 @@ tags:
 initialize:
   plugins:
     sampler:
-      method: Shell
+      method: ShellExecPlugin
       path: '@grnsft/if-plugins'
       global-config:
         command: python3 /usr/local/bin/sampler
@@ -85,7 +85,7 @@ tags:
 initialize:
   plugins:
     sampler:
-      method: Shell
+      method: ShellExecPlugin
       path: '@grnsft/if-plugins'
       global-config:
         command: python3 /usr/local/bin/sampler

@@ -15,7 +15,7 @@
 - [SCI-E](./src/lib/sci-e/README.md)
 - [SCI-M](./src/lib/sci-m/README.md)
 - [SCI-O](./src/lib/sci-o/README.md)
-- [Shell](./src/lib/shell/README.md)
+- [Shell](src/lib/shell-exec-plugin/README.md)
 - [Sum](./src/lib/sum/README.md)
 - [TDP Finder](./src/lib/tdp-finder/README.md)
 

@@ -10,19 +10,20 @@ import {ERRORS} from '../../util/errors';
 
 const {InputValidationError} = ERRORS;
 
-export const Shell = (globalConfig: ConfigParams): PluginInterface => {
+export const ShellExecPlugin = (
+  globalConfig: ConfigParams
+): PluginInterface => {
   const metadata = {
     kind: 'execute',
   };
 
   /**
-   * Calculate the total emissions for a list of inputs.
+   * Run the external plugin for inputs.
    */
   const execute = async (inputs: PluginParams[]): Promise<any[]> => {
-    const inputWithConfig = Object.assign({}, inputs[0], validateConfig());
-    const command = inputWithConfig.command;
+    const {command} = validateConfig();
     const inputAsString: string = dump(inputs, {indent: 2});
-    const results = runModelInShell(inputAsString, command);
+    const results = runPluginInShell(inputAsString, command);
 
     return results.outputs;
   };
@@ -39,11 +40,11 @@ export const Shell = (globalConfig: ConfigParams): PluginInterface => {
   };
 
   /**
-   * Runs the model in a shell. Spawns a child process to run an external IMP,
+   * Runs the plugin in a shell. Spawns a child process to run an external IMP,
    * an executable with a CLI exposing two methods: `--execute` and `--manifest`.
    * The shell command then calls the `--command` method passing var manifest as the path to the desired manifest file.
    */
-  const runModelInShell = (input: string, command: string) => {
+  const runPluginInShell = (input: string, command: string) => {
     try {
       const [executable, ...args] = command.split(' ');
 

@@ -1,14 +1,14 @@
 import {spawnSync} from 'child_process';
 import {loadAll} from 'js-yaml';
 
-import {Shell} from '../../../../lib';
+import {ShellExecPlugin} from '../../../../lib';
 
 jest.mock('child_process');
 jest.mock('js-yaml');
 
 describe('lib/shell', () => {
   describe('Shell', () => {
-    const shell = Shell({});
+    const shell = ShellExecPlugin({});
 
     describe('init: ', () => {
       it('successfully initalized.', () => {
@@ -19,7 +19,7 @@ describe('lib/shell', () => {
 
     describe('execute(): ', () => {
       it('execute with valid inputs and command', async () => {
-        const shell = Shell({command: 'python3 /path/to/script.py'});
+        const shell = ShellExecPlugin({command: 'python3 /path/to/script.py'});
         const mockSpawnSync = spawnSync as jest.MockedFunction<
           typeof spawnSync
         >;
