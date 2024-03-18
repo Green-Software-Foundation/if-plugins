@@ -14,7 +14,7 @@ describe('lib/mock-observations/CommonGenerator: ', () => {
       expect.assertions(1);
 
       try {
-        expect(commonGenerator.next([]));
+        commonGenerator.next([]);
       } catch (error) {
         expect(error).toEqual(
           new InputValidationError(
