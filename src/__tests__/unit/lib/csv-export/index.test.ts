@@ -151,7 +151,7 @@ describe('lib/csv-export: ', () => {
       } catch (error) {
         expect(error).toBeInstanceOf(InputValidationError);
         expect(error).toEqual(
-          new InputValidationError(`CsvExport: Configuration data is missing.`)
+          new InputValidationError('CsvExport: Configuration data is missing.')
         );
       }
     });
