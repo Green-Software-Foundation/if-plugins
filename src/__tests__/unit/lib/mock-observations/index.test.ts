@@ -41,6 +41,7 @@ describe('lib/mock-observations: ', () => {
             region: 'uk-west',
             'common-key': 'common-val',
           },
+          randint: {},
         },
       };
       const mockObservations = MockObservations(config);
@@ -97,7 +98,7 @@ describe('lib/mock-observations: ', () => {
         expect(error).toBeInstanceOf(InputValidationError);
         expect(error).toEqual(
           new InputValidationError(
-            'MockObservations: generators missing from global config.'
+            '"generators" parameter is required. Error code: invalid_type.'
           )
         );
       }
@@ -129,7 +130,7 @@ describe('lib/mock-observations: ', () => {
         expect(error).toBeInstanceOf(InputValidationError);
         expect(error).toEqual(
           new InputValidationError(
-            'MockObservations: components missing from global config.'
+            '"components" parameter is required. Error code: invalid_type.'
           )
         );
       }
@@ -159,7 +160,7 @@ describe('lib/mock-observations: ', () => {
         expect(error).toBeInstanceOf(InputValidationError);
         expect(error).toEqual(
           new InputValidationError(
-            'MockObservations: duration missing from global config.'
+            '"duration" parameter is required. Error code: invalid_type.'
           )
         );
       }
@@ -189,7 +190,7 @@ describe('lib/mock-observations: ', () => {
         expect(error).toBeInstanceOf(InputValidationError);
         expect(error).toEqual(
           new InputValidationError(
-            'MockObservations: timestamp-to missing from global config.'
+            '"timestamp-to" parameter is required. Error code: invalid_type.'
           )
         );
       }
@@ -219,7 +220,7 @@ describe('lib/mock-observations: ', () => {
         expect(error).toBeInstanceOf(InputValidationError);
         expect(error).toEqual(
           new InputValidationError(
-            'MockObservations: timestamp-from missing from global config.'
+            '"timestamp-from" parameter is required. Error code: invalid_type.'
           )
         );
       }
