@@ -8,9 +8,13 @@ const {InputValidationError} = ERRORS;
 
 describe('lib/mock-observations/CommonGenerator: ', () => {
   describe('initialize: ', () => {
-    it('initialize with an empty config.', async () => {
+    it('throws an error when config is not empty object.', async () => {
+      const commonGenerator = CommonGenerator({});
+
+      expect.assertions(1);
+
       try {
-        CommonGenerator({});
+        commonGenerator.next([]);
       } catch (error) {
         expect(error).toEqual(
           new InputValidationError(
@@ -28,6 +32,8 @@ describe('lib/mock-observations/CommonGenerator: ', () => {
         key2: 'value2',
       };
       const commonGenerator = CommonGenerator(config);
+
+      expect.assertions(1);
 
       expect(commonGenerator.next([])).toStrictEqual({
         key1: 'value1',

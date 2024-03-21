@@ -5,7 +5,7 @@ import {CsvExport} from '../../../../lib/csv-export';
 
 import {ERRORS} from '../../../../util/errors';
 
-const {MakeDirectoryError, WriteFileError} = ERRORS;
+const {MakeDirectoryError, WriteFileError, InputValidationError} = ERRORS;
 
 jest.mock('fs/promises', () => ({
   mkdir: jest.fn<() => Promise<void>>().mockResolvedValue(),
@@ -124,6 +124,36 @@ describe('lib/csv-export: ', () => {
       );
 
       expect(result).toStrictEqual(input);
+    });
+
+    it('throws an error when node config is not provided.', async () => {
+      const csvExport = CsvExport();
+
+      const input = [
+        {
+          timestamp: '2023-12-12T00:00:00.000Z',
+          duration: 10,
+          energy: 10,
+          carbon: 2,
+        },
+        {
+          timestamp: '2023-12-12T00:00:10.000Z',
+          duration: 30,
+          energy: 20,
+          carbon: 5,
+        },
+      ];
+
+      expect.assertions(2);
+
+      try {
+        await csvExport.execute(input);
+      } catch (error) {
+        expect(error).toBeInstanceOf(InputValidationError);
+        expect(error).toEqual(
+          new InputValidationError('CsvExport: Configuration data is missing.')
+        );
+      }
     });
 
     it('throws an error when a file writing fails.', async () => {

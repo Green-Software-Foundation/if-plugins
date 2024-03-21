@@ -1,8 +1,9 @@
+import * as fs from 'fs';
 import {TdpFinder} from '../../../../lib';
 
 import {ERRORS} from '../../../../util/errors';
 
-const {InputValidationError, UnsupportedValueError} = ERRORS;
+const {InputValidationError, UnsupportedValueError, ReadFileError} = ERRORS;
 
 describe('lib/tdp-finder:', () => {
   describe('TdpFinder', () => {
@@ -99,6 +100,28 @@ describe('lib/tdp-finder:', () => {
         } catch (error) {
           expect(error).toStrictEqual(new UnsupportedValueError(errorMessage));
           expect(error).toBeInstanceOf(UnsupportedValueError);
+        }
+      });
+
+      it('throws an error when the file cannot be read/', async () => {
+        jest.spyOn(fs.promises, 'readFile').mockRejectedValueOnce('data.csv');
+        const inputs = [
+          {
+            timestamp: '2023-11-02T10:35:31.820Z',
+            duration: 3600,
+            'physical-processor': 'Intel Xeon Platinum 8175M,AMD A8-9600f',
+          },
+        ];
+
+        expect.assertions(2);
+
+        try {
+          await tdpFinder.execute(inputs);
+        } catch (error) {
+          expect(error).toStrictEqual(
+            new ReadFileError('Error reading file data.csv: data.csv')
+          );
+          expect(error).toBeInstanceOf(ReadFileError);
         }
       });
     });

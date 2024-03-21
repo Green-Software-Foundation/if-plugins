@@ -2,7 +2,7 @@ import {Divide} from '../../../../lib';
 
 import {ERRORS} from '../../../../util/errors';
 
-const {InputValidationError} = ERRORS;
+const {InputValidationError, ConfigValidationError} = ERRORS;
 
 describe('lib/divide: ', () => {
   describe('Divide: ', () => {
@@ -102,6 +102,25 @@ describe('lib/divide: ', () => {
       });
     });
 
+    it('throws an error on missing global config.', async () => {
+      const expectedMessage = 'Divide: Configuration data is missing.';
+      const config = undefined;
+      const divide = Divide(config!);
+
+      expect.assertions(1);
+
+      try {
+        await divide.execute([
+          {
+            timestamp: '2021-01-01T00:00:00Z',
+            duration: 3600,
+          },
+        ]);
+      } catch (error) {
+        expect(error).toStrictEqual(new ConfigValidationError(expectedMessage));
+      }
+    });
+
     it('throws an error when `denominator` is 0.', async () => {
       const expectedMessage =
         '"denominator" parameter is number must be greater than 0. Error code: too_small.';
@@ -109,6 +128,31 @@ describe('lib/divide: ', () => {
       const globalConfig = {
         numerator: 'vcpus-allocated',
         denominator: 0,
+        output: 'vcpus-allocated-per-second',
+      };
+      const divide = Divide(globalConfig);
+
+      expect.assertions(1);
+
+      try {
+        await divide.execute([
+          {
+            timestamp: '2021-01-01T00:00:00Z',
+            duration: 3600,
+            'vcpus-allocated': 24,
+          },
+        ]);
+      } catch (error) {
+        expect(error).toStrictEqual(new InputValidationError(expectedMessage));
+      }
+    });
+
+    it('throws an error when `denominator` is string.', async () => {
+      const expectedMessage = 'Divide: `10` is missing from the input.';
+
+      const globalConfig = {
+        numerator: 'vcpus-allocated',
+        denominator: '10',
         output: 'vcpus-allocated-per-second',
       };
       const divide = Divide(globalConfig);

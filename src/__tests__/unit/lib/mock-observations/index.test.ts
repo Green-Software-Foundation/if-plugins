@@ -41,7 +41,9 @@ describe('lib/mock-observations: ', () => {
             region: 'uk-west',
             'common-key': 'common-val',
           },
-          randint: {},
+          randint: {
+            'cpu/utilization': {min: 10, max: 10},
+          },
         },
       };
       const mockObservations = MockObservations(config);
@@ -51,32 +53,36 @@ describe('lib/mock-observations: ', () => {
 
       expect(result).toStrictEqual([
         {
-          'common-key': 'common-val',
+          timestamp: '2023-07-06T00:00:00.000Z',
           duration: 30,
+          'common-key': 'common-val',
           'instance-type': 'A1',
           region: 'uk-west',
-          timestamp: '2023-07-06T00:00:00.000Z',
+          'cpu/utilization': 10,
         },
         {
-          'common-key': 'common-val',
+          timestamp: '2023-07-06T00:00:30.000Z',
           duration: 30,
+          'common-key': 'common-val',
           'instance-type': 'A1',
           region: 'uk-west',
-          timestamp: '2023-07-06T00:00:30.000Z',
+          'cpu/utilization': 10,
         },
         {
-          'common-key': 'common-val',
-          duration: 30,
-          'instance-type': 'B1',
-          region: 'uk-west',
           timestamp: '2023-07-06T00:00:00.000Z',
-        },
-        {
-          'common-key': 'common-val',
           duration: 30,
+          'common-key': 'common-val',
           'instance-type': 'B1',
           region: 'uk-west',
+          'cpu/utilization': 10,
+        },
+        {
           timestamp: '2023-07-06T00:00:30.000Z',
+          duration: 30,
+          'common-key': 'common-val',
+          'instance-type': 'B1',
+          region: 'uk-west',
+          'cpu/utilization': 10,
         },
       ]);
     });
@@ -105,6 +111,8 @@ describe('lib/mock-observations: ', () => {
     });
 
     it('throws when `components` are not provided.', async () => {
+      const errorMessage =
+        '"components" parameter is required. Error code: invalid_type.';
       const config = {
         'timestamp-from': '2023-07-06T00:00',
         'timestamp-to': '2023-07-06T00:01',
@@ -128,11 +136,7 @@ describe('lib/mock-observations: ', () => {
         await mockObservations.execute([]);
       } catch (error) {
         expect(error).toBeInstanceOf(InputValidationError);
-        expect(error).toEqual(
-          new InputValidationError(
-            '"components" parameter is required. Error code: invalid_type.'
-          )
-        );
+        expect(error).toEqual(new InputValidationError(errorMessage));
       }
     });
 
@@ -221,6 +225,66 @@ describe('lib/mock-observations: ', () => {
         expect(error).toEqual(
           new InputValidationError(
             '"timestamp-from" parameter is required. Error code: invalid_type.'
+          )
+        );
+      }
+    });
+
+    it('throws an error when `randInt` is not valid.', async () => {
+      const config = {
+        'timestamp-from': '2023-07-06T00:00',
+        'timestamp-to': '2023-07-06T00:01',
+        duration: 30,
+        components: [{'instance-type': 'A1'}, {'instance-type': 'B1'}],
+        generators: {
+          common: {
+            region: 'uk-west',
+            'common-key': 'common-val',
+          },
+          randint: null,
+        },
+      };
+      const mockObservations = MockObservations(config);
+
+      expect.assertions(2);
+
+      try {
+        await mockObservations.execute([]);
+      } catch (error) {
+        expect(error).toBeInstanceOf(InputValidationError);
+        expect(error).toEqual(
+          new InputValidationError(
+            '"generators.randint" parameter is expected object, received null. Error code: invalid_type.'
+          )
+        );
+      }
+    });
+
+    it('throws an error when `common` is not valid.', async () => {
+      const config = {
+        'timestamp-from': '2023-07-06T00:00',
+        'timestamp-to': '2023-07-06T00:01',
+        duration: 30,
+        components: [{'instance-type': 'A1'}, {'instance-type': 'B1'}],
+        generators: {
+          common: null,
+          randint: {
+            'cpu/utilization': {min: 10, max: 95},
+            'memory/utilization': {min: 10, max: 85},
+          },
+        },
+      };
+      const mockObservations = MockObservations(config);
+
+      expect.assertions(2);
+
+      try {
+        await mockObservations.execute([]);
+      } catch (error) {
+        expect(error).toBeInstanceOf(InputValidationError);
+        expect(error).toEqual(
+          new InputValidationError(
+            '"generators.common" parameter is expected object, received null. Error code: invalid_type.'
           )
         );
       }

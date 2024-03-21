@@ -15,7 +15,7 @@ import {AWS_HEADERS, AZURE_HEADERS, GSF_HEADERS} from './config';
 
 const AWS_INSTANCES = path.resolve(__dirname, './aws-instances.csv');
 const AZURE_INSTANCES = path.resolve(__dirname, './azure-instances.csv');
-const GSF_DATA = path.resolve(__dirname, './GSF-data.csv');
+const GSF_DATA = path.resolve(__dirname, './gsf-data.csv');
 
 const {UnsupportedValueError} = ERRORS;
 
@@ -163,10 +163,7 @@ export const CloudMetadata = (): PluginInterface => {
         if (instanceType.includes('-')) {
           const [instanceFamily, instanceSize] = instanceType.split('-');
           const sizeNumberIndex = instanceSize.search(/\D/);
-          const instanceSizeNumber =
-            sizeNumberIndex !== -1
-              ? instanceSize.slice(sizeNumberIndex)
-              : instanceSize;
+          const instanceSizeNumber = instanceSize.slice(sizeNumberIndex);
 
           instanceType = `${instanceFamily}${instanceSizeNumber}`;
         }
