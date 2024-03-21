@@ -1,12 +1,12 @@
 import * as dayjs from 'dayjs';
+import {z} from 'zod';
 import * as utc from 'dayjs/plugin/utc';
 import * as timezone from 'dayjs/plugin/timezone';
 
-import {buildErrorMessage} from '../../util/helpers';
-import {ERRORS} from '../../util/errors';
-
 import {PluginInterface} from '../../interfaces';
 import {ConfigParams, KeyValuePair, PluginParams} from '../../types/common';
+
+import {validate} from '../../util/validations';
 
 import {CommonGenerator} from './helpers/common-generator';
 import {RandIntGenerator} from './helpers/rand-int-generator';
@@ -16,12 +16,9 @@ import {ObservationParams} from './types';
 dayjs.extend(utc);
 dayjs.extend(timezone);
 
-const {InputValidationError} = ERRORS;
-
 export const MockObservations = (
   globalConfig: ConfigParams
 ): PluginInterface => {
-  const errorBuilder = buildErrorMessage('MockObservations');
   const metadata = {
     kind: 'execute',
   };
@@ -58,44 +55,47 @@ export const MockObservations = (
   };
 
   /**
+   * Validates global config parameters.
+   */
+  const validateGlobalConfig = () => {
+    const schema = z.object({
+      'timestamp-from': z.string(),
+      'timestamp-to': z.string(),
+      duration: z.number(),
+      components: z.array(z.record(z.string())),
+      generators: z.object({
+        common: z.record(z.string().or(z.number())),
+        randint: z.record(z.object({min: z.number(), max: z.number()})),
+      }),
+    });
+
+    return validate<z.infer<typeof schema>>(schema, globalConfig);
+  };
+
+  /**
    * Configures the MockObservations Plugin for IF
    */
   const generateParamsFromConfig = async () => {
-    const timestampFrom = dayjs.tz(
-      <string>getValidatedParam('timestamp-from', globalConfig),
-      'UTC'
-    );
-    const timestampTo = dayjs.tz(
-      <string>getValidatedParam('timestamp-to', globalConfig),
-      'UTC'
-    );
-    const duration = <number>getValidatedParam('duration', globalConfig);
+    const {
+      'timestamp-from': timestampFrom,
+      'timestamp-to': timestampTo,
+      duration,
+      generators,
+      components,
+    } = validateGlobalConfig();
+    const convertedTimestampFrom = dayjs.tz(timestampFrom, 'UTC');
+    const convertedTimestampTo = dayjs.tz(timestampTo, 'UTC');
 
     return {
       duration,
-      timeBuckets: createTimeBuckets(timestampFrom, timestampTo, duration),
-      components: getValidatedParam('components', globalConfig) as KeyValuePair,
-      generators: createGenerators(
-        getValidatedParam('generators', globalConfig)
+      timeBuckets: createTimeBuckets(
+        convertedTimestampFrom,
+        convertedTimestampTo,
+        duration
       ),
+      generators: createGenerators(generators),
+      components,
     };
-  };
-
-  /*
-   * validate a parameter is included in a given parameters map.
-   * return the validated param value, otherwise throw an InputValidationError.
-   */
-  const getValidatedParam = <T>(
-    paramName: string,
-    params: {[key: string]: any}
-  ): T => {
-    if (!(paramName in params)) {
-      throw new InputValidationError(
-        errorBuilder({message: `${paramName} missing from global config`})
-      );
-    }
-
-    return params[paramName];
   };
 
   /*
@@ -135,14 +135,11 @@ export const MockObservations = (
       );
     };
 
-    return Object.entries(generatorsConfig).flatMap(([key, value]) => {
-      if (key === 'common') {
-        return createCommonGenerator(value);
-      } else if (key === 'randint') {
-        return createRandIntGenerators(value).flat();
-      }
-      return [];
-    });
+    return Object.entries(generatorsConfig).flatMap(([key, value]) =>
+      key === 'randint'
+        ? createRandIntGenerators(value).flat()
+        : createCommonGenerator(value)
+    );
   };
 
   /*

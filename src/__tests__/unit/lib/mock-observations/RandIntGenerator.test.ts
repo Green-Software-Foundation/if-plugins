@@ -8,7 +8,8 @@ const {InputValidationError} = ERRORS;
 
 describe('lib/mock-observations/RandIntGenerator: ', () => {
   describe('initialize', () => {
-    it('initialize with an empty name', async () => {
+    it('throws an error when the generator name is empty string.', async () => {
+      expect.assertions(1);
       try {
         RandIntGenerator('', {});
       } catch (error) {
@@ -20,13 +21,30 @@ describe('lib/mock-observations/RandIntGenerator: ', () => {
       }
     });
 
-    it('initialize with an empty config', async () => {
+    it('throws an error when config is empty object.', async () => {
+      expect.assertions(1);
       try {
         RandIntGenerator('generator-name', {});
       } catch (error) {
         expect(error).toEqual(
           new InputValidationError(
             'RandIntGenerator: Config must not be null or empty.'
+          )
+        );
+      }
+    });
+
+    it('throws an error `min` is missing from the config.', async () => {
+      const config = {max: 90};
+
+      expect.assertions(1);
+
+      try {
+        RandIntGenerator('random', config);
+      } catch (error) {
+        expect(error).toEqual(
+          new InputValidationError(
+            'RandIntGenerator: Config is missing min or max.'
           )
         );
       }
@@ -41,6 +59,8 @@ describe('lib/mock-observations/RandIntGenerator: ', () => {
       };
       const randIntGenerator = RandIntGenerator('random', config);
       const result = randIntGenerator.next([]) as {random: number};
+
+      expect.assertions(4);
 
       expect(result).toBeInstanceOf(Object);
       expect(result).toHaveProperty('random');
