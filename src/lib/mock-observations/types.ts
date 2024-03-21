@@ -1,10 +1,10 @@
-import * as dayjs from 'dayjs';
+import {DateTime} from 'luxon';
 
 import {Generator} from './interfaces/index';
 
 export type ObservationParams = {
   duration: number;
-  timeBucket: dayjs.Dayjs;
+  timeBucket: DateTime;
   component: Record<string, string>;
   generators: Generator[];
 };
