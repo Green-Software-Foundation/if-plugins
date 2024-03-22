@@ -1,15 +1,15 @@
-import { DateTime, Duration } from 'luxon';
-import { z } from 'zod';
+import {DateTime, Duration} from 'luxon';
+import {z} from 'zod';
 
-import { PluginInterface } from '../../interfaces';
-import { ConfigParams, KeyValuePair, PluginParams } from '../../types/common';
+import {PluginInterface} from '../../interfaces';
+import {ConfigParams, KeyValuePair, PluginParams} from '../../types/common';
 
-import { validate } from '../../util/validations';
+import {validate} from '../../util/validations';
 
-import { CommonGenerator } from './helpers/common-generator';
-import { RandIntGenerator } from './helpers/rand-int-generator';
-import { Generator } from './interfaces/index';
-import { ObservationParams } from './types';
+import {CommonGenerator} from './helpers/common-generator';
+import {RandIntGenerator} from './helpers/rand-int-generator';
+import {Generator} from './interfaces/index';
+import {ObservationParams} from './types';
 
 export const MockObservations = (
   globalConfig: ConfigParams
@@ -22,7 +22,7 @@ export const MockObservations = (
    * Generate sets of mocked observations based on config.
    */
   const execute = async (inputs: PluginParams[]) => {
-    const { duration, timeBuckets, components, generators } =
+    const {duration, timeBuckets, components, generators} =
       await generateParamsFromConfig();
     const generatorToHistory = new Map<Generator, number[]>();
 
@@ -36,7 +36,7 @@ export const MockObservations = (
       (acc: PluginParams[], [_key, component]) => {
         timeBuckets.forEach(timeBucket => {
           const observation = createObservation(
-            { duration, component, timeBucket, generators },
+            {duration, component, timeBucket, generators},
             generatorToHistory
           );
 
@@ -60,7 +60,7 @@ export const MockObservations = (
       components: z.array(z.record(z.string())),
       generators: z.object({
         common: z.record(z.string().or(z.number())),
-        randint: z.record(z.object({ min: z.number(), max: z.number() })),
+        randint: z.record(z.object({min: z.number(), max: z.number()})),
       }),
     });
 
@@ -81,7 +81,7 @@ export const MockObservations = (
     const convertedTimestampFrom = DateTime.fromISO(timestampFrom, {
       zone: 'UTC',
     });
-    const convertedTimestampTo = DateTime.fromISO(timestampTo, { zone: 'UTC' });
+    const convertedTimestampTo = DateTime.fromISO(timestampTo, {zone: 'UTC'});
 
     return {
       duration,
@@ -106,10 +106,10 @@ export const MockObservations = (
   ): DateTime[] => {
     if (
       timestampFrom < timestampTo ||
-      timestampFrom.plus(Duration.fromObject({ seconds: duration })) < timestampTo
+      timestampFrom.plus(Duration.fromObject({seconds: duration})) < timestampTo
     ) {
       return createTimeBuckets(
-        timestampFrom.plus(Duration.fromObject({ seconds: duration })),
+        timestampFrom.plus(Duration.fromObject({seconds: duration})),
         timestampTo,
         duration,
         [...timeBuckets, timestampFrom]
@@ -146,7 +146,7 @@ export const MockObservations = (
     observationParams: ObservationParams,
     generatorToHistory: Map<Generator, number[]>
   ): PluginParams => {
-    const { duration, component, timeBucket, generators } = observationParams;
+    const {duration, component, timeBucket, generators} = observationParams;
     const timestamp = timeBucket.toISO();
 
     const generateObservation = (generator: Generator) => {
