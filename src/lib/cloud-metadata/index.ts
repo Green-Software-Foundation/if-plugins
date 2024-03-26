@@ -21,6 +21,7 @@ const {UnsupportedValueError} = ERRORS;
 
 export const CloudMetadata = (): PluginInterface => {
   const SUPPORTED_CLOUDS = ['aws', 'azure'] as const;
+  // const SUPPORTED_CLOUDS = ['aws', 'azure', 'gcp'] as const;
   const errorBuilder = buildErrorMessage(CloudMetadata.name);
   const metadata = {
     kind: 'execute',
@@ -109,6 +110,7 @@ export const CloudMetadata = (): PluginInterface => {
       'memory-available': parseInt(instance['memory-available']),
       'physical-processor': instance['cpu-model-name'],
       'cpu/thermal-design-power': parseFloat(instance['cpu-tdp']),
+      'water-usage-effectiveness': 1.8,
     };
   };
 

@@ -40,6 +40,7 @@ describe('lib/cloud-metadata:', () => {
             'vcpus-total': 96,
             'memory-available': 8,
             'cpu/thermal-design-power': 210,
+            'water-usage-effectiveness': 1.8,
           },
         ]);
       });
@@ -69,6 +70,7 @@ describe('lib/cloud-metadata:', () => {
             'vcpus-total': 28,
             'memory-available': 448,
             'cpu/thermal-design-power': 135,
+            'water-usage-effectiveness': 1.8,
           },
         ]);
       });
@@ -99,6 +101,7 @@ describe('lib/cloud-metadata:', () => {
             'vcpus-allocated': 1,
             'vcpus-total': 64,
             'memory-available': 2,
+            'water-usage-effectiveness': 1.8,
           },
         ]);
       });
@@ -174,6 +177,7 @@ describe('lib/cloud-metadata:', () => {
               'Intel® Xeon® Platinum 8272CL,Intel® Xeon® 8171M 2.1 GHz,Intel® Xeon® E5-2673 v4 2.3 GHz,Intel® Xeon® E5-2673 v3 2.4 GHz',
             'vcpus-allocated': 1,
             'vcpus-total': 52,
+            'water-usage-effectiveness': 1.8,
           },
         ]);
       });
