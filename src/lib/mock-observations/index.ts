@@ -1,7 +1,5 @@
-import * as dayjs from 'dayjs';
+import {DateTime, Duration} from 'luxon';
 import {z} from 'zod';
-import * as utc from 'dayjs/plugin/utc';
-import * as timezone from 'dayjs/plugin/timezone';
 
 import {PluginInterface} from '../../interfaces';
 import {ConfigParams, KeyValuePair, PluginParams} from '../../types/common';
@@ -12,9 +10,6 @@ import {CommonGenerator} from './helpers/common-generator';
 import {RandIntGenerator} from './helpers/rand-int-generator';
 import {Generator} from './interfaces/index';
 import {ObservationParams} from './types';
-
-dayjs.extend(utc);
-dayjs.extend(timezone);
 
 export const MockObservations = (
   globalConfig: ConfigParams
@@ -83,8 +78,10 @@ export const MockObservations = (
       generators,
       components,
     } = validateGlobalConfig();
-    const convertedTimestampFrom = dayjs.tz(timestampFrom, 'UTC');
-    const convertedTimestampTo = dayjs.tz(timestampTo, 'UTC');
+    const convertedTimestampFrom = DateTime.fromISO(timestampFrom, {
+      zone: 'UTC',
+    });
+    const convertedTimestampTo = DateTime.fromISO(timestampTo, {zone: 'UTC'});
 
     return {
       duration,
@@ -102,17 +99,17 @@ export const MockObservations = (
    * create time buckets based on start time, end time and duration of each bucket.
    */
   const createTimeBuckets = (
-    timestampFrom: dayjs.Dayjs,
-    timestampTo: dayjs.Dayjs,
+    timestampFrom: DateTime,
+    timestampTo: DateTime,
     duration: number,
-    timeBuckets: dayjs.Dayjs[] = []
-  ): dayjs.Dayjs[] => {
+    timeBuckets: DateTime[] = []
+  ): DateTime[] => {
     if (
-      timestampFrom.isBefore(timestampTo) ||
-      timestampFrom.add(duration, 'second').isBefore(timestampTo)
+      timestampFrom < timestampTo ||
+      timestampFrom.plus(Duration.fromObject({seconds: duration})) < timestampTo
     ) {
       return createTimeBuckets(
-        timestampFrom.add(duration, 'second'),
+        timestampFrom.plus(Duration.fromObject({seconds: duration})),
         timestampTo,
         duration,
         [...timeBuckets, timestampFrom]
@@ -150,7 +147,7 @@ export const MockObservations = (
     generatorToHistory: Map<Generator, number[]>
   ): PluginParams => {
     const {duration, component, timeBucket, generators} = observationParams;
-    const timestamp = timeBucket.toISOString();
+    const timestamp = timeBucket.toISO();
 
     const generateObservation = (generator: Generator) => {
       const history = generatorToHistory.get(generator) || [];
