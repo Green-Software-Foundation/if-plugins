@@ -1,8 +1,8 @@
-import { EMem } from '../../../../lib';
+import {EMem} from '../../../../lib';
 
-import { ERRORS } from '../../../../util/errors';
+import {ERRORS} from '../../../../util/errors';
 
-const { InputValidationError } = ERRORS;
+const {InputValidationError} = ERRORS;
 
 describe('lib/e-mem: ', () => {
   describe('EMem: ', () => {
@@ -19,7 +19,7 @@ describe('lib/e-mem: ', () => {
 
     describe('execute(): ', () => {
       it('calculates energy for each input.', async () => {
-        const globalConfig = { 'energy-per-gb': 0.002 };
+        const globalConfig = {'energy-per-gb': 0.002};
         const eMem = EMem(globalConfig);
 
         const inputs = [
@@ -44,8 +44,8 @@ describe('lib/e-mem: ', () => {
         result.forEach((output, index) => {
           expect(output['memory/energy']).toBeCloseTo(
             inputs[index]['memory/capacity'] *
-            (inputs[index]['memory/utilization'] / 100) *
-            globalConfig['energy-per-gb']
+              (inputs[index]['memory/utilization'] / 100) *
+              globalConfig['energy-per-gb']
           );
         });
       });
@@ -54,7 +54,7 @@ describe('lib/e-mem: ', () => {
         expect.assertions(1);
         try {
           await eMem.execute([
-            { duration: 3600, timestamp: '2022-01-01T01:00:00Z' },
+            {duration: 3600, timestamp: '2022-01-01T01:00:00Z'},
           ]);
         } catch (error) {
           expect(error).toBeInstanceOf(InputValidationError);
@@ -125,12 +125,11 @@ describe('lib/e-mem: ', () => {
         result.forEach((output, index) => {
           expect(output['memory/energy']).toBeCloseTo(
             inputs[index]['memory/capacity'] *
-            (inputs[index]['memory/utilization'] / 100) *
-            0.000392
+              (inputs[index]['memory/utilization'] / 100) *
+              0.000392
           );
         });
       });
-
-    })
-  })
+    });
+  });
 });
