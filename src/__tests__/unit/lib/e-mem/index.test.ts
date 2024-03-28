@@ -76,7 +76,7 @@ describe('lib/e-mem: ', () => {
         }
       });
 
-      it('does not throw an error for a missing `energy-per-gb` but instead uses the default value of 0.38.', async () => {
+      it('does not throw an error for a missing `energy-per-gb` but instead uses the default value of 0.000392.', async () => {
         const data = [
           {
             timestamp: '2023-11-02T10:35:31.820Z',
