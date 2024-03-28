@@ -76,7 +76,7 @@ describe('lib/e-mem: ', () => {
         }
       });
 
-      it('does not throw an error for a missing `energy-per-gb` but instead uses the default value of 0.38.', async () => {
+      it('does not throw an error for a missing `energy-per-gb` but instead uses the default value of 0.000392.', async () => {
         const data = [
           {
             timestamp: '2023-11-02T10:35:31.820Z',
@@ -95,6 +95,40 @@ describe('lib/e-mem: ', () => {
           0.000392;
 
         expect(response[0]['memory/energy']).toEqual(expectedMemory);
+      });
+    });
+
+    describe('execute() with no global config: ', () => {
+      it('gets energy-memory from fallback.', async () => {
+        const globalConfig = {};
+        const eMem = EMem(globalConfig);
+
+        const inputs = [
+          {
+            'memory/utilization': 80,
+            'memory/capacity': 16,
+            duration: 3600,
+            timestamp: '2022-01-01T01:00:00Z',
+          },
+          {
+            'memory/utilization': 60,
+            'memory/capacity': 8,
+            duration: 3600,
+            timestamp: '2022-01-01T01:00:00Z',
+          },
+        ];
+        expect.assertions(3);
+
+        const result = await eMem.execute(inputs);
+
+        expect(result).toHaveLength(inputs.length);
+        result.forEach((output, index) => {
+          expect(output['memory/energy']).toBeCloseTo(
+            inputs[index]['memory/capacity'] *
+              (inputs[index]['memory/utilization'] / 100) *
+              0.000392
+          );
+        });
       });
     });
   });
