@@ -35,16 +35,12 @@ export const ENet = (globalConfig: ConfigParams): PluginInterface => {
    */
   const validateConfig = () => {
     const schema = z.object({
-      'energy-per-gb': z.number(),
+      'energy-per-gb': z.number().gt(0),
     });
 
     // Manually add default value from CCF: https://www.cloudcarbonfootprint.org/docs/methodology/#chosen-coefficient
     const energyPerGB =
-      !globalConfig ||
-      !globalConfig['energy-per-gb'] ||
-      globalConfig['energy-per-gb'] === 0
-        ? 0.001
-        : globalConfig['energy-per-gb'];
+      (globalConfig && globalConfig['energy-per-gb']) ?? 0.001;
 
     return validate<z.infer<typeof schema>>(schema, {
       ...globalConfig,
