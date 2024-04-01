@@ -40,7 +40,7 @@ export const MockObservations = (
             generatorToHistory
           );
 
-          acc.push(Object.assign(observation, defaults));
+          acc.push(Object.assign({}, defaults, observation));
         });
 
         return acc;
