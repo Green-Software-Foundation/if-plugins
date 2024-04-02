@@ -15,13 +15,21 @@ Not Needed
 
 ## Returns
 
-An array containing:
+An array containing compute information:
 
 - `cloud/instance-type`: echo input `instance-type`
 - `cloud/vendor`: echo input `vendor`
 - `physical-processor`: physical processor used in the given instance
 - `vcpus-allocated`: number of vCPUs allocated to this instance
 - `vcpus-total`: total number of vCPUs available to this instance
+
+And cloud data:
+- `cloud/region-cfe`: the cfe region
+- `cloud/region-em-zone-id`: the em zone id
+- `cloud/region-wt-id`: region id for the Watt-Time plugin
+- `cloud/region-location`: region location (text)
+- `cloud/region-geolocation`: geolocation lat/lon (decimal)
+- `water-usage-effectiveness`: operational water usage effectiveness of a data center in L/kWh
 
 ## IF Implementation
 

@@ -11,7 +11,7 @@ import {buildErrorMessage} from '../../util/helpers';
 import {ERRORS} from '../../util/errors';
 
 import {InstanceInput, RegionInput} from './types';
-import {AWS_HEADERS, AZURE_HEADERS, GSF_HEADERS} from './config';
+import {AWS_HEADERS, AZURE_HEADERS, GSF_HEADERS, WUE_DEFAULT} from './config';
 
 const AWS_INSTANCES = path.resolve(__dirname, './aws-instances.csv');
 const AZURE_INSTANCES = path.resolve(__dirname, './azure-instances.csv');
@@ -64,6 +64,7 @@ export const CloudMetadata = (): PluginInterface => {
   const processRegionData = async (input: PluginParams) => {
     const region = input['cloud/region'];
     const vendor = input['cloud/vendor'];
+    let wue: number;
 
     const regionInput: RegionInput = await getVendorRegion(vendor, region);
 
@@ -74,12 +75,23 @@ export const CloudMetadata = (): PluginInterface => {
         })
       );
     }
+
+    if (
+      !regionInput['water-usage-effectiveness'] || // Check if it's empty
+      isNaN(parseFloat(regionInput['water-usage-effectiveness'])) // Check if it's not a number
+    ) {
+      wue = WUE_DEFAULT; // Assign default value
+    } else {
+      wue = parseFloat(regionInput['water-usage-effectiveness']); // Otherwise, parse the value
+    }
+
     return {
       'cloud/region-cfe': regionInput['cfe-region'],
       'cloud/region-em-zone-id': regionInput['em-zone-id'],
       'cloud/region-wt-id': regionInput['wt-region-id'],
       'cloud/region-location': regionInput['location'],
       'cloud/region-geolocation': regionInput['geolocation'].trim(),
+      'water-usage-effectiveness': wue,
     };
   };
 
@@ -110,7 +122,6 @@ export const CloudMetadata = (): PluginInterface => {
       'memory-available': parseInt(instance['memory-available']),
       'physical-processor': instance['cpu-model-name'],
       'cpu/thermal-design-power': parseFloat(instance['cpu-tdp']),
-      'water-usage-effectiveness': 1.8,
     };
   };
 
