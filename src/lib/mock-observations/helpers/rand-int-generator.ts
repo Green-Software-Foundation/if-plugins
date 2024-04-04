@@ -46,6 +46,14 @@ export const RandIntGenerator = (
         })
       );
     }
+
+    if (config.min >= config.max) {
+      throw new InputValidationError(
+        errorBuilder({
+          message: `Min value should not be greater than max value of ${validatedName}`,
+        })
+      );
+    }
     return {min: config.min, max: config.max};
   };
 
