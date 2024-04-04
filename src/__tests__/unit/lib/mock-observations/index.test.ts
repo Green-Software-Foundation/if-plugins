@@ -42,7 +42,7 @@ describe('lib/mock-observations: ', () => {
             'common-key': 'common-val',
           },
           randint: {
-            'cpu/utilization': {min: 10, max: 10},
+            'cpu/utilization': {min: 10, max: 11},
           },
         },
       };
