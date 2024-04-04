@@ -10,6 +10,8 @@ Not Needed
 
 ### Inputs
 
+- `timestamp`: ISO 8061 string,
+- `duration`: number of seconds the observation spans,
 - `cloud/vendor`: the cloud platform provider, e.g. `aws`
 - `cloud/instance-type`: the name of the specific instance being used, e.g. `m5n.large`
 
@@ -17,17 +19,23 @@ Not Needed
 
 An array containing:
 
-- `cloud/instance-type`: echo input `instance-type`
-- `cloud/vendor`: echo input `vendor`
-- `physical-processor`: physical processor used in the given instance
+
+- `timestamp`: "2023-07-06T00:01"
+- `duration`: 10
+- `cloud/vendor`: the name of the cloud vendor as a string, options are "azure", "gcp" or "aws"
+- `cloud/instance-type`: name of the instance type as a string, e.g. "m5n.large"
 - `vcpus-allocated`: number of vCPUs allocated to this instance
 - `vcpus-total`: total number of vCPUs available to this instance
+- `memory-available`: total memory available on this instance, in GB,
+- `physical-processor`: name of the physical processor used by this instance as a string, e.g. "Intel® Xeon® Platinum 8259CL" (note some instances return multiple possible processors separated by commas)
+- `cpu/thermal-design-power`: the thermal design power of the given processor (selects the first in the list of multiple are returned)
+
 
 ## IF Implementation
 
 IF implements this plugin using data from Cloud Carbon Footprint. This allows determination of cpu for type of instance in a cloud and can be invoked as part of a plugin pipeline defined in a `manifest`.
 
-Cloud Metadata currently implements only for 'AWS' and 'Azure'.
+Note that "gcp" data are not yet available in our implementation.
 
 ## Usage
 
@@ -95,6 +103,8 @@ name: cloud-metadata
 description: example manifest invoking Cloud Metadata plugin
 tags:
 initialize:
+  outputs:
+    - yaml
   plugins:
     cloud-metadata:
       method: CloudMetadata
@@ -128,7 +138,7 @@ You can run this example `manifest` by saving it as `./examples/manifests/test/c
 ```sh
 npm i -g @grnsft/if
 npm i -g @grnsft/if-plugins
-ie --manifest ./examples/manifests/test/cim.yml --output ./examples/outputs/cim.yml
+ie --manifest ./examples/manifests/test/cloud-metadata.yml --output ./examples/outputs/cloud-metadata
 ```
 
 The results will be saved to a new `yaml` file in `./examples/outputs`.
