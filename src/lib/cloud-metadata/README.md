@@ -138,7 +138,7 @@ You can run this example `manifest` by saving it as `./examples/manifests/test/c
 ```sh
 npm i -g @grnsft/if
 npm i -g @grnsft/if-plugins
-ie --manifest ./examples/manifests/test/cim.yml --output ./examples/outputs/cim
+ie --manifest ./examples/manifests/test/cloud-metadata.yml --output ./examples/outputs/cloud-metadata
 ```
 
 The results will be saved to a new `yaml` file in `./examples/outputs`.
