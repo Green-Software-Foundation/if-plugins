@@ -36,10 +36,8 @@ export const RandIntGenerator = (
         })
       );
     }
-    if (
-      !Object.prototype.hasOwnProperty.call(config, 'min') ||
-      !Object.prototype.hasOwnProperty.call(config, 'max')
-    ) {
+
+    if (!config.min || !config.max) {
       throw new InputValidationError(
         errorBuilder({
           message: 'Config is missing min or max',
@@ -50,7 +48,7 @@ export const RandIntGenerator = (
     if (config.min >= config.max) {
       throw new InputValidationError(
         errorBuilder({
-          message: `Min value should not be greater than max value of ${validatedName}`,
+          message: `Min value should not be greater than or equal to max value of ${validatedName}`,
         })
       );
     }
