@@ -18,7 +18,6 @@ export const GSF_HEADERS = [
   'grid-carbon-intensity',
   'water-usage-effectiveness',
   'water-usage-effectiveness-source',
-  'power-usage-effectiveness',
   'power-usage-effectiveness-source',
 ];
 
