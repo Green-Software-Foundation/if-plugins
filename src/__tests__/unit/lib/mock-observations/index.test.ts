@@ -87,6 +87,36 @@ describe('lib/mock-observations: ', () => {
       ]);
     });
 
+    it('throws an error when min is greater then max of `randint` config.', async () => {
+      const errorMessage =
+        'RandIntGenerator: Min value should not be greater than or equal to max value of cpu/utilization.';
+      const config = {
+        'timestamp-from': '2023-07-06T00:00',
+        'timestamp-to': '2023-07-06T00:01',
+        duration: 30,
+        components: [{'instance-type': 'A1'}, {'instance-type': 'B1'}],
+        generators: {
+          common: {
+            region: 'uk-west',
+            'common-key': 'common-val',
+          },
+          randint: {
+            'cpu/utilization': {min: 20, max: 11},
+          },
+        },
+      };
+
+      expect.assertions(2);
+
+      const mockObservations = MockObservations(config);
+      try {
+        await mockObservations.execute([]);
+      } catch (error) {
+        expect(error).toBeInstanceOf(InputValidationError);
+        expect(error).toEqual(new InputValidationError(errorMessage));
+      }
+    });
+
     it('throws when `generators` are not provided.', async () => {
       const config = {
         'timestamp-from': '2023-07-06T00:00',
