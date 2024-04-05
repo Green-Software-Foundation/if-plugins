@@ -87,7 +87,7 @@ describe('lib/mock-observations: ', () => {
       ]);
     });
 
-    it('throws an error when min is greater then max of `randint` config.', async () => {
+    it('throws an error when the `min` is greater then `max` of `randint` config.', async () => {
       const errorMessage =
         'RandIntGenerator: Min value should not be greater than or equal to max value of cpu/utilization.';
       const config = {
