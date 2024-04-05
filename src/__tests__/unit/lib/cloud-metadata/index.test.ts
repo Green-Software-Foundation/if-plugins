@@ -174,7 +174,7 @@ describe('lib/cloud-metadata:', () => {
               'Intel® Xeon® Platinum 8272CL,Intel® Xeon® 8171M 2.1 GHz,Intel® Xeon® E5-2673 v4 2.3 GHz,Intel® Xeon® E5-2673 v3 2.4 GHz',
             'vcpus-allocated': 1,
             'vcpus-total': 52,
-            'water-usage-effectiveness': 164,
+            'water-usage-effectiveness': 1.8,
           },
         ]);
       });
