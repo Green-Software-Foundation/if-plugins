@@ -12,4 +12,5 @@ export type RegionInput = {
   'wt-region-id': string;
   location: string;
   geolocation: string;
+  'water-usage-effectiveness': string;
 };

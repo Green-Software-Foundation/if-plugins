@@ -16,6 +16,9 @@ export const GSF_HEADERS = [
   'grid-carbon-intensity-marginal',
   'grid-carbon-intensity-production',
   'grid-carbon-intensity',
+  'water-usage-effectiveness',
+  'water-usage-effectiveness-source',
+  'power-usage-effectiveness-source',
 ];
 
 export const AZURE_HEADERS = [
@@ -47,3 +50,5 @@ export const AWS_HEADERS = [
   'release-date',
   'storage-drives',
 ];
+
+export const WUE_DEFAULT = 1.8;

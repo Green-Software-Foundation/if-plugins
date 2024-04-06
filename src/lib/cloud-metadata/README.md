@@ -17,7 +17,7 @@ Not Needed
 
 ## Returns
 
-An array containing:
+An array containing compute information:
 
 
 - `timestamp`: "2023-07-06T00:01"
@@ -30,6 +30,14 @@ An array containing:
 - `physical-processor`: name of the physical processor used by this instance as a string, e.g. "Intel® Xeon® Platinum 8259CL" (note some instances return multiple possible processors separated by commas)
 - `cpu/thermal-design-power`: the thermal design power of the given processor (selects the first in the list of multiple are returned)
 
+
+And cloud data:
+- `cloud/region-cfe`: the cfe region
+- `cloud/region-em-zone-id`: the em zone id
+- `cloud/region-wt-id`: region id for the Watt-Time plugin
+- `cloud/region-location`: region location (text)
+- `cloud/region-geolocation`: geolocation lat/lon (decimal)
+- `water-usage-effectiveness`: operational water usage effectiveness of a data center (L/kWh)
 
 ## IF Implementation
 
