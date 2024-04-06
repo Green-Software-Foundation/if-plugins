@@ -37,7 +37,7 @@ And cloud data:
 - `cloud/region-wt-id`: region id for the Watt-Time plugin
 - `cloud/region-location`: region location (text)
 - `cloud/region-geolocation`: geolocation lat/lon (decimal)
-- `water-usage-effectiveness`: operational water usage effectiveness of a data center in L/kWh
+- `water-usage-effectiveness`: operational water usage effectiveness of a data center (L/kWh)
 
 ## IF Implementation
 
