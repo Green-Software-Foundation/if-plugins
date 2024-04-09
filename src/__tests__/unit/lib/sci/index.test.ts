@@ -90,6 +90,90 @@ describe('lib/sci:', () => {
         ]);
       });
 
+      it('returns a result when `functional-unit-time` is not provided.', async () => {
+        const sci = Sci({
+          'functional-unit': 'requests',
+        });
+        const inputs = [
+          {
+            timestamp: '2021-01-01T00:00:00Z',
+            'carbon-operational': 0.2,
+            'carbon-embodied': 0.05,
+            duration: 100,
+          },
+          {
+            timestamp: '2021-01-01T00:00:00Z',
+            'carbon-operational': 0.002,
+            'carbon-embodied': 0.0005,
+            duration: 2,
+          },
+        ];
+        const result = await sci.execute(inputs);
+
+        expect.assertions(1);
+
+        expect(result).toStrictEqual([
+          {
+            timestamp: '2021-01-01T00:00:00Z',
+            'carbon-operational': 0.2,
+            'carbon-embodied': 0.05,
+            carbon: 0.0025,
+            duration: 100,
+            sci: 0.0025,
+          },
+          {
+            timestamp: '2021-01-01T00:00:00Z',
+            'carbon-operational': 0.002,
+            'carbon-embodied': 0.0005,
+            carbon: 0.00125,
+            duration: 2,
+            sci: 0.00125,
+          },
+        ]);
+      });
+
+      it('returns a result when `functional-unit` is not provided.', async () => {
+        const sci = Sci({
+          'functional-unit-time': '1 day',
+        });
+        const inputs = [
+          {
+            timestamp: '2021-01-01T00:00:00Z',
+            'carbon-operational': 0.2,
+            'carbon-embodied': 0.05,
+            duration: 100,
+          },
+          {
+            timestamp: '2021-01-01T00:00:00Z',
+            'carbon-operational': 0.002,
+            'carbon-embodied': 0.0005,
+            duration: 2,
+          },
+        ];
+        const result = await sci.execute(inputs);
+
+        expect.assertions(1);
+
+        expect(result).toStrictEqual([
+          {
+            timestamp: '2021-01-01T00:00:00Z',
+            'carbon-operational': 0.2,
+            'carbon-embodied': 0.05,
+            carbon: 0.0025,
+            duration: 100,
+            sci: 216,
+          },
+          {
+            timestamp: '2021-01-01T00:00:00Z',
+            'carbon-operational': 0.002,
+            'carbon-embodied': 0.0005,
+            carbon: 0.00125,
+            duration: 2,
+            sci: 108,
+          },
+        ]);
+      });
+
       it('throws exception on invalid functional unit data.', async () => {
         const sci = Sci({
           'functional-unit': 'requests',

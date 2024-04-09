@@ -61,6 +61,8 @@ name: multiply-demo
 description:
 tags:
 initialize:
+  outputs:
+    - yaml
   plugins:
     multiply:
       method: Multiply

@@ -73,6 +73,134 @@ describe('lib/cloud-metadata:', () => {
         ]);
       });
 
+      it('returns a result when azure instance type do not have size number.', async () => {
+        const inputs = [
+          {
+            timestamp: '',
+            duration: 5,
+            'cloud/instance-type': 'Standard_B1ms',
+            'cloud/vendor': 'azure',
+          },
+        ];
+
+        const result = await cloudMetadata.execute(inputs);
+
+        expect.assertions(1);
+
+        expect(result).toStrictEqual([
+          {
+            timestamp: '',
+            duration: 5,
+            'cloud/instance-type': 'Standard_B1ms',
+            'cloud/vendor': 'azure',
+            'cpu/thermal-design-power': 270,
+            'physical-processor':
+              'Intel® Xeon® Platinum 8370C,Intel® Xeon® Platinum 8272CL,Intel® Xeon® 8171M 2.1 GHz,Intel® Xeon® E5-2673 v4 2.3 GHz,Intel® Xeon® E5-2673 v3 2.4 GHz',
+            'vcpus-allocated': 1,
+            'vcpus-total': 64,
+            'memory-available': 2,
+          },
+        ]);
+      });
+
+      it('returns a result with configured outputs.', async () => {
+        const inputs = [
+          {
+            timestamp: '',
+            duration: 5,
+            'cloud/instance-type': 'Standard_A1_v2',
+            'cloud/vendor': 'azure',
+            'cloud/region': 'francesouth',
+          },
+        ];
+        const config = {
+          fields: [
+            'cloud/vendor',
+            'cloud/region-wt-id',
+            'cloud/instance-type',
+            'physical-processor',
+            'cpu/thermal-design-power',
+          ],
+        };
+        const result = await cloudMetadata.execute(inputs, config);
+
+        expect.assertions(1);
+
+        expect(result).toStrictEqual([
+          {
+            timestamp: '',
+            duration: 5,
+            'cloud/instance-type': 'Standard_A1_v2',
+            'cloud/region': 'francesouth',
+            'cloud/region-wt-id': 'FR',
+            'cloud/vendor': 'azure',
+            'cpu/thermal-design-power': 205,
+            'physical-processor':
+              'Intel® Xeon® Platinum 8272CL,Intel® Xeon® 8171M 2.1 GHz,Intel® Xeon® E5-2673 v4 2.3 GHz,Intel® Xeon® E5-2673 v3 2.4 GHz',
+          },
+        ]);
+      });
+
+      it('returns a result when provided a `cloud/region` in the input.', async () => {
+        const inputs = [
+          {
+            timestamp: '',
+            duration: 5,
+            'cloud/instance-type': 'Standard_A1_v2',
+            'cloud/vendor': 'azure',
+            'cloud/region': 'francesouth',
+          },
+        ];
+
+        const result = await cloudMetadata.execute(inputs);
+
+        expect.assertions(1);
+
+        expect(result).toStrictEqual([
+          {
+            timestamp: '',
+            duration: 5,
+            'cloud/instance-type': 'Standard_A1_v2',
+            'cloud/region': 'francesouth',
+            'cloud/region-cfe': 'France',
+            'cloud/region-em-zone-id': 'FR',
+            'cloud/region-geolocation': '48.8567,2.3522',
+            'cloud/region-location': 'Paris',
+            'cloud/region-wt-id': 'FR',
+            'cloud/vendor': 'azure',
+            'cpu/thermal-design-power': 205,
+            'memory-available': 2,
+            'physical-processor':
+              'Intel® Xeon® Platinum 8272CL,Intel® Xeon® 8171M 2.1 GHz,Intel® Xeon® E5-2673 v4 2.3 GHz,Intel® Xeon® E5-2673 v3 2.4 GHz',
+            'vcpus-allocated': 1,
+            'vcpus-total': 52,
+          },
+        ]);
+      });
+
+      it('throws an error when provided a wrong `cloud/region` for vendor in the input.', async () => {
+        const errorMessage =
+          "CloudMetadata: 'uk-west' region is not supported in 'azure' cloud vendor.";
+        const inputs = [
+          {
+            timestamp: '',
+            duration: 5,
+            'cloud/instance-type': 'Standard_A1_v2',
+            'cloud/vendor': 'azure',
+            'cloud/region': 'uk-west',
+          },
+        ];
+
+        expect.assertions(2);
+
+        try {
+          await cloudMetadata.execute(inputs);
+        } catch (error) {
+          expect(error).toStrictEqual(new UnsupportedValueError(errorMessage));
+          expect(error).toBeInstanceOf(UnsupportedValueError);
+        }
+      });
+
       it('throws on `cloud/instance-type` when `cloud/vendor` is aws.', async () => {
         const errorMessage =
           "CloudMetadata(cloud/instance-type): 't2.micro2' instance type is not supported in 'aws' cloud vendor.";

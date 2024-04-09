@@ -4,13 +4,8 @@ import {PluginInterface} from '../../interfaces';
 import {PluginParams} from '../../types/common';
 
 import {validate, allDefined} from '../../util/validations';
-import {buildErrorMessage} from '../../util/helpers';
-import {ERRORS} from '../../util/errors';
-
-const {InputValidationError} = ERRORS;
 
 export const SciM = (): PluginInterface => {
-  const errorBuilder = buildErrorMessage(SciM.name);
   const metadata = {
     kind: 'execute',
   };
@@ -42,23 +37,12 @@ export const SciM = (): PluginInterface => {
    * M = totalEmissions * (duration/ExpectedLifespan) * (resourcesReserved/totalResources)
    */
   const calculateEmbodiedCarbon = (input: PluginParams) => {
-    const totalEmissions = parseNumberInput(
-      input['device/emissions-embodied'],
-      'gCO2e'
-    );
-    const duration = parseNumberInput(input['duration'], 'seconds');
-    const expectedLifespan = parseNumberInput(
-      input['device/expected-lifespan'],
-      'seconds'
-    );
-    const resourcesReserved = parseNumberInput(
-      input['vcpus-allocated'] || input['resources-reserved'],
-      'count'
-    );
-    const totalResources = parseNumberInput(
-      input['vcpus-total'] || input['resources-total'],
-      'count'
-    );
+    const totalEmissions = input['device/emissions-embodied'];
+    const duration = input['duration'];
+    const expectedLifespan = input['device/expected-lifespan'];
+    const resourcesReserved =
+      input['vcpus-allocated'] || input['resources-reserved'];
+    const totalResources = input['vcpus-total'] || input['resources-total'];
 
     return (
       totalEmissions *
@@ -68,41 +52,69 @@ export const SciM = (): PluginInterface => {
   };
 
   /**
-   * Parses the input value, ensuring it is a valid number, and returns the parsed number.
-   * Throws an InputValidationError if the value is not a valid number.
-   */
-  const parseNumberInput = (value: any, unit: string): number => {
-    const parsedValue = typeof value === 'string' ? parseFloat(value) : value;
-
-    if (typeof parsedValue !== 'number' || isNaN(parsedValue)) {
-      throw new InputValidationError(
-        errorBuilder({
-          message: `'${value}' is not a valid number in input. Please provide it as ${unit}.`,
-        })
-      );
-    }
-
-    return parsedValue;
-  };
-
-  /**
    * Checks for required fields in input.
    */
   const validateInput = (input: PluginParams) => {
-    const schemaWithVcpus = z.object({
-      'device/emissions-embodied': z.number().gte(0).min(0),
-      'device/expected-lifespan': z.number().gte(0).min(0),
-      'vcpus-allocated': z.number().gte(0).min(0),
-      'vcpus-total': z.number().gte(0).min(0),
-      duration: z.number().gte(1),
+    const errorMessage = (unit: string) =>
+      `not a valid number in input. Please provide it as \`${unit}\``;
+
+    const commonSchemaPart = (errorMessage: (unit: string) => string) => ({
+      'device/emissions-embodied': z
+        .number({
+          invalid_type_error: errorMessage('gCO2e'),
+        })
+        .gte(0)
+        .min(0),
+      'device/expected-lifespan': z
+        .number({
+          invalid_type_error: errorMessage('gCO2e'),
+        })
+        .gte(0)
+        .min(0),
+      duration: z
+        .number({
+          invalid_type_error: errorMessage('seconds'),
+        })
+        .gte(1),
     });
 
+    const vcpusSchemaPart = {
+      'vcpus-allocated': z
+        .number({
+          invalid_type_error: errorMessage('count'),
+        })
+        .gte(0)
+        .min(0),
+      'vcpus-total': z
+        .number({
+          invalid_type_error: errorMessage('count'),
+        })
+        .gte(0)
+        .min(0),
+    };
+
+    const resourcesSchemaPart = {
+      'resources-reserved': z
+        .number({
+          invalid_type_error: errorMessage('count'),
+        })
+        .gte(0)
+        .min(0),
+      'resources-total': z
+        .number({
+          invalid_type_error: errorMessage('count'),
+        })
+        .gte(0)
+        .min(0),
+    };
+
+    const schemaWithVcpus = z.object({
+      ...commonSchemaPart(errorMessage),
+      ...vcpusSchemaPart,
+    });
     const schemaWithResources = z.object({
-      'device/emissions-embodied': z.number().gte(0).min(0),
-      'device/expected-lifespan': z.number().gte(0).min(0),
-      'resources-reserved': z.number().gte(0).min(0),
-      'resources-total': z.number().gte(0).min(0),
-      duration: z.number().gte(1),
+      ...commonSchemaPart(errorMessage),
+      ...resourcesSchemaPart,
     });
 
     const schema = schemaWithVcpus.or(schemaWithResources).refine(allDefined, {

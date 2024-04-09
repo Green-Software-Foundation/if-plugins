@@ -3,6 +3,10 @@ import {loadAll} from 'js-yaml';
 
 import {Shell} from '../../../../lib';
 
+import {ERRORS} from '../../../../util/errors';
+
+const {InputValidationError} = ERRORS;
+
 jest.mock('child_process');
 jest.mock('js-yaml');
 
@@ -56,6 +60,30 @@ describe('lib/shell', () => {
         expect.assertions(1);
 
         await expect(shell.execute(invalidInputs)).rejects.toThrow();
+      });
+
+      it('throw an error when shell could not run command.', async () => {
+        const shell = Shell({command: 'python3 /path/to/script.py'});
+        (spawnSync as jest.Mock).mockImplementation(() => {
+          throw new InputValidationError('Could not run the command');
+        });
+
+        const inputs = [
+          {
+            duration: 3600,
+            timestamp: '2022-01-01T00:00:00Z',
+          },
+        ];
+        expect.assertions(2);
+
+        try {
+          await shell.execute(inputs);
+        } catch (error) {
+          expect(error).toBeInstanceOf(InputValidationError);
+          expect(error).toStrictEqual(
+            new InputValidationError('Could not run the command')
+          );
+        }
       });
     });
   });

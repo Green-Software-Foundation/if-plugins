@@ -79,6 +79,8 @@ name: sci-m
 description: simple demo invoking sci-m
 tags:
 initialize:
+  outputs:
+    - yaml
   plugins:
     sci-m:
       method: SciM

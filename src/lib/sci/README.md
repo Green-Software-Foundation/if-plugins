@@ -135,6 +135,8 @@ name: sci-demo
 description: example invoking sci plugin
 tags:
 initialize:
+  outputs:
+    - yaml
   plugins:
     sci:
       method: Sci

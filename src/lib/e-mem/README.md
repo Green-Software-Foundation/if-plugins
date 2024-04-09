@@ -8,7 +8,7 @@
 ### Plugin global config
 
 - `energy-per-gb`: a coefficient for energy in kWh per GB. If not provided,
-  defaults to 0.000392. (optional)
+  defaults to 0.000392 (optional), take from [this case study](https://www.cloudcarbonfootprint.org/docs/methodology/#memory)
 
 ### Inputs
 
@@ -59,6 +59,8 @@ name: e-mem-demo
 description:
 tags:
 initialize:
+  outputs:
+    - yaml
   plugins:
     e-mem:
       method: EMem

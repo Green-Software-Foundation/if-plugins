@@ -64,6 +64,8 @@ name: divide-demo
 description:
 tags:
 initialize:
+  outputs:
+    - yaml
   plugins:
     divide:
       method: Divide

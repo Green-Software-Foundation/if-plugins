@@ -6,7 +6,7 @@
 
 ### Plugin global config
 
-- `energy-per-gb`: coefficient for converting data transferred to energy, in kWh/GB. The default, if no data or invalid data is provided, is 0.001 kWh/GB, taken from [this case study](https://github.com/Green-Software-Foundation/sci-guide/blob/dev/use-case-submissions/msft-eShoppen.md).
+- `energy-per-gb`: coefficient for converting data transferred to energy, in kWh/GB. The default, if no data or invalid data is provided, is 0.001 kWh/GB, taken from [case study 1](https://www.cloudcarbonfootprint.org/docs/methodology/#chosen-coefficient) and [case study 2](https://www.cloudcarbonfootprint.org/docs/methodology/#appendix-iv-recent-networking-studies).
 
 ### Inputs
 
@@ -57,6 +57,8 @@ name: e-net-demo
 description:
 tags:
 initialize:
+  outputs:
+    - yaml
   plugins:
     e-net:
       method: ENet

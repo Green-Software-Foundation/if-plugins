@@ -2,7 +2,7 @@ import {Regex} from '../../../../lib';
 
 import {ERRORS} from '../../../../util/errors';
 
-const {InputValidationError} = ERRORS;
+const {InputValidationError, ConfigValidationError} = ERRORS;
 
 describe('lib/regex: ', () => {
   describe('Regex: ', () => {
@@ -25,6 +25,38 @@ describe('lib/regex: ', () => {
         const physicalProcessor =
           'Intel® Xeon® Platinum 8272CL,Intel® Xeon® 8171M 2.1 GHz,Intel® Xeon® E5-2673 v4 2.3 GHz,Intel® Xeon® E5-2673 v3 2.4 GHz';
         expect.assertions(1);
+
+        const expectedResult = [
+          {
+            timestamp: '2021-01-01T00:00:00Z',
+            duration: 3600,
+            'physical-processor': physicalProcessor,
+            'cpu/name': 'Intel® Xeon® Platinum 8272CL',
+          },
+        ];
+
+        const result = await regex.execute([
+          {
+            timestamp: '2021-01-01T00:00:00Z',
+            duration: 3600,
+            'physical-processor': physicalProcessor,
+          },
+        ]);
+
+        expect(result).toStrictEqual(expectedResult);
+      });
+
+      it('returns a result when regex is not started and ended with ``.', async () => {
+        const physicalProcessor =
+          'Intel® Xeon® Platinum 8272CL,Intel® Xeon® 8171M 2.1 GHz,Intel® Xeon® E5-2673 v4 2.3 GHz,Intel® Xeon® E5-2673 v3 2.4 GHz';
+        expect.assertions(1);
+
+        const globalConfig = {
+          parameter: 'physical-processor',
+          match: '[^,]+/',
+          output: 'cpu/name',
+        };
+        const regex = Regex(globalConfig);
 
         const expectedResult = [
           {
@@ -71,6 +103,28 @@ describe('lib/regex: ', () => {
         } catch (error) {
           expect(error).toStrictEqual(
             new InputValidationError(expectedMessage)
+          );
+        }
+      });
+
+      it('throws an error on missing global config.', async () => {
+        const expectedMessage = 'Regex: Configuration data is missing.';
+
+        const config = undefined;
+        const regex = Regex(config!);
+
+        expect.assertions(1);
+
+        try {
+          await regex.execute([
+            {
+              timestamp: '2021-01-01T00:00:00Z',
+              duration: 3600,
+            },
+          ]);
+        } catch (error) {
+          expect(error).toStrictEqual(
+            new ConfigValidationError(expectedMessage)
           );
         }
       });

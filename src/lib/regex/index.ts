@@ -77,15 +77,12 @@ export const Regex = (globalConfig: ConfigParams): PluginInterface => {
     parameter: string,
     match: string
   ) => {
-    if (
-      !match.startsWith('/') ||
-      (match.endsWith('/g') && match.lastIndexOf('/') === 0)
-    ) {
+    if (!match.startsWith('/')) {
       match = '/' + match;
+    }
 
-      if (!match.endsWith('/g') || !match.endsWith('/')) {
-        match += '/';
-      }
+    if (!match.endsWith('/g') && !match.endsWith('/')) {
+      match += '/';
     }
 
     const regex = eval(match);

@@ -1,27 +1,19 @@
-import * as dayjs from 'dayjs';
-import * as utc from 'dayjs/plugin/utc';
-import * as timezone from 'dayjs/plugin/timezone';
-
-import {buildErrorMessage} from '../../util/helpers';
-import {ERRORS} from '../../util/errors';
+import {DateTime, Duration} from 'luxon';
+import {z} from 'zod';
 
 import {PluginInterface} from '../../interfaces';
 import {ConfigParams, KeyValuePair, PluginParams} from '../../types/common';
+
+import {validate} from '../../util/validations';
 
 import {CommonGenerator} from './helpers/common-generator';
 import {RandIntGenerator} from './helpers/rand-int-generator';
 import {Generator} from './interfaces/index';
 import {ObservationParams} from './types';
 
-dayjs.extend(utc);
-dayjs.extend(timezone);
-
-const {InputValidationError} = ERRORS;
-
 export const MockObservations = (
   globalConfig: ConfigParams
 ): PluginInterface => {
-  const errorBuilder = buildErrorMessage('MockObservations');
   const metadata = {
     kind: 'execute',
   };
@@ -48,7 +40,7 @@ export const MockObservations = (
             generatorToHistory
           );
 
-          acc.push(Object.assign(observation, defaults));
+          acc.push(Object.assign({}, defaults, observation));
         });
 
         return acc;
@@ -58,61 +50,66 @@ export const MockObservations = (
   };
 
   /**
+   * Validates global config parameters.
+   */
+  const validateGlobalConfig = () => {
+    const schema = z.object({
+      'timestamp-from': z.string(),
+      'timestamp-to': z.string(),
+      duration: z.number(),
+      components: z.array(z.record(z.string())),
+      generators: z.object({
+        common: z.record(z.string().or(z.number())),
+        randint: z.record(z.object({min: z.number(), max: z.number()})),
+      }),
+    });
+
+    return validate<z.infer<typeof schema>>(schema, globalConfig);
+  };
+
+  /**
    * Configures the MockObservations Plugin for IF
    */
   const generateParamsFromConfig = async () => {
-    const timestampFrom = dayjs.tz(
-      <string>getValidatedParam('timestamp-from', globalConfig),
-      'UTC'
-    );
-    const timestampTo = dayjs.tz(
-      <string>getValidatedParam('timestamp-to', globalConfig),
-      'UTC'
-    );
-    const duration = <number>getValidatedParam('duration', globalConfig);
+    const {
+      'timestamp-from': timestampFrom,
+      'timestamp-to': timestampTo,
+      duration,
+      generators,
+      components,
+    } = validateGlobalConfig();
+    const convertedTimestampFrom = DateTime.fromISO(timestampFrom, {
+      zone: 'UTC',
+    });
+    const convertedTimestampTo = DateTime.fromISO(timestampTo, {zone: 'UTC'});
 
     return {
       duration,
-      timeBuckets: createTimeBuckets(timestampFrom, timestampTo, duration),
-      components: getValidatedParam('components', globalConfig) as KeyValuePair,
-      generators: createGenerators(
-        getValidatedParam('generators', globalConfig)
+      timeBuckets: createTimeBuckets(
+        convertedTimestampFrom,
+        convertedTimestampTo,
+        duration
       ),
+      generators: createGenerators(generators),
+      components,
     };
-  };
-
-  /*
-   * validate a parameter is included in a given parameters map.
-   * return the validated param value, otherwise throw an InputValidationError.
-   */
-  const getValidatedParam = <T>(
-    paramName: string,
-    params: {[key: string]: any}
-  ): T => {
-    if (!(paramName in params)) {
-      throw new InputValidationError(
-        errorBuilder({message: `${paramName} missing from global config`})
-      );
-    }
-
-    return params[paramName];
   };
 
   /*
    * create time buckets based on start time, end time and duration of each bucket.
    */
   const createTimeBuckets = (
-    timestampFrom: dayjs.Dayjs,
-    timestampTo: dayjs.Dayjs,
+    timestampFrom: DateTime,
+    timestampTo: DateTime,
     duration: number,
-    timeBuckets: dayjs.Dayjs[] = []
-  ): dayjs.Dayjs[] => {
+    timeBuckets: DateTime[] = []
+  ): DateTime[] => {
     if (
-      timestampFrom.isBefore(timestampTo) ||
-      timestampFrom.add(duration, 'second').isBefore(timestampTo)
+      timestampFrom < timestampTo ||
+      timestampFrom.plus(Duration.fromObject({seconds: duration})) < timestampTo
     ) {
       return createTimeBuckets(
-        timestampFrom.add(duration, 'second'),
+        timestampFrom.plus(Duration.fromObject({seconds: duration})),
         timestampTo,
         duration,
         [...timeBuckets, timestampFrom]
@@ -135,14 +132,11 @@ export const MockObservations = (
       );
     };
 
-    return Object.entries(generatorsConfig).flatMap(([key, value]) => {
-      if (key === 'common') {
-        return createCommonGenerator(value);
-      } else if (key === 'randint') {
-        return createRandIntGenerators(value).flat();
-      }
-      return [];
-    });
+    return Object.entries(generatorsConfig).flatMap(([key, value]) =>
+      key === 'randint'
+        ? createRandIntGenerators(value).flat()
+        : createCommonGenerator(value)
+    );
   };
 
   /*
@@ -153,7 +147,7 @@ export const MockObservations = (
     generatorToHistory: Map<Generator, number[]>
   ): PluginParams => {
     const {duration, component, timeBucket, generators} = observationParams;
-    const timestamp = timeBucket.toISOString();
+    const timestamp = timeBucket.toISO();
 
     const generateObservation = (generator: Generator) => {
       const history = generatorToHistory.get(generator) || [];

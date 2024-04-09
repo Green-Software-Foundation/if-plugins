@@ -62,6 +62,8 @@ name: coefficient-demo
 description:
 tags:
 initialize:
+  outputs:
+    - yaml
   plugins:
     coefficient:
       method: Coefficient

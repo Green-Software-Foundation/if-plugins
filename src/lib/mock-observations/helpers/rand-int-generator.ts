@@ -13,11 +13,9 @@ export const RandIntGenerator = (
 ): Generator => {
   const errorBuilder = buildErrorMessage(RandIntGenerator.name);
 
-  const next = (_historical: Object[] | undefined): Object =>
-    (validatedName && {
-      [validatedName]: generateRandInt(getFieldToPopulate()),
-    }) ||
-    {};
+  const next = (_historical: Object[] | undefined) => ({
+    [validatedName]: generateRandInt(getFieldToPopulate()),
+  });
 
   const validateName = (name: string | null): string => {
     if (!name || name.trim() === '') {
@@ -38,13 +36,19 @@ export const RandIntGenerator = (
         })
       );
     }
-    if (
-      !Object.prototype.hasOwnProperty.call(config, 'min') ||
-      !Object.prototype.hasOwnProperty.call(config, 'max')
-    ) {
+
+    if (!config.min || !config.max) {
       throw new InputValidationError(
         errorBuilder({
           message: 'Config is missing min or max',
+        })
+      );
+    }
+
+    if (config.min >= config.max) {
+      throw new InputValidationError(
+        errorBuilder({
+          message: `Min value should not be greater than or equal to max value of ${validatedName}`,
         })
       );
     }

@@ -59,6 +59,8 @@ name: regex-demo
 description:
 tags:
 initialize:
+  outputs:
+    - yaml
   plugins:
     regex:
       method: Regex
