@@ -83,6 +83,8 @@ name: shell-demo
 description:
 tags:
 initialize:
+  outputs:
+    - yaml
   plugins:
     sampler:
       method: Shell

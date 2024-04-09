@@ -57,6 +57,8 @@ name: e-net-demo
 description:
 tags:
 initialize:
+  outputs:
+    - yaml
   plugins:
     e-net:
       method: ENet

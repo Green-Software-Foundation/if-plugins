@@ -59,6 +59,8 @@ name: e-mem-demo
 description:
 tags:
 initialize:
+  outputs:
+    - yaml
   plugins:
     e-mem:
       method: EMem

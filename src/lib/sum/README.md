@@ -61,6 +61,8 @@ name: sum demo
 description:
 tags:
 initialize:
+  outputs:
+    - yaml
   plugins:
     sum:
       method: Sum

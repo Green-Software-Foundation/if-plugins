@@ -67,6 +67,8 @@ name: sci-e-demo
 description:
 tags:
 initialize:
+  outputs:
+    - yaml
   plugins:
     sci-e:
       method: SciE

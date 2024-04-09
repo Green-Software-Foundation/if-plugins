@@ -52,6 +52,8 @@ name: csv-export-demo
 description: example exporting output to a csv file
 tags:
 initialize:
+  outputs:
+    - yaml
   plugins:
     csv-exporter:
       method: CsvExport
