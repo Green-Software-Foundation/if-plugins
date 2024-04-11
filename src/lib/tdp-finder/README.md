@@ -38,6 +38,8 @@ name: tdp-demo
 description:
 tags:
 initialize:
+  outputs:
+    - yaml
   plugins:
     finder:
       method: TdpFinder

@@ -6,7 +6,7 @@ This plugin allows you to determine an instance's physical processor and thermal
 
 ## Plugin Config
 
-Not Needed
+- `fields`: An array of parameters that should be output (optional)
 
 ### Inputs
 
@@ -19,7 +19,6 @@ Not Needed
 
 An array containing:
 
-
 - `timestamp`: "2023-07-06T00:01"
 - `duration`: 10
 - `cloud/vendor`: the name of the cloud vendor as a string, options are "azure", "gcp" or "aws"
@@ -29,7 +28,6 @@ An array containing:
 - `memory-available`: total memory available on this instance, in GB,
 - `physical-processor`: name of the physical processor used by this instance as a string, e.g. "Intel® Xeon® Platinum 8259CL" (note some instances return multiple possible processors separated by commas)
 - `cpu/thermal-design-power`: the thermal design power of the given processor (selects the first in the list of multiple are returned)
-
 
 ## IF Implementation
 
@@ -48,8 +46,8 @@ You can see example Typescript invocations for each vendor below:
 ```typescript
 import {CloudMetadata} from '@grnsft/if-plugins';
 
-const cim = CloudMetadata();
-const result = await cim.execute([
+const cloudMetadata = CloudMetadata();
+const result = await cloudMetadata.execute([
   {
     'cloud/vendor': 'aws',
     'cloud/instance-type': 'm5n.large',
@@ -61,13 +59,15 @@ const result = await cim.execute([
 
 The following is an example of how cloud metadata can be invoked using a `manifest`.
 
-./examples/manifests/test/cim.yml
+./examples/manifests/test/cloud-metadata.yml
 
 ```yaml
 name: cloud-metadata
 description: example manifest invoking Cloud Metadata plugin
 tags:
 initialize:
+  outputs:
+    - yaml
   plugins:
     cloud-metadata:
       method: CloudMetadata
@@ -78,6 +78,11 @@ tree:
       pipeline:
         - cloud-metadata
       config:
+        cloud-metadata:
+          fields:
+            - cpu/thermal-design-power
+            - physical-processor
+            - memory-available
       inputs:
         - timestamp: 2023-07-06T00:00 # [KEYWORD] [NO-SUBFIELDS] time when measurement occurred
           cloud/vendor: aws
@@ -93,10 +98,10 @@ the project root:
 ```sh
 npm i -g @grnsft/if
 npm i -g @grnsft/if-plugins
-ie --manifest ./examples/manifests/test/cim.yml --output ./outputs/cim.yml
+ie --manifest ./examples/manifests/test/cloud-metadata.yml --output ./outputs/cloud-metadata.yml
 ```
 
-This yields a result that looks like the following (saved to `./outputs/cim.yml`):
+This yields a result that looks like the following (saved to `./outputs/cloud-metadata.yml`):
 
 ```yaml
 name: cloud-metadata
@@ -114,6 +119,12 @@ tree:
     front-end:
       pipeline:
         - cloud-metadata
+      config:
+        cloud-metadata:
+          fields:
+            - cpu/thermal-design-power
+            - physical-processor
+            - memory-available
       inputs:
         - timestamp: 2023-07-06T00:00
           cloud/vendor: aws
@@ -133,7 +144,7 @@ tree:
           cpu/thermal-design-power: 210
 ```
 
-You can run this example `manifest` by saving it as `./examples/manifests/test/cim.yml` and executing the following command from the project root:
+You can run this example `manifest` by saving it as `./examples/manifests/test/cloud-metadata.yml` and executing the following command from the project root:
 
 ```sh
 npm i -g @grnsft/if
