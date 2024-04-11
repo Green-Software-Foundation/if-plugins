@@ -6,7 +6,7 @@ This plugin allows you to determine an instance's physical processor and thermal
 
 ## Plugin Config
 
-- `fields`: An array of parameters that should be output
+- `fields`: An array of parameters that should be output (optional)
 
 ### Inputs
 
@@ -66,6 +66,8 @@ name: cloud-metadata
 description: example manifest invoking Cloud Metadata plugin
 tags:
 initialize:
+  outputs:
+    - yaml
   plugins:
     cloud-metadata:
       method: CloudMetadata
@@ -76,6 +78,11 @@ tree:
       pipeline:
         - cloud-metadata
       config:
+        cloud-metadata:
+          fields:
+            - cpu/thermal-design-power
+            - physical-processor
+            - memory-available
       inputs:
         - timestamp: 2023-07-06T00:00 # [KEYWORD] [NO-SUBFIELDS] time when measurement occurred
           cloud/vendor: aws
@@ -112,6 +119,12 @@ tree:
     front-end:
       pipeline:
         - cloud-metadata
+      config:
+        cloud-metadata:
+          fields:
+            - cpu/thermal-design-power
+            - physical-processor
+            - memory-available
       inputs:
         - timestamp: 2023-07-06T00:00
           cloud/vendor: aws
