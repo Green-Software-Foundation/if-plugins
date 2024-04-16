@@ -88,7 +88,6 @@ tree:
           cloud/vendor: aws
           cloud/instance-type: m5n.large
           duration: 100
-          cpu/utilization: 10
 ```
 
 Ensure that you have global node_modules bin directory in your $PATH
@@ -136,7 +135,6 @@ tree:
           cloud/vendor: aws
           cloud/instance-type: m5n.large
           duration: 100
-          cpu/utilization: 10
           vcpus-allocated: 2
           vcpus-total: 96
           memory-available: 8
