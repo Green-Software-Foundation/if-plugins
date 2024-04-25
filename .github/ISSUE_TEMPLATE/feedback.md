@@ -2,8 +2,9 @@
 name: Feedback
 about: Submiting feedback on the IF implementation
 title: 'Feedback - '
-labels: feedback
+labels: ''
 assignees: ''
+
 ---
 
 ## Scope
