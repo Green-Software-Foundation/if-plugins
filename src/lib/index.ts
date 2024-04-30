@@ -8,7 +8,7 @@ export {SciO} from './sci-o';
 export {Shell} from './shell';
 export {TdpFinder} from './tdp-finder';
 export {MockObservations} from './mock-observations';
-export {CsvExport} from './csv-export';
+export {GrafanaExport} from './grafana-export';
 export {Multiply} from './multiply';
 export {Sum} from './sum';
 export {Coefficient} from './coefficient';
