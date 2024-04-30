@@ -1,4 +1,6 @@
-# CSV Export
+# Grafana Exporter
+
+Grafana exporter is a modified csv exporter that outputs csv data in a format that works well with our Grafana dashboard.
 
 # Parameters
 
@@ -10,8 +12,7 @@ Required fields:
 
 Optional fields:
 
-- `headers`: A list of headers to extract from the inputs to write as columns in the csv file. An empty list of headers will write all fields provided as inputs to the pluginParams.
-  The default list of headers is empty therefore all input data will be written to the csv file.
+- `headers`: A list of headers to extract from the inputs to write as columns in the csv file. An empty list of headers will write all fields provided as inputs to the `pluginParams`. The default list of headers is empty therefore all input data will be written to the csv file.
 
 ## Inputs
 
@@ -26,8 +27,8 @@ This plugin will write externally to disk as csv file and pass the inputs direct
 To run the plugin, you must first create an instance of `CsvExport` and call its `execute()` function with the desired inputs
 
 ```typescript
-import {CsvExport} from '@grnsft/if-plugins';
-const output = CsvExport();
+import {GrafanaExport} from '@grnsft/if-plugins';
+const output = GrafanaExport();
 const result = await output.execute([
   {
     timestamp: '2023-07-06T00:00',
@@ -45,27 +46,28 @@ const result = await output.execute([
 IF users will typically call the plugin as part of a pipeline defined in a `manifest`
 file. In this case, instantiating the plugin is handled by
 `ie` and does not have to be done explicitly by the user.
-The following is an example `manifest` that calls `csv-export.yml`:
+
+The following is an example `manifest` that runs `grafana-export.yml`:
 
 ```yaml
-name: csv-export-demo
+name: grafana-export-demo
 description: example exporting output to a csv file
 tags:
 initialize:
   outputs:
     - yaml
   plugins:
-    csv-exporter:
-      method: CsvExport
+    grafana-exporter:
+      method: GrafanaExport
       path: '@grnsft/if-plugins'
 tree:
   children:
     child:
       pipeline:
-        - csv-exporter
+        - grafana-exporter
       config:
-        csv-exporter:
-          output-path: C:/dev/csv-export.csv
+        grafana-exporter:
+          output-path: C:/dev/grafana-export.csv
           headers:
             - timestamp
             - duration
@@ -86,12 +88,12 @@ tree:
           carbon: 4.03
 ```
 
-You can run this example `manifest` by saving it as `./examples/manifests/test/csv-export.yml` and executing the following command from the project root:
+You can run this example `manifest` by saving it as `./examples/manifests/test/grafana-export.yml` and executing the following command from the project root:
 
 ```sh
 npm i -g @grnsft/if
 npm i -g @grnsft/if-plugins
-ie --manifest ./examples/manifests/test/csv-export.yml.yml --output ./examples/outputs/csv-export.yml.yml
+ie --manifest ./examples/manifests/test/grafana-export.yml --output ./examples/outputs/grafana-export
 ```
 
 The results will be saved into the `output-path`.
