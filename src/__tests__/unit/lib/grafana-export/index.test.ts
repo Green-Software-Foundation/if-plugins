@@ -1,7 +1,7 @@
 import * as fs from 'fs/promises';
 import {jest} from '@jest/globals';
 
-import {CsvExport} from '../../../../lib/csv-export';
+import {GrafanaExport} from '../../../../lib/grafana-export';
 
 import {ERRORS} from '../../../../util/errors';
 
@@ -12,7 +12,7 @@ jest.mock('fs/promises', () => ({
   writeFile: jest.fn<() => Promise<void>>().mockResolvedValue(),
 }));
 
-describe('lib/csv-export: ', () => {
+describe('lib/grafana-export: ', () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
@@ -28,7 +28,7 @@ describe('lib/csv-export: ', () => {
         'output-path': path,
         headers: ['timestamp', 'duration'],
       };
-      const csvExport = CsvExport();
+      const grafanaExport = GrafanaExport();
 
       const input = [
         {
@@ -45,7 +45,7 @@ describe('lib/csv-export: ', () => {
         },
       ];
 
-      const result = await csvExport.execute(input, basicConfig);
+      const result = await grafanaExport.execute(input, basicConfig);
 
       expect.assertions(3);
 
@@ -63,7 +63,7 @@ describe('lib/csv-export: ', () => {
         'output-path': path,
         headers: ['timestamp', 'duration', 'water'],
       };
-      const csvExport = CsvExport();
+      const grafanaExport = GrafanaExport();
 
       const input = [
         {
@@ -82,7 +82,7 @@ describe('lib/csv-export: ', () => {
         },
       ];
 
-      const result = await csvExport.execute(input, basicConfig);
+      const result = await grafanaExport.execute(input, basicConfig);
 
       expect.assertions(3);
 
@@ -96,7 +96,7 @@ describe('lib/csv-export: ', () => {
     });
 
     it('executes with empty headers and will write all input data to csv.', async () => {
-      const csvExport = CsvExport();
+      const grafanaExport = GrafanaExport();
 
       const input = [
         {
@@ -113,7 +113,7 @@ describe('lib/csv-export: ', () => {
         },
       ];
 
-      const result = await csvExport.execute(input, standardConfig);
+      const result = await grafanaExport.execute(input, standardConfig);
 
       expect.assertions(3);
 
@@ -127,7 +127,7 @@ describe('lib/csv-export: ', () => {
     });
 
     it('throws an error when node config is not provided.', async () => {
-      const csvExport = CsvExport();
+      const grafanaExport = GrafanaExport();
 
       const input = [
         {
@@ -147,11 +147,13 @@ describe('lib/csv-export: ', () => {
       expect.assertions(2);
 
       try {
-        await csvExport.execute(input);
+        await grafanaExport.execute(input);
       } catch (error) {
         expect(error).toBeInstanceOf(InputValidationError);
         expect(error).toEqual(
-          new InputValidationError('CsvExport: Configuration data is missing.')
+          new InputValidationError(
+            'GrafanaExport: Configuration data is missing.'
+          )
         );
       }
     });
@@ -160,7 +162,7 @@ describe('lib/csv-export: ', () => {
       (fs.writeFile as jest.Mock).mockImplementation(() => {
         throw new Error('Permission denied');
       });
-      const csvExport = CsvExport();
+      const grafanaExport = GrafanaExport();
 
       const input = [
         {
@@ -172,12 +174,12 @@ describe('lib/csv-export: ', () => {
       expect.assertions(2);
 
       try {
-        await csvExport.execute(input, standardConfig);
+        await grafanaExport.execute(input, standardConfig);
       } catch (error) {
         expect(error).toBeInstanceOf(WriteFileError);
         expect(error).toEqual(
           new WriteFileError(
-            `CsvExport: Failed to write CSV to ${path} Error: Permission denied.`
+            `GrafanaExport: Failed to write CSV to ${path} Error: Permission denied.`
           )
         );
       }
@@ -188,7 +190,7 @@ describe('lib/csv-export: ', () => {
         throw new Error('Permission denied');
       });
 
-      const csvExport = CsvExport();
+      const grafanaExport = GrafanaExport();
       const input = [
         {
           timestamp: '2023-12-12T00:00:00.000Z',
@@ -199,12 +201,12 @@ describe('lib/csv-export: ', () => {
       expect.assertions(2);
 
       try {
-        await csvExport.execute(input, standardConfig);
+        await grafanaExport.execute(input, standardConfig);
       } catch (error) {
         expect(error).toBeInstanceOf(MakeDirectoryError);
         expect(error).toEqual(
           new MakeDirectoryError(
-            'CsvExport: Failed to create directory for CSV at path: . Error: Permission denied.'
+            'GrafanaExport: Failed to create directory for CSV at path: . Error: Permission denied.'
           )
         );
       }

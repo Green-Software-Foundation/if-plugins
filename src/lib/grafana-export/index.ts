@@ -11,10 +11,10 @@ import {ERRORS} from '../../util/errors';
 
 const {MakeDirectoryError, WriteFileError, InputValidationError} = ERRORS;
 
-export const CsvExport = (): PluginInterface => {
+export const GrafanaExport = (): PluginInterface => {
   const metadata = {kind: 'execute'};
 
-  const errorBuilder = buildErrorMessage(CsvExport.name);
+  const errorBuilder = buildErrorMessage(GrafanaExport.name);
 
   const createCsvContent = (
     inputs: PluginParams[],
