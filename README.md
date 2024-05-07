@@ -21,6 +21,7 @@
 - [SCI-O](./src/lib/sci-o/README.md)
 - [Shell](./src/lib/shell/README.md)
 - [Sum](./src/lib/sum/README.md)
+- [Exponent](./src/lib/exponent/README.md)
 - [TDP Finder](./src/lib/tdp-finder/README.md)
 
 ## Contributing
