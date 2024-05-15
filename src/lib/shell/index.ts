@@ -24,7 +24,7 @@ export const Shell = (globalConfig: ConfigParams): PluginInterface => {
     const inputAsString: string = dump(inputs, {indent: 2});
     const results = runModelInShell(inputAsString, command);
 
-    return results.outputs;
+    return results?.outputs?.flat();
   };
 
   /**
