@@ -14,3 +14,4 @@ export {Sum} from './sum';
 export {Coefficient} from './coefficient';
 export {Divide} from './divide';
 export {Regex} from './regex';
+export {Subtract} from './subtract';
