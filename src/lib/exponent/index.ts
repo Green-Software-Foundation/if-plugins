@@ -51,7 +51,7 @@ export const Exponent = (globalConfig: ExponentConfig): PluginInterface => {
   };
 
   const validateNumericString = (str: string) => {
-    if (typeof str !== 'number') {
+    if (isNaN(+Number(str))) {
       throw new InputValidationError(
         errorBuilder({
           message: `${str} is not numeric`,
