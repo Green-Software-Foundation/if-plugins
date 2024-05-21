@@ -15,3 +15,4 @@ export {Coefficient} from './coefficient';
 export {Divide} from './divide';
 export {Regex} from './regex';
 export {Exponent} from './exponent';
+export {Subtract} from './subtract';

@@ -22,6 +22,7 @@
 - [Shell](./src/lib/shell/README.md)
 - [Sum](./src/lib/sum/README.md)
 - [Exponent](./src/lib/exponent/README.md)
+- [Subtract](./src/lib/subtract/README.md)
 - [TDP Finder](./src/lib/tdp-finder/README.md)
 
 ## Contributing
