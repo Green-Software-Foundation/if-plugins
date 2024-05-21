@@ -37,6 +37,7 @@
     "husky": "^8.0.0",
     "jest": "^29.6.1",
     "jest-mock-axios": "^4.7.2",
+    "lint-staged": "^15.2.2",
     "rimraf": "^5.0.5",
     "ts-jest": "^29.1.1"
   },
@@ -70,6 +71,7 @@
     "fix": "gts fix",
     "fix:package": "fixpack",
     "lint": "gts lint",
+    "pre-commit": "lint-staged",
     "prepare": "husky install",
     "prepublish": "npm run build",
     "test": "jest --verbose"
