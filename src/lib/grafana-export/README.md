@@ -1,3 +1,5 @@
+THIS PLUGIN IS DEPRECATED. IT IS NOW BEING MAINTAINED IN [GRAFANA-EXPORT](https://github.com/perkss/grafana-export). THE VERSION IN THIS REPOSITORY IS NO LONGER BEING ACTIVELY MAINTAINED AND IS SCHEDULED TO BE DELETED BEFORE JULY 2024.
+
 # Grafana Exporter
 
 Grafana exporter is a modified csv exporter that outputs csv data in a format that works well with our Grafana dashboard.
