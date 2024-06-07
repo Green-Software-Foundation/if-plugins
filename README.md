@@ -1,5 +1,5 @@
 > [!IMPORTANT]
-> This repository is deprecated and is no longer actively maintained. Instead, the plugins in this repository have been migrated into IF as builtins. You no > longer have to install any additional dependencies to use these plugins - they are bundled with IF. This repository will be archived during summer 2024.
+> [!CAUTION] This repository is deprecated and is no longer actively maintained. Instead, the plugins in this repository have been migrated into IF as builtins. You no > longer have to install any additional dependencies to use these plugins - they are bundled with IF. This repository will be archived during summer 2024.
 
 
 # Impact Framework - Plugins
