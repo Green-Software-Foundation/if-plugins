@@ -10,7 +10,7 @@
 
 - [Cloud Metadata](./src/lib/cloud-metadata/README.md)
 - [Coefficient](./src/lib/coefficient/README.md)
-- [CSV Export](./src/lib/csv-export/README.md)
+- [Grafana Export](./src/lib/grafana-export/README.md) (Deprecated)
 - [E-Mem](./src/lib/e-mem/README.md)
 - [E-Net](./src/lib/e-net/README.md)
 - [Mock Observations](./src/lib/mock-observations/README.md)
